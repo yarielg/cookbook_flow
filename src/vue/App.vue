@@ -1,6 +1,7 @@
 <template>
   <v-app id="inspire">
-      <v-form
+      <h5>This text is coming from vue</h5>
+     <!-- <v-form
               ref="form"
               v-model="valid"
               lazy-validation
@@ -58,7 +59,7 @@
           >
               Reset Validation
           </v-btn>
-      </v-form>
+      </v-form>-->
   </v-app>
 </template>
 
