@@ -26,11 +26,10 @@ class Enqueue{
 
     function memd_enqueue_frontend(){
         //enqueue all our scripts frontend
-        wp_enqueue_style( 'bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'  );
 
+        wp_enqueue_script('vue-custom-js', CBF_PLUGIN_URL . '/dist/scripts.js' ,array('jquery'),'1.0', true);
+        wp_localize_script( 'vue-custom-js', 'parameters', ['ajax_url'=> admin_url('admin-ajax.php'),'plugin_path' => CBF_PLUGIN_URL]);
 
-        wp_enqueue_script( 'bootstrap_js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', array('jquery'));
-        wp_enqueue_script( 'main_js', CBF_PLUGIN_URL . '/assets/js/main.js', array('jquery'));
 
         wp_enqueue_style( 'main_css', CBF_PLUGIN_URL . '/assets/css/main.css'  );
     }

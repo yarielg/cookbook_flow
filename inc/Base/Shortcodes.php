@@ -9,6 +9,11 @@ class Shortcodes
     public function register(){
         add_shortcode( 'cbf_login', array($this, 'login') );
         add_shortcode( 'acf_example', array($this, 'acf_example') );
+        add_shortcode( 'vue', array($this, 'vue') );
+    }
+
+    public function vue(){
+        return "<div id='vwp-plugin'></div>";
     }
 
     public function login($atts){
