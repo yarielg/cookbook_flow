@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app id="inspire">
       <h5>This text is coming from vue</h5>
       <v-form
               ref="form"
@@ -60,38 +60,14 @@
               Reset Validation
           </v-btn>
       </v-form>
-
-      <v-row>
-          <template>
-              <v-card
-                      class="mx-auto"
-                      max-width="400"
-              >
-                  <v-list flat>
-                      <v-list-item-group
-                              v-model="model"
-                              color="indigo"
-                      >
-                          <v-list-item
-                                  v-for="(item, i) in itemsX"
-                                  :key="i"
-                          >
-                              <v-list-item-icon>
-                                  <v-icon v-text="item.icon"></v-icon>
-                              </v-list-item-icon>
-
-                              <v-list-item-content>
-                                  <v-list-item-title v-text="item.text"></v-list-item-title>
-                              </v-list-item-content>
-                          </v-list-item>
-                      </v-list-item-group>
-                  </v-list>
-              </v-card>
-          </template>
-      </v-row>
-
-
-  </div>
+      <p>This is just to show how this work</p>
+      <v-data-table
+              :headers="headers"
+              :items="desserts"
+              :items-per-page="5"
+              class="elevation-1"
+      ></v-data-table>
+  </v-app>
 </template>
 
 <script>
@@ -116,21 +92,101 @@
                 'Item 4',
             ],
             checkbox: false,
-            itemsX: [
+            headers: [
                 {
-                    icon: 'mdi-wifi',
-                    text: 'Wifi',
+                    text: 'Dessert (100g serving)',
+                    align: 'start',
+                    sortable: false,
+                    value: 'name',
+                },
+                { text: 'Calories', value: 'calories' },
+                { text: 'Fat (g)', value: 'fat' },
+                { text: 'Carbs (g)', value: 'carbs' },
+                { text: 'Protein (g)', value: 'protein' },
+                { text: 'Iron (%)', value: 'iron' },
+            ],
+            desserts: [
+                {
+                    name: 'Frozen Yogurt',
+                    calories: 159,
+                    fat: 6.0,
+                    carbs: 24,
+                    protein: 4.0,
+                    iron: '1%',
                 },
                 {
-                    icon: 'mdi-bluetooth',
-                    text: 'Bluetooth',
+                    name: 'Ice cream sandwich',
+                    calories: 237,
+                    fat: 9.0,
+                    carbs: 37,
+                    protein: 4.3,
+                    iron: '1%',
                 },
                 {
-                    icon: 'mdi-chart-donut',
-                    text: 'Data Usage',
+                    name: 'Eclair',
+                    calories: 262,
+                    fat: 16.0,
+                    carbs: 23,
+                    protein: 6.0,
+                    iron: '7%',
+                },
+                {
+                    name: 'Cupcake',
+                    calories: 305,
+                    fat: 3.7,
+                    carbs: 67,
+                    protein: 4.3,
+                    iron: '8%',
+                },
+                {
+                    name: 'Gingerbread',
+                    calories: 356,
+                    fat: 16.0,
+                    carbs: 49,
+                    protein: 3.9,
+                    iron: '16%',
+                },
+                {
+                    name: 'Jelly bean',
+                    calories: 375,
+                    fat: 0.0,
+                    carbs: 94,
+                    protein: 0.0,
+                    iron: '0%',
+                },
+                {
+                    name: 'Lollipop',
+                    calories: 392,
+                    fat: 0.2,
+                    carbs: 98,
+                    protein: 0,
+                    iron: '2%',
+                },
+                {
+                    name: 'Honeycomb',
+                    calories: 408,
+                    fat: 3.2,
+                    carbs: 87,
+                    protein: 6.5,
+                    iron: '45%',
+                },
+                {
+                    name: 'Donut',
+                    calories: 452,
+                    fat: 25.0,
+                    carbs: 51,
+                    protein: 4.9,
+                    iron: '22%',
+                },
+                {
+                    name: 'KitKat',
+                    calories: 518,
+                    fat: 26.0,
+                    carbs: 65,
+                    protein: 7,
+                    iron: '6%',
                 },
             ],
-            model: 1,
         }),
 
         methods: {
