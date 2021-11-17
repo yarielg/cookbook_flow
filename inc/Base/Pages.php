@@ -25,7 +25,7 @@ class Pages{
         });
 
         add_action('admin_menu',function(){
-            $page_product =  add_submenu_page( 'memd-main-menu', __('Settings','memd_integration'), __('Settings','memd_integration'),'manage_options', 'memd-settings-menu', array($this,'settings'));
+            $page_product =  add_submenu_page( 'memd-main-menu', __('Settings','memd_integration'), __('Settings','memd_integration'),'manage_options', 'memd-main-menu', array($this,'settings'));
             add_action( 'load-' . $page_product, function(){
                 add_action( 'admin_enqueue_scripts',function (){
                     wp_enqueue_style( 'bootstrap_main_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'  );

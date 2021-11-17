@@ -20,9 +20,9 @@ class MemdService
 
     public function __construct()
     {
-        $this->baseUri = get_option('memd_uri');
-        $this->clientId = get_option('memd_client_id');
-        $this->clientSecret = get_option('memd_client_secret') ;
+        $this->baseUri = get_option('memd_uri') ?  get_option('memd_uri') : null;
+        $this->clientId = get_option('memd_client_id') ? get_option('memd_client_id')  : null;
+        $this->clientSecret = get_option('memd_client_secret') ? get_option('memd_client_secret') : null ;
     }
 
     public function createMember($user){
@@ -178,14 +178,14 @@ class MemdService
         );
     }
 
-    function createPolicy($memberExternalId, $planCode){
+    function createPolicy($memberExternalId, $planCode,$start,$end){
         return $this->makeRequest(
             'POST',
             '/v1/partnermember/' .$memberExternalId. '/policy/',
             [],
             [
-                "benefitstart" => "2020-09-15T00:00:00",
-                "benefitend" => "2022-10-15T00:00:00",
+                "benefitstart" => $start,
+                "benefitend" => $end,
                 "plancode" => $planCode
 
             ],
@@ -201,13 +201,29 @@ class MemdService
         return $member['policies'];
     }
 
-    function terminatePolicy($memberExternalId, $planCode){
+    public function memd_visit_link($member_id){
+        return $this->makeRequest(
+            'POST',
+            'v2/partnerpatient/login',
+            [],
+            [
+                "UserId" => $member_id
+
+            ],
+            [
+                'Content-Type' => 'application/json'
+            ],
+            true
+        );
+    }
+
+    function terminatePolicy($memberExternalId, $planCode,$end){
         return $this->makeRequest(
             'POST',
             '/v1/member/' .$memberExternalId. '/policy/' . $planCode,
             [],
             [
-                "termdate" => "2020-10-15T00:00:00"
+                "termdate" => $end
 
             ],
             [

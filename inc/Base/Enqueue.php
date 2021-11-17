@@ -6,7 +6,7 @@
 *
 */
 
-namespace Memd\Inc\Base;
+namespace Cbf\Inc\Base;
 
 class Enqueue{
 
@@ -30,6 +30,9 @@ class Enqueue{
 
 
         wp_enqueue_script( 'bootstrap_js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', array('jquery'));
+        wp_enqueue_script( 'main_js', CBF_PLUGIN_URL . '/assets/js/main.js', array('jquery'));
+
+        wp_enqueue_style( 'main_css', CBF_PLUGIN_URL . '/assets/css/main.css'  );
     }
 
     /*function Wrkswp_enqueue_admin(){

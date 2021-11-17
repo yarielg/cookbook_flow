@@ -6,7 +6,7 @@
 *
 */
 
-namespace Memd\Inc\Base;
+namespace Cbf\Inc\Base;
 
 class Deactivate{
 

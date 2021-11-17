@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <h4>Memd Integration Setting</h4>
-           <?php echo strlen($this->memd->resolveToken(null)) > 400 ? '<span class="badge badge-pill badge-success">Connection Success</span>' : '<span class="badge badge-pill badge-danger">Connection failure</span>'; ?>
+           <?php echo ( $this->memd->resolveToken(null) != null && strlen($this->memd->resolveToken(null)) > 400) ? '<span class="badge badge-pill badge-success">Connection Success</span>' : '<span class="badge badge-pill badge-danger">Connection failure</span>'; ?>
             <hr>
             <form action="" method="post" >
                 <div class="form-group">

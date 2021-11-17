@@ -11,7 +11,7 @@
         "guzzlehttp/guzzle": "^7.0"
     },
     "autoload": {
-        "psr-4": { "Memd\\Inc\\": "./inc"
+        "psr-4": { "Cbf\\Inc\\": "./inc"
         }
     }
 }

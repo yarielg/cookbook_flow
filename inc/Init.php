@@ -1,17 +1,17 @@
 <?php
 
-namespace Memd\Inc;
+namespace Cbf\Inc;
 
 final class Init{
 
     public static function get_services(){
 
         return [
-            Base\Pages::class,
+            Base\DefaultSettings::class,
+            //Base\Pages::class,
             Base\Enqueue::class,
             Base\Registration::class,
             Base\Shortcodes::class
-
         ] ;
     }
 
