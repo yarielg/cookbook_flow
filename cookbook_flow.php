@@ -6,7 +6,7 @@
 
 Plugin Name:  CookBook Flow
 Plugin URI:   https://thomasgbennett.com/
-Description:  Description Here XYZR
+Description:  Description Here XYZRTETETETE
 Version:      1.0.0
 Author:       Bennet Group
 Author URI:   https://thomasgbennett.com/
