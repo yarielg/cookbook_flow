@@ -1,26 +1,6 @@
 <template>
   <v-app id="inspire">
-    <!-- mini-variant prop on drawer -->
-    <v-navigation-drawer
-      dark
-      src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
-      width="250px"
-      permanent
-      app
-      class="pt-4"
-      color="grey lighten-3"
-    >
-
-    </v-navigation-drawer>
-
-    <v-main>
-
-      <v-container>
-
-
-      </v-container>
-
-    </v-main>
+     <h1>{{ msg }}</h1>
   </v-app>
 </template>
 
@@ -38,8 +18,8 @@
           ['mdi-shield-plus', 'New Template','new-template'],
           ['mdi-shield', 'Badges','badges'],
           ['mdi-cogs', 'Templates','templates'],
-
         ],
+        msg : 'This message cam from vue'
       }
     },
     mounted() {
