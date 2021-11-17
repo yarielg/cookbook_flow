@@ -1,10 +1,66 @@
 <template>
-  <v-app id="inspire">
-     <h1>{{ msg }}</h1>
-  </v-app>
+    <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+    >
+        <v-text-field
+                v-model="name"
+                :counter="10"
+                :rules="nameRules"
+                label="Name"
+                required
+        ></v-text-field>
+
+        <v-text-field
+                v-model="email"
+                :rules="emailRules"
+                label="E-mail"
+                required
+        ></v-text-field>
+
+        <v-select
+                v-model="select"
+                :items="items"
+                :rules="[v => !!v || 'Item is required']"
+                label="Item"
+                required
+        ></v-select>
+
+        <v-checkbox
+                v-model="checkbox"
+                :rules="[v => !!v || 'You must agree to continue!']"
+                label="Do you agree?"
+                required
+        ></v-checkbox>
+
+        <v-btn
+                :disabled="!valid"
+                color="success"
+                class="mr-4"
+                @click="validate"
+        >
+            Validate
+        </v-btn>
+
+        <v-btn
+                color="error"
+                class="mr-4"
+                @click="reset"
+        >
+            Reset Form
+        </v-btn>
+
+        <v-btn
+                color="warning"
+                @click="resetValidation"
+        >
+            Reset Validation
+        </v-btn>
+    </v-form>
 </template>
 
-<script>
+<!--<script>
   const axios = require('axios');
   import $ from 'jquery';
 
@@ -19,7 +75,7 @@
           ['mdi-shield', 'Badges','badges'],
           ['mdi-cogs', 'Templates','templates'],
         ],
-        msg : 'This message cam from vue'
+        msg : 'This message came from vue'
       }
     },
     mounted() {
@@ -39,26 +95,46 @@
     },
 
   }
+</script>-->
+<script>
+    export default {
+        data: () => ({
+            valid: true,
+            name: '',
+            nameRules: [
+                v => !!v || 'Name is required',
+                v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+            ],
+            email: '',
+            emailRules: [
+                v => !!v || 'E-mail is required',
+                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+            ],
+            select: null,
+            items: [
+                'Item 1',
+                'Item 2',
+                'Item 3',
+                'Item 4',
+            ],
+            checkbox: false,
+        }),
+
+        methods: {
+            validate () {
+                this.$refs.form.validate()
+            },
+            reset () {
+                this.$refs.form.reset()
+            },
+            resetValidation () {
+                this.$refs.form.resetValidation()
+            },
+        },
+    }
 </script>
 
 <style>
-  #gjs > .panel_wrae {
-    width: 90% !important;
-    max-width: 700px !important;
-    border-radius: 3px !important;
-    padding: 30px 20px !important;
-    margin: 150px auto 0px !important;
-    background-color: #d983a6 !important;
-    box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.25) !important;
-    color:rgba(255,255,255,0.75) !important;
-    font: caption !important;
-    font-weight: 100 !important;
-  }
 
-  .welcome {
-    text-align: center;
-    font-weight: 100;
-    margin: 0px;
-  }
 
 </style>
