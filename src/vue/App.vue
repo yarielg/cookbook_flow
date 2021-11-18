@@ -1,7 +1,8 @@
 <template>
     <div class="container">
+        <form id="rcp_registration_form" class="rcp_form" method="POST" action="https://cookbook.nextsitehosting.com/register/" style="position: static; zoom: 1;">
         <div class="row">
-            <form id="rcp_registration_form" class="rcp_form" method="POST" action="https://cookbook.nextsitehosting.com/register/" style="position: static; zoom: 1;">
+
             <div class="col-md-6">
 
                     <div class="form-row">
@@ -103,8 +104,9 @@
                         </div>
                     </div>
                 </div>
-            </form>
+
         </div>
+        </form>
     </div>
 </template>
 
