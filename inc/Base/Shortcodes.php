@@ -9,10 +9,78 @@ class Shortcodes
     public function register(){
         add_shortcode( 'cbf_login', array($this, 'login') );
         add_shortcode( 'acf_example', array($this, 'acf_example') );
-        add_shortcode( 'vue', array($this, 'vue') );
+        add_shortcode( 'dashboard', array($this, 'dashboard') );
+
+        add_action( 'wp_ajax_add_recipe', array($this, 'addRecipe') );
+        add_action( 'wp_ajax_add_recipe_photo', array($this, 'AddPhotoRecipe') );
     }
 
-    public function vue(){
+    public function addRecipe(){
+        $ingredients = json_decode(str_replace("\\","",$_POST['ingredients']));
+        $photos = json_decode(str_replace("\\","",$_POST['photos']));
+        $title = $_POST['title'];
+        $category = $_POST['category'];
+        $instructions = $_POST['instructions'];
+        $author_id = $_POST['author_id'];
+
+        $post_id  = wp_insert_post( array(
+              'post_title'    => $title ,
+              'post_content'  => $instructions,
+              'post_status'   => 'publish',
+              'post_type'   => 'recipe',
+              'post_author'   => $author_id,
+          )
+        );
+
+        if($post_id != 0){
+            /**
+             * Adding the ingredients to ACF
+             */
+            $ingredients = cbf_normalize_ingredients($ingredients);
+
+            $existing = get_field( 'cbf_ingredients',$post_id );
+            if ( ! is_array($existing) ) $existing = [];
+            $updated = array_merge($ingredients, $existing);
+
+            if(!update_field( 'cbf_ingredients', $updated,$post_id)){
+                echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted, error inserting ingredients'));
+                wp_die();
+            }
+
+            /**
+             * Adding the photos to ACF
+             */
+            $photos = cbf_normalize_photos($photos);
+
+            $existing = get_field( 'cbf_photos',$post_id );
+            if ( ! is_array($existing) ) $existing = [];
+            $updated = array_merge($photos, $existing);
+
+            if(!update_field( 'cbf_photos', $updated,$post_id)){
+                echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted, error inserting ingredients'));
+                wp_die();
+            }
+
+            echo json_encode(array('success'=> true, 'msg' => 'Recipe inserted successfully'));
+            wp_die();
+        }else{
+            echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted'));
+            wp_die();
+        }
+    }
+
+    public function AddPhotoRecipe(){
+        $photo_id = cbf_upload_file($_FILES['image']);
+        if($photo_id > 0){
+            echo json_encode(array('success'=> true, 'msg' => 'Photo inserted successfully', 'photo_id' => $photo_id));
+            wp_die();
+        }else{
+            echo json_encode(array('success'=> 'false', 'msg' => 'The Photo could not be inserted'));
+            wp_die();
+        }
+    }
+
+    public function dashboard(){
         return "<div id='vwp-plugin'></div>";
     }
 
@@ -42,68 +110,4 @@ class Shortcodes
         return 'Yeah';
     }
 
-    public function dashboard($atts){
-
-        global $current_screen;
-        global $rcp_levels_db;
-        if ( ! is_admin()) {
-
-            $user = wp_get_current_user();
-            $member_external_id = get_user_meta($user->id, 'rcp_external_member_id', true);
-            $output = '';
-
-            if($member_external_id == ''){
-                return 'The user has an account in wp but no in memd, copy this message and contact us';
-            }
-            $member = $this->memd->getMember($member_external_id);
-
-            $plan = rcp_get_subscription( $user->id );
-            $flag = false;
-
-            $subscription_id = rcp_get_subscription_id($user->id);
-
-            $membership_code = $rcp_levels_db->get_meta( $subscription_id, 'memd_plan_code')[0];
-
-            if(!empty($member['externalsubcriberid']) && $member['externalsubcriberid'] != '' ){
-                $userAndMemberId = explode( '__',$member['externalsubcriberid'] );
-                $userMain = get_user_by('login', $userAndMemberId[0]);
-
-                if($userMain){
-                    $plan = rcp_get_subscription( $userMain->id );
-                    $flag = true;
-                    $member['policies'] = $this->memd->getMemberPolicy($member['externalsubcriberid'] );
-                }else{
-                    $member['link'] = $this->memd->memd_visit_link($member['id']);
-                }
-            }
-            $member['link'] = $this->memd->memd_visit_link($member['id']);
-            foreach ($member['dependents'] as $dependent){
-
-                $date1 = strtotime(memd_format_date($dependent['dob'] . ' +1 second'));
-                // Declare and define two dates
-                $date2 = strtotime(memd_format_date('+1 second'));
-
-
-                $diff = abs($date2 - $date1);
-
-                $years = floor($diff / (365*60*60*24));
-
-                $userDependentWp = explode( '__',$dependent['externalID'] );
-                $userDependentWp = get_user_by('login', $userDependentWp[0]);
-                if($years > 18 && empty(get_user_meta($userDependentWp->id,'memd_check_18_years', true ))){
-                    if($userDependentWp){
-                        memd_send_password_reset_mail($userDependentWp->id);
-                        update_user_meta( $userDependentWp->id, 'memd_check_18_years',1) ;
-                        $userDependentWp->remove_role('dependent_child');
-                        $userDependentWp->add_role('dependent_child');
-                    }
-                }
-
-            }
-            $member['isDependent'] = $flag;
-            $output .= memd_template(MEMD_PLUGIN_PATH . 'templates/dashboard.php' , array('member' => $member, 'user' => $user , 'self' => $this->memd , 'memberExternalId' => $member_external_id, 'plan' => $plan, 'membership_code' => $membership_code));
-            return $output;
-        }
-
-    }
 }

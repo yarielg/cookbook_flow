@@ -24,22 +24,58 @@ function memd_template( $file, $args ){
     return ob_get_clean();
 }
 
-/**
- * @param $member_external_id
- * @return boolean
- * @description Return true is a member is a dependent
- */
-
-function memd_is_dependent($member_external_id, $memdInstanceService){
-    $flag = false;
-    $member = $memdInstanceService->getMember($member_external_id);
-    if(isset($member)  && $member['externalsubcriberid'] != '' ){
-            $flag = true;
-    }
-    return $flag;
+function cbf_normalize_ingredients($ingredients){
+     $normalized_ingredients = [];
+     foreach ($ingredients as $ingredient){
+         $normalized_ingredients[] = [
+             'name' => $ingredient->name,
+             'quantity'   => $ingredient->quantity,
+             'unit'  => $ingredient->unit
+         ];
+     }
+     return $normalized_ingredients;
 }
 
-function memd_send_password_reset_mail($user_id){
+function cbf_normalize_photos($photos){
+    $normalized_photos = [];
+    foreach ($photos as $photo){
+        $normalized_photos[] = [
+            'image' => $photo->id,
+        ];
+    }
+    return $normalized_photos;
+}
+
+function cbf_upload_file( $file, $post_id = 0, $desc = null ) {
+    if( empty( $file['name'] ) ) {
+        return new \WP_Error( 'error', 'File is empty' );
+    }
+
+    // Get filename and store it into $file_array
+    preg_match( '/[^\?]+\.(jpe?g|jpe|gif|png)\b/i', $file, $matches );
+
+    // If error storing temporarily, return the error.
+    if ( is_wp_error( $file['tmp_name'] ) ) {
+        return new \WP_Error( 'error', 'Error while storing file temporarily' );
+    }
+
+    // Store and validate
+    $id = media_handle_sideload( $file, $post_id, $desc );
+
+    // Unlink if couldn't store permanently
+    if ( is_wp_error( $id ) ) {
+        unlink( $file['tmp_name'] );
+        return new \WP_Error( 'error', "Couldn't store upload permanently" );
+    }
+
+    if ( empty( $id ) ) {
+        return new \WP_Error( 'error', "Upload ID is empty" );
+    }
+
+    return $id;
+}
+
+/*function memd_send_password_reset_mail($user_id){
 
     $user = get_user_by('id', $user_id);
     $firstname = $user->first_name;
@@ -64,4 +100,4 @@ function memd_send_password_reset_mail($user_id){
     // Reset content-type to avoid conflicts -- http://core.trac.wordpress.org/ticket/23578
     remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
 
-}
+}*/

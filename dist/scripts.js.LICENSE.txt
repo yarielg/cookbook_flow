@@ -1,7 +1,32 @@
 /*!
+ * Sizzle CSS Selector Engine v2.3.6
+ * https://sizzlejs.com/
+ *
+ * Copyright JS Foundation and other contributors
+ * Released under the MIT license
+ * https://js.foundation/
+ *
+ * Date: 2021-02-16
+ */
+
+/*!
  * Vue.js v2.6.14
  * (c) 2014-2021 Evan You
  * Released under the MIT License.
+ */
+
+/*!
+ * jQuery JavaScript Library v3.6.0
+ * https://jquery.com/
+ *
+ * Includes Sizzle.js
+ * https://sizzlejs.com/
+ *
+ * Copyright OpenJS Foundation and other contributors
+ * Released under the MIT license
+ * https://jquery.org/license
+ *
+ * Date: 2021-03-02T17:08Z
  */
 
 /*! !!../../css-loader/dist/cjs.js!../../postcss-loader/dist/cjs.js!../../sass-loader/dist/cjs.js!./vuetify.min.css */
@@ -9,6 +34,10 @@
 /*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!./index.css */
 
 /*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!./index.sass */
+
+/*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddRecipe.vue?vue&type=style&index=0&lang=css& */
+
+/*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=style&index=0&lang=css& */
 
 /*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */
 
@@ -18,9 +47,21 @@
 
 /*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */
 
+/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddRecipe.vue?vue&type=script&lang=js& */
+
 /*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=script&lang=js& */
 
+/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IngredientDialog.vue?vue&type=script&lang=js& */
+
+/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddRecipe.vue?vue&type=style&index=0&lang=css& */
+
+/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=style&index=0&lang=css& */
+
+/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddRecipe.vue?vue&type=template&id=772033c6& */
+
 /*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./App.vue?vue&type=template&id=5e019a2f& */
+
+/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IngredientDialog.vue?vue&type=template&id=652f7b4a& */
 
 /*! ../../../directives/resize */
 
@@ -294,19 +335,35 @@
 
 /*! ../bootable */
 
+/*! ../cancel/isCancel */
+
 /*! ../colorable */
 
 /*! ../comparable */
 
+/*! ../core/buildFullPath */
+
+/*! ../core/createError */
+
 /*! ../css/index.css */
 
 /*! ../css/index.sass */
+
+/*! ../defaults */
 
 /*! ../delayable */
 
 /*! ../detachable */
 
 /*! ../framework */
+
+/*! ../helpers/buildURL */
+
+/*! ../helpers/combineURLs */
+
+/*! ../helpers/isAbsoluteURL */
+
+/*! ../helpers/validator */
 
 /*! ../modes */
 
@@ -336,21 +393,59 @@
 
 /*! ../util/timestamp */
 
+/*! ../utils */
+
 /*! ../vue/index.js */
 
 /*! ./../../mixins/colorable */
 
 /*! ./../../mixins/toggleable */
 
+/*! ./../../package.json */
+
 /*! ./../../util/helpers */
 
 /*! ./../VItemGroup/VItemGroup */
+
+/*! ./../core/settle */
+
+/*! ./../defaults */
+
+/*! ./../helpers/buildURL */
+
+/*! ./../helpers/cookies */
+
+/*! ./../helpers/isURLSameOrigin */
+
+/*! ./../helpers/parseHeaders */
+
+/*! ./../utils */
+
+/*! ./AddRecipe.vue */
+
+/*! ./AddRecipe.vue?vue&type=script&lang=js& */
+
+/*! ./AddRecipe.vue?vue&type=style&index=0&lang=css& */
+
+/*! ./AddRecipe.vue?vue&type=template&id=772033c6& */
 
 /*! ./App.vue */
 
 /*! ./App.vue?vue&type=script&lang=js& */
 
+/*! ./App.vue?vue&type=style&index=0&lang=css& */
+
 /*! ./App.vue?vue&type=template&id=5e019a2f& */
+
+/*! ./Cancel */
+
+/*! ./IngredientDialog.vue */
+
+/*! ./IngredientDialog.vue?vue&type=script&lang=js& */
+
+/*! ./IngredientDialog.vue?vue&type=template&id=652f7b4a& */
+
+/*! ./InterceptorManager */
 
 /*! ./MobileRow */
 
@@ -818,6 +913,8 @@
 
 /*! ./_grid.sass */
 
+/*! ./adapters/xhr */
+
 /*! ./af */
 
 /*! ./application */
@@ -836,6 +933,12 @@
 
 /*! ./calendar-with-events.sass */
 
+/*! ./cancel/Cancel */
+
+/*! ./cancel/CancelToken */
+
+/*! ./cancel/isCancel */
+
 /*! ./ckb */
 
 /*! ./click-outside */
@@ -850,6 +953,14 @@
 
 /*! ./console */
 
+/*! ./core/Axios */
+
+/*! ./core/enhanceError */
+
+/*! ./core/mergeConfig */
+
+/*! ./createError */
+
 /*! ./createNativeLocaleFormatter */
 
 /*! ./createTransition */
@@ -860,13 +971,19 @@
 
 /*! ./de */
 
+/*! ./defaults */
+
 /*! ./directives */
+
+/*! ./dispatchRequest */
 
 /*! ./easing-patterns */
 
 /*! ./el */
 
 /*! ./en */
+
+/*! ./enhanceError */
 
 /*! ./es */
 
@@ -896,9 +1013,17 @@
 
 /*! ./helpers */
 
+/*! ./helpers/bind */
+
 /*! ./helpers/core */
 
+/*! ./helpers/isAxiosError */
+
+/*! ./helpers/normalizeHeaderName */
+
 /*! ./helpers/path */
+
+/*! ./helpers/spread */
 
 /*! ./hr */
 
@@ -920,6 +1045,8 @@
 
 /*! ./lang */
 
+/*! ./lib/axios */
+
 /*! ./listToStyles */
 
 /*! ./lt */
@@ -933,6 +1060,8 @@
 /*! ./mdi */
 
 /*! ./mdi-svg */
+
+/*! ./mergeConfig */
 
 /*! ./mixins/calendar-base */
 
@@ -1002,6 +1131,8 @@
 
 /*! ./tr */
 
+/*! ./transformData */
+
 /*! ./transitions */
 
 /*! ./uk */
@@ -1027,6 +1158,8 @@
 /*! ./zh-Hans */
 
 /*! ./zh-Hant */
+
+/*! axios */
 
 /*! exports provided: Application */
 
@@ -1312,7 +1445,11 @@
 
 /*! exports provided: weekNumber, isLeapYear */
 
+/*! jquery */
+
 /*! no static exports found */
+
+/*! toastr */
 
 /*! vue */
 
@@ -1556,6 +1693,10 @@
   !*** ./src/util/mergeData.ts ***!
   \*******************************/
 
+/*!*******************************!*\
+  !*** ./src/vue/AddRecipe.vue ***!
+  \*******************************/
+
 /*!********************************!*\
   !*** ./src/util/colorUtils.ts ***!
   \********************************/
@@ -1595,6 +1736,10 @@
 /*!************************************!*\
   !*** ./src/services/lang/index.ts ***!
   \************************************/
+
+/*!*************************************!*\
+  !*** ./node_modules/axios/index.js ***!
+  \*************************************/
 
 /*!*************************************!*\
   !*** ./src/components/VApp/VApp.ts ***!
@@ -1671,6 +1816,14 @@
 /*!**************************************!*\
   !*** ./src/presets/default/index.ts ***!
   \**************************************/
+
+/*!**************************************!*\
+  !*** ./src/vue/IngredientDialog.vue ***!
+  \**************************************/
+
+/*!***************************************!*\
+  !*** ./node_modules/toastr/toastr.js ***!
+  \***************************************/
 
 /*!***************************************!*\
   !*** ./src/components/VApp/VApp.sass ***!
@@ -1899,6 +2052,18 @@
 /*!****************************************!*\
   !*** ./src/mixins/toggleable/index.ts ***!
   \****************************************/
+
+/*!*****************************************!*\
+  !*** ./node_modules/axios/lib/axios.js ***!
+  \*****************************************/
+
+/*!*****************************************!*\
+  !*** ./node_modules/axios/lib/utils.js ***!
+  \*****************************************/
+
+/*!*****************************************!*\
+  !*** ./node_modules/axios/package.json ***!
+  \*****************************************/
 
 /*!*****************************************!*\
   !*** ./src/components/VAlert/VAlert.ts ***!
@@ -2249,6 +2414,14 @@
   \*******************************************/
 
 /*!********************************************!*\
+  !*** ./node_modules/axios/lib/defaults.js ***!
+  \********************************************/
+
+/*!********************************************!*\
+  !*** ./node_modules/jquery/dist/jquery.js ***!
+  \********************************************/
+
+/*!********************************************!*\
   !*** ./src/components/VBtnToggle/index.ts ***!
   \********************************************/
 
@@ -2433,6 +2606,10 @@
   \*********************************************/
 
 /*!**********************************************!*\
+  !*** ./node_modules/axios/lib/core/Axios.js ***!
+  \**********************************************/
+
+/*!**********************************************!*\
   !*** ./node_modules/vuetify/dist/vuetify.js ***!
   \**********************************************/
 
@@ -2471,6 +2648,10 @@
 /*!**********************************************!*\
   !*** ./src/services/icons/presets/fa-svg.ts ***!
   \**********************************************/
+
+/*!***********************************************!*\
+  !*** ./node_modules/axios/lib/core/settle.js ***!
+  \***********************************************/
 
 /*!***********************************************!*\
   !*** ./src/components/VAutocomplete/index.ts ***!
@@ -2573,6 +2754,14 @@
   \***********************************************/
 
 /*!************************************************!*\
+  !*** ./node_modules/axios/lib/adapters/xhr.js ***!
+  \************************************************/
+
+/*!************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/bind.js ***!
+  \************************************************/
+
+/*!************************************************!*\
   !*** ./src/components/VAppBar/VAppBarTitle.ts ***!
   \************************************************/
 
@@ -2603,6 +2792,10 @@
 /*!************************************************!*\
   !*** ./src/components/VVirtualScroll/index.ts ***!
   \************************************************/
+
+/*!*************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/Cancel.js ***!
+  \*************************************************/
 
 /*!*************************************************!*\
   !*** ./src/components/VBtnToggle/VBtnToggle.ts ***!
@@ -2721,6 +2914,10 @@
   \*************************************************/
 
 /*!**************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/spread.js ***!
+  \**************************************************/
+
+/*!**************************************************!*\
   !*** ./node_modules/vue/dist/vue.runtime.esm.js ***!
   \**************************************************/
 
@@ -2763,6 +2960,14 @@
 /*!**************************************************!*\
   !*** ./src/vue/App.vue?vue&type=script&lang=js& ***!
   \**************************************************/
+
+/*!***************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/isCancel.js ***!
+  \***************************************************/
+
+/*!***************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/cookies.js ***!
+  \***************************************************/
 
 /*!***************************************************!*\
   !*** ./node_modules/vuetify/dist/vuetify.min.css ***!
@@ -2873,6 +3078,18 @@
   \***************************************************/
 
 /*!****************************************************!*\
+  !*** ./node_modules/axios/lib/core/createError.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/core/mergeConfig.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/buildURL.js ***!
+  \****************************************************/
+
+/*!****************************************************!*\
   !*** ./src/components/VCalendar/VCalendarDaily.ts ***!
   \****************************************************/
 
@@ -2895,6 +3112,14 @@
 /*!****************************************************!*\
   !*** ./src/components/VStepper/VStepperContent.ts ***!
   \****************************************************/
+
+/*!*****************************************************!*\
+  !*** ./node_modules/axios/lib/core/enhanceError.js ***!
+  \*****************************************************/
+
+/*!*****************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/validator.js ***!
+  \*****************************************************/
 
 /*!*****************************************************!*\
   !*** ./node_modules/css-loader/dist/runtime/api.js ***!
@@ -2953,6 +3178,18 @@
   \*****************************************************/
 
 /*!******************************************************!*\
+  !*** ./node_modules/axios/lib/cancel/CancelToken.js ***!
+  \******************************************************/
+
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/core/buildFullPath.js ***!
+  \******************************************************/
+
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/core/transformData.js ***!
+  \******************************************************/
+
+/*!******************************************************!*\
   !*** ./src/components/VCalendar/VCalendarDaily.sass ***!
   \******************************************************/
 
@@ -2967,6 +3204,10 @@
 /*!******************************************************!*\
   !*** ./src/components/VTimePicker/SelectingTimes.ts ***!
   \******************************************************/
+
+/*!*******************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/combineURLs.js ***!
+  \*******************************************************/
 
 /*!*******************************************************!*\
   !*** ./src/components/VAutocomplete/VAutocomplete.ts ***!
@@ -3017,6 +3258,18 @@
   \*******************************************************/
 
 /*!********************************************************!*\
+  !*** ./node_modules/axios/lib/core/dispatchRequest.js ***!
+  \********************************************************/
+
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isAxiosError.js ***!
+  \********************************************************/
+
+/*!********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \********************************************************/
+
+/*!********************************************************!*\
   !*** ./src/components/VDatePicker/VDatePickerTitle.ts ***!
   \********************************************************/
 
@@ -3045,8 +3298,16 @@
   \********************************************************/
 
 /*!********************************************************!*\
+  !*** ./src/vue/AddRecipe.vue?vue&type=script&lang=js& ***!
+  \********************************************************/
+
+/*!********************************************************!*\
   !*** ./src/vue/App.vue?vue&type=template&id=5e019a2f& ***!
   \********************************************************/
+
+/*!*********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \*********************************************************/
 
 /*!*********************************************************!*\
   !*** ./src/components/VAutocomplete/VAutocomplete.sass ***!
@@ -3119,6 +3380,18 @@
 /*!**********************************************************!*\
   !*** ./src/components/VTreeview/util/filterTreeItems.ts ***!
   \**********************************************************/
+
+/*!**********************************************************!*\
+  !*** ./src/vue/App.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************/
+
+/*!***********************************************************!*\
+  !*** ./node_modules/axios/lib/core/InterceptorManager.js ***!
+  \***********************************************************/
+
+/*!***********************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \***********************************************************/
 
 /*!***********************************************************!*\
   !*** ./node_modules/vue-style-loader/lib/listToStyles.js ***!
@@ -3208,6 +3481,14 @@
   !*** ./src/components/VDataTable/VDataTableHeaderDesktop.ts ***!
   \**************************************************************/
 
+/*!**************************************************************!*\
+  !*** ./src/vue/AddRecipe.vue?vue&type=template&id=772033c6& ***!
+  \**************************************************************/
+
+/*!***************************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \***************************************************************/
+
 /*!***************************************************************!*\
   !*** ./src/components/VBottomNavigation/VBottomNavigation.ts ***!
   \***************************************************************/
@@ -3228,8 +3509,16 @@
   !*** ./src/components/VProgressCircular/VProgressCircular.ts ***!
   \***************************************************************/
 
+/*!***************************************************************!*\
+  !*** ./src/vue/IngredientDialog.vue?vue&type=script&lang=js& ***!
+  \***************************************************************/
+
 /*!****************************************************************!*\
   !*** ./src/components/VDatePicker/mixins/date-picker-table.ts ***!
+  \****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./src/vue/AddRecipe.vue?vue&type=style&index=0&lang=css& ***!
   \****************************************************************/
 
 /*!*****************************************************************!*\
@@ -3268,6 +3557,10 @@
   !*** ./src/components/VCalendar/mixins/calendar-with-intervals.ts ***!
   \********************************************************************/
 
+/*!*********************************************************************!*\
+  !*** ./src/vue/IngredientDialog.vue?vue&type=template&id=652f7b4a& ***!
+  \*********************************************************************/
+
 /*!************************************************************************!*\
   !*** ./node_modules/css-loader/dist/runtime/cssWithMappingToString.js ***!
   \************************************************************************/
@@ -3300,6 +3593,38 @@
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/App.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************************************************************************/
 
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/AddRecipe.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+
 /*!***********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/App.vue?vue&type=template&id=5e019a2f& ***!
   \***********************************************************************************************************************************************************************************************/
+
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/IngredientDialog.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************/
+
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/AddRecipe.vue?vue&type=template&id=772033c6& ***!
+  \*****************************************************************************************************************************************************************************************************/
+
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/IngredientDialog.vue?vue&type=template&id=652f7b4a& ***!
+  \************************************************************************************************************************************************************************************************************/
+
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/App.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************/
+
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/AddRecipe.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/App.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/AddRecipe.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
