@@ -1,23 +1,28 @@
 <template>
    <div class="container">
       <div class="row">
-         <div class="col-12">
+         <div class="col-10">
             <v-icon @click="goBack()">
                mdi-arrow-left
             </v-icon> Back
+         </div>
+         <div class="col-2">
+            <v-switch
+              :label="`Public`"
+              v-model="status"
+            ></v-switch>
          </div>
       </div>
       <div class="row">
          <div class="col-md-4">
             <h4>Create a Recipe</h4>
             <hr>
-            <ul>
-               <li>1. Select a category</li>
-               <li>2. Give it a title</li>
-               <li>3. Add ingredients</li>
-               <li>4. Add Instructions</li>
-               <li>5. Add Photo(s)</li>
-               <li>6. Recipe review</li>
+            <ul class="ingredients_list">
+               <li :class="title !== '' ? 'checked' : ''"> Give it a title</li>
+               <li :class="category > 0 ? 'checked' : ''"> Select a category</li>
+               <li :class="ingredients.length !== 0 ? 'checked' : ''"> Add ingredients</li>
+               <li :class="!isQuillEmpty()  ? 'checked' : ''"> Add Instructions</li>
+               <li :class="photos.length !== 0 ? 'checked' : ''"> Add Photo(s)</li>
             </ul>
          </div>
          <div class="col-md-8">
@@ -27,15 +32,15 @@
                @submit.prevent="addRecipe()">
 
                <div class="form-group">
-                  <label for="recipe_title">Title</label>
+                  <label for="recipe_title">Recipe Title</label>
                   <input v-model="title" type="text" class="form-control" id="recipe_title">
                </div>
 
                <div class="form-group">
-                  <label for="recipe_category">Category</label>
+                  <label for="recipe_category">Recipe Category</label>
                   <select v-model="category" name="recipe_category" class="form-control" id="recipe_category">
                      <option value="-1" selected>Select Category</option>
-                     <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+                     <option v-for="category in categories" :key="category.term_id" :value="category.term_id">{{ category.name }}</option>
                   </select>
                </div>
 
@@ -54,13 +59,18 @@
                                   :ingredients="ingredients">
                </ingredient-dialog>
 
-               <div class="form-group">
-                  <label for="recipe_instructions">Instructions</label>
-                  <textarea name="recipe_instructions" v-model="instructions"  class="form-control" id="recipe_instructions"></textarea>
-               </div>
+               <br><br>
 
                <div class="form-group">
-                  <v-file-input v-model="current_image" required @change="fileChanged"  label="Add an image" />
+                  <label for="">Recipe Instructions</label>
+                  <div id="editor_instructions" ref="editor"></div>
+               </div>
+
+               <br>
+
+               <div class="form-group">
+                  <label for="">Add Photos</label>
+                  <v-file-input v-model="current_image" @change="fileChanged"  label="Add an image" />
                </div>
 
                <div class="form-group photo-gallery">
@@ -70,9 +80,7 @@
                   </div>
                </div>
 
-
-
-               <button type="submit" class="btn btn-primary">Add Recipe</button>
+               <button :disabled="!checkForm()"  type="submit" class="btn-normal">{{ edit_mode > 1 ? 'Save Recipe' : 'Add Recipe' }}</button>
 
             </form>
          </div>
@@ -80,25 +88,18 @@
    </div>
 </template>
 
-
 <script>
    const axios = require('axios');
 
     export default {
-        props:[],
+        props:['edit_mode'],
         data () {
             return {
                dialogIngredient: false,
                current_image: null,
-               categories:[
-                  {
-                     id: 1,
-                     name: 'Cakes and Bakery'
-                  },{
-                     id: 2,
-                     name: 'Other Stuff'
-                  }
-               ],
+               editor: null,
+               categories:[],
+               status: false,
                category: -1,
                title: '',
                ingredients:[
@@ -109,22 +110,71 @@
             }
         },
         created(){
+            this.getCategories();
+            if(parseFloat(this.edit_mode) > 0){
+               this.getRecipe();
+            }
         },
+        setDefaults(){
+          this.title = "";
+          this.ingredients = [];
+          this.instructions = '';
+          this.editor = '';
+          this.photos = [];
+          this.category = -1;
+          this.current_image =  null;
+        },
+       computed:{
+
+       },
+       mounted(){
+          var options = {
+             modules: {
+                toolbar: [
+                   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                   ['blockquote', 'code-block'],
+
+                   [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                   [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                   [{ 'direction': 'rtl' }],                         // text direction
+
+                   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                   [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                   [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                   [{ 'font': [] }],
+                   [{ 'align': [] }],
+
+                   ['clean']                                         // remove formatting button
+                ]
+             },
+             placeholder: 'Compose an epic...',
+             theme: 'snow'
+          };
+          this.editor = new Quill('#editor_instructions', options);
+       },
         methods:{
            goBack(){
               this.$emit('goBack');
            },
            closeIngredientDialogHandler(){
               this.dialogIngredient = false;
+              console.log(this.category);
            },
            checkForm(){
-               //asdasd
+              if(this.category !== -1 && this.name !== '' && !this.isQuillEmpty() && this.ingredients.length > 0 && this.photos.length > 0 ){
+                 return true;
+              }
+              return false;
            },
            removeIngredientHandler(key){
               this.ingredients = this.ingredients.filter(function( ingredient ) {
                  return ingredient.key !== key;
               });
            },
+
            addIngredientHandler(e){
               e.preventDefault();
               this.ingredients.push(
@@ -132,35 +182,41 @@
                          key: this.ingredients.length + 1,
                          name:'',
                          quantity:1,
-                         unit: ''
+                         unit: 'oz'
                       }
               );
            },
            addRecipe(){
-              if(this.category !== -1 && this.name !== '' && this.instructions !== '' && this.ingredients.length > 0 ){
+              if(this.checkForm() ){
                  const formData = new FormData();
                  formData.append('action', 'add_recipe');
                  formData.append('category', this.category);
                  formData.append('title', this.title);
-                 formData.append('instructions', this.instructions);
+                // formData.append('instructions', JSON.stringify(this.editor.root.innerHTML.trim()));
+                 formData.append('instructions',this.editor.root.innerHTML.trim());
                  formData.append('ingredients', JSON.stringify(this.ingredients));
                  formData.append('author_id', parameters.current_user.data.ID);
                  formData.append('photos', JSON.stringify(this.photos));
+                 formData.append('status', this.status ? 'publish' : 'draft');
+                 formData.append('edit', this.edit_mode);
 
                  axios.post(parameters.ajax_url, formData)
                       .then( response => {
                          if(response.data.success){
-                            toastr.success('The recipe has been created', 'Recipe Created!');
+                            if(this.edit_mode > 0){
+                               toastr.success('The recipe has been updated', 'Recipe Updated!');
+                            }else{
+                               toastr.success('The recipe has been created', 'Recipe Created!');
+                               this.goBack();
+                            }
+
                          }else{
                             toastr.error('The recipe was not inserted', 'Error');
                          }
                    })
               }else{
-                 toastr.warning('you have some field errors, please correct them.', 'Error');
+                 toastr.warning('you have some errors, please correct them.', 'Error');
               }
-           },
-           removePhoto(photo_id){
-
            },
            fileChanged(e){
 
@@ -183,8 +239,53 @@
                  });
               }
            },
+           isQuillEmpty() {
+              if(this.editor){
+                 if ((this.editor.getContents()['ops'] || []).length !== 1) { return false }
+                 return this.editor.getText().trim().length === 0
+              }else{
+                 return false;
+              }
+
+           },
            deletePhoto(photo_id){
-              console.log(photo_id)
+              this.photos = this.photos.filter(function( photo ) {
+                 return photo.id !== photo_id;
+              });
+           },
+           getCategories(){
+              const formData = new FormData();
+              formData.append('action', 'get_recipe_categories');
+              axios.post(parameters.ajax_url, formData)
+                .then( response => {
+                   if(response.data.success){
+                      this.categories =  response.data.categories;
+                   }else{
+                      toastr.warning('We could not get the recipe categories', 'Error');
+                   }
+                });
+           },
+           getRecipe(){
+              const formData = new FormData();
+              formData.append('action', 'get_recipe');
+              formData.append('id', this.edit_mode);
+              axios.post(parameters.ajax_url, formData)
+                      .then( response => {
+                         console.log(response.data.recipe)
+                         if(response.data.success){
+                            this.category =  response.data.recipe.category;
+                            this.title = response.data.recipe.post_title;
+                            this.status = response.data.recipe.post_status;
+                            this.ingredients = response.data.recipe.ingredients;
+                            this.photos = response.data.recipe.photos;
+                            this.editor.root.innerHTML = response.data.recipe.post_content;
+                            this.status = response.data.recipe.post_status === "publish" ? true : false;
+
+                         }else{
+                            toastr.warning('We could not get the recipe categories', 'Error');
+                         }
+
+                      });
            }
         }
 
@@ -209,13 +310,29 @@
       position: absolute;
       background: red;
       padding: 2px 8px;
-      top: 12px;
-      right: 12px;
+      top: -12px;
+      right: -12px;
       border-radius: 50%;
       color: white;
    }
 
    .photo-gallery{
       display: flex;
+   }
+
+   .ingredients_list{
+      list-style: decimal;
+   }
+
+   .ingredients_list li.checked{
+      text-decoration: line-through;
+   }
+
+   .v-input--switch{
+      float: right;
+   }
+
+   .v-label{
+      margin-bottom: 0;
    }
 </style>

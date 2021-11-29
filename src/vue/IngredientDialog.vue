@@ -1,6 +1,6 @@
 <template>
     <v-dialog
-            v-model="dialogIngredient"
+            v-model="modal"
             scrollable
 
             width="800">
@@ -14,27 +14,18 @@
                     <v-container>
                         <v-row v-for="ingredient in ingredientsList" :key="ingredient.key">
                             <v-col cols="2">
-                                <v-text-field
-                                        v-model="ingredient.quantity"
-                                        required
-                                        :rules="quantityRules"
-                                        type="number"
-                                ></v-text-field>
+                                <input v-model="ingredient.quantity" type="number" class="form-control" required>
                             </v-col>
 
                             <v-col cols="2">
-                                <v-text-field
-                                        v-model="ingredient.unit"
-                                        required
-                                        :rules="unitRules"
-                                ></v-text-field>
+                                <select v-model="ingredient.unit" name="recipe_category" class="form-control" id="recipe_category">
+                                    <option value="oz" selected >oz</option>
+                                    <option value="ml">ml</option>
+                                    <option value="cup">cup</option>
+                                </select>
                             </v-col>
                             <v-col cols="7">
-                                <v-text-field
-                                        v-model="ingredient.name"
-                                        required
-                                        :rules="nameRules"
-                                ></v-text-field>
+                                <input required v-model="ingredient.name" type="text" class="form-control" >
                             </v-col>
                             <v-col cols="1">
                                 <v-icon @click="removeIngredient(ingredient.key)" aria-hidden="false">
@@ -75,6 +66,9 @@
         computed:{
             ingredientsList(){
                 return this.ingredients;
+            },
+            modal(){
+                return this.dialogIngredient;
             }
         },
         data () {
@@ -93,7 +87,7 @@
             }
         },
         created(){
-            console.log(parameters)
+
         },
         methods:{
             closeDialog(){
@@ -103,13 +97,7 @@
                 this.$emit('removeIngredient',key);
             },
             addIngredient(key){
-                const isValid = this.$refs.form.validate();
-                if(isValid){
-                    this.$emit('addIngredient',key);
-                }else{
-                    alert('Please fix the errors first')
-                }
-
+                this.$emit('addIngredient',key);
             }
         }
 

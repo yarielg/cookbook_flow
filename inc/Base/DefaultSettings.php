@@ -27,6 +27,8 @@ class DefaultSettings
 
         add_action( 'init', array($this,'cptui_register_my_cpts') );
 
+        add_action( 'init', array($this, 'cptui_register_my_taxes_cat_recipe') );
+
 
        /* $my_post = array(
             'post_title'    => 'Yariel',
@@ -102,15 +104,45 @@ class DefaultSettings
             "rewrite" => [ "slug" => "recipe", "with_front" => true ],
             "query_var" => true,
             "supports" => [ "title", "editor", "thumbnail" ],
-            "taxonomies" => [ "category" ],
+            "taxonomies" => [ "cat_recipe" ],
             "show_in_graphql" => false,
         ];
 
         register_post_type( "recipe", $args );
     }
 
+    function cptui_register_my_taxes_cat_recipe() {
+
+        /**
+         * Taxonomy: Recipe Categories.
+         */
+
+        $labels = [
+            "name" => __( "Recipe Categories", "custom-post-type-ui" ),
+            "singular_name" => __( "Recipe Category", "custom-post-type-ui" ),
+        ];
 
 
-
+        $args = [
+            "label" => __( "Recipe Categories", "custom-post-type-ui" ),
+            "labels" => $labels,
+            "public" => true,
+            "publicly_queryable" => true,
+            "hierarchical" => false,
+            "show_ui" => true,
+            "show_in_menu" => true,
+            "show_in_nav_menus" => true,
+            "query_var" => true,
+            "rewrite" => [ 'slug' => 'cat_recipe', 'with_front' => true, ],
+            "show_admin_column" => false,
+            "show_in_rest" => true,
+            "show_tagcloud" => false,
+            "rest_base" => "cat_recipe",
+            "rest_controller_class" => "WP_REST_Terms_Controller",
+            "show_in_quick_edit" => false,
+            "show_in_graphql" => false,
+        ];
+        register_taxonomy( "cat_recipe", [ "recipe" ], $args );
+    }
 
 }

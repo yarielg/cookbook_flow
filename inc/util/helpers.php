@@ -27,13 +27,30 @@ function memd_template( $file, $args ){
 function cbf_normalize_ingredients($ingredients){
      $normalized_ingredients = [];
      foreach ($ingredients as $ingredient){
-         $normalized_ingredients[] = [
-             'name' => $ingredient->name,
-             'quantity'   => $ingredient->quantity,
-             'unit'  => $ingredient->unit
-         ];
+         if($ingredient->name){
+             $normalized_ingredients[] = [
+                 'name' => $ingredient->name,
+                 'quantity'   => $ingredient->quantity,
+                 'unit'  => $ingredient->unit
+             ];
+         }
      }
      return $normalized_ingredients;
+}
+
+function cbf_normalize_categories($category){
+        $normalized_categories[] = [
+            'term_id' => $category->term_id,
+            'term_taxonomy_id'  => $category->term_taxonomy_id,
+            'name'   => $category->name,
+            'slug'  => $category->slug,
+            'description'  => $category->description,
+            'parent'  => $category->parent,
+            'count'  => $category->count,
+            'filter'  => $category->filter,
+            'term_group'  => $category->term_group,
+        ];
+    return $normalized_categories;
 }
 
 function cbf_normalize_photos($photos){
