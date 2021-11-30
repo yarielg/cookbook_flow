@@ -42,14 +42,21 @@
             </div>
 
             <div class="row mt-6 mb-6" v-if="recipes.length > 0">
-                <div class="col-md-8">
-                    <h4>Recipe Resources</h4>
-                    <p>Browse our library of resources to help you on your way of creating recipes and cook books.</p>
+                <div class="col-12">
+                    <h4>Search our library of recipes! </h4>
+                    <p>Get inspiration or add them to your own recipe book from our library of recipes.</p>
                 </div>
-                <div class="col-md-4 text-center">
+                <div class="col-12 text-center">
                     <input type="text" placeholder="Search">
                 </div>
+            </div>
 
+            <div class="row mt-6 mb-6">
+                <div class="col-md-2 box-panel" v-for="recipe in recipes" :key="recipe.ID">
+                    <div class="panel-wrapper">
+                        {{recipe.post_title}}
+                    </div>
+                </div>
             </div>
 
             <div class="row mt-6">
@@ -88,6 +95,7 @@
         </div>
 
         <add-recipe :edit_mode="edit_recipe" v-if="active_screen == 'add-recipe'" @goBack="changeScreen('dashboard')" ></add-recipe>
+        <add-cookbook :edit_mode="edit_cookbook" v-if="active_screen == 'add-cookbook'" @goBack="changeScreen('dashboard')" ></add-cookbook>
 
     </v-app>
 </template>
@@ -102,11 +110,15 @@
                active_screen: 'dashboard',
                recipes:[],
                edit_recipe: -1,
+               edit_cookbook: -1,
                premium_account: false
             }
         },
         created(){
-            console.log(parameters.membership)
+
+            //Change screen in case there is a query parameter
+            this.queryParameterChangeScreen();
+
             if(parseInt(parameters.membership) === 1){
                 this.premium_account = true;
             }
@@ -114,6 +126,10 @@
 
         },
         methods:{
+            queryParameterChangeScreen(){
+                let query_parameter = window.location.search.substring(1).length > 0 ? window.location.search.substring(1).split('=')[1] : 'dashboard';
+                this.changeScreen(query_parameter);
+            },
             changeScreen(screen, id){
                 this.active_screen = screen;
                 if(screen === 'dashboard'){
@@ -130,7 +146,6 @@
                 formData.append('author_id', parameters.current_user.data.ID)
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
-                        console.log(response.data);
                         if(response.data.success){
                             this.recipes =  response.data.recipes;
                         }else{

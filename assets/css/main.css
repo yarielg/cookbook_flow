@@ -51,4 +51,31 @@ label[for="rcp-card-name"]{
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
 }
 
+ /* Search Shortcode */
+.search_recipe_full{
+    width: 100%;
+    height: 40px;
+}
+
+.search_recipe_full.btn-normal{
+    width: 100%;
+    border-radius: unset;
+}
+
+.recipe-img-wrapper{
+    background-size: cover !important;
+    background-position: center !important;
+
+}
+
+.recipe-img-wrapper h5{
+    color: white !important;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.search_recipe_link:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
 

@@ -11,7 +11,8 @@ final class Init{
             //Base\Pages::class,
             Base\Enqueue::class,
             Base\Registration::class,
-            Base\Shortcodes::class
+            Base\Shortcodes::class,
+            Base\Ajax::class,
         ] ;
     }
 

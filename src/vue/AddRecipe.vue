@@ -222,7 +222,7 @@
 
               if(this.current_image !== null && this.current_image !== ''){
                  const formData = new FormData();
-                 formData.append('action', 'add_recipe_photo');
+                 formData.append('action', 'add_photo');
                  formData.append('image', this.current_image);
 
                  axios.post(parameters.ajax_url, formData)
