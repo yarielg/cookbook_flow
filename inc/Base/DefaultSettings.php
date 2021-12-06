@@ -8,39 +8,11 @@ class DefaultSettings
 {
     function register(){
 
-        /*add_role(
-            'primary_member',
-            __( 'Primary Member' ),
-            array()
-        );
-        add_role(
-            'dependent_member',
-            __( 'Dependent Member' ),
-            array()
-        );
-
-        add_role(
-            'dependent_member_child',
-            __( 'Dependent Child' ),
-            array()
-        );*/
-
         add_action( 'init', array($this,'cptui_register_my_cpts') );
 
         add_action( 'init', array($this, 'cptui_register_my_taxes_cat_recipe') );
 
         add_action( 'init', array($this, 'cptui_register_my_cpts_cookbook') );
-
-
-       /* $my_post = array(
-            'post_title'    => 'Yariel',
-            'post_author'   => 2,
-            'post_content'  => 'asdasdasdasd',
-            'post_status'   => 'publish',
-            'post_type' => 'recipe'
-        );
-
-        $id = wp_insert_post( $my_post );*/
 
     }
 

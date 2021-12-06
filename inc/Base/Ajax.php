@@ -11,6 +11,10 @@ namespace Cbf\Inc\Base;
 class Ajax{
 
     public function register(){
+
+        /**
+         * All ajax actions
+         */
         add_action( 'wp_ajax_add_recipe', array($this, 'addRecipe') );
         add_action( 'wp_ajax_nopriv_add_recipe', array($this, 'addRecipe') );
         add_action( 'wp_ajax_add_photo', array($this, 'AddPhoto') );
@@ -29,6 +33,9 @@ class Ajax{
         add_action( 'wp_ajax_nopriv_add_cookbook', array($this, 'addCookbook') );
     }
 
+    /**
+     * Get Recipe Categories
+     */
     public function getRecipeCategories(){
         $terms = get_terms( array(
             'taxonomy' => 'cat_recipe',
@@ -39,6 +46,9 @@ class Ajax{
         wp_die();
     }
 
+    /**
+     * Add a Recipe
+     */
     public function addRecipe(){
         $ingredients = json_decode(str_replace("\\","",$_POST['ingredients']));
         $photos = json_decode(str_replace("\\","",$_POST['photos']));
@@ -125,6 +135,11 @@ class Ajax{
         $front = $_POST['front'];
         $back = $_POST['back'];
         $author_id = $_POST['author_id'];
+        $recipes = $_POST['recipes'];
+
+        $recipes = explode(',', $recipes);
+
+        //var_dump($recipes);exit;
 
         $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ) : -1;
 
@@ -158,6 +173,8 @@ class Ajax{
         update_field( 'dedication', $dedications,$post_id);
         update_field( 'introduction', $introduction,$post_id);
         update_field( 'acknowledgments', $acknowledgments,$post_id);
+
+        update_field('recipes', $recipes, $post_id);
 
 
 
@@ -250,7 +267,7 @@ class Ajax{
                 if(count($photos) > 0){
                     $recipe->photo_url = $photos[0]['image']['url'];
                 }else{
-                    $recipe->photo_url = 'https://cookbook.nextsitehosting.com/wp-content/uploads/2021/11/default.jpg';
+                    $recipe->photo_url = '/wp-content/uploads/2021/11/default.jpg';
                 }
             }
         }

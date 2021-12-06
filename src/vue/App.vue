@@ -95,7 +95,7 @@
         </div>
 
         <add-recipe :edit_mode="edit_recipe" v-if="active_screen == 'add-recipe'" @goBack="changeScreen('dashboard')" ></add-recipe>
-        <add-cookbook :edit_mode="edit_cookbook" v-if="active_screen == 'add-cookbook'" @goBack="changeScreen('dashboard')" ></add-cookbook>
+        <add-cookbook :edit_mode="edit_cookbook" v-if="active_screen == 'add-cookbook'" :recipes="recipes" @goBack="changeScreen('dashboard')" ></add-cookbook>
 
     </v-app>
 </template>

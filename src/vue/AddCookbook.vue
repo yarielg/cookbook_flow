@@ -69,6 +69,36 @@
 
                     <br>
 
+                    <div class="form-group">
+                        <label for="recipe_category">Add Recipes</label>
+                        <!--<select  v-model="recipe" name="recipe_search" class="form-control" id="recipe_search">
+                            <option value="-1" selected>Select Recipe</option>
+                            <option  v-for="recipe in recipes" :key="recipe.ID" :value="recipe"><img class="recipe_img" :src="recipe.photo_url" alt=""> {{ recipe.post_title }}</option>
+                        </select>-->
+                        <v-combobox
+                                @change="selectRecipe()"
+                                v-model="selected_recipes"
+                                :items="recipes"
+                                item-text="post_title"
+                                item-value="ID"
+                                :search-input.sync="search"
+                                hide-selected
+                                multiple
+                                persistent-hint
+                                chips
+                        >
+
+                        </v-combobox>
+                    </div>
+
+                    <div class="form-group" id="selected_recipes">
+                        <div v-for="recipe in selected_recipes" class="col-md-4 box-panel">
+                            <div class="panel-wrapper">
+                                {{ recipe.post_title }}
+                            </div>
+                        </div>
+                    </div>
+
                     <!--<div class="form-group">
                         <label for="">Add Photos</label>
                         <v-file-input v-model="current_image" @change="fileChanged"  label="Add an image" />
@@ -93,7 +123,7 @@
     const axios = require('axios');
 
     export default {
-        props:['edit_mode'],
+        props:['edit_mode','recipes'],
         data () {
             return {
                 title:'',
@@ -103,8 +133,10 @@
                 front_image: null,
                 back_image: null,
                 front: -1,
-                back: -1
-
+                back: -1,
+                recipe: null,
+                search:null,
+                selected_recipes:[]
             }
         },
         created(){
@@ -114,17 +146,29 @@
 
         },
         computed:{
-
+            myRecipes: function(){
+                return this.recipes
+            }
         },
         mounted(){
 
         },
         methods:{
+            getTheRecipesIDs(){
+                let ids = [];
+                for (let i = 0; i < this.selected_recipes.length; i++){
+                    ids.push(this.selected_recipes[i].ID);
+                }
+                return ids;
+            },
+            selectRecipe(){
+              console.log(this.getTheRecipesIDs())
+            },
             goBack(){
                 this.$emit('goBack');
             },
             checkForm(){
-                if(this.title !== '' && this.dedications !== '' && this.acknowledgments !== '' && this.introduction !== '' ){
+                if(this.title !== '' && this.dedications !== '' && this.acknowledgments !== '' && this.introduction !== '' && this.selected_recipes.length > 0 ){
                     return true;
                 }
                 return false;
@@ -139,6 +183,7 @@
                     formData.append('introduction', this.introduction);
                     formData.append('back', this.back);
                     formData.append('front', this.front);
+                    formData.append('recipes', this.getTheRecipesIDs());
 
                     formData.append('author_id', parameters.current_user.data.ID);
                     /*formData.append('instructions',this.editor.root.innerHTML.trim());
@@ -260,5 +305,9 @@
 
     .v-label{
         margin-bottom: 0;
+    }
+
+    #input-13{
+        border: none !important;
     }
 </style>
