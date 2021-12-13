@@ -8,12 +8,32 @@ class DefaultSettings
 {
     function register(){
 
+        /**
+         * Adding the CPT and taxonomies needed
+         */
+
         add_action( 'init', array($this,'cptui_register_my_cpts') );
-
         add_action( 'init', array($this, 'cptui_register_my_taxes_cat_recipe') );
-
         add_action( 'init', array($this, 'cptui_register_my_cpts_cookbook') );
 
+        /**
+         * Overriding RCP templates
+         */
+
+        add_filter( 'rcp_template_stack', array($this, 'so_13997743_custom_template'), 1,10 );
+
+    }
+
+    function so_13997743_custom_template( $template, $names )
+    {
+    $plugin_template_path = CBF_PLUGIN_PATH . 'templates/rcp/';
+
+    if(in_array($names[0], array('login.php','register.php'))){
+        $template[] = $plugin_template_path;
+
+    }
+
+        return $template;
     }
 
     function cptui_register_my_cpts() {
