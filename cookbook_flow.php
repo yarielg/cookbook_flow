@@ -8,7 +8,7 @@ Plugin Name:  CookBook Flow
 Plugin URI:   https://thomasgbennett.com/
 Description:  This plugin is the core for all the logic around recipes and cookbook flow.
 Version:      1.0.0
-Author:       Bennet Group
+Author:       Thomas Bennett Group
 Author URI:   https://thomasgbennett.com/
 Tested up to: 5.3.2
 Text Domain:  cbf_domain
