@@ -218,6 +218,7 @@ class Ajax{
         $term_obj_list = get_the_terms( $id, 'cat_recipe' );
 
         $recipe->category = $term_obj_list[0]->term_id;
+        $recipe->category_name = $term_obj_list[0]->name;
 
         if($recipe){
             echo json_encode(array('success'=> 'true', 'recipe' => $recipe));

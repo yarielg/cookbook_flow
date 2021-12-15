@@ -62,12 +62,12 @@ class Registration
         ?>
 
         <p>
-            <label for="rcp_type"><?php _e( 'Type', 'rcp' ); ?></label>
-            <select name="rcp_type" id="rcp_type"  value="">
-                <option <?php echo count($type) > 0 && $type == 'Personal' ? 'selected' : '' ?>>Personal</option>
-                <option <?php echo count($type) > 0 && $type == 'Business' ? 'selected' : '' ?>>Business</option>
-                <option <?php echo count($type) > 0 && $type == 'Fundraiser' ? 'selected' : '' ?>>Fundraiser</option>
-            </select>
+            <input name="rcp_type" type="radio" <?php echo count($type) > 0 && $type == 'Personal' ? 'checked' : '' ?>/>
+            <label for="rcp_type"><?php _e( 'Personal', 'rcp' ); ?></label>
+            <input name="rcp_type" type="radio" <?php echo count($type) > 0 && $type == 'Business' ? 'checked' : '' ?>/>
+            <label for="rcp_type"><?php _e( 'Business', 'rcp' ); ?></label>
+            <input name="rcp_type" type="radio" <?php echo count($type) > 0 && $type == 'Fundraiser' ? 'checked' : '' ?>/>
+            <label for="rcp_type"><?php _e( 'Fundraiser', 'rcp' ); ?></label>
         </p>
 
         <?php

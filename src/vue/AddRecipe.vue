@@ -18,11 +18,11 @@
             <h4>Create a Recipe</h4>
             <hr>
             <ul class="ingredients_list">
-               <li :class="title !== '' ? 'checked' : ''"> Give it a title</li>
-               <li :class="category > 0 ? 'checked' : ''"> Select a category</li>
-               <li :class="ingredients.length !== 0 ? 'checked' : ''"> Add ingredients</li>
-               <li :class="!isQuillEmpty()  ? 'checked' : ''"> Add Instructions</li>
-               <li :class="photos.length !== 0 ? 'checked' : ''"> Add Photo(s)</li>
+               <li><span :class="title !== '' ? 'icon_32' : ''"></span> <span >Give it a title</span></li>
+               <li><span :class="category > 0 ? 'icon_32' : ''"></span> <span >Select a category</span></li>
+               <li><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>
+               <li><span :class="!isQuillEmpty()  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
+               <li><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
             </ul>
          </div>
          <div class="col-md-8">
@@ -46,7 +46,9 @@
 
                <div class="form-group">
                   <h5>RECIPE INGREDIENTS</h5>
-                  <p v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity">{{ ingredient.key }}. {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</p>
+                  <ul>
+                     <li v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity"> {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</li>
+                  </ul>
                </div>
                <div @click="dialogIngredient = true" class="ingredients_action">
                   + Click to start adding recipe ingredients
@@ -207,7 +209,7 @@
                                toastr.success('The recipe has been updated', 'Recipe Updated!');
                             }else{
                                toastr.success('The recipe has been created', 'Recipe Created!');
-                               this.goBack();
+                               this.$emit('goViewRecipe');
                             }
 
                          }else{
@@ -321,7 +323,17 @@
    }
 
    .ingredients_list{
-      list-style: decimal;
+      list-style: none !important;
+   }
+
+   .ingredients_list li{
+      display: flex !important;
+      clear: both;
+   }
+
+   .ingredients_list li span:first-child{
+      min-width: 24px;
+      display: inline-block;
    }
 
    .ingredients_list li.checked{
