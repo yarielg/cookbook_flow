@@ -22,7 +22,25 @@ class DefaultSettings
 
         add_filter( 'rcp_template_stack', array($this, 'cbf_overriding_rcp_templates'), 1,10 );
 
+        /**
+         * Adding a new recipe CPT status
+         */
+        add_action( 'init', array($this,'cbf_register_custom_post_status') );
+
     }
+
+    // Register Custom Post Status
+    function cbf_register_custom_post_status(){
+        register_post_status( 'Private', array(
+            'label'                     => _x( 'Private', 'recipe' ),
+            'public'                    => true,
+            'exclude_from_search'       => false,
+            'show_in_admin_all_list'    => true,
+            'show_in_admin_status_list' => true,
+            'label_count'               => _n_noop( 'In Private <span class="count">(%s)</span>', 'In Private <span class="count">(%s)</span>' ),
+        ) );
+    }
+
 
     function cbf_overriding_rcp_templates( $template, $names )
     {

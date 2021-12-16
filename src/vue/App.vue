@@ -95,7 +95,7 @@
             </div>
         </div>
 
-        <add-recipe :edit_mode="edit_recipe" v-if="active_screen == 'add-recipe'" @goViewRecipe="changeScreen('view-recipe')" @goBack="changeScreen('dashboard')" ></add-recipe>
+        <add-recipe :edit_mode="edit_recipe" v-if="active_screen == 'add-recipe'" @goViewRecipe="changeScreen('view-recipe',edit_recipe)" @goBack="changeScreen('dashboard')" ></add-recipe>
         <add-cookbook :edit_mode="edit_cookbook" v-if="active_screen == 'add-cookbook'" :recipes="recipes" @goBack="changeScreen('dashboard')" ></add-cookbook>
         <view-recipe :edit_mode="edit_recipe" v-if="active_screen == 'view-recipe'" :recipes="recipes" @goEditRecipe="changeScreen('add-recipe',edit_recipe)" @goBack="changeScreen('dashboard')" ></view-recipe>
 
@@ -152,7 +152,7 @@
                         if(response.data.success){
                             this.recipes =  response.data.recipes;
                         }else{
-                            toastr.warning('We could not get you recipes', 'Error');
+                            toastr.warning('We could not get your recipes', 'Error');
                         }
                     });
             },
@@ -169,7 +169,7 @@
 
 
 <style>
-    body #app,h4,h3,h5{
+    body #app,h4,h3,h5,h2{
         color: #78849c !important;
     }
 

@@ -1,21 +1,65 @@
 <template>
    <div class="container">
       <div class="row">
-         <div class="col-10">
+         <div class="col-4">
             <v-icon @click="goBack()">
                mdi-arrow-left
             </v-icon> Back
+            {{ cookbook_id }}
          </div>
-         <div class="col-2">
-            <v-switch
+         <div class="col-8">
+            <div class="top-bar-assign" v-show="checkForm()">
+               <div class="left bar">
+                  <v-menu  :close-on-content-click="false" :nudge-width="200" offset-y transition="scale-transition">
+                     <template v-slot:activator="{ on, attrs }">
+                        <v-btn depressed v-bind="attrs" v-on="on">
+                           Save recipe As
+                           <v-icon right dark> mdi-chevron-down </v-icon>
+                        </v-btn>
+                     </template>
+
+                     <v-card>
+                        <v-list>
+                           <input type="radio" name="status"  v-model="status" value="Draft" id="option_draft"> <label for="option_draft"> Draft</label><br>
+                           <input type="radio" name="status" v-model="status" value="Private" id="option_private"> <label for="option_private"> Personal Recipe</label><br>
+                           <input type="radio" name="status" v-model="status" value="Publish" id="option_publish"> <label for="option_publish"> Public recipe</label>
+                        </v-list>
+                     </v-card>
+                  </v-menu>
+
+                  <v-menu  :close-on-content-click="false" :nudge-width="350" offset-y transition="scale-transition">
+                     <template v-slot:activator="{ on, attrs }">
+                        <v-btn depressed v-bind="attrs" v-on="on">
+                           Assign To
+                           <v-icon right dark> mdi-chevron-down </v-icon>
+                        </v-btn>
+                     </template>
+
+                     <v-card>
+                        <v-list>
+                           <div class="cookbook_option" v-for="cookbook in cookbooks" :key="cookbook.ID">
+                              <input  type="radio" name="cookbook_id" v-model="cookbook_id" :value="cookbook.ID" id="cookbook.ID">
+                              <label > {{ cookbook.post_title }}</label>
+                              <br>
+                           </div>
+                        </v-list>
+                     </v-card>
+                  </v-menu>
+               </div>
+               <div class="right bar">
+                  <span class="link_action" @click="goViewRecipe()" >Cancel</span>
+                  <button :disabled="!checkForm()" @click="addRecipe()" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>
+               </div>
+            </div>
+            <!--<v-switch
               :label="`Public`"
               v-model="status"
-            ></v-switch>
+            ></v-switch>-->
          </div>
       </div>
       <div class="row">
-         <div class="col-md-4">
-            <h4>Create a Recipe</h4>
+         <div class="col-md-4 left-panel">
+            <h4 class="text-center">Create a Recipe</h4>
             <hr>
             <ul class="ingredients_list">
                <li><span :class="title !== '' ? 'icon_32' : ''"></span> <span >Give it a title</span></li>
@@ -25,7 +69,8 @@
                <li><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
             </ul>
          </div>
-         <div class="col-md-8">
+
+         <div class="col-md-8 main-panel">
             <form
                method="post"
                action=""
@@ -82,7 +127,6 @@
                   </div>
                </div>
 
-               <button :disabled="!checkForm()"  type="submit" class="btn-normal">{{ edit_mode > 1 ? 'Save Recipe' : 'Add Recipe' }}</button>
 
             </form>
          </div>
@@ -101,18 +145,21 @@
                current_image: null,
                editor: null,
                categories:[],
-               status: false,
+               status: 'Draft',
                category: -1,
                title: '',
                ingredients:[
                ],
                instructions:'',
-               photos:[]
+               photos:[],
+               cookbook_id: -1,
+               cookbooks:[]
 
             }
         },
         created(){
             this.getCategories();
+            this.getCookbooks();
             if(parseFloat(this.edit_mode) > 0){
                this.getRecipe();
             }
@@ -125,6 +172,9 @@
           this.photos = [];
           this.category = -1;
           this.current_image =  null;
+          this.status = 'Draft';
+          this.cookbooks = [];
+          this.cookbook_id = -1;
         },
        computed:{
 
@@ -161,12 +211,15 @@
            goBack(){
               this.$emit('goBack');
            },
+           goViewRecipe(){
+              this.$emit('goViewRecipe');
+           },
            closeIngredientDialogHandler(){
               this.dialogIngredient = false;
               console.log(this.category);
            },
            checkForm(){
-              if(this.category !== -1 && this.name !== '' && !this.isQuillEmpty() && this.ingredients.length > 0 && this.photos.length > 0 ){
+              if(parseInt(this.category) !== -1 && this.title !== '' && !this.isQuillEmpty() && this.ingredients.length > 0 && this.photos.length > 0 ){
                  return true;
               }
               return false;
@@ -199,7 +252,8 @@
                  formData.append('ingredients', JSON.stringify(this.ingredients));
                  formData.append('author_id', parameters.current_user.data.ID);
                  formData.append('photos', JSON.stringify(this.photos));
-                 formData.append('status', this.status ? 'publish' : 'draft');
+                 formData.append('status', this.status);
+                 formData.append('cookbook_id', this.cookbook_id);
                  formData.append('edit', this.edit_mode);
 
                  axios.post(parameters.ajax_url, formData)
@@ -209,8 +263,9 @@
                                toastr.success('The recipe has been updated', 'Recipe Updated!');
                             }else{
                                toastr.success('The recipe has been created', 'Recipe Created!');
-                               this.$emit('goViewRecipe');
+
                             }
+                            this.goViewRecipe()
 
                          }else{
                             toastr.error('The recipe was not inserted', 'Error');
@@ -267,13 +322,25 @@
                    }
                 });
            },
+           getCookbooks(){
+              const formData = new FormData();
+              formData.append('action', 'get_user_cookbooks');
+              formData.append('author_id', parameters.current_user.data.ID)
+              axios.post(parameters.ajax_url, formData)
+                      .then( response => {
+                         if(response.data.success){
+                            this.cookbooks =  response.data.cookbooks;
+                         }else{
+                            toastr.warning('We could not get the cookbooks', 'Error');
+                         }
+                      });
+           },
            getRecipe(){
               const formData = new FormData();
               formData.append('action', 'get_recipe');
               formData.append('id', this.edit_mode);
               axios.post(parameters.ajax_url, formData)
                       .then( response => {
-                         console.log(response.data.recipe)
                          if(response.data.success){
                             this.category =  response.data.recipe.category;
                             this.title = response.data.recipe.post_title;
@@ -281,7 +348,7 @@
                             this.ingredients = response.data.recipe.ingredients;
                             this.photos = response.data.recipe.photos;
                             this.editor.root.innerHTML = response.data.recipe.post_content;
-                            this.status = response.data.recipe.post_status === "publish" ? true : false;
+                            this.status = response.data.recipe.post_status;
 
                          }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
@@ -347,4 +414,8 @@
    .v-label{
       margin-bottom: 0;
    }
+
+    .v-list{
+       padding: 13px;
+    }
 </style>

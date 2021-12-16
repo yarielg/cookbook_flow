@@ -1,36 +1,43 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-10">
+            <div class="col-2">
                 <v-icon @click="goBack()">
                     mdi-arrow-left
                 </v-icon> Back
             </div>
-            <div class="col-2">
+            <div class="col-10">
 
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
-                <h4>Recipe Information</h4>
+            <div class="col-md-4 left-panel pl-5">
+                <h4 class="text-center mt-2 pt-2">Recipe Information</h4>
                 <hr>
-                <label class="label-icon-edit" for="">Cookbook used in:</label>
-                <h4>A Cookbook Title</h4>
+                <label @click="editRecipe()" class="label-icon-edit mt-2 pt-2" for="">Cookbook used in:</label>
+                <h4 class="left-info">{{ first_cookbook_name }}</h4>
+                <p>{{ other_cookbooks_count }}</p>
                 <br>
-                <label for="">Recipe Type:</label>
-                <h4>{{status}} Recipe</h4>
+                <label @click="editRecipe()" for="" class="label-icon-edit">Recipe Type:</label>
+                <h4 class="left-info">{{status}} Recipe</h4>
                 <br>
 
-                <span @click="editRecipe()" class="action_icon">Edit Recipe</span>
+                <div class="action_btn_icon" @click="editRecipe()" >
+                    <label class="label-icon-edit" for=""></label>
+                    <span class="action_icon">Edit Recipe</span>
+                </div>
+                <br>
+
+                <span class="action_secondary delete-icon mt-5 pt-5">Delete Recipe</span>
 
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 main-panel pt-0">
                 <div class="section-info">
                     <img class="featured_image" :src="featured_image" alt="">
                 </div>
                 <div class="section-info">
                     <label class="label-info-header" for="">{{ category }}</label>
-                    <h3>{{ title }}</h3>
+                    <h2>{{ title }}</h2>
                 </div>
                 <div class="section-info">
                     <label class="label-info-header" for="">INGREDIENTS</label>
@@ -70,14 +77,16 @@
             return {
                 editor: null,
                 categories:[],
-                status: false,
+                status: 'Draft',
                 category: -1,
                 title: '',
                 ingredients:[
                 ],
                 instructions:'',
                 featured_image:'',
-                photos:[]
+                photos:[],
+                cookbook_id: -1,
+                cookbooks: []
 
             }
         },
@@ -90,6 +99,20 @@
             recipe_id(){
                 return this.edit_mode;
             },
+            first_cookbook_name(){
+                if(this.cookbooks.length > 0){
+                    return this.cookbooks[0].post_title;
+                }else{
+                    return ''
+                }
+            },
+            other_cookbooks_count(){
+                if(this.cookbooks.length > 1){
+                    var count = this.cookbooks.length - 1;
+                    return 'and ' + count + ' more'
+                }
+                return '';
+            }
         },
         mounted(){
 
@@ -107,7 +130,6 @@
                 formData.append('id', this.edit_mode);
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
-                        console.log(response.data.recipe)
                         if(response.data.success){
                             this.category =  response.data.recipe.category_name.toUpperCase();
                             this.title = response.data.recipe.post_title;
@@ -115,14 +137,16 @@
                             this.ingredients = response.data.recipe.ingredients;
                             this.photos = response.data.recipe.photos;
                             this.instructions = response.data.recipe.post_content;
-                            this.status = response.data.recipe.post_status === "publish" ? true : false;
+                            this.status = response.data.recipe.post_status
                             this.featured_image = this.photos[0].url;
+                            this.cookbooks = response.data.recipe.cookbooks;
+                            console.log(this.cookbooks[0])
                         }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
                         }
 
                     });
-            }
+            },
         }
 
     }

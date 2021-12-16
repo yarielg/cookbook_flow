@@ -92,29 +92,19 @@ function cbf_upload_file( $file, $post_id = 0, $desc = null ) {
     return $id;
 }
 
-/*function memd_send_password_reset_mail($user_id){
+function insertRecipeCookBook($cookbook_id, $recipes){
+    global $wpdb;
 
-    $user = get_user_by('id', $user_id);
-    $firstname = $user->first_name;
-    $email = $user->user_email;
-    $adt_rp_key = get_password_reset_key( $user );
-    $user_login = $user->user_login;
-    $rp_link = '<a href="' . wp_login_url()."/resetpass/?key=$adt_rp_key&login=" . rawurlencode($user_login) . '">' . wp_login_url()."/resetpass/?key=$adt_rp_key&login=" . rawurlencode($user_login) . '</a>';
+    foreach ($recipes as $recipe_id){
+        $wpdb->query("INSERT INTO $wpdb->prefix" . "cbf_recipes_cookbooks (recipe_id,cookbook_id) VALUES ('$recipe_id','$cookbook_id')");
+    }
 
-    if ($firstname == "") $firstname = "There";
-    $message = "Hi ".$firstname.",<br>";
-    $message .= "Congratulations, you just turned 18, now you can access your account by yourself in ".get_bloginfo( 'name' ).", this is your username address ".$user_login."<br>";
-    $message .= "Click here to set the password for your account: <br>";
-    $message .= $rp_link.'<br>';
+}
 
-    $subject = __("Your account on ".get_bloginfo( 'name'));
-    $headers = array();
+function getCookbooksFromRecipeId($id){
+    global $wpdb;
 
-    add_filter( 'wp_mail_content_type', function( $content_type ) {return 'text/html';});
-    $headers[] = 'From: Your company name brjosue73@gmail.com'."\r\n";
-    wp_mail( $email, $subject, $message, $headers);
+    $cookbook = $wpdb->get_results("SELECT P.post_title,P.ID FROM $wpdb->prefix" . "cbf_recipes_cookbooks RC INNER JOIN $wpdb->prefix" . "posts P ON RC.cookbook_id=P.ID WHERE RC.recipe_id='$id'", ARRAY_A);
 
-    // Reset content-type to avoid conflicts -- http://core.trac.wordpress.org/ticket/23578
-    remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
-
-}*/
+    return count($cookbook) > 0 ? $cookbook : [];
+}

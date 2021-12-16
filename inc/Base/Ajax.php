@@ -31,6 +31,28 @@ class Ajax{
 
         add_action( 'wp_ajax_add_cookbook', array($this, 'addCookbook') );
         add_action( 'wp_ajax_nopriv_add_cookbook', array($this, 'addCookbook') );
+
+        add_action( 'wp_ajax_get_user_cookbooks', array($this, 'getUserCookbook') );
+        add_action( 'wp_ajax_nopriv_get_user_cookbooks', array($this, 'getUserCookbook') );
+    }
+
+    /**
+     * Get user CookBook
+     */
+    public function getUserCookbook(){
+        $author_id = $_POST['author_id'];
+        $cookbooks = [];
+
+        if(intval($author_id) > 0){
+            $cookbooks = get_posts(array(
+                'post_type' => 'cookbook',
+                'author' => intval($author_id),
+                'post_status' => array('publish', 'draft')
+            ));
+        }
+
+        echo json_encode(array('success'=> 'true', 'cookbooks' => $cookbooks));
+        wp_die();
     }
 
     /**
@@ -50,6 +72,7 @@ class Ajax{
      * Add a Recipe
      */
     public function addRecipe(){
+
         $ingredients = json_decode(str_replace("\\","",$_POST['ingredients']));
         $photos = json_decode(str_replace("\\","",$_POST['photos']));
         $title = $_POST['title'];
@@ -57,7 +80,8 @@ class Ajax{
         $instructions = str_replace('\\','',$_POST['instructions']);
         $author_id = $_POST['author_id'];
         $status = $_POST['status'];
-        $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ): -1 ;
+        $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ): -1;
+        $cookbook_id = $_POST['cookbook_id'];
 
         if($post_id == -1){
             $post_id  = wp_insert_post( array(
@@ -116,6 +140,16 @@ class Ajax{
                 wp_die();
             }
 
+            /**
+             * Creating the recipe relation with a cookbook
+             */
+            if(!empty($cookbook_id)){
+                $recipes = get_field('recipes', $cookbook_id);
+                $recipes[] = $post_id;
+
+                update_field('recipes', $recipes, $cookbook_id);
+            }
+
             echo json_encode(array('success'=> true, 'msg' => 'Recipe inserted successfully'));
             wp_die();
         }else{
@@ -138,8 +172,6 @@ class Ajax{
         $recipes = $_POST['recipes'];
 
         $recipes = explode(',', $recipes);
-
-        //var_dump($recipes);exit;
 
         $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ) : -1;
 
@@ -164,8 +196,6 @@ class Ajax{
 
         }
 
-        // update_field( 'cbf_ingredients', [],$post_id);
-
         $back =  $back > 0 ? update_field( 'back_cover_image', $back,$post_id) : '';
         $front =  $front > 0 ? update_field( 'front_cover_image', $front,$post_id) : '';
 
@@ -174,9 +204,8 @@ class Ajax{
         update_field( 'introduction', $introduction,$post_id);
         update_field( 'acknowledgments', $acknowledgments,$post_id);
 
-        update_field('recipes', $recipes, $post_id);
-
-
+        //update_field('recipes', $recipes, $post_id);
+        insertRecipeCookBook($post_id,$recipes);
 
         echo json_encode(array('success'=> 'false', 'msg' => 'The Cookbook could not be inserted'));
         wp_die();
@@ -187,6 +216,8 @@ class Ajax{
      */
     public function getRecipe(){
         $id = $_POST['id'];
+
+        $cookbooks = getCookbooksFromRecipeId($id);
 
         $recipe = get_post($id);
 
@@ -214,11 +245,13 @@ class Ajax{
         }
 
         $recipe->ingredients = $ingredients;
+        $recipe->post_status  = ucfirst($recipe->post_status);
 
         $term_obj_list = get_the_terms( $id, 'cat_recipe' );
 
         $recipe->category = $term_obj_list[0]->term_id;
         $recipe->category_name = $term_obj_list[0]->name;
+        $recipe->cookbooks  = $cookbooks;
 
         if($recipe){
             echo json_encode(array('success'=> 'true', 'recipe' => $recipe));

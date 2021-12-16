@@ -162,7 +162,6 @@
                 return ids;
             },
             selectRecipe(){
-              console.log(this.getTheRecipesIDs())
             },
             goBack(){
                 this.$emit('goBack');
@@ -186,9 +185,7 @@
                     formData.append('recipes', this.getTheRecipesIDs());
 
                     formData.append('author_id', parameters.current_user.data.ID);
-                    /*formData.append('instructions',this.editor.root.innerHTML.trim());
-                    formData.append('photos', JSON.stringify(this.photos));
-                    formData.append('status', this.status ? 'publish' : 'draft');*/
+
                     formData.append('edit', this.edit_mode);
 
                     axios.post(parameters.ajax_url, formData)
