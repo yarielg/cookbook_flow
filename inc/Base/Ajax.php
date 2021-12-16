@@ -289,7 +289,7 @@ class Ajax{
             $recipes = get_posts(array(
                 'post_type' => 'recipe',
                 'author' => intval($author_id),
-                'post_status' => array('publish', 'draft')
+                'post_status' => array('publish', 'draft','private')
 
             ));
 
