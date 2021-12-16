@@ -12,6 +12,10 @@
     border: 0 !important;
 }
 
+.btn-normal a{
+    color: white !important;
+}
+
 .box-panel .panel-wrapper{
     background: white;
     border-radius: 8px;

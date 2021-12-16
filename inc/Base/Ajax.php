@@ -150,7 +150,7 @@ class Ajax{
                 update_field('recipes', $recipes, $cookbook_id);
             }
 
-            echo json_encode(array('success'=> true, 'msg' => 'Recipe inserted successfully'));
+            echo json_encode(array('success'=> true, 'msg' => 'Recipe inserted successfully', 'id' => $post_id));
             wp_die();
         }else{
             echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted'));

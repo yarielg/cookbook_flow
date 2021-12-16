@@ -19,7 +19,7 @@
                         <p class="">Nam porttitor blandit accumsan. Ut vel
                             dictum sem, a pretium dui. In malesuada
                             enim in dolor euismod,</p>
-                        <button class="btn-normal">Create a Book</button>
+                        <button class="btn-normal"><a href="/?screen=add-cookbook">Create a Book</a></button>
                     </div>
                 </div>
                 <div class="col-md-6 text-center box-panel">
@@ -95,7 +95,7 @@
             </div>
         </div>
 
-        <add-recipe :edit_mode="edit_recipe" v-if="active_screen == 'add-recipe'" @goViewRecipe="changeScreen('view-recipe',edit_recipe)" @goBack="changeScreen('dashboard')" ></add-recipe>
+        <add-recipe :edit_mode="edit_recipe" v-if="active_screen == 'add-recipe'" @goViewRecipe="changeScreen('view-recipe',edit_recipe)" @goViewRecipeWithId="goViewRecipeWithId" @goBack="changeScreen('dashboard')" ></add-recipe>
         <add-cookbook :edit_mode="edit_cookbook" v-if="active_screen == 'add-cookbook'" :recipes="recipes" @goBack="changeScreen('dashboard')" ></add-cookbook>
         <view-recipe :edit_mode="edit_recipe" v-if="active_screen == 'view-recipe'" :recipes="recipes" @goEditRecipe="changeScreen('add-recipe',edit_recipe)" @goBack="changeScreen('dashboard')" ></view-recipe>
 
@@ -133,7 +133,8 @@
                 this.changeScreen(query_parameter);
             },
             changeScreen(screen, id){
-                this.active_screen = screen;
+                console.log(id,screen)
+
                 if(screen === 'dashboard'){
                     this.getYourRecipes();
                 }
@@ -142,6 +143,12 @@
                     this.edit_recipe = id;
                 }
 
+                this.active_screen = screen;
+
+            },
+            goViewRecipeWithId(id){
+                this.edit_recipe = id;
+                this.active_screen = 'view-recipe';
             },
             getYourRecipes(){
                 const formData = new FormData();

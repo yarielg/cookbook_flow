@@ -177,7 +177,9 @@
           this.cookbook_id = -1;
         },
        computed:{
-
+          recipe_id(){
+             return this.edit_mode;
+          }
        },
        mounted(){
           var options = {
@@ -213,6 +215,9 @@
            },
            goViewRecipe(){
               this.$emit('goViewRecipe');
+           },
+           goViewRecipeWithId(id){
+              this.$emit('goViewRecipeWithId',id);
            },
            closeIngredientDialogHandler(){
               this.dialogIngredient = false;
@@ -263,9 +268,11 @@
                                toastr.success('The recipe has been updated', 'Recipe Updated!');
                             }else{
                                toastr.success('The recipe has been created', 'Recipe Created!');
-
                             }
-                            this.goViewRecipe()
+
+                            console.log('recipe: ',response.data.id)
+                            this.goViewRecipeWithId(response.data.id)
+
 
                          }else{
                             toastr.error('The recipe was not inserted', 'Error');
@@ -341,6 +348,7 @@
               formData.append('id', this.edit_mode);
               axios.post(parameters.ajax_url, formData)
                       .then( response => {
+                         console.log(response.data.recipe)
                          if(response.data.success){
                             this.category =  response.data.recipe.category;
                             this.title = response.data.recipe.post_title;

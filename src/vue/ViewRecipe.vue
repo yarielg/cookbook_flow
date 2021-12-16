@@ -7,7 +7,6 @@
                 </v-icon> Back
             </div>
             <div class="col-10">
-
             </div>
         </div>
         <div class="row">
