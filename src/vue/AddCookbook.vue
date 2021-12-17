@@ -91,13 +91,7 @@
                         </v-combobox>
                     </div>
 
-                    <!--<div class="form-group" id="selected_recipes">
-                        <div v-for="recipe in selected_recipes" class="col-md-4 box-panel">
-                            <div class="panel-wrapper">
-                                {{ recipe.post_title }}
-                            </div>
-                        </div>
-                    </div>-->
+
 
                     <!--<div class="form-group">
                         <label for="">Add Photos</label>

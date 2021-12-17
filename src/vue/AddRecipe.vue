@@ -5,7 +5,7 @@
             <v-icon @click="goBack()">
                mdi-arrow-left
             </v-icon> Back
-            {{ cookbook_id }}
+            {{ cookbook_ids }}
          </div>
          <div class="col-8">
             <div class="top-bar-assign" v-show="checkForm()">
@@ -38,7 +38,7 @@
                      <v-card>
                         <v-list>
                            <div class="cookbook_option" v-for="cookbook in cookbooks" :key="cookbook.ID">
-                              <input  type="radio" name="cookbook_id" v-model="cookbook_id" :value="cookbook.ID" id="cookbook.ID">
+                              <input :ckecked="is"  type="checkbox" name="cookbooks[]" v-model="cookbook_ids" id="" :value="cookbook.ID">
                               <label > {{ cookbook.post_title }}</label>
                               <br>
                            </div>
@@ -152,7 +152,7 @@
                ],
                instructions:'',
                photos:[],
-               cookbook_id: -1,
+               cookbook_ids: [],
                cookbooks:[]
 
             }
@@ -174,7 +174,7 @@
           this.current_image =  null;
           this.status = 'Draft';
           this.cookbooks = [];
-          this.cookbook_id = -1;
+          this.cookbook_ids = -1;
         },
        computed:{
           recipe_id(){
@@ -258,7 +258,7 @@
                  formData.append('author_id', parameters.current_user.data.ID);
                  formData.append('photos', JSON.stringify(this.photos));
                  formData.append('status', this.status);
-                 formData.append('cookbook_id', this.cookbook_id);
+                 formData.append('cookbook_ids', this.cookbook_ids);
                  formData.append('edit', this.edit_mode);
 
                  axios.post(parameters.ajax_url, formData)
@@ -363,6 +363,9 @@
                          }
 
                       });
+           },
+           isSelectedCookbook(cookbooks, id){
+              return cookbooks.indexOf(id) !== -1;
            }
         }
 

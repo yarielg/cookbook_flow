@@ -73,6 +73,7 @@ class Ajax{
      */
     public function addRecipe(){
 
+        $cookbooks_ids = !empty($_POST['cookbook_ids']) ? explode(',',$_POST['cookbook_ids']) : [];
         $ingredients = json_decode(str_replace("\\","",$_POST['ingredients']));
         $photos = json_decode(str_replace("\\","",$_POST['photos']));
         $title = $_POST['title'];
@@ -143,11 +144,8 @@ class Ajax{
             /**
              * Creating the recipe relation with a cookbook
              */
-            if(!empty($cookbook_id)){
-                $recipes = get_field('recipes', $cookbook_id);
-                $recipes[] = $post_id;
-
-                update_field('recipes', $recipes, $cookbook_id);
+            if(count($cookbooks_ids) > 0){
+                insertCookbooksToRecipe($cookbooks_ids, $post_id);
             }
 
             echo json_encode(array('success'=> true, 'msg' => 'Recipe inserted successfully', 'id' => $post_id));

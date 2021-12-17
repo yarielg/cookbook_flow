@@ -101,6 +101,15 @@ function insertRecipeCookBook($cookbook_id, $recipes){
 
 }
 
+function insertCookbooksToRecipe($cookbooks, $recipe_id){
+    global $wpdb;
+
+    foreach ($cookbooks as $cookbook_id){
+        $wpdb->query("INSERT INTO $wpdb->prefix" . "cbf_recipes_cookbooks (recipe_id,cookbook_id) VALUES ('$recipe_id','$cookbook_id')");
+    }
+
+}
+
 function getCookbooksFromRecipeId($id){
     global $wpdb;
 
