@@ -19,9 +19,10 @@
                         <p class="">Nam porttitor blandit accumsan. Ut vel
                             dictum sem, a pretium dui. In malesuada
                             enim in dolor euismod,</p>
-                        <button class="btn-normal"><a href="/?screen=add-cookbook">Create a Book</a></button>
+                        <button class="btn-normal"><a href="/welcome/?screen=add-cookbook">Create a Book</a></button>
                     </div>
                 </div>
+                
                 <div class="col-md-6 text-center box-panel">
                     <div class="panel-wrapper">
                         <h4 class="">Have a designer help make my cookbook.</h4>
