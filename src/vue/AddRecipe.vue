@@ -5,7 +5,7 @@
             <v-icon @click="goBack()">
                mdi-arrow-left
             </v-icon> Back
-            {{ cookbook_ids }}
+
          </div>
          <div class="col-8">
             <div class="top-bar-assign" v-show="checkForm()">
@@ -37,9 +37,9 @@
 
                      <v-card>
                         <v-list>
-                           <div class="cookbook_option" v-for="cookbook in cookbooks" :key="cookbook.ID">
-                              <input :ckecked="is"  type="checkbox" name="cookbooks[]" v-model="cookbook_ids" id="" :value="cookbook.ID">
-                              <label > {{ cookbook.post_title }}</label>
+                           <div class="cookbook_option" v-for="(cookbook,index) in cookbooks" :key="cookbook.ID">
+                              <input type="checkbox" v-model="cookbooks_ids" :id="cookbook.post_name" :value="cookbook.ID">
+                              <label :for="cookbook.post_name"> {{ cookbook.post_title }}</label>
                               <br>
                            </div>
                         </v-list>
@@ -152,8 +152,9 @@
                ],
                instructions:'',
                photos:[],
-               cookbook_ids: [],
-               cookbooks:[]
+               cookbooks_ids: [],
+               cookbooks:[],
+               cookbooks_selected: []
 
             }
         },
@@ -174,7 +175,7 @@
           this.current_image =  null;
           this.status = 'Draft';
           this.cookbooks = [];
-          this.cookbook_ids = -1;
+          this.cookbooks_ids = [];
         },
        computed:{
           recipe_id(){
@@ -221,7 +222,6 @@
            },
            closeIngredientDialogHandler(){
               this.dialogIngredient = false;
-              console.log(this.category);
            },
            checkForm(){
               if(parseInt(this.category) !== -1 && this.title !== '' && !this.isQuillEmpty() && this.ingredients.length > 0 && this.photos.length > 0 ){
@@ -258,7 +258,7 @@
                  formData.append('author_id', parameters.current_user.data.ID);
                  formData.append('photos', JSON.stringify(this.photos));
                  formData.append('status', this.status);
-                 formData.append('cookbook_ids', this.cookbook_ids);
+                 formData.append('cookbooks_ids', this.cookbooks_ids);
                  formData.append('edit', this.edit_mode);
 
                  axios.post(parameters.ajax_url, formData)
@@ -270,7 +270,6 @@
                                toastr.success('The recipe has been created', 'Recipe Created!');
                             }
 
-                            console.log('recipe: ',response.data.id)
                             this.goViewRecipeWithId(response.data.id)
 
 
@@ -346,9 +345,9 @@
               const formData = new FormData();
               formData.append('action', 'get_recipe');
               formData.append('id', this.edit_mode);
+              formData.append('author_id', parameters.current_user.data.ID)
               axios.post(parameters.ajax_url, formData)
                       .then( response => {
-                         console.log(response.data.recipe)
                          if(response.data.success){
                             this.category =  response.data.recipe.category;
                             this.title = response.data.recipe.post_title;
@@ -357,15 +356,13 @@
                             this.photos = response.data.recipe.photos;
                             this.editor.root.innerHTML = response.data.recipe.post_content;
                             this.status = response.data.recipe.post_status;
+                            this.cookbooks_ids = response.data.recipe.cookbooks_ids;
 
                          }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
                          }
 
                       });
-           },
-           isSelectedCookbook(cookbooks, id){
-              return cookbooks.indexOf(id) !== -1;
            }
         }
 

@@ -41,15 +41,8 @@ class Ajax{
      */
     public function getUserCookbook(){
         $author_id = $_POST['author_id'];
-        $cookbooks = [];
 
-        if(intval($author_id) > 0){
-            $cookbooks = get_posts(array(
-                'post_type' => 'cookbook',
-                'author' => intval($author_id),
-                'post_status' => array('publish', 'draft')
-            ));
-        }
+        $cookbooks = getUserCookbook($author_id);
 
         echo json_encode(array('success'=> 'true', 'cookbooks' => $cookbooks));
         wp_die();
@@ -73,7 +66,7 @@ class Ajax{
      */
     public function addRecipe(){
 
-        $cookbooks_ids = !empty($_POST['cookbook_ids']) ? explode(',',$_POST['cookbook_ids']) : [];
+        $cookbooks_ids = !empty($_POST['cookbooks_ids']) ? explode(',',$_POST['cookbooks_ids']) : [];
         $ingredients = json_decode(str_replace("\\","",$_POST['ingredients']));
         $photos = json_decode(str_replace("\\","",$_POST['photos']));
         $title = $_POST['title'];
@@ -82,7 +75,6 @@ class Ajax{
         $author_id = $_POST['author_id'];
         $status = $_POST['status'];
         $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ): -1;
-        $cookbook_id = $_POST['cookbook_id'];
 
         if($post_id == -1){
             $post_id  = wp_insert_post( array(
@@ -91,7 +83,6 @@ class Ajax{
                     'post_status'   => $status,
                     'post_type'   => 'recipe',
                     'post_author'   => $author_id,
-
                 )
             );
 
@@ -144,9 +135,7 @@ class Ajax{
             /**
              * Creating the recipe relation with a cookbook
              */
-            if(count($cookbooks_ids) > 0){
-                insertCookbooksToRecipe($cookbooks_ids, $post_id);
-            }
+            insertCookbooksToRecipe($cookbooks_ids, $post_id);
 
             echo json_encode(array('success'=> true, 'msg' => 'Recipe inserted successfully', 'id' => $post_id));
             wp_die();
@@ -214,8 +203,14 @@ class Ajax{
      */
     public function getRecipe(){
         $id = $_POST['id'];
+        $author_id = $_POST['author_id'];
 
-        $cookbooks = getCookbooksFromRecipeId($id);
+        $cookbooks_recipe = getCookbooksFromRecipeId($id);
+        $cookbooks_ids = [];
+
+        foreach ($cookbooks_recipe as $cookbook_recipe){
+            $cookbooks_ids[] = $cookbook_recipe['ID'];
+        }
 
         $recipe = get_post($id);
 
@@ -249,7 +244,8 @@ class Ajax{
 
         $recipe->category = $term_obj_list[0]->term_id;
         $recipe->category_name = $term_obj_list[0]->name;
-        $recipe->cookbooks  = $cookbooks;
+        $recipe->cookbooks_ids = $cookbooks_ids;
+        $recipe->cookbooks_selected = getCookbooksFromRecipeId($id);
 
         if($recipe){
             echo json_encode(array('success'=> 'true', 'recipe' => $recipe));

@@ -134,7 +134,6 @@
                 this.changeScreen(query_parameter);
             },
             changeScreen(screen, id){
-                console.log(id,screen)
 
                 if(screen === 'dashboard'){
                     this.getYourRecipes();

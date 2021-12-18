@@ -85,7 +85,7 @@
                 featured_image:'',
                 photos:[],
                 cookbook_id: -1,
-                cookbooks: []
+                cookbooks_selected: []
 
             }
         },
@@ -99,15 +99,15 @@
                 return this.edit_mode;
             },
             first_cookbook_name(){
-                if(this.cookbooks.length > 0){
-                    return this.cookbooks[0].post_title;
+                if(this.cookbooks_selected.length > 0){
+                    return this.cookbooks_selected[0].post_title;
                 }else{
                     return ''
                 }
             },
             other_cookbooks_count(){
-                if(this.cookbooks.length > 1){
-                    var count = this.cookbooks.length - 1;
+                if(this.cookbooks_selected.length > 1){
+                    var count = this.cookbooks_selected.length - 1;
                     return 'and ' + count + ' more'
                 }
                 return '';
@@ -127,6 +127,7 @@
                 const formData = new FormData();
                 formData.append('action', 'get_recipe');
                 formData.append('id', this.edit_mode);
+                formData.append('author_id', parameters.current_user.data.ID);
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){
@@ -138,8 +139,7 @@
                             this.instructions = response.data.recipe.post_content;
                             this.status = response.data.recipe.post_status
                             this.featured_image = this.photos[0].url;
-                            this.cookbooks = response.data.recipe.cookbooks;
-                            console.log(this.cookbooks[0])
+                            this.cookbooks_selected = response.data.recipe.cookbooks_selected;
                         }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
                         }
