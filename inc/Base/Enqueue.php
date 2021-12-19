@@ -26,6 +26,8 @@ class Enqueue{
 
     function memd_enqueue_frontend(){
 
+         wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css');
+
         $pageID = get_the_ID();
         $account_type = CBF_EMPTY_ACCOUNT;
 
