@@ -13,6 +13,7 @@ final class Init{
             Base\Registration::class,
             Base\Shortcodes::class,
             Base\Ajax::class,
+            Base\POST::class
         ] ;
     }
 

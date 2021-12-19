@@ -1,7 +1,4 @@
 <?php
- function memd_generate_rand_id(){
-     return substr(md5(rand()),0,15);
- }
 
  function memd_format_date($date){
      return date( 'Y-m-d h:i:s ',strtotime($date));
@@ -118,6 +115,13 @@ function insertCookbooksToRecipe($cookbooks, $recipe_id){
 
 }
 
+function insertCollaboratorUser($user_id,$collaborator_id,$token){
+    global $wpdb;
+
+    $wpdb->query("INSERT INTO $wpdb->prefix" . "cbf_users_collaborators (user_id,collaborator_id,token) VALUES ('$user_id','$collaborator_id','$token')");
+
+}
+
 function getCookbooksFromRecipeId($id){
     global $wpdb;
 
@@ -139,4 +143,58 @@ function getUserCookbook($author_id){
     }
     return $cookbooks;
 }
+
+function cbf_generate_string($len){
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+
+    for ($i = 0; $i < $len; $i++) {
+        $index = rand(0, strlen($characters) - 1);
+        $randomString .= $characters[$index];
+    }
+
+    return $randomString;
+}
+
+function sendCollaboratorInvitation($email,$data){
+    $title   = 'You got an invitation to collaborate';
+    $content = memd_template(CBF_PLUGIN_PATH . '/templates/collaborator-invitation.php',$data);
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    // ...
+    wp_mail( $email, $title, $content,$headers);
+}
+
+function getCollaboratorOwnerUser($id){
+    global $wpdb;
+
+    $results = $wpdb->get_results("SELECT user_id FROM $wpdb->prefix" . "cbf_users_collaborators WHERE collaborator_id='$id' LIMIT 1", OBJECT);
+
+    $owner_id = $results[0]->user_id;
+
+    return count($results) > 0 ?  get_user_by('ID', $owner_id ) : -1;
+}
+
+function getCollaboratorsByOwnerId($id){
+    global $wpdb;
+
+    $collaborators = array();
+
+    $results = $wpdb->get_results("SELECT u.ID, u.user_email as email, uc.token
+                                  FROM $wpdb->prefix" . "cbf_users_collaborators uc
+                                  INNER JOIN $wpdb->prefix" . "users u ON uc.collaborator_id = u.ID
+                                  WHERE uc.user_id='$id'", ARRAY_A);
+    foreach ($results as $collaborator){
+        array_push($collaborators, array(
+            'ID' => $collaborator['ID'],
+            'email' => $collaborator['email'],
+            'token' => $collaborator['token'],
+            'first' => get_user_meta($collaborator['ID'],'first_name',true),
+            'last' => get_user_meta($collaborator['ID'],'last_name',true),
+            'status' => get_user_meta($collaborator['ID'],'invitation_status',true)
+        ));
+    }
+
+    return $collaborators;
+}
+
 

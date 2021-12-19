@@ -127,7 +127,7 @@
                 const formData = new FormData();
                 formData.append('action', 'get_recipe');
                 formData.append('id', this.edit_mode);
-                formData.append('author_id', parameters.current_user.data.ID);
+                formData.append('author_id', parameters.owner.ID);
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){

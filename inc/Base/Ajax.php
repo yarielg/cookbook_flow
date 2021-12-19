@@ -34,6 +34,15 @@ class Ajax{
 
         add_action( 'wp_ajax_get_user_cookbooks', array($this, 'getUserCookbook') );
         add_action( 'wp_ajax_nopriv_get_user_cookbooks', array($this, 'getUserCookbook') );
+
+        add_action( 'wp_ajax_add_collaborator', array($this, 'addCollaborator') );
+        add_action( 'wp_ajax_nopriv_add_collaborator', array($this, 'addCollaborator') );
+
+        add_action( 'wp_ajax_get_collaborators', array($this, 'getCollaborators') );
+        add_action( 'wp_ajax_nopriv_get_collaborators', array($this, 'getCollaborators') );
+
+        add_action( 'wp_ajax_remove_collaborator', array($this, 'removeCollaborator') );
+        add_action( 'wp_ajax_nopriv_remove_collaborator', array($this, 'removeCollaborator') );
     }
 
     /**
@@ -266,7 +275,7 @@ class Ajax{
             echo json_encode(array('success'=> true, 'msg' => 'Photo inserted successfully', 'photo_id' => $photo_id));
             wp_die();
         }else{
-            echo json_encode(array('success'=> 'false', 'msg' => 'The Photo could not be inserted'));
+            echo json_encode(array('success'=> false, 'msg' => 'The Photo could not be inserted'));
             wp_die();
         }
     }
@@ -300,8 +309,81 @@ class Ajax{
             }
         }
 
-        echo json_encode(array('success'=> 'true', 'recipes' => $recipes));
+        echo json_encode(array('success'=> true, 'recipes' => $recipes));
         wp_die();
     }
 
+    /**
+     * Add collaborator (sent invitation link by email)
+     */
+    function addCollaborator(){
+        $first = $_POST['first'];
+        $last = $_POST['last'];
+        $email = $_POST['email'];
+        $author_id = $_POST['author_id'];
+        $password = cbf_generate_string(12);
+        $token = cbf_generate_string(22);
+
+        if(email_exists($email)){
+            echo json_encode(array('success'=> false, 'msg' => 'There is a collaborator with the same email'));
+            wp_die();
+        }
+
+        $user_id = wp_create_user( $email, $password, $email );
+        $user = get_user_by( 'id', $user_id );
+
+        update_user_meta($user_id,'first_name',$first);
+        update_user_meta($user_id,'last_name',$last);
+        update_user_meta($user_id,'invitation_status','Sent');
+
+        insertCollaboratorUser($author_id, $user_id, $token);
+
+        $user->add_role( 'cbf_collaborator' );
+        $user->remove_role( 'subscriber' );
+
+        $link = get_option('siteurl') . '/collaborator-sign-up?token=' . $token . '&email='.$email . '&first=' . $first . '&last=' . $last . '&collaborator_id=' . $user_id;
+
+        sendCollaboratorInvitation($email,array('link' => 'https://google.com', 'first' => $first, 'link'=> $link));
+
+        $collaborator = array('first' => $first, 'last' => $last, 'email' => $email, 'token' => $token, 'ID' => $user_id, 'status' => 'Sent');
+
+        echo json_encode(array('success'=> true , 'collaborator' => $collaborator ));
+        wp_die();
+
+
+    }
+
+    /**
+     * Get all the collaborators by owner id
+     */
+    public function getCollaborators(){
+
+        $user_id = $_POST['user_id'];
+
+        $collaborators = getCollaboratorsByOwnerId($user_id);
+
+        echo json_encode(array('success'=> true , 'collaborators' => $collaborators));
+        wp_die();
+    }
+
+    /**
+     * Remove collaboration, action can only be trigger by the owner account
+     */
+    public function removeCollaborator(){
+        $id = $_POST['collaborator_id'];
+
+        if(empty($id)){
+            echo json_encode(array('success'=> false , 'msg' => 'There was am error removing the collaborator, collaborator id was not provided'));
+            wp_die();
+        }
+
+        if(!wp_delete_user( $id )){
+            echo json_encode(array('success'=> false , 'msg' => 'There user could not be deleted'));
+            wp_die();
+        }
+
+        echo json_encode(array('success'=> true , 'msg' => 'Collaborator deleted'));
+        wp_die();
+
+    }
 }

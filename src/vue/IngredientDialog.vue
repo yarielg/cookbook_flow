@@ -73,7 +73,7 @@
         },
         data () {
             return {
-                dialog: false,
+              //  dialog: false,
                 valid:false,
                 nameRules: [
                     v => !!v || 'Name is required',

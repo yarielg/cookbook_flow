@@ -15,6 +15,7 @@ class DefaultSettings
         add_action( 'init', array($this,'cptui_register_my_cpts') );
         add_action( 'init', array($this, 'cptui_register_my_taxes_cat_recipe') );
         add_action( 'init', array($this, 'cptui_register_my_cpts_cookbook') );
+        add_action( 'init', array($this, 'cbf_add_collaborator') );
 
         /**
          * Overriding RCP templates
@@ -225,5 +226,10 @@ class DefaultSettings
         register_post_type( "cookbook", $args );
     }
 
-
+    /**
+     * Adding collaborator role
+     */
+    function cbf_add_collaborator(){
+        add_role( 'cbf_collaborator', 'Collaborator', array( 'read' => true, 'level_0' => true ) );
+    }
 }

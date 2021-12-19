@@ -178,7 +178,7 @@
                     formData.append('front', this.front);
                     formData.append('recipes', this.getTheRecipesIDs());
 
-                    formData.append('author_id', parameters.current_user.data.ID);
+                    formData.append('author_id', parameters.owner.ID);
 
                     formData.append('edit', this.edit_mode);
 

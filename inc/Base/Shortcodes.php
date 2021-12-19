@@ -16,6 +16,7 @@ class Shortcodes
         add_shortcode( 'cbf_login', array($this, 'login') );
         add_shortcode( 'cbf_dashboard', array($this, 'dashboard') );
         add_shortcode( 'cbf_search_recipe', array($this, 'searchRecipe') );
+        add_shortcode( 'cbf_collaborator_sign_up', array($this, 'collaboratorSignUp') );
     }
 
 
@@ -44,4 +45,31 @@ class Shortcodes
         return $output;
     }
 
+    /**
+     * Shortcode to output the form for collaborators to sign up
+     */
+    public function collaboratorSignUp(){
+        /**
+         * 1- get  the parameters
+         * 2- update user with the new password
+         * 3- login the user
+         */
+        $data = array();
+
+        if(isset($_GET['token']) && strlen($_GET['token']) == 22){
+            $data = array(
+                'first' => $_GET['first'],
+                'last' => $_GET['last'],
+                'email' => $_GET['email'],
+                'token' => $_GET['token'],
+                'collaborator_id' => $_GET['collaborator_id']
+            );
+
+            $output = memd_template(CBF_PLUGIN_PATH . 'templates/collaborator_sign_up.php' , $data);
+            return $output;
+        }
+
+        return do_shortcode('[login_form]');
+
+    }
 }

@@ -29,6 +29,12 @@ define('CBF_PLUGIN_URL' , plugin_dir_url(  __FILE__  ) );
 define('CBF_ADMIN_URL' , get_admin_url() );
 define('CBF_PLUGIN_DIR_BASENAME' , dirname(plugin_basename(__FILE__)) );
 
+//Constant plugin
+define('CBF_EMPTY_ACCOUNT', -1);
+define('CBF_FREE_ACCOUNT', 0);
+define('CBF_OWNER_ACCOUNT', 1);
+define('CBF_COLLABORATOR_ACCOUNT', 2);
+
 
 //include the helpers
 include 'inc/util/helpers.php';

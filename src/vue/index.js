@@ -11,6 +11,8 @@ import IngredientDialog from "./IngredientDialog.vue";
 import AddRecipe from "./AddRecipe.vue";
 import AddCookbook from "./AddCookbook.vue";
 import ViewRecipe from "./ViewRecipe.vue";
+import Collaborators from "./Collaborators.vue";
+import CollaboratorDialog from "./CollaboratorDialog.vue";
 
 Vue.component('vueper-slide', VueperSlide)
 Vue.component('vueper-slides', VueperSlides)
@@ -18,6 +20,8 @@ Vue.component('ingredient-dialog', IngredientDialog)
 Vue.component('add-recipe', AddRecipe)
 Vue.component('view-recipe', ViewRecipe)
 Vue.component('add-cookbook', AddCookbook)
+Vue.component('collaborators', Collaborators)
+Vue.component('collaborator-dialog', CollaboratorDialog)
 
 
 new Vue({

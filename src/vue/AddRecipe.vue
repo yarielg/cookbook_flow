@@ -255,7 +255,7 @@
                 // formData.append('instructions', JSON.stringify(this.editor.root.innerHTML.trim()));
                  formData.append('instructions',this.editor.root.innerHTML.trim());
                  formData.append('ingredients', JSON.stringify(this.ingredients));
-                 formData.append('author_id', parameters.current_user.data.ID);
+                 formData.append('author_id', parameters.owner.ID);
                  formData.append('photos', JSON.stringify(this.photos));
                  formData.append('status', this.status);
                  formData.append('cookbooks_ids', this.cookbooks_ids);
@@ -331,7 +331,7 @@
            getCookbooks(){
               const formData = new FormData();
               formData.append('action', 'get_user_cookbooks');
-              formData.append('author_id', parameters.current_user.data.ID)
+              formData.append('author_id', parameters.owner.ID)
               axios.post(parameters.ajax_url, formData)
                       .then( response => {
                          if(response.data.success){
@@ -345,7 +345,7 @@
               const formData = new FormData();
               formData.append('action', 'get_recipe');
               formData.append('id', this.edit_mode);
-              formData.append('author_id', parameters.current_user.data.ID)
+              formData.append('author_id', parameters.owner.ID)
               axios.post(parameters.ajax_url, formData)
                       .then( response => {
                          if(response.data.success){

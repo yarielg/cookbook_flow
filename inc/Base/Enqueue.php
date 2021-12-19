@@ -25,21 +25,42 @@ class Enqueue{
     }*/
 
     function memd_enqueue_frontend(){
-        //enqueue all our scripts frontend
 
-        $currentID = get_the_ID();
+        $pageID = get_the_ID();
+        $account_type = CBF_EMPTY_ACCOUNT;
 
-        wp_enqueue_style('vue-custom-font', 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' );
-        wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css');
-        wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF' ,array(),'1.0', true);
+        if(is_user_logged_in() && $pageID == 6){
 
+            $user = null;
+            $premium = false;
+            $owner = false;
 
-        $countMemberships = 0;
-        if($currentID == 6){
-            $customer = rcp_get_customer_by_user_id( get_current_user_id() );
+            $account_type = CBF_FREE_ACCOUNT;
+            // wp_enqueue_style('vue-custom-font', 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' );
+            // wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css');
+
+            $user = wp_get_current_user();
+            $owner = $user;
+
+            if ( in_array( 'cbf_collaborator', (array) $user->roles ) ) {
+
+                $account_type = CBF_COLLABORATOR_ACCOUNT;
+                /**
+                 * Determine if the collaborator is tied to free/paid owner account
+                 */
+                $owner = getCollaboratorOwnerUser($user->ID);
+            }
+
+            /**
+             * Check if the current user is premium (current user can be a collaborator or the account owner, in both case we need to determine if the account is premium)
+             */
+            $owner_id =  $owner->ID;
+            $customer = rcp_get_customer_by_user_id( $owner_id );
+
             if($customer){
                 $memberships = $customer->get_memberships();
-                $countMemberships = $memberships[0]->get_gateway() == 'free' ? 0 : 1;
+                $premium = $memberships[0]->get_gateway() == 'free' ? false : true;
+                $account_type = $account_type != CBF_COLLABORATOR_ACCOUNT && $premium ? CBF_OWNER_ACCOUNT : $account_type;
             }
 
             wp_enqueue_style('vue-custom-icon', 'https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css');
@@ -50,9 +71,9 @@ class Enqueue{
             wp_enqueue_script('toastr-js', 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js' ,array(),'1.0', true);
             wp_enqueue_script('quill-js', 'https://cdn.quilljs.com/1.3.6/quill.min.js' ,array(),'1.0', true);
             wp_enqueue_script('vue-custom-js', CBF_PLUGIN_URL . '/dist/scripts.js' ,array('jquery','toastr-js','quill-js'),'1.0', true);
-            wp_localize_script( 'vue-custom-js', 'parameters', ['ajax_url'=> admin_url('admin-ajax.php'),'plugin_path' => CBF_PLUGIN_URL, 'current_user' =>  wp_get_current_user(), 'membership' => $countMemberships]);
+            wp_localize_script( 'vue-custom-js', 'parameters', ['ajax_url'=> admin_url('admin-ajax.php'),'plugin_path' => CBF_PLUGIN_URL, 'current_user' =>  $user, 'account_type' => $account_type,'premium' => $premium, 'owner' => $owner]);
 
-        }
+            }
 
         wp_enqueue_style( 'main_css', CBF_PLUGIN_URL . '/assets/css/main.css'  );
     }

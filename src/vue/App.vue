@@ -3,7 +3,7 @@
         <div class="container dashboard" v-if="active_screen == 'dashboard'">
             <div class="row mb-6">
                 <div class="col-md-6 text-center box-panel">
-                    <div class="panel-wrapper" v-show="!premium_account">
+                    <div class="panel-wrapper" v-show="!premium_account && account_type == 1">
                         <h4 class="">
                             Upgrade to start creating a cookbook!
                         </h4>
@@ -99,7 +99,7 @@
         <add-recipe :edit_mode="edit_recipe" v-if="active_screen == 'add-recipe'" @goViewRecipe="changeScreen('view-recipe',edit_recipe)" @goViewRecipeWithId="goViewRecipeWithId" @goBack="changeScreen('dashboard')" ></add-recipe>
         <add-cookbook :edit_mode="edit_cookbook" v-if="active_screen == 'add-cookbook'" :recipes="recipes" @goBack="changeScreen('dashboard')" ></add-cookbook>
         <view-recipe :edit_mode="edit_recipe" v-if="active_screen == 'view-recipe'" :recipes="recipes" @goEditRecipe="changeScreen('add-recipe',edit_recipe)" @goBack="changeScreen('dashboard')" ></view-recipe>
-
+        <collaborators  v-if="active_screen == 'collaborators'"></collaborators>
     </v-app>
 </template>
 
@@ -109,22 +109,23 @@
     export default {
         data () {
             return {
-               account_premium: false,
                active_screen: 'dashboard',
                recipes:[],
                edit_recipe: -1,
                edit_cookbook: -1,
-               premium_account: false
+               premium_account: false,
+               account_type: 0
             }
         },
         created(){
 
+            //Determine what flow the app will have depending on the account type and the user role
+            this.secureAccount();
             //Change screen in case there is a query parameter
             this.queryParameterChangeScreen();
 
-            if(parseInt(parameters.membership) === 1){
-                this.premium_account = true;
-            }
+            this.premium_account = parameters.premium;
+            this.account_type = parameters.account_type;
             this.getYourRecipes();
 
         },
@@ -153,7 +154,7 @@
             getYourRecipes(){
                 const formData = new FormData();
                 formData.append('action', 'get_your_recipes');
-                formData.append('author_id', parameters.current_user.data.ID)
+                formData.append('author_id', parameters.owner.ID)
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){
@@ -168,6 +169,9 @@
             },
             goToUpgradeMembership(){
                 window.location = '/register/?registration_type=upgrade';
+            },
+            secureAccount(){
+
             }
         }
 
