@@ -20,71 +20,73 @@ $ingredients = get_field( 'cbf_ingredients',$recipe_id );
 
 ?>
 
+<div class="container mt-5">
+    <div class="row">
 
+        <div class="image-wrap col-md-6">
+            <?php
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <article id="post-<?php the_ID(); ?>" class="recipe-single">
-                    <div class="post-thumbnail">
-                        <?php
+            if(count($images) > 0){
+                ?>
+                <img src="<?php echo $images[0]['image']['url'] ?>" alt="">
+                <?php
+            }
+            ?>
+        </div>
 
-                        if(count($images) > 0){
-                            ?>
-                            <img src="<?php echo $images[0]['image']['url'] ?>" alt="">
-                            <?php
-                        }
-                        ?>
-                    </div>
-                    <span class="badge badge-secondary"><?php echo $category; ?></span>
-                    <br><br>
-                    <header class="entry-header">
-                        <?php
-                        the_title( '<h1 class="entry-title">', '</h1>' );
-                        ?>
-                    </header>
+        <div class="col-md-6">
+            <?php
+            the_title( '<h1 class="entry-title">', '</h1>' );
+            ?>
 
-                    <div class="info-div">
-                        <label for=""><strong>INGREDIENTS</strong></label>
-                        <ul class="recipe_ingredients">
-                            <?php
-                            foreach ($ingredients as $ingredient){
-                                echo "<li>" . $ingredient['unit'] . " " . $ingredient['quantity'] . " " . $ingredient['name'] . "</li>";
-                            }
-                            ?>
-                        </ul>
-                    </div>
-
-
-                    <div class="info-div mr-4">
-                        <label for=""><strong>INSTRUCTIONS</strong></label>
-                        <?php
-                        the_content();
-                        ?>
-                    </div>
-
-                    <div class="info-div mr-4">
-                        <label for=""><strong>PHOTOS</strong></label>
-                        <ul class="photo_recipe_gallery">
-                            <?php
-                            $cont = 0;
-                            foreach ($images as $image){
-                                if($cont == 0){
-                                    $cont++; continue;
-                                }
-
-                                echo "<li class='single-image-gallery'><img src='" . $image['image']['url'] . "' alt=''></li>";
-
-                                $cont++;
-                            }
-                            ?>
-                        </ul>
-                    </div>
-
-                </article>
+            <span class="badge badge-secondary"><?php echo $category; ?></span>
+            <br><br>
+            <div class="info-div">
+                <label for=""><strong>INGREDIENTS</strong></label>
+                <ul class="recipe_ingredients">
+                    <?php
+                    foreach ($ingredients as $ingredient){
+                        echo "<li>" . $ingredient['unit'] . " " . $ingredient['quantity'] . " " . $ingredient['name'] . "</li>";
+                    }
+                    ?>
+                </ul>
             </div>
+
+
+
         </div>
     </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="info-div mr- mt-3">
+                <label for=""><strong>INSTRUCTIONS</strong></label>
+                <?php
+                the_content();
+                ?>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="info-div mr-4 mt-3">
+                <label for=""><strong>RECIPE GALLERY</strong></label>
+                <ul class="photo_recipe_gallery mt-4">
+                    <?php
+                    $cont = 0;
+                    foreach ($images as $image){
+                        if($cont == 0){
+                            $cont++; continue;
+                        }
+
+                        echo "<li class='single-image-gallery'><img src='" . $image['image']['url'] . "' alt=''></li>";
+
+                        $cont++;
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
 
