@@ -28,7 +28,7 @@ $ingredients = get_field( 'cbf_ingredients',$recipe_id );
 
             if(count($images) > 0){
                 ?>
-                <img src="<?php echo $images[0]['image']['url'] ?>" alt="">
+                <img style="width:100%" src="<?php echo $images[0]['image']['url'] ?>" alt="">
                 <?php
             }
             ?>
