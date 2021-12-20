@@ -18,8 +18,6 @@ $images = get_field( 'cbf_photos', $recipe_id );
 $category = $term_obj_list ? $term_obj_list[0]->name : '';
 $ingredients = get_field( 'cbf_ingredients',$recipe_id );
 
-var_dump($images);
-
 ?>
 
 
