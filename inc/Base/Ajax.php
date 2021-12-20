@@ -82,7 +82,7 @@ class Ajax{
         $category = json_decode(str_replace("\\","",$_POST['category']));
         $instructions = str_replace('\\','',$_POST['instructions']);
         $author_id = $_POST['author_id'];
-        $status = $_POST['status'];
+        $status = strtolower($_POST['status']);
         $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ): -1;
 
         if($post_id == -1){

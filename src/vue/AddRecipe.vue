@@ -211,6 +211,15 @@
           this.editor = new Quill('#editor_instructions', options);
        },
         methods:{
+           checkField(field,type){
+              var flag = false;
+              console.log(field)
+              switch (type) {
+                  case 'text':
+                     flag = field !== '';
+                     break
+              }
+           },
            goBack(){
               this.$emit('goBack');
            },

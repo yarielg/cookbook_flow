@@ -24,6 +24,11 @@ class DefaultSettings
         add_filter( 'rcp_template_stack', array($this, 'cbf_overriding_rcp_templates'), 1,10 );
 
         /**
+         * Overriding theme templates
+         */
+        add_filter( 'single_template', array($this,'load_single_recipe_template') );
+
+        /**
          * Adding a new recipe CPT status
          */
         add_action( 'init', array($this,'cbf_register_custom_post_status') );
@@ -52,6 +57,22 @@ class DefaultSettings
     }
 
     return $template;
+    }
+
+    function load_single_recipe_template( $template ) {
+        global $post;
+
+        if ( 'recipe' === $post->post_type && locate_template( array( 'single-recipe.php' ) ) !== $template ) {
+            /*
+             * This is a 'movie' post
+             * AND a 'single movie template' is not found on
+             * theme or child theme directories, so load it
+             * from our plugin directory.
+             */
+            return CBF_PLUGIN_PATH . 'templates/single-recipe.php';
+        }
+
+        return $template;
     }
 
     function cptui_register_my_cpts() {

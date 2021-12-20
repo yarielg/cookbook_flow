@@ -53,7 +53,7 @@
                         text
                         @click="addIngredient"
                 >
-                    Add more
+                    Add
                 </v-btn>
             </v-card-actions>
         </v-card>

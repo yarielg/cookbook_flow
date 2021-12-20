@@ -9,7 +9,7 @@
                         </h4>
                         <p class="">Nam porttitor blandit accumsan. Ut vel
                             dictum sem, a pretium dui. In malesuada
-                            enim in dolor euismod,</p>
+                            enim in dolor euismod,Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aperiam aspernatur assumenda, blanditiis corporis delectus dolor eius est eveniet laboriosam libero minima molestiae nam numquam odit qui veritatis vero voluptates.</p>
                         <button @click="goToUpgradeMembership()" class="btn-normal">Upgrade Account</button>
                     </div>
                     <div class="panel-wrapper" v-show="premium_account">
@@ -25,7 +25,7 @@
 
                 <div class="col-md-6 text-center box-panel">
                     <div class="panel-wrapper">
-                        <h4 class="">Have a designer help make my cookbook.</h4>
+                        <h4 class="">Help me design my cookbook.</h4>
                         <p class="">Nam porttitor blandit accumsan. Ut vel dictum sem,
                             a pretium dui. In malesuada enim in dolor euismod,</p>
                         <button class="btn-normal">Get started</button>
@@ -68,7 +68,7 @@
                         <div class="container recipe-wrapper">
                             <div v-for="recipe in recipes" :key="recipe.ID"  class="row recipe">
                                 <div class="col-md-2"><img class="recipe_img" :src="recipe.photo_url" alt=""></div>
-                                <div class="col-md-8 centered_col"><h5>{{ recipe.post_title }}</h5></div>
+                                <div class="col-md-8 centered_col"><p>{{ recipe.post_title }}</p></div>
                                 <div class="col-md-1 centered_col"><button class="btn-normal" @click="changeScreen('add-recipe', recipe.ID)">Edit</button></div>
                                 <div class="col-md-1 centered_col"><button class="btn-normal" @click="changeScreen('view-recipe',recipe.ID)">View</button></div>
                             </div>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="col-md-4 box-panel text-center">
                     <div class="panel-wrapper">
-                        <h4 class="mb-5 pb-5">ADD / PROMOTION SPACE</h4>
+                        <h4 class="mb-5 pb-5">Add / Promotion Space</h4>
                         <p class="">As a user continues to build out their
                             dashboard with content, we could
                             trickle in CTA spaces for promotions

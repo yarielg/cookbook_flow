@@ -21,6 +21,7 @@
     border-radius: 8px;
     color: #78849c;
     padding: 50px 20px;
+    min-height: 300px;
 }
 
 .top-bar-assign{
@@ -242,6 +243,19 @@ label[for="rcp-card-name"]{
     margin: 0 auto;
 }
 
+/* THEME STYLES*/
+ul.photo_recipe_gallery{
+    list-style: none;
+}
+
+ul.photo_recipe_gallery li{
+    display: inline-block;
+    margin-right: 30px;
+}
+
+ul.photo_recipe_gallery li.single-image-gallery img{
+    width: 200px !important;
+}
 
 
 /* Bootstrap*/
