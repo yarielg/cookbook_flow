@@ -60,13 +60,15 @@ $ingredients = get_field( 'cbf_ingredients',$recipe_id );
         <div class="col-12">
             <div class="info-div mr- mt-3">
                 <label for=""><strong>INSTRUCTIONS</strong></label>
-                <?php
-                the_content();
-                ?>
+                <div class="instructions-wrapper ml-3">
+                    <?php
+                    the_content();
+                    ?>
+                </div>
             </div>
         </div>
         <div class="col-12">
-            <div class="info-div mr-4 mt-3">
+            <div class="info-div mt-3">
                 <label for=""><strong>RECIPE GALLERY</strong></label>
                 <ul class="photo_recipe_gallery mt-4">
                     <?php
