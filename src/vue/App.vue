@@ -42,24 +42,6 @@
                 </div>
             </div>
 
-            <!--<div class="row mt-6 mb-6" v-if="recipes.length > 0">
-                <div class="col-12">
-                    <h4>Search our library of recipes! </h4>
-                    <p>Get inspiration or add them to your own recipe book from our library of recipes.</p>
-                </div>
-                <div class="col-12 text-center">
-                    <input type="text" placeholder="Search">
-                </div>
-            </div>
-
-            <div class="row mt-6 mb-6">
-                <div class="col-md-2 box-panel" v-for="recipe in recipes" :key="recipe.ID">
-                    <div class="panel-wrapper">
-                        {{recipe.post_title}}
-                    </div>
-                </div>
-            </div>-->
-
             <div class="row mt-6">
                 <div class="col-md-8 box-panel">
                     <div class="panel-wrapper">
@@ -70,7 +52,7 @@
                                 <div class="col-md-2"><img class="recipe_img" :src="recipe.photo_url" alt=""></div>
                                 <div class="col-md-8 centered_col"><p>{{ recipe.post_title }}</p></div>
                                 <div class="col-md-1 centered_col"><button class="btn-normal" @click="changeScreen('add-recipe', recipe.ID)">Edit</button></div>
-                                <div class="col-md-1 centered_col"><button class="btn-normal" @click="changeScreen('view-recipe',recipe.ID)">View</button></div>
+                                <div class="col-md-1 centered_col"><button class="btn-normal" :disabled="recipes.incomplete" @click="changeScreen('view-recipe',recipe.ID)">View</button></div>
                             </div>
                         </div>
                         <div class="container">

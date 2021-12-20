@@ -30,15 +30,15 @@
                 <span class="action_secondary delete-icon mt-5 pt-5">Delete Recipe</span>
 
             </div>
-            <div class="col-md-8 main-panel pt-0">
-                <div class="section-info">
+            <div class="col-md-8 main-panel pt-0" >
+                <div class="section-info" v-if="featured_image !== ''">
                     <img class="featured_image" :src="featured_image" alt="">
                 </div>
                 <div class="section-info">
-                    <label class="label-info-header" for="">{{ category }}</label>
+                    <label class="label-info-header" v-if="category !== ''" for="">{{ category }}</label>
                     <h2>{{ title }}</h2>
                 </div>
-                <div class="section-info">
+                <div class="section-info" v-if="ingredients.length > 0">
                     <label class="label-info-header" for="">INGREDIENTS</label>
                     <ul>
                         <li v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity">
@@ -46,11 +46,11 @@
                         </li>
                     </ul>
                 </div>
-                <div class="section-info">
+                <div v-if="instructions !== '<p><br></p>'" class="section-info">
                     <label class="label-info-header" for="">INSTRUCTIONS</label>
                     <div v-html="instructions"></div>
                 </div>
-                <div class="section-info">
+                <div class="section-info" v-if="photos.length > 0">
                     <vueper-slides
                             class="no-shadow"
                             :visible-slides="3"
@@ -131,14 +131,14 @@
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){
-                            this.category =  response.data.recipe.category_name.toUpperCase();
+                            this.category =  response.data.recipe.category_name !== '' ? response.data.recipe.category_name.toUpperCase() : '';
                             this.title = response.data.recipe.post_title;
                             this.status = response.data.recipe.post_status;
                             this.ingredients = response.data.recipe.ingredients;
                             this.photos = response.data.recipe.photos;
                             this.instructions = response.data.recipe.post_content;
                             this.status = response.data.recipe.post_status
-                            this.featured_image = this.photos[0].url;
+                            this.featured_image = this.photos.length > 0 ? this.photos[0].url : '';
                             this.cookbooks_selected = response.data.recipe.cookbooks_selected;
                         }else{
                             toastr.warning('We could not get the recipe categories', 'Error');

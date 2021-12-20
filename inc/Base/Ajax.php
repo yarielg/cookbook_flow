@@ -79,7 +79,7 @@ class Ajax{
         $ingredients = json_decode(str_replace("\\","",$_POST['ingredients']));
         $photos = json_decode(str_replace("\\","",$_POST['photos']));
         $title = $_POST['title'];
-        $category = json_decode(str_replace("\\","",$_POST['category']));
+        $category = $_POST['category'];
         $instructions = str_replace('\\','',$_POST['instructions']);
         $author_id = $_POST['author_id'];
         $status = strtolower($_POST['status']);
@@ -105,46 +105,55 @@ class Ajax{
 
         }
 
+
         if($post_id != 0){
 
             //Saving category
-            $category_inserted = wp_set_object_terms( $post_id, $category, 'cat_recipe' );
+            if($category != -1){
+                $category_inserted = wp_set_object_terms( $post_id, intval($category), 'cat_recipe' );
+                if(!$category_inserted){
+                    echo json_encode(array('success'=> 'false', 'msg' => 'There was an error when inserting the recipe category'));
 
-            if(!$category_inserted){
-                echo json_encode(array('success'=> 'false', 'msg' => 'There was an error when inserting the recipe category'));
-                wp_die();
+                    wp_die();
+                }
+
             }
 
             /**
              * Adding/Updating the ingredients to ACF
              */
-            $ingredients_normalized = cbf_normalize_ingredients($ingredients);
-            // var_dump(update_field( 'cbf_ingredients', $ingredients_normalized,$post_id));exit;
-            update_field( 'cbf_ingredients', [],$post_id);
-            if(!update_field( 'cbf_ingredients', $ingredients_normalized,$post_id)){
-                echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted, error inserting ingredients'));
-                //   wp_die();
-            }
+            if(count($ingredients) > 0){
+                $ingredients_normalized = cbf_normalize_ingredients($ingredients);
+                // var_dump(update_field( 'cbf_ingredients', $ingredients_normalized,$post_id));exit;
+                update_field( 'cbf_ingredients', [],$post_id);
+                if(!update_field( 'cbf_ingredients', $ingredients_normalized,$post_id)){
+                    echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted, error inserting ingredients'));
+                    //   wp_die();
+                }
 
-            //var_dump($post_id);exit;
+            }
 
             /**
              * Adding/Updating the photos to ACF
              */
+            if(count($photos) > 0){
+                $photos = cbf_normalize_photos($photos);
 
-            $photos = cbf_normalize_photos($photos);
+                update_field( 'cbf_photos', [],$post_id);
 
-            update_field( 'cbf_photos', [],$post_id);
-
-            if(!update_field( 'cbf_photos', $photos,$post_id)){
-                echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted, error inserting photos'));
-                wp_die();
+                if(!update_field( 'cbf_photos', $photos,$post_id)){
+                    echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted, error inserting photos'));
+                    wp_die();
+                }
             }
 
             /**
              * Creating the recipe relation with a cookbook
              */
-            insertCookbooksToRecipe($cookbooks_ids, $post_id);
+            if(count($cookbooks_ids) > 0){
+                insertCookbooksToRecipe($cookbooks_ids, $post_id);
+            }
+
 
             echo json_encode(array('success'=> true, 'msg' => 'Recipe inserted successfully', 'id' => $post_id));
             wp_die();
@@ -212,7 +221,6 @@ class Ajax{
      */
     public function getRecipe(){
         $id = $_POST['id'];
-        $author_id = $_POST['author_id'];
 
         $cookbooks_recipe = getCookbooksFromRecipeId($id);
         $cookbooks_ids = [];
@@ -251,8 +259,8 @@ class Ajax{
 
         $term_obj_list = get_the_terms( $id, 'cat_recipe' );
 
-        $recipe->category = $term_obj_list[0]->term_id;
-        $recipe->category_name = $term_obj_list[0]->name;
+        $recipe->category = $term_obj_list ? $term_obj_list[0]->term_id : -1;
+        $recipe->category_name = $term_obj_list  ? $term_obj_list[0]->name : '';
         $recipe->cookbooks_ids = $cookbooks_ids;
         $recipe->cookbooks_selected = getCookbooksFromRecipeId($id);
 
@@ -291,6 +299,7 @@ class Ajax{
         if(intval($author_id) > 0){
             $recipes = get_posts(array(
                 'post_type' => 'recipe',
+                'numberposts' => -1,
                 'author' => intval($author_id),
                 'post_status' => array('publish', 'draft','private')
 

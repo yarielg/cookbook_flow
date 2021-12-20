@@ -1,13 +1,13 @@
 <template>
    <div class="container">
       <div class="row">
-         <div class="col-4">
+         <div class="col-md-4">
             <v-icon @click="goBack()">
                mdi-arrow-left
             </v-icon> Back
 
          </div>
-         <div class="col-8">
+         <div class="col-md-8">
             <div class="top-bar-assign" v-show="checkForm()">
                <div class="left bar">
                   <v-menu  :close-on-content-click="false" :nudge-width="200" offset-y transition="scale-transition">
@@ -48,13 +48,10 @@
                </div>
                <div class="right bar">
                   <span class="link_action" @click="goViewRecipe()" >Cancel</span>
-                  <button :disabled="!checkForm()" @click="addRecipe()" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>
+                  <button :disabled="!checkForm()" @click="addRecipe(status)" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>
                </div>
             </div>
-            <!--<v-switch
-              :label="`Public`"
-              v-model="status"
-            ></v-switch>-->
+            <button class="float-right btn-normal" v-show="!checkForm()" @click="addRecipe('Draft')">Save as Draft</button>
          </div>
       </div>
       <div class="row">
@@ -74,7 +71,7 @@
             <form
                method="post"
                action=""
-               @submit.prevent="addRecipe()">
+               @submit.prevent="addRecipe(status)">
 
                <div class="form-group">
                   <label for="recipe_title">Recipe Title</label>
@@ -154,7 +151,7 @@
                photos:[],
                cookbooks_ids: [],
                cookbooks:[],
-               cookbooks_selected: []
+               cookbooks_selected: [],
 
             }
         },
@@ -176,6 +173,7 @@
           this.status = 'Draft';
           this.cookbooks = [];
           this.cookbooks_ids = [];
+
         },
        computed:{
           recipe_id(){
@@ -255,18 +253,17 @@
                       }
               );
            },
-           addRecipe(){
-              if(this.checkForm() ){
+           addRecipe(status){
+              if(this.title !== '' ){
                  const formData = new FormData();
                  formData.append('action', 'add_recipe');
                  formData.append('category', this.category);
                  formData.append('title', this.title);
-                // formData.append('instructions', JSON.stringify(this.editor.root.innerHTML.trim()));
                  formData.append('instructions',this.editor.root.innerHTML.trim());
                  formData.append('ingredients', JSON.stringify(this.ingredients));
                  formData.append('author_id', parameters.owner.ID);
                  formData.append('photos', JSON.stringify(this.photos));
-                 formData.append('status', this.status);
+                 formData.append('status', status);
                  formData.append('cookbooks_ids', this.cookbooks_ids);
                  formData.append('edit', this.edit_mode);
 
@@ -287,11 +284,10 @@
                          }
                    })
               }else{
-                 toastr.warning('you have some errors, please correct them.', 'Error');
+                 toastr.warning('You must define a Recipe title', 'Error');
               }
            },
            fileChanged(e){
-
               if(this.current_image !== null && this.current_image !== ''){
                  const formData = new FormData();
                  formData.append('action', 'add_photo');
