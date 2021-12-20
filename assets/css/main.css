@@ -220,6 +220,10 @@ label[for="rcp-card-name"]{
     margin: 0 auto;
 }
 
+.btn-normal a{
+    text-decoration: none !important;
+}
+
 .line_or span{
     padding: 10px;
     border: 1px solid;
