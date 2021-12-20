@@ -253,6 +253,14 @@ ul.photo_recipe_gallery li{
     margin-right: 30px;
 }
 
+.image-wrap img{
+    width: 100% !important;
+}
+
+.recipe_ingredients{
+
+}
+
 ul.photo_recipe_gallery li.single-image-gallery img{
     width: 200px !important;
 }

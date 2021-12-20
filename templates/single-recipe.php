@@ -52,8 +52,6 @@ $ingredients = get_field( 'cbf_ingredients',$recipe_id );
                 </ul>
             </div>
 
-
-
         </div>
     </div>
     <div class="row">
