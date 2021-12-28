@@ -275,3 +275,12 @@ ul.photo_recipe_gallery li.single-image-gallery img{
         max-width: 1140px !important;
     }
 }
+
+.dashboard-header .navbar-brand img{
+    width: 250px;
+}
+
+.account-menu img{
+    width: 20px;
+    margin-right: 5px;
+}

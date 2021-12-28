@@ -33,6 +33,20 @@ class DefaultSettings
          */
         add_action( 'init', array($this,'cbf_register_custom_post_status') );
 
+        /**
+         * Adding a Page Template for the dashboard
+         */
+      //  add_filter( 'page_template', array($this, 'wpa3396_page_template') );
+
+    }
+
+
+    function wpa3396_page_template( $page_template )
+    {
+        if ( is_page( 'welcome' ) ) {
+            $page_template = CBF_PLUGIN_PATH . 'templates/dashboard.php';
+        }
+        return $page_template;
     }
 
     // Register Custom Post Status
@@ -64,8 +78,8 @@ class DefaultSettings
 
         if ( 'recipe' === $post->post_type && locate_template( array( 'single-recipe.php' ) ) !== $template ) {
             /*
-             * This is a 'movie' post
-             * AND a 'single movie template' is not found on
+             * This is a 'recipe' post
+             * AND a 'single recipe template' is not found on
              * theme or child theme directories, so load it
              * from our plugin directory.
              */
