@@ -22,10 +22,8 @@
     </button>
     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarTogglerDemo01">
         <a class="navbar-brand " href="#"><img src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png"></a>
-        <ul class="navbar-nav mt-2 mt-lg-0 ">
-            <a class="nav-link dropdown-toggle account-menu" href="#" id="create_action_dropmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Create +
-            </a>
+        <ul class="navbar-nav mt-2 mt-lg-0 left-bar">
+            <a class="nav-link dropdown-toggle account-menu" href="#" id="create_action_dropmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Create</a>
             <div class="dropdown-menu" aria-labelledby="create_action_dropmenu">
                 <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-recipe') ?>">Create recipe</a>
                 <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-cookbook') ?>">Create cookbook</a>

@@ -284,3 +284,7 @@ ul.photo_recipe_gallery li.single-image-gallery img{
     width: 20px !important;
     margin-right: 5px !important;
 }
+
+.left-bar{
+    position: relative !important;
+}
