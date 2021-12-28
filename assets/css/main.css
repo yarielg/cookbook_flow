@@ -21,7 +21,10 @@
     border-radius: 8px;
     color: #78849c;
     padding: 50px 20px;
-    min-height: 300px;
+}
+
+.dashboard .box-panel .panel-wrapper{
+    height: 350px;
 }
 
 .top-bar-assign{

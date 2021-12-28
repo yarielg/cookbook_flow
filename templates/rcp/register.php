@@ -46,7 +46,7 @@ rcp_show_error_messages( 'register' ); ?>
                     <?php if( ! is_user_logged_in() ) { ?>
 
                         <?php do_action( 'rcp_before_register_form_fields' ); ?>
-                        <h5 class="text-center">Create a FREE account</h5>
+                        <h5 class="text-center left_heading_text">Create a FREE account</h5>
                         <div class="form-row">
                             <p id="rcp_user_first_wrap" class="form-group col-md-6">
                                 <label for="rcp_user_first"><?php echo apply_filters ( 'rcp_registration_firstname_label', __( 'First Name', 'rcp' ) ); ?></label>
@@ -76,15 +76,15 @@ rcp_show_error_messages( 'register' ); ?>
                             </div>
                             <div id="rcp_type_wrap" class="form-group col-md-12" >
                                 <div class="type_option text-center">
-                                    <input value="Personal" name="rcp_type" type="radio" <?=  $_POST['rcp_type'] == 'Personal' || !$upgrading ? 'checked' : '' ?>/>
+                                    <input value="Personal" name="rcp_type" type="radio" <?= isset($_POST['rcp_type']) &&  $_POST['rcp_type'] == 'Personal' || !$upgrading ? 'checked' : '' ?>/>
                                 <label for="rcp_type"><?php _e( 'Personal', 'rcp' ); ?></label>
                                 </div>
                                 <div class="type_option text-center">
-                                    <input value="Business" name="rcp_type" type="radio" <?= $_POST['rcp_type']  == 'Business' ? 'checked' : '' ?>/>
+                                    <input value="Business" name="rcp_type" type="radio" <?= isset($_POST['rcp_type']) && $_POST['rcp_type']  == 'Business' ? 'checked' : '' ?>/>
                                 <label for="rcp_type"><?php _e( 'Business', 'rcp' ); ?></label>
                                 </div>
                                 <div class="type_option text-center">
-                                    <input value="Fundraiser" name="rcp_type" type="radio" <?=  $_POST['rcp_type']  == 'Fundraiser' ? 'checked' : '' ?>/>
+                                    <input value="Fundraiser" name="rcp_type" type="radio" <?= isset($_POST['rcp_type']) && $_POST['rcp_type']  == 'Fundraiser' ? 'checked' : '' ?>/>
                                 <label for="rcp_type"><?php _e( 'Fundraiser', 'rcp' ); ?></label>
                                 </div>
                             </div>
@@ -231,6 +231,8 @@ if(!$upgrading){
                     $('.create_account_free').css('display','none');
                     $('.create_account_premium').css('display','block');
                     $('#rcp_subscription_level_1').trigger('click');
+                    $('.left_heading_text').text('Create a PREMIUM account');
+                    $('.line_or').css('display','none');
                 });
 
                 $('#go_free').on('click',function(){
@@ -242,6 +244,8 @@ if(!$upgrading){
                     $('#go_premium').css('display','block');
                     $('.create_account_free').css('display','block');
                     $('.create_account_premium').css('display','none');
+                    $('.left_heading_text').text('Create a FREE account');
+                    $('.line_or').css('display','flex');
                 });
             });
 

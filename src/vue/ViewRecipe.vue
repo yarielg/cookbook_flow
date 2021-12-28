@@ -14,7 +14,7 @@
                 <h4 class="text-center mt-2 pt-2">Recipe Information</h4>
                 <hr>
                 <label @click="editRecipe()" class="label-icon-edit mt-2 pt-2" for="">Cookbook used in:</label>
-                <h4 class="left-info">{{ first_cookbook_name }}</h4>
+                <p class="left-info"><strong>{{ first_cookbook_name }}</strong></p>
                 <p>{{ other_cookbooks_count }}</p>
                 <br>
                 <label @click="editRecipe()" for="" class="label-icon-edit">Recipe Type:</label>

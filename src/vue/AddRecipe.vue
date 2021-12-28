@@ -222,7 +222,11 @@
               this.$emit('goBack');
            },
            goViewRecipe(){
-              this.$emit('goViewRecipe');
+              if(this.edit_mode > 0){
+                 this.$emit('goViewRecipe');
+              }else{
+                 this.goBack();
+              }
            },
            goViewRecipeWithId(id){
               this.$emit('goViewRecipeWithId',id);
