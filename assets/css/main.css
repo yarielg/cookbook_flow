@@ -281,6 +281,6 @@ ul.photo_recipe_gallery li.single-image-gallery img{
 }
 
 .account-menu img{
-    width: 20px;
-    margin-right: 5px;
+    width: 20px !important;
+    margin-right: 5px !important;
 }
