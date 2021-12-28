@@ -26,8 +26,8 @@ class Enqueue{
 
     function memd_enqueue_frontend(){
 
-         wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css');
-        wp_enqueue_script('bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js');
+        wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css');
+        //wp_enqueue_script('bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js');
 
         $pageID = get_the_ID();
         $account_type = CBF_EMPTY_ACCOUNT;
@@ -39,8 +39,6 @@ class Enqueue{
             $owner = false;
 
             $account_type = CBF_FREE_ACCOUNT;
-            // wp_enqueue_style('vue-custom-font', 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' );
-            // wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css');
 
             $user = wp_get_current_user();
             $owner = $user;

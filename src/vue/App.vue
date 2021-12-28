@@ -107,16 +107,14 @@
             }
         },
         created(){
-
+            this.premium_account = parameters.premium;
+            this.account_type = parameters.account_type;
             //Determine what flow the app will have depending on the account type and the user role
             this.secureAccount();
             //Change screen in case there is a query parameter
             this.queryParameterChangeScreen();
 
-            this.premium_account = parameters.premium;
-            this.account_type = parameters.account_type;
             this.getYourRecipes();
-
         },
         methods:{
             queryParameterChangeScreen(){
@@ -160,7 +158,10 @@
                 window.location = '/register/?registration_type=upgrade';
             },
             secureAccount(){
-
+                console.log(this.premium_account)
+                  if(!this.premium_account){
+                      window.location = '/login'
+                  }
             }
         }
 

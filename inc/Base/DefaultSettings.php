@@ -34,12 +34,21 @@ class DefaultSettings
         add_action( 'init', array($this,'cbf_register_custom_post_status') );
 
         /**
-         * Adding a Page Template for the dashboard
+         * Removing the secure screen when user is signing out
          */
-      //  add_filter( 'page_template', array($this, 'wpa3396_page_template') );
-
+        add_action('check_admin_referer', array($this, 'cbf_logout_without_confirm'), 10, 2);
     }
 
+    function cbf_logout_without_confirm($action, $result){
+        /**
+         * Allow logout without confirmation
+         */
+        if ($action == "log-out" && !isset($_GET['_wpnonce'])) {
+            $location = str_replace('&amp;', '&', wp_logout_url('/login'));
+            header("Location: $location");
+            die;
+        }
+    }
 
     function wpa3396_page_template( $page_template )
     {

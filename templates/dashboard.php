@@ -3,7 +3,7 @@
  * Header for the Vue App
  *
  */
-
+if(is_user_logged_in()){
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -21,13 +21,16 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarTogglerDemo01">
-        <a class="navbar-brand " href="#"><img src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png"></a>
+        <a class="navbar-brand " href="<?= site_url('welcome') ?>"><img src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png"></a>
         <ul class="navbar-nav mt-2 mt-lg-0 left-bar">
             <a class="nav-link dropdown-toggle account-menu" href="#" id="create_action_dropmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Create</a>
             <div class="dropdown-menu" aria-labelledby="create_action_dropmenu">
                 <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-recipe') ?>">Create recipe</a>
                 <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-cookbook') ?>">Create cookbook</a>
             </div>
+            <a class="nav-link" href="<?= site_url('welcome') ?>">Browse Recipe</a>
+            <a class="nav-link" href="<?= site_url('welcome') ?>">My Recipes</a>
+            <a class="nav-link" href="<?= site_url('welcome') ?>">My Cookbooks</a>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle account-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="<?php echo CBF_PLUGIN_URL . 'assets/images/user.png' ?>" alt=""> <?php echo $current_user->user_firstname ?>
@@ -36,7 +39,7 @@
                     <a class="dropdown-item" href="<?= site_url('register/your-membership/') ?>">Your Account</a>
                     <a class="dropdown-item" href="#"></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Sign out</a>
+                    <a class="dropdown-item" href="<?= site_url('/wp-login.php?action=logout&redirect_to=') ?>">Sign out</a>
                 </div>
 
             </li>
@@ -44,12 +47,17 @@
 
     </div>
 </nav>
-
+<?php }else{
+    wp_redirect(site_url('/login'));
+    die();
+} ?>
+<div class=" main">
     <?php
     while ( have_posts() ) : the_post();
         the_content();
     endwhile;
     ?>
+</div>
 
 <?php
 get_footer();
