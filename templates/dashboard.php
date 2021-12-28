@@ -23,46 +23,25 @@
     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarTogglerDemo01">
         <a class="navbar-brand " href="#"><img src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png"></a>
         <ul class="navbar-nav mt-2 mt-lg-0 ">
-            <!--<a class="nav-link dropdown-toggle account-menu" href="#" id="create_action_dropmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle account-menu" href="#" id="create_action_dropmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Create +
             </a>
             <div class="dropdown-menu" aria-labelledby="create_action_dropmenu">
-                <a class="dropdown-item" href="<?/*= site_url('welcome/?screen=add-recipe') */?>">Create recipe</a>
-                <a class="dropdown-item" href="<?/*= site_url('welcome/?screen=add-cookbook') */?>">Create cookbook</a>
-            </div>-->
-
-                <!--<a class="nav-link dropdown-toggle account-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="<?php /*echo CBF_PLUGIN_URL . 'assets/images/user.png' */?>" alt=""> <?php /*echo $current_user->user_firstname */?>
+                <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-recipe') ?>">Create recipe</a>
+                <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-cookbook') ?>">Create cookbook</a>
+            </div>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle account-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="<?php echo CBF_PLUGIN_URL . 'assets/images/user.png' ?>" alt=""> <?php echo $current_user->user_firstname ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?/*= site_url('register/your-membership/') */?>">Your Account</a>
+                    <a class="dropdown-item" href="<?= site_url('register/your-membership/') ?>">Your Account</a>
                     <a class="dropdown-item" href="#"></a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Sign out</a>
-                </div>-->
-                <div class="dropdown show">
-                    <a class="btn dropdown-toggle account-menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Create
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-recipe') ?>">Create recipe</a>
-                        <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-cookbook') ?>">Create cookbook</a>
-                    </div>
-                </div>
-                <div class="dropdown show">
-                    <a class="btn dropdown-toggle account-menu" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="<?php echo CBF_PLUGIN_URL . 'assets/images/user.png' ?>" alt=""> <?php echo $current_user->user_firstname ?>
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="<?= site_url('register/your-membership/') ?>">Your Account</a>
-                        <a class="dropdown-item" href="#"></a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Sign out</a>
-                    </div>
                 </div>
 
+            </li>
         </ul>
 
     </div>
