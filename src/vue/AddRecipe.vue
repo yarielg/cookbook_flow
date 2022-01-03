@@ -29,8 +29,8 @@
 
             <v-card-actions>
                <v-spacer></v-spacer>
-               <span  @click="closeDialog">Skip for now</span>
-               <v-btn class="btn-normal"  @click="closeDialog">Save Story</v-btn>
+               <span  @click="closeDialog">Skip for now </span>
+               <button class="btn-normal"  @click="closeDialog">Save Story</button>
             </v-card-actions>
          </v-card>
       </v-dialog>
