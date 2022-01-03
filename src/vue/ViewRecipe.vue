@@ -62,6 +62,10 @@
                         <vueper-slide v-for="photo in photos" :key="photo.id" :image="photo.url" />
                     </vueper-slides>
                 </div>
+                <div v-if="story !== '<p><br></p>'" class="section-info">
+                    <label class="label-info-header" for="">RECIPE STORY</label>
+                    <div v-html="story"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -82,6 +86,7 @@
                 ingredients:[
                 ],
                 instructions:'',
+                story:'',
                 featured_image:'',
                 photos:[],
                 cookbook_id: -1,
@@ -135,6 +140,7 @@
                             this.title = response.data.recipe.post_title;
                             this.status = response.data.recipe.post_status;
                             this.ingredients = response.data.recipe.ingredients;
+                            this.story = response.data.recipe.story;
                             this.photos = response.data.recipe.photos;
                             this.instructions = response.data.recipe.post_content;
                             this.status = response.data.recipe.post_status

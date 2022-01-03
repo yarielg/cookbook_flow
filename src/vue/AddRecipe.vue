@@ -1,5 +1,39 @@
 <template>
    <div class="container">
+      <v-dialog v-model="dialogStory" width="800" height="300" scrollable>
+         <v-card>
+            <v-card-title class="headline" primary-title> </v-card-title>
+
+            <v-spacer></v-spacer>
+
+            <v-card-text style="height: 500px">
+                  <v-container>
+                     <v-row class="story_image">
+                        <img v-if="photos[0]" :src="photos[0].url" alt="">
+                     </v-row>
+                     <v-row><br></v-row>
+                     <v-row>
+                        <h4>Further personalize your public recipe!</h4>
+                        <p>Maybe it was your grandma's famous pie, or a family recipe traditional handed down generation to generation... every recipe has a story! Consider adding a personal story to your recipe before publish it.</p>
+                     </v-row>
+                     <v-row>
+                        <div class="form-group">
+                           <label for="">RECIPE STORY</label>
+                           <div id="editor_story" ref="editorStory"></div>
+                        </div>
+                     </v-row>
+                  </v-container>
+            </v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+               <v-spacer></v-spacer>
+               <v-btn color="primary"  @click="closeDialog">Skip for now</v-btn>
+               <v-btn color="primary"  @click="closeDialog">Save Story</v-btn>
+            </v-card-actions>
+         </v-card>
+      </v-dialog>
       <div class="row">
          <div class="col-md-4">
             <v-icon @click="goBack()">
@@ -64,6 +98,10 @@
                <li><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>
                <li><span :class="!isQuillEmpty()  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
                <li><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
+               <br><br>
+               <li>
+                  <label @click="editStory()" class="label-icon-edit mt-2 pt-2" for="">Edit your Story</label>
+               </li>
             </ul>
          </div>
 
@@ -106,14 +144,14 @@
                <br><br>
 
                <div class="form-group">
-                  <label for="">Recipe Instructions</label>
+                  <label for="">RECIPE INSTRUCTIONS</label>
                   <div id="editor_instructions" ref="editor"></div>
                </div>
 
                <br>
 
                <div class="form-group">
-                  <label for="">Add Photos</label>
+                  <label for="">ADD PHOTOS</label>
                   <v-file-input v-model="current_image" @change="fileChanged"  label="Add an image" />
                </div>
 
@@ -123,7 +161,12 @@
                      <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id)">X</span>
                   </div>
                </div>
+               <div v-html="story"></div>
 
+               <!--<div class="form-group">
+                  <label for="">RECIPE STORY</label>
+                  <div class="editor_story" ref="editorStory"></div>
+               </div>-->
 
             </form>
          </div>
@@ -141,6 +184,8 @@
                dialogIngredient: false,
                current_image: null,
                editor: null,
+               dialogStory:false,
+               editorStory: null,
                categories:[],
                status: 'Draft',
                category: -1,
@@ -148,10 +193,12 @@
                ingredients:[
                ],
                instructions:'',
+               story: '',
                photos:[],
                cookbooks_ids: [],
                cookbooks:[],
                cookbooks_selected: [],
+               storyOptions: {}
 
             }
         },
@@ -166,7 +213,9 @@
           this.title = "";
           this.ingredients = [];
           this.instructions = '';
+          this.story = '';
           this.editor = '';
+          this.editorStory = null;
           this.photos = [];
           this.category = -1;
           this.current_image =  null;
@@ -185,7 +234,7 @@
              modules: {
                 toolbar: [
                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                   ['blockquote', 'code-block'],
+                   ['blockquote'],
 
                    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
@@ -203,10 +252,38 @@
                    ['clean']                                         // remove formatting button
                 ]
              },
-             placeholder: 'Compose an epic...',
+             placeholder: 'Enter the recipe instructions...',
              theme: 'snow'
           };
+
+          this.storyOptions = {
+             modules: {
+                toolbar: [
+                   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                   ['blockquote'],
+
+                   [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                   [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                   [{ 'direction': 'rtl' }],                         // text direction
+
+                   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+                   [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                   [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                   [{ 'font': [] }],
+                   [{ 'align': [] }],
+
+                   ['clean']                                         // remove formatting button
+                ]
+             },
+             placeholder: 'Add your story!',
+             theme: 'snow'
+          };
+
           this.editor = new Quill('#editor_instructions', options);
+
        },
         methods:{
            checkField(field,type){
@@ -221,12 +298,24 @@
            goBack(){
               this.$emit('goBack');
            },
+           editStory(){
+             this.dialogStory = true;
+              setTimeout(() => {
+                 if(this.editorStory === null){
+                    this.editorStory = new Quill('#editor_story', this.storyOptions);
+                 }
+              },100);
+
+           },
            goViewRecipe(){
               if(this.edit_mode > 0){
                  this.$emit('goViewRecipe');
               }else{
                  this.goBack();
               }
+           },
+           closeDialog(){
+              this.dialogStory = false;
            },
            goViewRecipeWithId(id){
               this.$emit('goViewRecipeWithId',id);
@@ -264,6 +353,7 @@
                  formData.append('category', this.category);
                  formData.append('title', this.title);
                  formData.append('instructions',this.editor.root.innerHTML.trim());
+                 formData.append('story',this.editorStory.root.innerHTML.trim());
                  formData.append('ingredients', JSON.stringify(this.ingredients));
                  formData.append('author_id', parameters.owner.ID);
                  formData.append('photos', JSON.stringify(this.photos));
@@ -364,8 +454,20 @@
                             this.ingredients = response.data.recipe.ingredients;
                             this.photos = response.data.recipe.photos;
                             this.editor.root.innerHTML = response.data.recipe.post_content;
+
                             this.status = response.data.recipe.post_status;
                             this.cookbooks_ids = response.data.recipe.cookbooks_ids;
+
+                            if(this.editorStory === null){
+                               setTimeout(()=>{
+                                  this.editorStory = new Quill('#editor_story', this.storyOptions);
+                                  this.editorStory.root.innerHTML = response.data.recipe.story;
+                               },1000)
+                            }else{
+                               this.editorStory.root.innerHTML = response.data.recipe.story;
+                            }
+
+
 
                          }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
@@ -435,4 +537,12 @@
     .v-list{
        padding: 13px;
     }
+
+   .story_image img{
+      width: 90px !important;
+   }
+
+   #editor_story .ql-editor{
+      height: 200px !important;
+   }
 </style>

@@ -3,8 +3,11 @@
  * Header for the Vue App
  *
  */
+
 if(is_user_logged_in()){
-?><!DOCTYPE html>
+    $user_data = cbf_get_user_info();
+?>
+<!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
@@ -36,10 +39,13 @@ if(is_user_logged_in()){
                     <img src="<?php echo CBF_PLUGIN_URL . 'assets/images/user.png' ?>" alt=""> <?php echo $current_user->user_firstname ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?= site_url('register/your-membership/') ?>">Your Account</a>
+                    <?php if($user_data['account_type'] == CBF_OWNER_ACCOUNT){ ?>
+                        <a class="dropdown-item" href="<?= site_url('welcome/?screen=collaborators') ?>">Collaborators</a>
+                        <a class="dropdown-item" href="<?= site_url('register/your-membership/') ?>">Your Account</a>
+                    <?php } ?>
                     <a class="dropdown-item" href="#"></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?= site_url('/wp-login.php?action=logout&redirect_to=') ?>">Sign out</a>
+                    <a class="dropdown-item" href="<?= site_url('/wp-login.php?action=logout') ?>">Sign out</a>
                 </div>
 
             </li>

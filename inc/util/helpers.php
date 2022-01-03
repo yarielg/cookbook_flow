@@ -197,4 +197,43 @@ function getCollaboratorsByOwnerId($id){
     return $collaborators;
 }
 
+function cbf_get_user_info(){
+    $account_type = CBF_EMPTY_ACCOUNT;
+    $user = null;
+    $premium = false;
+    $owner = false;
+
+    if(is_user_logged_in()) {
+
+        $account_type = CBF_FREE_ACCOUNT;
+
+        $user = wp_get_current_user();
+        $owner = $user;
+
+        if (in_array('cbf_collaborator', (array)$user->roles)) {
+
+            $account_type = CBF_COLLABORATOR_ACCOUNT;
+            /**
+             * Determine if the collaborator is tied to free/paid owner account
+             */
+            $owner = getCollaboratorOwnerUser($user->ID);
+        }
+
+        /**
+         * Check if the current user is premium (current user can be a collaborator or the account owner, in both case we need to determine if the account is premium)
+         */
+        $owner_id = $owner->ID;
+        $customer = rcp_get_customer_by_user_id($owner_id);
+
+        if ($customer) {
+            $memberships = $customer->get_memberships();
+           // var_dump($memberships[0]->get_status());exit;
+            $premium = $memberships[0]->get_gateway() == 'free' || $memberships[0]->get_status() == 'cancelled' ? false : true;
+            $account_type = $account_type != CBF_COLLABORATOR_ACCOUNT && $premium ? CBF_OWNER_ACCOUNT : $account_type;
+        }
+    }
+
+    return array('account_type' => $account_type, 'current_user' => $user, 'owner' => $owner, 'premium' => $premium);
+}
+
 

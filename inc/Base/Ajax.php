@@ -81,6 +81,7 @@ class Ajax{
         $title = $_POST['title'];
         $category = $_POST['category'];
         $instructions = str_replace('\\','',$_POST['instructions']);
+        $story = str_replace('\\','',$_POST['story']);
         $author_id = $_POST['author_id'];
         $status = strtolower($_POST['status']);
         $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ): -1;
@@ -154,6 +155,10 @@ class Ajax{
                 insertCookbooksToRecipe($cookbooks_ids, $post_id);
             }
 
+            /**
+             * Add Story
+             */
+            update_field( 'story', $story, $post_id);
 
             echo json_encode(array('success'=> true, 'msg' => 'Recipe inserted successfully', 'id' => $post_id));
             wp_die();
@@ -253,6 +258,8 @@ class Ajax{
                 'unit' => $ingredient['unit'],
             ];
         }
+
+        $recipe->story = get_field('story', $id);
 
         $recipe->ingredients = $ingredients;
         $recipe->post_status  = ucfirst($recipe->post_status);

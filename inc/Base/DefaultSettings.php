@@ -44,7 +44,7 @@ class DefaultSettings
          * Allow logout without confirmation
          */
         if ($action == "log-out" && !isset($_GET['_wpnonce'])) {
-            $location = str_replace('&amp;', '&', wp_logout_url('/login'));
+            $location = str_replace('&amp;', '&', wp_logout_url(site_url('/login')));
             header("Location: $location");
             die;
         }

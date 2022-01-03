@@ -30,39 +30,10 @@ class Enqueue{
         wp_enqueue_script('bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js');
 
         $pageID = get_the_ID();
-        $account_type = CBF_EMPTY_ACCOUNT;
 
-        if(is_user_logged_in() && $pageID == 6){
+        if($pageID == 6){
 
-            $user = null;
-            $premium = false;
-            $owner = false;
-
-            $account_type = CBF_FREE_ACCOUNT;
-
-            $user = wp_get_current_user();
-            $owner = $user;
-
-            if ( in_array( 'cbf_collaborator', (array) $user->roles ) ) {
-
-                $account_type = CBF_COLLABORATOR_ACCOUNT;
-                /**
-                 * Determine if the collaborator is tied to free/paid owner account
-                 */
-                $owner = getCollaboratorOwnerUser($user->ID);
-            }
-
-            /**
-             * Check if the current user is premium (current user can be a collaborator or the account owner, in both case we need to determine if the account is premium)
-             */
-            $owner_id =  $owner->ID;
-            $customer = rcp_get_customer_by_user_id( $owner_id );
-
-            if($customer){
-                $memberships = $customer->get_memberships();
-                $premium = $memberships[0]->get_gateway() == 'free' ? false : true;
-                $account_type = $account_type != CBF_COLLABORATOR_ACCOUNT && $premium ? CBF_OWNER_ACCOUNT : $account_type;
-            }
+            $user_data = cbf_get_user_info();
 
             wp_enqueue_style('vue-custom-icon', 'https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css');
 
@@ -72,9 +43,9 @@ class Enqueue{
             wp_enqueue_script('toastr-js', 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js' ,array(),'1.0', true);
             wp_enqueue_script('quill-js', 'https://cdn.quilljs.com/1.3.6/quill.min.js' ,array(),'1.0', true);
             wp_enqueue_script('vue-custom-js', CBF_PLUGIN_URL . '/dist/scripts.js' ,array('jquery','toastr-js','quill-js'),'1.0', true);
-            wp_localize_script( 'vue-custom-js', 'parameters', ['ajax_url'=> admin_url('admin-ajax.php'),'plugin_path' => CBF_PLUGIN_URL, 'current_user' =>  $user, 'account_type' => $account_type,'premium' => $premium, 'owner' => $owner]);
+            wp_localize_script( 'vue-custom-js', 'parameters', ['ajax_url'=> admin_url('admin-ajax.php'),'plugin_path' => CBF_PLUGIN_URL, 'current_user' =>  $user_data['user'], 'account_type' => $user_data['account_type'],'premium' => $user_data['premium'], 'owner' => $user_data['owner']]);
 
-            }
+        }
 
         wp_enqueue_style( 'main_css', CBF_PLUGIN_URL . '/assets/css/main.css'  );
     }

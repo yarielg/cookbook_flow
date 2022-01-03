@@ -158,10 +158,7 @@
                 window.location = '/register/?registration_type=upgrade';
             },
             secureAccount(){
-                console.log(this.premium_account)
-                  if(!this.premium_account){
-                      window.location = '/login'
-                  }
+
             }
         }
 
@@ -186,6 +183,7 @@
     }
 
     .recipe-wrapper img{
+        width: 50px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
