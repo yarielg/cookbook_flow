@@ -29,8 +29,8 @@
 
             <v-card-actions>
                <v-spacer></v-spacer>
-               <span  @click="closeDialog">Skip for now </span>
-               <button class="btn-normal"  @click="closeDialog">Save Story</button>
+               <span class="btn-left"  @click="closeDialog">Skip for now </span>
+               <button class="btn-normal"  @click="closeDialog"> Save Story</button>
             </v-card-actions>
          </v-card>
       </v-dialog>
@@ -552,5 +552,9 @@
 
    #editor_story .ql-editor{
       height: 200px !important;
+   }
+
+   .btn-left{
+      margin-right: 5px !important;
    }
 </style>
