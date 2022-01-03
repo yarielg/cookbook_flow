@@ -233,7 +233,7 @@ function cbf_get_user_info(){
         }
     }
 
-    return array('account_type' => $account_type, 'current_user' => $user, 'owner' => $owner, 'premium' => $premium);
+    return array('account_type' => $account_type, 'user' => $user, 'owner' => $owner, 'premium' => $premium);
 }
 
 

@@ -29,8 +29,8 @@
 
             <v-card-actions>
                <v-spacer></v-spacer>
-               <v-btn color="primary"  @click="closeDialog">Skip for now</v-btn>
-               <v-btn color="primary"  @click="closeDialog">Save Story</v-btn>
+               <span  @click="closeDialog">Skip for now</span>
+               <v-btn class="btn-normal"  @click="closeDialog">Save Story</v-btn>
             </v-card-actions>
          </v-card>
       </v-dialog>
@@ -100,7 +100,8 @@
                <li><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
                <br><br>
                <li>
-                  <label @click="editStory()" class="label-icon-edit mt-2 pt-2" for="">Edit your Story</label>
+                  <label v-if="!editMode" @click="editStory()" class="label-icon-edit mt-2 pt-2" for="">Add a Story</label>
+                  <label v-if="editMode" @click="editStory()" class="label-icon-edit mt-2 pt-2" for="">Edit your Story</label>
                </li>
             </ul>
          </div>
@@ -227,6 +228,13 @@
        computed:{
           recipe_id(){
              return this.edit_mode;
+          },
+          editMode(){
+             if(this.edit_mode > 0){
+                return true;
+             }else{
+                return false
+             }
           }
        },
        mounted(){
