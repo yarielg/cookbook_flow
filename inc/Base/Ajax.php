@@ -29,11 +29,14 @@ class Ajax{
         add_action( 'wp_ajax_get_recipe', array($this, 'getRecipe') );
         add_action( 'wp_ajax_nopriv_get_recipe', array($this, 'getRecipe') );
 
+        add_action( 'wp_ajax_get_cookbook', array($this, 'getCookbookById') );
+        add_action( 'wp_ajax_nopriv_get_cookbook', array($this, 'getCookbookById') );
+
         add_action( 'wp_ajax_add_cookbook', array($this, 'addCookbook') );
         add_action( 'wp_ajax_nopriv_add_cookbook', array($this, 'addCookbook') );
 
-        add_action( 'wp_ajax_get_user_cookbooks', array($this, 'getUserCookbook') );
-        add_action( 'wp_ajax_nopriv_get_user_cookbooks', array($this, 'getUserCookbook') );
+        add_action( 'wp_ajax_get_user_cookbooks', array($this, 'getUserCookbooks') );
+        add_action( 'wp_ajax_nopriv_get_user_cookbooks', array($this, 'getUserCookbooks') );
 
         add_action( 'wp_ajax_add_collaborator', array($this, 'addCollaborator') );
         add_action( 'wp_ajax_nopriv_add_collaborator', array($this, 'addCollaborator') );
@@ -48,7 +51,7 @@ class Ajax{
     /**
      * Get user CookBook
      */
-    public function getUserCookbook(){
+    public function getUserCookbooks(){
         $author_id = $_POST['author_id'];
 
         $cookbooks = getUserCookbook($author_id);
@@ -277,6 +280,30 @@ class Ajax{
         }
 
         echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be fetched'));
+        wp_die();
+
+    }
+
+    /**
+     * Get a cookbook by ID
+     */
+    public function getCookbookById(){
+        $id = $_POST['id'];
+
+        if(empty($id)){
+            echo json_encode(array('success'=> 'false', 'msg' => 'We could not get the cookbook without a valid id.'));
+            wp_die();
+        }
+
+        $cookbook = get_post($id);
+
+        $cookbook->front_cover_image = get_field( 'front_cover_image',$id );
+        $cookbook->dedication = get_field( 'dedication',$id );
+        $cookbook->introduction = get_field( 'introduction',$id );
+        $cookbook->back_cover_image = get_field( 'back_cover_image',$id );
+        $cookbook->recipes = get_field( 'recipes',$id );
+
+        echo json_encode(array('success'=> 'true', 'cookbook' => $cookbook));
         wp_die();
 
     }

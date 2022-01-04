@@ -7,7 +7,7 @@
                 </v-icon> Back
             </div>
             <div class="col-2">
-
+                    {{ edit_mode }}
             </div>
         </div>
         <div class="row">
@@ -134,14 +134,33 @@
             }
         },
         created(){
-
+            if(parseFloat(this.edit_mode) > 0){
+                this.getCookbook();
+            }
         },
         setDefaults(){
-
+            this.title = "";
+            this.dedications = "";
+            this.acknowledgments= "";
+            this.introduction= "";
+            this.front_image = null;
+            this.back_image = null;
+            this.front = -1;
+            this.back = -1;
+            this.recipe = null;
+            this.search = null;
+            this.selected_recipes = [];
         },
         computed:{
             myRecipes: function(){
                 return this.recipes
+            },
+            editMode(){
+                if(this.edit_mode > 0){
+                    return true;
+                }else{
+                    return false
+                }
             }
         },
         mounted(){
@@ -156,6 +175,13 @@
                 return ids;
             },
             selectRecipe(){
+            },
+            goViewCookbook(){
+                if(this.edit_mode > 0){
+                    this.$emit('goViewCookbook');
+                }else{
+                    this.goBack();
+                }
             },
             goBack(){
                 this.$emit('goBack');
@@ -234,18 +260,18 @@
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         console.log(response.data.recipe)
-                        /*if(response.data.success){
-                            this.category =  response.data.recipe.category;
-                            this.title = response.data.recipe.post_title;
+                        if(response.data.success){
+                            console.log(response.data)
+                            /*this.title = response.data.cookbook.post_title;
                             this.status = response.data.recipe.post_status;
                             this.ingredients = response.data.recipe.ingredients;
                             this.photos = response.data.recipe.photos;
                             this.editor.root.innerHTML = response.data.recipe.post_content;
-                            this.status = response.data.recipe.post_status === "publish" ? true : false;
+                            this.status = response.data.recipe.post_status === "publish" ? true : false;*/
 
                         }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
-                        }*/
+                        }
 
                     });
             }

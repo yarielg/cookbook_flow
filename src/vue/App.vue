@@ -108,7 +108,7 @@
         </div>
 
         <add-recipe :edit_mode="edit_recipe" v-if="active_screen == 'add-recipe'" @goViewRecipe="changeScreen('view-recipe',edit_recipe)" @goViewRecipeWithId="goViewRecipeWithId" @goBack="changeScreen('dashboard')" ></add-recipe>
-        <add-cookbook :edit_mode="edit_cookbook" v-if="active_screen == 'add-cookbook'" :recipes="recipes" @goBack="changeScreen('dashboard')" ></add-cookbook>
+        <add-cookbook  :edit_mode="edit_cookbook" v-if="active_screen == 'add-cookbook'" @goViewCookbook="changeScreen('view-cookbook',edit_cookbook)"  :recipes="recipes" @goBack="changeScreen('dashboard')" ></add-cookbook>
         <view-recipe :edit_mode="edit_recipe" v-if="active_screen == 'view-recipe'" :recipes="recipes" @goEditRecipe="changeScreen('add-recipe',edit_recipe)" @goBack="changeScreen('dashboard')" ></view-recipe>
         <collaborators  v-if="active_screen == 'collaborators'"></collaborators>
     </v-app>
@@ -153,6 +153,10 @@
 
                 if(screen === 'add-recipe' || screen === 'view-recipe'){
                     this.edit_recipe = id;
+                }
+
+                if(screen === 'add-cookbook' || screen === 'view-cookbook'){
+                    this.edit_cookbook = id;
                 }
 
                 this.active_screen = screen;
