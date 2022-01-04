@@ -43,7 +43,7 @@ class Enqueue{
             wp_enqueue_script('toastr-js', 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js' ,array(),'1.0', true);
             wp_enqueue_script('quill-js', 'https://cdn.quilljs.com/1.3.6/quill.min.js' ,array(),'1.0', true);
             wp_enqueue_script('vue-custom-js', CBF_PLUGIN_URL . '/dist/scripts.js' ,array('jquery','toastr-js','quill-js'),'1.0', true);
-            wp_localize_script( 'vue-custom-js', 'parameters', ['ajax_url'=> admin_url('admin-ajax.php'),'plugin_path' => CBF_PLUGIN_URL, 'current_user' =>  $user_data['user'], 'account_type' => $user_data['account_type'],'premium' => $user_data['premium'], 'owner' => $user_data['owner']]);
+            wp_localize_script( 'vue-custom-js', 'parameters', ['ajax_url'=> admin_url('admin-ajax.php'),'plugin_path' => CBF_PLUGIN_URL, 'current_user' =>  $user_data['user'],'user' =>  $user_data['user'], 'account_type' => $user_data['account_type'],'premium' => $user_data['premium'], 'owner' => $user_data['owner']]);
 
         }
 
