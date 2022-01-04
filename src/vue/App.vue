@@ -15,15 +15,37 @@
                         <button @click="goToUpgradeMembership()" class="btn-normal">Upgrade Account</button>
                     </div>
                     <div class="panel-wrapper" v-show="premium_account">
-                        <h4 class="">
-                            Start creating a cookbook!
-                        </h4>
-                        <br>
-                        <p class="">Nam porttitor blandit accumsan. Ut vel
-                            dictum sem, a pretium dui. In malesuada
-                            enim in dolor euismod,</p>
-                        <br>
-                        <button class="btn-normal"><a href="/welcome/?screen=add-cookbook">Create a Cookbook</a></button>
+                        <div v-if="cookbooks.length > 0" class="cookbooks_list">
+                            <h4 class="mb-4 inline_header">Your Cookbooks</h4>
+                            <button @click="changeScreen('add-cookbook')" class="btn-normal float-right mr-3">Create</button>
+                            <div class="container recipe-wrapper">
+                                <div v-for="cookbook in cookbooks" :key="cookbook.ID"  class="row recipe">
+                                    <!--<div class="col-md-2"><img class="recipe_img" :src="recipe.photo_url" alt=""></div>-->
+                                    <div class="col-md-8 centered_col"><p>{{ cookbook.post_title }}</p></div>
+                                    <div class="col-md-1 centered_col"><button class="btn-normal" @click="changeScreen('add-cookbook', cookbook.ID)">Edit</button></div>
+                                    <!--<div class="col-md-1 centered_col"><button class="btn-normal" :disabled="recipes.incomplete" @click="changeScreen('view-cookbook',cookbook.ID)">View</button></div>-->
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row ">
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <!--<button @click="changeScreen('add-recipe')" class="btn-normal">Create a Recipe</button>-->
+                                        <!--<button @click="changeScreen('all-recipe')" class="btn-normal">All Recipes</button>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="cookbooks.length == 0" class="no-cookbooks">
+                            <h4 class="">
+                                Start creating a cookbook!
+                            </h4>
+                            <br>
+                            <p class="">Nam porttitor blandit accumsan. Ut vel
+                                dictum sem, a pretium dui. In malesuada
+                                enim in dolor euismod,</p>
+                            <br>
+                            <button class="btn-normal"><a href="/welcome/?screen=add-cookbook">Create a Cookbook</a></button>
+                        </div>
                     </div>
                 </div>
 
@@ -103,6 +125,7 @@
                edit_recipe: -1,
                edit_cookbook: -1,
                premium_account: false,
+               cookbooks:0,
                account_type: 0
             }
         },
@@ -125,6 +148,7 @@
 
                 if(screen === 'dashboard'){
                     this.getYourRecipes();
+                    this.getYourCookbooks();
                 }
 
                 if(screen === 'add-recipe' || screen === 'view-recipe'){
@@ -148,6 +172,19 @@
                             this.recipes =  response.data.recipes;
                         }else{
                             toastr.warning('We could not get your recipes', 'Error');
+                        }
+                    });
+            },
+            getYourCookbooks(){
+                const formData = new FormData();
+                formData.append('action', 'get_user_cookbooks');
+                formData.append('author_id', parameters.owner.ID)
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            this.cookbooks =  response.data.cookbooks;
+                        }else{
+                            toastr.warning('We could not get your cookbooks', 'Error');
                         }
                     });
             },
