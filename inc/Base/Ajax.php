@@ -88,6 +88,9 @@ class Ajax{
         $author_id = $_POST['author_id'];
         $status = strtolower($_POST['status']);
         $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ): -1;
+        $new_cook_book = $_POST['new_cookbook'];
+        $type = $_POST['type'];
+
 
         if($post_id == -1){
             $post_id  = wp_insert_post( array(
@@ -152,18 +155,35 @@ class Ajax{
             }
 
             /**
+             * Add Story
+             */
+            update_field( 'story', $story, $post_id);
+
+            /**
+             * Add a new Cookbook in case the user select the create a new cookbook on the assign menu
+             */
+            $cookbook_id = -1;
+            if($type == 'new'){
+                $cookbook_id  = wp_insert_post( array(
+                        'post_title'    => $new_cook_book ,
+                        'post_content'  => '',
+                        'post_status'   => 'publish',
+                        'post_type'   => 'cookbook',
+                        'post_author'   => $author_id,
+                    )
+                );
+
+                $cookbooks_ids[] = $cookbook_id;
+            }
+
+            /**
              * Creating the recipe relation with a cookbook
              */
             if(count($cookbooks_ids) > 0){
                 insertCookbooksToRecipe($cookbooks_ids, $post_id);
             }
 
-            /**
-             * Add Story
-             */
-            update_field( 'story', $story, $post_id);
-
-            echo json_encode(array('success'=> true, 'msg' => 'Recipe inserted successfully', 'id' => $post_id));
+            echo json_encode(array('success'=> true, 'msg' => 'Recipe inserted successfully', 'id' => $post_id, 'cookbook_id' => $cookbook_id));
             wp_die();
         }else{
             echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted'));

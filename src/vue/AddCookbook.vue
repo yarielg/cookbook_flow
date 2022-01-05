@@ -8,7 +8,6 @@
                 </v-icon> Back
             </div>
             <div class="col-2">
-                    {{ edit_mode }}
             </div>
         </div>
         <div class="row">
@@ -264,7 +263,7 @@
                 const formData = new FormData();
                 formData.append('action', 'get_cookbook');
                 formData.append('id', this.edit_mode);
-                this.loading = false;
+                this.loading = true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){

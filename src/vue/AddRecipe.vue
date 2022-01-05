@@ -78,15 +78,20 @@
                               <br>
                            </div>
                         </v-list>
+                        <hr>
+                        <v-card-actions>
+                           <input v-model="new_cookbook" type="text" id="add_new_cookbook" name="add_new_cookbook" class="mr-3" placeholder="Add to new cookbook">
+                           <button color="btn-normal" @click="addRecipe(status,'new')">Create</button>
+                        </v-card-actions>
                      </v-card>
                   </v-menu>
                </div>
                <div class="right bar">
                   <span class="link_action" @click="goViewRecipe()" >Cancel</span>
-                  <button :disabled="!checkForm()" @click="addRecipe(status)" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>
+                  <button :disabled="!checkForm()" @click="addRecipe(status,'no')" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>
                </div>
             </div>
-            <button class="float-right btn-normal" v-show="!checkForm()" @click="addRecipe('Draft')">Save as Draft</button>
+            <button class="float-right btn-normal" v-show="!checkForm()" @click="addRecipe('Draft','no')">Save as Draft</button>
          </div>
       </div>
       <div class="row">
@@ -111,7 +116,7 @@
             <form
                method="post"
                action=""
-               @submit.prevent="addRecipe(status)">
+               @submit.prevent="addRecipe(status,'no')">
 
                <div class="form-group">
                   <label for="recipe_title">Recipe Title</label>
@@ -184,6 +189,7 @@
         data () {
             return {
                loading:false,
+               new_cookbook: '',
                dialogIngredient: false,
                current_image: null,
                editor: null,
@@ -324,6 +330,9 @@
                  this.goBack();
               }
            },
+           goCookbookEditWithId(id){
+              this.$emit('goCookbookEditWithId',id);
+           },
            closeDialog(){
               this.dialogStory = false;
            },
@@ -356,7 +365,11 @@
                       }
               );
            },
-           addRecipe(status){
+           addRecipe(status, type){
+              if(type === 'new' && this.new_cookbook === ''){
+                 toastr.error('You must define a valid cookbook name', 'Error');
+                 return;
+              }
               if(this.title !== '' ){
                  const formData = new FormData();
                  formData.append('action', 'add_recipe');
@@ -370,6 +383,8 @@
                  formData.append('status', status);
                  formData.append('cookbooks_ids', this.cookbooks_ids);
                  formData.append('edit', this.edit_mode);
+                 formData.append('new_cookbook', this.new_cookbook);
+                 formData.append('type', type);
 
                  this.loading = true;
 
@@ -381,7 +396,17 @@
                             }else{
                                toastr.success('The recipe has been created', 'Recipe Created!');
                             }
+
+                            /**
+                             * Where redirect depending on the user selection
+                             */
+                            if(type === 'new'){
+                               this.goCookbookEditWithId(response.data.cookbook_id);
+                               return;
+                            }
+
                             this.goViewRecipeWithId(response.data.id)
+
                          }else{
                             toastr.error('The recipe was not inserted', 'Error');
                          }
