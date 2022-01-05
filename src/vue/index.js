@@ -11,17 +11,21 @@ import IngredientDialog from "./IngredientDialog.vue";
 import AddRecipe from "./AddRecipe.vue";
 import AddCookbook from "./AddCookbook.vue";
 import ViewRecipe from "./ViewRecipe.vue";
+import ViewCookbook from "./ViewCookbook.vue";
 import Collaborators from "./Collaborators.vue";
 import CollaboratorDialog from "./CollaboratorDialog.vue";
+import Loading from "./Loading.vue";
 
-Vue.component('vueper-slide', VueperSlide)
-Vue.component('vueper-slides', VueperSlides)
-Vue.component('ingredient-dialog', IngredientDialog)
-Vue.component('add-recipe', AddRecipe)
-Vue.component('view-recipe', ViewRecipe)
-Vue.component('add-cookbook', AddCookbook)
-Vue.component('collaborators', Collaborators)
-Vue.component('collaborator-dialog', CollaboratorDialog)
+Vue.component('vueper-slide', VueperSlide);
+Vue.component('vueper-slides', VueperSlides);
+Vue.component('ingredient-dialog', IngredientDialog);
+Vue.component('add-recipe', AddRecipe);
+Vue.component('view-recipe', ViewRecipe);
+Vue.component('view-cookbook', ViewCookbook);
+Vue.component('add-cookbook', AddCookbook);
+Vue.component('collaborators', Collaborators);
+Vue.component('collaborator-dialog', CollaboratorDialog);
+Vue.component('loading-dialog', Loading);
 
 
 new Vue({

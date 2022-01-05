@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <loading-dialog :loading="loading"></loading-dialog>
         <div class="row">
             <div class="col-10">
                 <v-icon @click="goBack()">
@@ -37,7 +38,7 @@
 
                     <div class="form-group">
                         <label for="dedications_title">Dedications</label>
-                        <textarea v-model="dedications" class="form-control" id="dedications_title" rows="3"></textarea>
+                        <textarea v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -55,22 +56,30 @@
                         <v-file-input v-model="front_image" @change="fileChanged(1)"  label="Add an image" />
                     </div>
 
+                    <div v-if="front_image !== null" class="form-group photo-gallery">
+                        <div class="photo-wrapper">
+                            <img class="img-badge"  :src="front_image.url" alt="">
+                            <span :data-photo-id="front_image.id" class="delete_photo_btn" @click="deletePhoto(front_image.id,1)">X</span>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="">Back Cover</label>
                         <v-file-input v-model="back_image" @change="fileChanged(2)"  label="Add an image" />
                     </div>
 
-                    <!--<div class="form-group photo-gallery">
-                        <div class="photo-wrapper" v-for="photo in photos">
-                            <img class="img-badge"  :src="photo.url" alt="">
-                            <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id)">X</span>
+                    <div v-if="back_image !== null" class="form-group photo-gallery">
+                        <div class="photo-wrapper">
+                            <img class="img-badge" :src="back_image.url" alt="">
+                            <span :data-photo-id="back_image.id" class="delete_photo_btn" @click="deletePhoto(back_image.id,2)">X</span>
                         </div>
-                    </div>-->
+                    </div>
+
 
                     <br>
 
                     <div class="form-group">
-                        <label for="recipe_category">Add Recipes</label>
+                        <label>Add Recipes</label>
                         <!--<select  v-model="recipe" name="recipe_search" class="form-control" id="recipe_search">
                             <option value="-1" selected>Select Recipe</option>
                             <option  v-for="recipe in recipes" :key="recipe.ID" :value="recipe"><img class="recipe_img" :src="recipe.photo_url" alt=""> {{ recipe.post_title }}</option>
@@ -85,32 +94,19 @@
                                 hide-selected
                                 multiple
                                 persistent-hint
+                                close
                                 chips
                         >
 
                         </v-combobox>
                     </div>
-
-
-
-                    <!--<div class="form-group">
-                        <label for="">Add Photos</label>
-                        <v-file-input v-model="current_image" @change="fileChanged"  label="Add an image" />
-                    </div>-->
-
-                    <!--<div class="form-group photo-gallery">
-                        <div class="photo-wrapper" v-for="photo in photos">
-                            <img class="img-badge"  :src="photo.url" alt="">
-                            <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id)">X</span>
-                        </div>
-                    </div>-->
-
                     <button :disabled="!checkForm()"  type="submit" class="btn-normal">{{ edit_mode > 1 ? 'Save Cookbook' : 'Add Cookbook' }}</button>
-
                 </form>
             </div>
         </div>
+
     </div>
+
 </template>
 
 <script>
@@ -121,13 +117,12 @@
         data () {
             return {
                 title:'',
-                dedications:'',
+                loading:false,
+                dedication:'',
                 acknowledgments:'',
                 introduction:'',
                 front_image: null,
                 back_image: null,
-                front: -1,
-                back: -1,
                 recipe: null,
                 search:null,
                 selected_recipes:[]
@@ -140,13 +135,11 @@
         },
         setDefaults(){
             this.title = "";
-            this.dedications = "";
+            this.dedication = "";
             this.acknowledgments= "";
             this.introduction= "";
             this.front_image = null;
             this.back_image = null;
-            this.front = -1;
-            this.back = -1;
             this.recipe = null;
             this.search = null;
             this.selected_recipes = [];
@@ -187,7 +180,7 @@
                 this.$emit('goBack');
             },
             checkForm(){
-                if(this.title !== '' && this.dedications !== '' && this.acknowledgments !== '' && this.introduction !== '' && this.selected_recipes.length > 0 ){
+                if(this.title !== '' && this.dedication !== '' && this.acknowledgments !== '' && this.introduction !== '' && this.selected_recipes.length > 0 ){
                     return true;
                 }
                 return false;
@@ -197,16 +190,16 @@
                     const formData = new FormData();
                     formData.append('action', 'add_cookbook');
                     formData.append('title', this.title);
-                    formData.append('dedications', this.dedications);
+                    formData.append('dedication', this.dedication);
                     formData.append('acknowledgments', this.acknowledgments);
                     formData.append('introduction', this.introduction);
-                    formData.append('back', this.back);
-                    formData.append('front', this.front);
+                    formData.append('back', this.back_image !== null ? this.back_image.id : -1);
+                    formData.append('front', this.front_image !== null ? this.front_image.id : -1);
                     formData.append('recipes', this.getTheRecipesIDs());
-
                     formData.append('author_id', parameters.owner.ID);
-
                     formData.append('edit', this.edit_mode);
+
+                    this.loading= true;
 
                     axios.post(parameters.ajax_url, formData)
                         .then( response => {
@@ -215,12 +208,13 @@
                                     toastr.success('The cookbook has been updated', 'Cookbook Updated!');
                                 }else{
                                     toastr.success('The cookbook has been created', 'Cookbook Created!');
-                                    this.goBack();
+                                    this.goCookbookWithId(response.data.id)
                                 }
 
                             }else{
                                 toastr.error('The cookbook was not inserted', 'Error');
                             }
+                            this.loading= false;
                         })
                 }else{
                     toastr.warning('You have some errors, please correct them.', 'Error');
@@ -228,55 +222,70 @@
             },
             fileChanged(type,e){
 
-                if(this.current_image !== null && this.current_image !== ''){
-                    const formData = new FormData();
-                    formData.append('action', 'add_photo');
-                    formData.append('image', type == 1 ? this.front_image : this.back_image);
+                const formData = new FormData();
+                formData.append('action', 'add_photo');
+                formData.append('image', type == 1 ? this.front_image : this.back_image);
 
+                if((type === 1 && this.front_image !== null) || type === 2 && this.back_image !== null){
+                    this.loading = true;
                     axios.post(parameters.ajax_url, formData)
-                        .then( response => {
-                            if(response.data.success){
-                                if(type == 1){
-                                    this.front = response.data.photo_id
-                                }else{
-                                    this.back = response.data.photo_id
-                                }
-
+                    .then( response => {
+                        if(response.data.success){
+                            if(type == 1){
+                                this.front_image.id = response.data.image.id;
+                                this.front_image.url = response.data.image.url;
                             }else{
-                                toastr.warning('The photo was not inserted', 'Error');
+                                this.back_image.id = response.data.image.id;
+                                this.back_image.url = response.data.image.url;
                             }
-                        });
+
+                        }else{
+                            toastr.warning('The photo was not inserted', 'Error');
+                        }
+
+                        this.loading = false;
+                    });
+                }else{
+                    if(type == 1){
+                        this.front_image = null;
+                    }else{
+                        this.back_image = null;
+                    }
                 }
             },
-            /*deletePhoto(photo_id){
-                this.photos = this.photos.filter(function( photo ) {
-                    return photo.id !== photo_id;
-                });
-            },*/
+            deletePhoto(photo_id,type){
+                if(type == 1){
+                    this.front_image = null;
+                }else{
+                    this.back_image = null;
+                }
+            },
             getCookbook(){
                 const formData = new FormData();
                 formData.append('action', 'get_cookbook');
                 formData.append('id', this.edit_mode);
+                this.loading = false;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
-                        console.log(response.data.recipe)
                         if(response.data.success){
-                            console.log(response.data)
-                            /*this.title = response.data.cookbook.post_title;
-                            this.status = response.data.recipe.post_status;
-                            this.ingredients = response.data.recipe.ingredients;
-                            this.photos = response.data.recipe.photos;
-                            this.editor.root.innerHTML = response.data.recipe.post_content;
-                            this.status = response.data.recipe.post_status === "publish" ? true : false;*/
+                            this.title = response.data.cookbook.post_title;
+                            this.dedication = response.data.cookbook.dedication;
+                            this.introduction = response.data.cookbook.introduction;
+                            this.acknowledgments = response.data.cookbook.acknowledgments;
+                            this.selected_recipes = response.data.cookbook.selected_recipes;
+                            this.front_image = response.data.cookbook.front_image;
+                            this.back_image = response.data.cookbook.back_image;
 
                         }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
                         }
-
+                        this.loading = false;
                     });
+            },
+            goCookbookWithId(id){
+                this.$emit('goCookbookWithId',id);
             }
         }
-
     }
 </script>
 

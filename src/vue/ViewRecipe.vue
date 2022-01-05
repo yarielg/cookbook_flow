@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <loading-dialog :loading="loading"></loading-dialog>
         <div class="row">
             <div class="col-2">
                 <v-icon @click="goBack()">
@@ -78,6 +79,7 @@
         props:['edit_mode'],
         data () {
             return {
+                loading:false,
                 editor: null,
                 categories:[],
                 status: 'Draft',
@@ -91,7 +93,6 @@
                 photos:[],
                 cookbook_id: -1,
                 cookbooks_selected: []
-
             }
         },
         created(){
@@ -133,6 +134,7 @@
                 formData.append('action', 'get_recipe');
                 formData.append('id', this.edit_mode);
                 formData.append('author_id', parameters.owner.ID);
+                this.loading = true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){
@@ -149,7 +151,7 @@
                         }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
                         }
-
+                        this.loading = false;
                     });
             },
         }

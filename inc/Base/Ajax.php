@@ -178,7 +178,7 @@ class Ajax{
         $title = $_POST['title'];
         $acknowledgments = $_POST['acknowledgments'];
         $introduction = $_POST['introduction'];
-        $dedications = $_POST['dedications'];
+        $dedication = $_POST['dedication'];
         $front = $_POST['front'];
         $back = $_POST['back'];
         $author_id = $_POST['author_id'];
@@ -213,14 +213,14 @@ class Ajax{
         $front =  $front > 0 ? update_field( 'front_cover_image', $front,$post_id) : '';
 
         //Updating the ACF related to the new/updated cookbook
-        update_field( 'dedication', $dedications,$post_id);
+        update_field( 'dedication', $dedication,$post_id);
         update_field( 'introduction', $introduction,$post_id);
         update_field( 'acknowledgments', $acknowledgments,$post_id);
 
         //update_field('recipes', $recipes, $post_id);
         insertRecipeCookBook($post_id,$recipes);
 
-        echo json_encode(array('success'=> 'false', 'msg' => 'The Cookbook could not be inserted'));
+        echo json_encode(array('success'=> 'false', 'msg' => 'The Cookbook could not be inserted', 'id' => $post_id));
         wp_die();
     }
 
@@ -297,11 +297,13 @@ class Ajax{
 
         $cookbook = get_post($id);
 
-        $cookbook->front_cover_image = get_field( 'front_cover_image',$id );
-        $cookbook->dedication = get_field( 'dedication',$id );
+        $cookbook->front_image = get_field( 'front_cover_image',$id ) ? get_field( 'front_cover_image',$id ) : null;
+        $cookbook->back_image = get_field( 'back_cover_image',$id ) ? get_field( 'back_cover_image',$id ) : null;
+        $cookbook->dedication =  get_field( 'dedication',$id );
+        $cookbook->acknowledgments = get_field( 'acknowledgments',$id );
         $cookbook->introduction = get_field( 'introduction',$id );
-        $cookbook->back_cover_image = get_field( 'back_cover_image',$id );
         $cookbook->recipes = get_field( 'recipes',$id );
+        $cookbook->selected_recipes = getRecipesFromCookbookId($id);
 
         echo json_encode(array('success'=> 'true', 'cookbook' => $cookbook));
         wp_die();
@@ -313,8 +315,14 @@ class Ajax{
      */
     public function AddPhoto(){
         $photo_id = cbf_upload_file($_FILES['image']);
+
+        $image = array(
+            'url' => wp_get_attachment_url( $photo_id ),
+            'id' => $photo_id
+        );
+
         if($photo_id > 0){
-            echo json_encode(array('success'=> true, 'msg' => 'Photo inserted successfully', 'photo_id' => $photo_id));
+            echo json_encode(array('success'=> true, 'msg' => 'Photo inserted successfully', 'image' => $image));
             wp_die();
         }else{
             echo json_encode(array('success'=> false, 'msg' => 'The Photo could not be inserted'));

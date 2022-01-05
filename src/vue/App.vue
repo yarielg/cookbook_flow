@@ -1,6 +1,7 @@
 <template>
     <v-app>
         <div class="container dashboard" v-if="active_screen == 'dashboard'">
+            <loading-dialog :loading="loading"></loading-dialog>
             <div class="row mb-6">
                 <div class="col-md-6 text-center box-panel">
                     <div class="panel-wrapper" v-show="!premium_account && account_type == 1">
@@ -23,7 +24,7 @@
                                     <!--<div class="col-md-2"><img class="recipe_img" :src="recipe.photo_url" alt=""></div>-->
                                     <div class="col-md-8 centered_col"><p>{{ cookbook.post_title }}</p></div>
                                     <div class="col-md-1 centered_col"><button class="btn-normal" @click="changeScreen('add-cookbook', cookbook.ID)">Edit</button></div>
-                                    <!--<div class="col-md-1 centered_col"><button class="btn-normal" :disabled="recipes.incomplete" @click="changeScreen('view-cookbook',cookbook.ID)">View</button></div>-->
+                                    <div class="col-md-1 centered_col"><button class="btn-normal" @click="changeScreen('view-cookbook',cookbook.ID)">View</button></div>
                                 </div>
                             </div>
                             <div class="container">
@@ -108,8 +109,9 @@
         </div>
 
         <add-recipe :edit_mode="edit_recipe" v-if="active_screen == 'add-recipe'" @goViewRecipe="changeScreen('view-recipe',edit_recipe)" @goViewRecipeWithId="goViewRecipeWithId" @goBack="changeScreen('dashboard')" ></add-recipe>
-        <add-cookbook  :edit_mode="edit_cookbook" v-if="active_screen == 'add-cookbook'" @goViewCookbook="changeScreen('view-cookbook',edit_cookbook)"  :recipes="recipes" @goBack="changeScreen('dashboard')" ></add-cookbook>
+        <add-cookbook  :edit_mode="edit_cookbook" v-if="active_screen == 'add-cookbook'" @goViewCookbook="changeScreen('view-cookbook',edit_cookbook)" @goCookbookWithId="goCookbookWithId"  :recipes="recipes" @goBack="changeScreen('dashboard')" ></add-cookbook>
         <view-recipe :edit_mode="edit_recipe" v-if="active_screen == 'view-recipe'" :recipes="recipes" @goEditRecipe="changeScreen('add-recipe',edit_recipe)" @goBack="changeScreen('dashboard')" ></view-recipe>
+        <view-cookbook  :edit_mode="edit_cookbook" v-if="active_screen == 'view-cookbook'" @goEditCookbook="changeScreen('add-cookbook',edit_cookbook)"  :recipes="recipes" @goBack="changeScreen('dashboard')" ></view-cookbook>
         <collaborators  v-if="active_screen == 'collaborators'"></collaborators>
     </v-app>
 </template>
@@ -120,6 +122,7 @@
     export default {
         data () {
             return {
+               loading:false,
                active_screen: 'dashboard',
                recipes:[],
                edit_recipe: -1,
@@ -145,7 +148,6 @@
                 this.changeScreen(query_parameter);
             },
             changeScreen(screen, id){
-
                 if(screen === 'dashboard'){
                     this.getYourRecipes();
                     this.getYourCookbooks();
@@ -158,18 +160,21 @@
                 if(screen === 'add-cookbook' || screen === 'view-cookbook'){
                     this.edit_cookbook = id;
                 }
-
                 this.active_screen = screen;
-
             },
             goViewRecipeWithId(id){
                 this.edit_recipe = id;
                 this.active_screen = 'view-recipe';
             },
+            goCookbookWithId(id){
+                this.edit_cookbook = id;
+                this.active_screen = 'view-cookbook';
+            },
             getYourRecipes(){
                 const formData = new FormData();
                 formData.append('action', 'get_your_recipes');
-                formData.append('author_id', parameters.owner.ID)
+                formData.append('author_id', parameters.owner.ID);
+                this.loading= true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){
@@ -177,12 +182,14 @@
                         }else{
                             toastr.warning('We could not get your recipes', 'Error');
                         }
+                        this.loading= false;
                     });
             },
             getYourCookbooks(){
                 const formData = new FormData();
                 formData.append('action', 'get_user_cookbooks');
-                formData.append('author_id', parameters.owner.ID)
+                formData.append('author_id', parameters.owner.ID);
+                this.loading= true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){
@@ -190,10 +197,10 @@
                         }else{
                             toastr.warning('We could not get your cookbooks', 'Error');
                         }
+                        this.loading= false;
                     });
             },
             viewRecipe(id){
-
             },
             goToUpgradeMembership(){
                 window.location = '/register/?registration_type=upgrade';

@@ -1,5 +1,6 @@
 <template>
    <div class="container">
+      <loading-dialog :loading="loading"></loading-dialog>
       <v-dialog v-model="dialogStory" width="800" height="300" scrollable>
          <v-card>
             <v-card-title class="headline" primary-title> </v-card-title>
@@ -182,6 +183,7 @@
         props:['edit_mode'],
         data () {
             return {
+               loading:false,
                dialogIngredient: false,
                current_image: null,
                editor: null,
@@ -361,13 +363,15 @@
                  formData.append('category', this.category);
                  formData.append('title', this.title);
                  formData.append('instructions',this.editor.root.innerHTML.trim());
-                 formData.append('story',this.editorStory.root.innerHTML.trim());
+                 formData.append('story',this.editorStory !== null ? this.editorStory.root.innerHTML.trim() : '' );
                  formData.append('ingredients', JSON.stringify(this.ingredients));
                  formData.append('author_id', parameters.owner.ID);
                  formData.append('photos', JSON.stringify(this.photos));
                  formData.append('status', status);
                  formData.append('cookbooks_ids', this.cookbooks_ids);
                  formData.append('edit', this.edit_mode);
+
+                 this.loading = true;
 
                  axios.post(parameters.ajax_url, formData)
                       .then( response => {
@@ -377,10 +381,7 @@
                             }else{
                                toastr.success('The recipe has been created', 'Recipe Created!');
                             }
-
                             this.goViewRecipeWithId(response.data.id)
-
-
                          }else{
                             toastr.error('The recipe was not inserted', 'Error');
                          }
@@ -388,6 +389,7 @@
               }else{
                  toastr.warning('You must define a Recipe title', 'Error');
               }
+              this.loading = false;
            },
            fileChanged(e){
               if(this.current_image !== null && this.current_image !== ''){
@@ -395,17 +397,21 @@
                  formData.append('action', 'add_photo');
                  formData.append('image', this.current_image);
 
+                 this.loading = true;
+
                  axios.post(parameters.ajax_url, formData)
                    .then( response => {
                       if(response.data.success){
                          this.photos.push({
-                            id: response.data.photo_id,
+                            id: response.data.image.id,
                             url: URL.createObjectURL(e)
                          });
                          this.current_image = null;
                       }else{
                          toastr.warning('The photo was not inserted', 'Error');
                       }
+
+                      this.loading = false;
                  });
               }
            },
@@ -426,6 +432,7 @@
            getCategories(){
               const formData = new FormData();
               formData.append('action', 'get_recipe_categories');
+              this.loading = true;
               axios.post(parameters.ajax_url, formData)
                 .then( response => {
                    if(response.data.success){
@@ -433,12 +440,14 @@
                    }else{
                       toastr.warning('We could not get the recipe categories', 'Error');
                    }
+                   this.loading = false;
                 });
            },
            getCookbooks(){
               const formData = new FormData();
               formData.append('action', 'get_user_cookbooks');
-              formData.append('author_id', parameters.owner.ID)
+              formData.append('author_id', parameters.owner.ID);
+              this.loading = true;
               axios.post(parameters.ajax_url, formData)
                       .then( response => {
                          if(response.data.success){
@@ -446,13 +455,15 @@
                          }else{
                             toastr.warning('We could not get the cookbooks', 'Error');
                          }
+                         this.loading = false;
                       });
            },
            getRecipe(){
               const formData = new FormData();
               formData.append('action', 'get_recipe');
               formData.append('id', this.edit_mode);
-              formData.append('author_id', parameters.owner.ID)
+              formData.append('author_id', parameters.owner.ID);
+              this.loading = true;
               axios.post(parameters.ajax_url, formData)
                       .then( response => {
                          if(response.data.success){
@@ -467,10 +478,13 @@
                             this.cookbooks_ids = response.data.recipe.cookbooks_ids;
 
                             if(this.editorStory === null){
+                               this.dialogStory = true;
                                setTimeout(()=>{
+
                                   this.editorStory = new Quill('#editor_story', this.storyOptions);
                                   this.editorStory.root.innerHTML = response.data.recipe.story;
-                               },1000)
+                                  this.dialogStory = false;
+                               },10)
                             }else{
                                this.editorStory.root.innerHTML = response.data.recipe.story;
                             }
@@ -480,7 +494,7 @@
                          }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
                          }
-
+                         this.loading = false;
                       });
            }
         }

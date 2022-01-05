@@ -92,16 +92,18 @@ function cbf_upload_file( $file, $post_id = 0, $desc = null ) {
 function insertRecipeCookBook($cookbook_id, $recipes){
     global $wpdb;
 
+    deleteAllRecipeCookBooksByRecipeID($cookbook_id,'cookbook_id');
+
     foreach ($recipes as $recipe_id){
         $wpdb->query("INSERT INTO $wpdb->prefix" . "cbf_recipes_cookbooks (recipe_id,cookbook_id) VALUES ('$recipe_id','$cookbook_id')");
     }
 
 }
 
-function deleteAllRecipeCookBooksByRecipeID($id){
+function deleteAllRecipeCookBooksByRecipeID($id, $field = 'recipe_id'){
     global $wpdb;
 
-    $wpdb->query("DELETE FROM $wpdb->prefix" . "cbf_recipes_cookbooks WHERE recipe_id='$id'");
+    $wpdb->query("DELETE FROM $wpdb->prefix" . "cbf_recipes_cookbooks WHERE $field='$id'");
 }
 
 function insertCookbooksToRecipe($cookbooks, $recipe_id){
@@ -130,6 +132,13 @@ function getCookbooksFromRecipeId($id){
     return count($cookbook) > 0 ? $cookbook : [];
 }
 
+function getRecipesFromCookbookId($id){
+    global $wpdb;
+
+    $recipes = $wpdb->get_results("SELECT P.post_title,P.ID FROM $wpdb->prefix" . "cbf_recipes_cookbooks RC INNER JOIN $wpdb->prefix" . "posts P ON RC.recipe_id=P.ID WHERE RC.cookbook_id='$id'", ARRAY_A);
+
+    return count($recipes) > 0 ? $recipes : [];
+}
 
 function getUserCookbook($author_id){
 
