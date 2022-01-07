@@ -29,7 +29,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 ?>
 
-<form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
+<form name="checkout" method="post" class="checkout woocommerce-checkout container" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
 
     <input name="cookbook_id" id="cookbook_id" hidden type="text" value="<?php echo isset($_GET['cookbook_id']) ? sanitize_text_field($_GET['cookbook_id']) : '' ?>">
     <input name="template" id="template" hidden type="text" value="<?php echo isset($_GET['template']) ? sanitize_text_field($_GET['template']) : '' ?>">
@@ -40,7 +40,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
         <?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
 
         <div class="col2-set" id="customer_details">
-            <div class="col-1">
+            <div class="">
                 <?php do_action( 'woocommerce_checkout_billing' ); ?>
             </div>
 
