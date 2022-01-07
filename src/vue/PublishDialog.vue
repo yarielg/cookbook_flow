@@ -193,7 +193,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     input[type='checkbox'], input[type='radio']{
         display: none !important;
     }
