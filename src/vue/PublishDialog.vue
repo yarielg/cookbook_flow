@@ -14,7 +14,7 @@
                         <v-row v-if="current_step === 1">
                             <v-col cols="5" class="text-center">
                                 <h5>Select a template</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus architecto, debitis hic ipsa quam quas tempore? At, consequatur culpa cum, dolorem ducimus fugiat maiores optio praesentium qui, recusandae sed ut.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
                                 <button @click="chooseOption(1)" class="btn-normal">Continue with a template</button>
                             </v-col>
                             <v-col cols="2" class="text-center">OR</v-col>
