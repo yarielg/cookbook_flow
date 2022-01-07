@@ -51,7 +51,7 @@ class Checkout{
         if($option == 1 && $template_id > 0){
             $template = getTemplateACFByID($template_id);
 
-            echo '<div class="order_data_column cookbook_info">';
+            echo '<div style="margin-left: 30px;" class="order_data_column cookbook_info">';
             echo "<h3>Template Info</h3><br>";
             echo '<div style="background-image: url('.$template['url'].');width: 100px;height: 100px;background-size: cover"></div>';
             echo '<p>Name: <strong> ' . $template['name'] . '</strong></p>';
