@@ -512,7 +512,7 @@ class Ajax{
 
         if(intval($option)  == CBF_TEMPLATE_OPTION){
             $template = $_POST['template'];
-            $woocommerce->cart->add_to_cart(428,1);
+            $woocommerce->cart->add_to_cart(get_field('template_product','option'),1);
             $parameters .= '&template=' . intval($template);
 
         }else{
