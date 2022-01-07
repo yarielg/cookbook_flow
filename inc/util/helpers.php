@@ -148,7 +148,8 @@ function getUserCookbook($author_id){
         $cookbooks = get_posts(array(
             'post_type' => 'cookbook',
             'author' => intval($author_id),
-            'post_status' => array('publish', 'draft')
+            'post_status' => array('publish', 'draft'),
+
         ));
     }
     return $cookbooks;
@@ -244,6 +245,63 @@ function cbf_get_user_info(){
     }
 
     return array('account_type' => $account_type, 'user' => $user, 'owner' => $owner, 'premium' => $premium);
+}
+
+/**
+ * @param $id
+ * @return array|null
+ * Get template from id(index)
+ */
+function getTemplateACFByID($id){
+     $template = null;
+    if (have_rows('cbf_templates','option')) {
+        while (have_rows('cbf_templates','option')) {
+            the_row();
+
+            if (get_row_index() == $id) {
+                $template = array(
+                    'id' => get_row_index(),
+                    'name' => get_sub_field('name'),
+                    'url' => get_sub_field('image'),
+                );
+            }
+        }
+    }
+    return $template;
+}
+
+/**
+ * @return array
+ * get all the templates from general settings plugin
+ */
+function getTemplatesACF(){
+    $templates= array();
+    if (have_rows('cbf_templates','option')) {
+
+        while( have_rows('cbf_templates','option') ) : the_row();
+
+            array_push($templates, array(
+                'id' => get_row_index(),
+                'name' => get_sub_field('name'),
+                'url' => get_sub_field('image'),
+            ));
+
+        endwhile;
+    }
+    return $templates;
+}
+
+function getServicesACF(){
+    $products = get_field('cbf_product_services', 'option');
+    $services = array();
+    foreach ($products as $product){
+        array_push($services, array(
+            'id' => $product->ID,
+            'name' => $product->post_title,
+            'url' => get_the_post_thumbnail_url($product->ID),
+        ));
+    }
+    return  $services;
 }
 
 

@@ -18,6 +18,12 @@ class DefaultSettings
         add_action( 'init', array($this, 'cbf_add_collaborator') );
 
         /**
+         * Override woocommerce template from plugin
+         */
+
+        add_filter( 'woocommerce_locate_template', array($this, 'locate_template'), 10, 3 );
+
+        /**
          * Overriding RCP templates
          */
 
@@ -37,6 +43,43 @@ class DefaultSettings
          * Removing the secure screen when user is signing out
          */
         add_action('check_admin_referer', array($this, 'cbf_logout_without_confirm'), 10, 2);
+
+        /**
+         * Adding Plugin Setting Page
+         */
+        add_action('acf/init', array($this, 'plugin_setting_options'));
+
+    }
+
+    function plugin_setting_options(){
+        if( function_exists('acf_add_options_page') ) {
+
+            acf_add_options_page(array(
+                'page_title' 	=> 'Cookbook Plugin Settings',
+                'menu_title'	=> 'Cookbook Plugin Settings',
+                'menu_slug' 	=> 'cookbook-general-settings',
+                'capability'	=> 'edit_posts',
+                'redirect'		=> false
+            ));
+
+            /*acf_add_options_sub_page(array(
+                'page_title' 	=> 'Theme Header Settings',
+                'menu_title'	=> 'Header',
+                'parent_slug'	=> 'theme-general-settings',
+            ));*/
+        }
+    }
+
+    function locate_template( $template, $template_name, $template_path ) {
+        $basename = basename( $template );
+
+        switch ($basename){
+            case 'form-checkout.php':
+                $template = CBF_PLUGIN_PATH . 'templates/form-checkout.php';
+                break;
+        }
+
+        return $template;
     }
 
     function cbf_logout_without_confirm($action, $result){
@@ -50,13 +93,13 @@ class DefaultSettings
         }
     }
 
-    function wpa3396_page_template( $page_template )
+    /*function wpa3396_page_template( $page_template )
     {
         if ( is_page( 'welcome' ) ) {
             $page_template = CBF_PLUGIN_PATH . 'templates/dashboard.php';
         }
         return $page_template;
-    }
+    }*/
 
     // Register Custom Post Status
     function cbf_register_custom_post_status(){

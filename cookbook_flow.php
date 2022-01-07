@@ -27,6 +27,7 @@ if( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php') ){
 define('CBF_TEST_ENV', 1);
 
 
+
 define('CBF_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define('CBF_PLUGIN_URL' , plugin_dir_url(  __FILE__  ) );
 define('CBF_ADMIN_URL' , get_admin_url() );
@@ -38,6 +39,13 @@ define('CBF_FREE_ACCOUNT', 0);
 define('CBF_OWNER_ACCOUNT', 1);
 define('CBF_COLLABORATOR_ACCOUNT', 2);
 
+define('CBF_TEMPLATE_OPTION', 1);
+define('CBF_SERVICES_OPTION', 2);
+
+//Cookbook status
+define('CBF_INITIAL', 1);
+define('CBF_SENT', 2); //The order was placed and the cookbook was Sent to be created
+define('CBF_PUBLISHED', 3);
 
 //include the helpers
 include 'inc/util/helpers.php';
@@ -58,13 +66,5 @@ if ( (in_array( 'restrict-content-pro/restrict-content-pro.php', (array) get_opt
         <?php
     });
 }
-
-if( class_exists( 'Memd\\Inc\\Init' ) ){
-    register_activation_hook( __FILE__ , array('Memd\\Inc\\Base\\Activate','activate') );
-    register_activation_hook( __FILE__ , array('Memd\\Inc\\Base\\Deactivate','deactivate') );
-
-    Memd\Inc\Init::register_services();
-}
-
 
 

@@ -46,6 +46,31 @@ class Ajax{
 
         add_action( 'wp_ajax_remove_collaborator', array($this, 'removeCollaborator') );
         add_action( 'wp_ajax_nopriv_remove_collaborator', array($this, 'removeCollaborator') );
+
+        add_action( 'wp_ajax_publish_cookbook', array($this, 'publishCookbook') );
+        add_action( 'wp_ajax_nopriv_publish_cookbook', array($this, 'publishCookbook') );
+
+        add_action( 'wp_ajax_get_templates', array($this, 'getTemplates') );
+        add_action( 'wp_ajax_nopriv_get_templates', array($this, 'getTemplates') );
+
+        add_action( 'wp_ajax_get_services', array($this, 'getServices') );
+        add_action( 'wp_ajax_nopriv_get_services', array($this, 'getServices') );
+    }
+
+    /**
+     * Get the templates from the option plugin page ACF
+     */
+    function getTemplates(){
+        echo json_encode(array('success'=> 'true', 'templates' => getTemplatesACF()));
+        wp_die();
+    }
+
+    /**
+     * Get the templates from the option plugin page ACF
+     */
+    function getServices(){
+        echo json_encode(array('success'=> 'true', 'services' => getServicesACF()));
+        wp_die();
     }
 
     /**
@@ -55,6 +80,10 @@ class Ajax{
         $author_id = $_POST['author_id'];
 
         $cookbooks = getUserCookbook($author_id);
+
+        foreach ($cookbooks as $cookbook){
+            $cookbook->state = get_field('state',$cookbook->ID);
+        }
 
         echo json_encode(array('success'=> 'true', 'cookbooks' => $cookbooks));
         wp_die();
@@ -324,6 +353,7 @@ class Ajax{
         $cookbook->introduction = get_field( 'introduction',$id );
         $cookbook->recipes = get_field( 'recipes',$id );
         $cookbook->selected_recipes = getRecipesFromCookbookId($id);
+        $cookbook->state = get_field('state', $id);
 
         echo json_encode(array('success'=> 'true', 'cookbook' => $cookbook));
         wp_die();
@@ -454,6 +484,46 @@ class Ajax{
         }
 
         echo json_encode(array('success'=> true , 'msg' => 'Collaborator deleted'));
+        wp_die();
+
+    }
+
+    /**
+     * Publish a cookbook (a woo order will be created on the process)
+     */
+    public function publishCookbook(){
+
+        global $woocommerce;
+
+        if(!isset($_POST['option'])){
+            echo json_encode(array('success'=> false , 'msg' => 'We cannot publish a cookbook without an option'));
+            wp_die();
+        }
+
+        $option = $_POST['option'];
+        $cookbook_id = $_POST['cookbook_id'];
+
+        /**
+         * Empty cart to avoid multiple items on cart
+         */
+        $woocommerce->cart->empty_cart();
+
+        $parameters = '?cookbook_id=' . $cookbook_id . '&option=' . $option;
+
+        if(intval($option)  == CBF_TEMPLATE_OPTION){
+            $template = $_POST['template'];
+            $woocommerce->cart->add_to_cart(428,1);
+            $parameters .= '&template=' . intval($template);
+
+        }else{
+            $services = json_decode(str_replace("\\","",$_POST['services']));
+            foreach ($services as $service) {
+                $woocommerce->cart->add_to_cart(intval($service),1);
+            }
+
+        }
+
+        echo json_encode(array('success'=> true , 'checkout_url' => site_url('/checkout' . $parameters)));
         wp_die();
 
     }

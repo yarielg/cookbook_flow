@@ -23,8 +23,8 @@
                                 <div v-for="cookbook in cookbooks" :key="cookbook.ID"  class="row recipe">
                                     <!--<div class="col-md-2"><img class="recipe_img" :src="recipe.photo_url" alt=""></div>-->
                                     <div class="col-md-8 centered_col"><p>{{ cookbook.post_title }}</p></div>
-                                    <div class="col-md-1 centered_col"><button class="btn-normal" @click="changeScreen('add-cookbook', cookbook.ID)">Edit</button></div>
-                                    <div class="col-md-1 centered_col"><button class="btn-normal" @click="changeScreen('view-cookbook',cookbook.ID)">View</button></div>
+                                    <div v-if="cookbook.state != 2" class="col-md-1 centered_col"><button class="btn-normal" @click="changeScreen('add-cookbook', cookbook.ID)">Edit</button></div>
+                                    <div class="col-md-1 centered_col"><button class="btn-normal ml-5" @click="changeScreen('view-cookbook',cookbook.ID)">View</button></div>
                                 </div>
                             </div>
                             <div class="container">
