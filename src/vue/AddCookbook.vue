@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="acknowledgments_title">Acknowledgments</label>
+                        <label for="acknowledgments_title">Acknowledgements</label>
                         <textarea v-model="acknowledgments" class="form-control" id="acknowledgments_title" rows="3"></textarea>
                     </div>
 
@@ -50,17 +50,17 @@
                         <textarea v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
                     </div>
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="">Front Cover</label>
                         <v-file-input v-model="front_image" @change="fileChanged(1)"  label="Add an image" />
-                    </div>
+                    </div>-->
 
-                    <div v-if="front_image !== null" class="form-group photo-gallery">
+                    <!--<div v-if="front_image !== null" class="form-group photo-gallery">
                         <div class="photo-wrapper">
                             <img class="img-badge"  :src="front_image.url" alt="">
                             <span :data-photo-id="front_image.id" class="delete_photo_btn" @click="deletePhoto(front_image.id,1)">X</span>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group">
                         <label for="">Back Cover</label>
@@ -120,7 +120,7 @@
                 dedication:'',
                 acknowledgments:'',
                 introduction:'',
-                front_image: null,
+                //front_image: null,
                 back_image: null,
                 recipe: null,
                 search:null,
@@ -137,7 +137,7 @@
             this.dedication = "";
             this.acknowledgments= "";
             this.introduction= "";
-            this.front_image = null;
+            //this.front_image = null;
             this.back_image = null;
             this.recipe = null;
             this.search = null;
@@ -193,7 +193,7 @@
                     formData.append('acknowledgments', this.acknowledgments);
                     formData.append('introduction', this.introduction);
                     formData.append('back', this.back_image !== null ? this.back_image.id : -1);
-                    formData.append('front', this.front_image !== null ? this.front_image.id : -1);
+                   //formData.append('front', this.front_image !== null ? this.front_image.id : -1);
                     formData.append('recipes', this.getTheRecipesIDs());
                     formData.append('author_id', parameters.owner.ID);
                     formData.append('edit', this.edit_mode);
@@ -231,8 +231,8 @@
                     .then( response => {
                         if(response.data.success){
                             if(type == 1){
-                                this.front_image.id = response.data.image.id;
-                                this.front_image.url = response.data.image.url;
+                                /*this.front_image.id = response.data.image.id;
+                                this.front_image.url = response.data.image.url;*/
                             }else{
                                 this.back_image.id = response.data.image.id;
                                 this.back_image.url = response.data.image.url;
@@ -246,7 +246,7 @@
                     });
                 }else{
                     if(type == 1){
-                        this.front_image = null;
+                        //this.front_image = null;
                     }else{
                         this.back_image = null;
                     }
@@ -254,7 +254,7 @@
             },
             deletePhoto(photo_id,type){
                 if(type == 1){
-                    this.front_image = null;
+                    //this.front_image = null;
                 }else{
                     this.back_image = null;
                 }
@@ -272,7 +272,7 @@
                             this.introduction = response.data.cookbook.introduction;
                             this.acknowledgments = response.data.cookbook.acknowledgments;
                             this.selected_recipes = response.data.cookbook.selected_recipes;
-                            this.front_image = response.data.cookbook.front_image;
+                            //this.front_image = response.data.cookbook.front_image;
                             this.back_image = response.data.cookbook.back_image;
 
                         }else{

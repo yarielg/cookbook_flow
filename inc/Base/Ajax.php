@@ -228,7 +228,7 @@ class Ajax{
         $acknowledgments = $_POST['acknowledgments'];
         $introduction = $_POST['introduction'];
         $dedication = $_POST['dedication'];
-        $front = $_POST['front'];
+        //$front = $_POST['front'];
         $back = $_POST['back'];
         $author_id = $_POST['author_id'];
         $recipes = $_POST['recipes'];
@@ -259,7 +259,7 @@ class Ajax{
         }
 
         $back =  $back > 0 ? update_field( 'back_cover_image', $back,$post_id) : '';
-        $front =  $front > 0 ? update_field( 'front_cover_image', $front,$post_id) : '';
+        //$front =  $front > 0 ? update_field( 'front_cover_image', $front,$post_id) : '';
 
         //Updating the ACF related to the new/updated cookbook
         update_field( 'dedication', $dedication,$post_id);

@@ -21,15 +21,19 @@
                 <br>
                 <label v-if="state != 2" @click="editCookbook()" class="label-icon-edit mt-2 pt-2" for="">Edit</label>
                 <br>
+                Author: {{ author_name }}
+                <br>
+                <br>
                 <button class="btn-normal" @click="publish_dialog = true" v-if="checkPublish() && state != 2">Publish Cookbook</button>
                 <p v-if="state == 2"><strong>Note:</strong> This cookbook was sent to be published, actions are not allowed at this time</p>
+
 
             </div>
             <div class="col-md-8 main-panel pt-0" >
                 <div class="row">
-                    <div class="col-md-6" v-if="front_image">
+                    <!--<div class="col-md-6" v-if="front_image">
                         <img :src="front_image.url" alt="">
-                    </div>
+                    </div>-->
                     <div class="col-md-6" v-if="back_image">
                         <img :src="back_image.url" alt="">
                     </div>
@@ -43,7 +47,7 @@
                 </div>
 
                 <div class="section-info" v-if="acknowledgments">
-                    <label class="label-info-header" for="">ACKNOWLEDGMENTS</label>
+                    <label class="label-info-header" for="">ACKNOWLEDGEMENTS</label>
                     <p>{{ acknowledgments }}</p>
                 </div>
 
@@ -70,8 +74,9 @@
                 introduction: '',
                 acknowledgments: '',
                 dedication: '',
+                author_name: '',
                 recipes: [],
-                front_image: null,
+               // front_image: null,
                 back_image: null
             }
         },
@@ -79,11 +84,13 @@
             if(parseFloat(this.edit_mode) > 0){
                 this.getCookbook();
             }
+            console.log(parameters.owner)
+            this.author_name = parameters.owner.data.display_name.charAt(0).toUpperCase() + parameters.owner.data.display_name.slice(1);
         },
         computed:{
             cookbook_id(){
                 return this.edit_mode;
-            },
+            }
         },
         mounted(){
 
@@ -108,7 +115,7 @@
                             this.introduction = response.data.cookbook.introduction;
                             this.acknowledgments = response.data.cookbook.acknowledgments;
                             this.recipes = response.data.cookbook.selected_recipes;
-                            this.front_image = response.data.cookbook.front_image;
+                            //this.front_image = response.data.cookbook.front_image;
                             this.back_image = response.data.cookbook.back_image;
                             this.state = response.data.cookbook.state;
 

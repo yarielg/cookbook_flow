@@ -49,6 +49,45 @@ class DefaultSettings
          */
         add_action('acf/init', array($this, 'plugin_setting_options'));
 
+        /**
+         * Renaming the Woo orders
+         */
+        add_filter('gettext_with_context', array($this, 'rename_woocommerce_admin_text'), 100, 4 );
+        add_filter( 'manage_edit-shop_order_columns', array($this, 'adding_order_column_cookbook') );
+        add_action( 'manage_shop_order_posts_custom_column', array($this, 'render_cookbook_column_value'), 2 );
+
+    }
+
+    function render_cookbook_column_value( $column ) {
+        global $post;
+        $data = get_post_meta( $post->ID, 'cbf_cookbook_id');
+
+
+        if ( $column == 'cookbook' && isset($data[0]) ) {
+            $cookbook = get_post($data[0]);
+            echo '<a target="_blank" href="' .site_url() . '/wp-admin/post.php?post='.$data[0].'&action=edit">' . $cookbook->post_title . '</a>';
+        }
+
+    }
+
+    function adding_order_column_cookbook( $columns ) {
+        $new_columns = ( is_array( $columns ) ) ? $columns : array();
+
+        //edit this for your column(s)
+        //all of your columns will be added before the actions column
+        $new_columns['cookbook'] = 'Cookbook';
+
+        //stop editing
+        $new_columns[ 'order_status' ] = $columns[ 'order_status' ];
+        return $new_columns;
+    }
+
+    function rename_woocommerce_admin_text( $translated, $text, $context, $domain ) {
+        if( $domain == 'woocommerce' && $context == 'Admin menu name' && $text == 'Orders' ) {
+            $translated = __('Cookbook Orders', $domain );
+        }
+
+        return $translated;
     }
 
     function plugin_setting_options(){
