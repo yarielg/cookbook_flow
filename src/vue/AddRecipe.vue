@@ -638,17 +638,18 @@
       display: inline-block;
       padding: -52px;
       position: relative;
-      margin-right: 10px;
+      margin-right: 23px;
    }
 
    span.delete_photo_btn {
       position: absolute;
       background: red;
-      padding: 2px 8px;
+      padding: 5px 10px;
       top: -12px;
       right: -12px;
       border-radius: 50%;
       color: white;
+      font-size: 10px;
    }
 
    .photo-gallery{
