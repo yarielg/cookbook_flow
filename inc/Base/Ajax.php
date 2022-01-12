@@ -294,6 +294,8 @@ class Ajax{
             $photos[] = [
                 "id" => $image['image']['id'],
                 "url" => $image['image']['url'],
+                "caption" => $image['caption'],
+                "primary" => $image['primary'],
             ];
         }
 

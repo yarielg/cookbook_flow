@@ -1,5 +1,6 @@
 <template>
     <v-dialog
+            @click:outside="closeDialog"
             v-model="modal"
             scrollable
 

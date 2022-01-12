@@ -157,25 +157,43 @@
 
                <br>
 
-               <div class="form-group">
+               <!--<div class="form-group">
                   <label for="">ADD PHOTOS</label>
                   <v-file-input v-model="current_image" @change="fileChanged"  label="Add an image" />
-               </div>
-
-               <div class="form-group photo-gallery">
-                  <div class="photo-wrapper" v-for="photo in photos">
-                     <img class="img-badge"  :src="photo.url" alt="">
-                     <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id)">X</span>
-                  </div>
-               </div>
-               <div v-html="story"></div>
-
-               <!--<div class="form-group">
-                  <label for="">RECIPE STORY</label>
-                  <div class="editor_story" ref="editorStory"></div>
                </div>-->
 
+               <div v-html="story"></div>
+
+               <div class="media_component">
+                  <div @drop.prevent="onDrop($event)"
+                       @dragover.prevent="dragover = true"
+                       @dragenter.prevent="dragover = true"
+                       @dragleave.prevent="dragover = false"
+                       class="drop_media_zone"
+                       @click="launchFilePicker()">
+                     <img class="media_placeholder" src="http://localhost/wp/cookbook/wp-content/uploads/2022/01/image.png" alt="">
+                     <p>Drag a photo or Click to upload</p>
+                  </div>
+
+                  <input type="file"
+                         ref="file"
+                         @change="onFileChange(
+                         $event.target.name, $event.target.files)"
+                         style="display:none">
+               </div>
+
+               <br><br>
+
+               <div class="form-group photo-gallery mt-5">
+                  <div class="photo-wrapper" v-for="photo in photos">
+                     <img @click="updatePhoto(photo)" class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
+                     <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id)">X</span>
+                     <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>
+                  </div>
+               </div>
+
             </form>
+            <media-dialog @updateImage="editPhoto" :photo_update="photo_update" @addImage="fileChanged" :current_image="current_image" @closeDialog="closeMediaDialog()" :dialogMedia="dialogMedia" :multiple="true" ></media-dialog>
          </div>
       </div>
    </div>
@@ -191,6 +209,7 @@
                loading:false,
                new_cookbook: '',
                dialogIngredient: false,
+               dialogMedia: false,
                current_image: null,
                editor: null,
                dialogStory:false,
@@ -199,6 +218,7 @@
                status: 'Draft',
                category: -1,
                title: '',
+               photo_update: false,
                ingredients:[
                ],
                instructions:'',
@@ -323,6 +343,9 @@
               },100);
 
            },
+           launchFilePicker(){
+              this.$refs.file.click();
+           },
            goViewRecipe(){
               if(this.edit_mode > 0){
                  this.$emit('goViewRecipe');
@@ -335,6 +358,11 @@
            },
            closeDialog(){
               this.dialogStory = false;
+           },
+           closeMediaDialog(){
+              this.current_image = null;
+              this.photo_update = false;
+              this.dialogMedia = false;
            },
            goViewRecipeWithId(id){
               this.$emit('goViewRecipeWithId',id);
@@ -416,11 +444,13 @@
               }
               this.loading = false;
            },
-           fileChanged(e){
+           fileChanged(image){
               if(this.current_image !== null && this.current_image !== ''){
                  const formData = new FormData();
                  formData.append('action', 'add_photo');
                  formData.append('image', this.current_image);
+                 /*formData.append('caption', this.caption);
+                 formData.append('primary', this.primary);*/
 
                  this.loading = true;
 
@@ -429,15 +459,80 @@
                       if(response.data.success){
                          this.photos.push({
                             id: response.data.image.id,
-                            url: URL.createObjectURL(e)
+                            url: URL.createObjectURL(this.current_image),
+                            caption: image.caption,
+                            primary: image.primary
                          });
+
+                         if(image.primary)
+                            this.definePrimary(response.data.image.id);
+
                          this.current_image = null;
                       }else{
                          toastr.warning('The photo was not inserted', 'Error');
                       }
-
+                      this.closeMediaDialog()
                       this.loading = false;
+
+
                  });
+              }
+           },
+           editPhoto(photo){
+              var photoIndex = this.photos.findIndex((obj => obj.id === this.current_image.id));
+              photo.id = this.current_image.id;
+              photo.url = this.current_image.url;
+              this.photos[photoIndex] = photo;
+
+              if(photo.primary)
+               this.definePrimary(this.current_image.id)
+
+              this.photo_update = false;
+              this.dialogMedia = false;
+              this.current_image = false;
+
+           },
+           definePrimary(id){
+              this.photos.forEach(function(photo){
+                 photo.primary = false;
+                 if(photo.id === id){
+                    photo.primary = true;
+                 }
+              });
+           },
+           updatePhoto(photo){
+             this.current_image = photo;
+             this.photo_update = true;
+             this.dialogMedia = true;
+           },
+           onDrop(e) {
+              //this.dragover = false;
+              // If there are already uploaded files remove them
+             // if (this.uploadedFiles.length > 0) this.uploadedFiles = [];
+              if (e.dataTransfer.files.length > 1) {
+                 toastr.warning("Only one file can be uploaded at a time..", 'Error');
+                 return''
+              }
+
+              this.current_image = e.dataTransfer.files[0];
+              this.dialogMedia = true;
+
+           },
+           onFileChange(fieldName, file) {
+              const { maxSize } = this
+              let imageFile = file[0];
+
+              if (file.length>0) {
+                 let size = imageFile.size / maxSize / maxSize
+                 if (!imageFile.type.match('image.*')) {
+                    toastr.warning('Please choose an image file', 'Error');
+                 } else if (size>1) {
+                    toastr.warning('Your file is too big! Please select an image under 1MB', 'Error');
+                 } else {
+
+                    this.current_image = imageFile;
+                    this.dialogMedia = true;
+                 }
               }
            },
            isQuillEmpty() {
@@ -532,10 +627,15 @@
       width: 100px;
    }
 
+   .photo-featured{
+      position: absolute;
+      bottom: 0;
+      left: 5px;
+   }
+
    .photo-wrapper {
       /* width: 70px; */
       display: inline-block;
-      background: beige;
       padding: -52px;
       position: relative;
       margin-right: 10px;
@@ -595,5 +695,16 @@
 
    .btn-left{
       margin-right: 5px !important;
+   }
+
+   .media_component{
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+   }
+
+   .drop_media_zone{
+      text-align: center;
+      cursor: pointer;
    }
 </style>

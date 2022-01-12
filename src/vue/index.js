@@ -16,6 +16,7 @@ import Collaborators from "./Collaborators.vue";
 import CollaboratorDialog from "./CollaboratorDialog.vue";
 import PublishDialog from "./PublishDialog.vue";
 import Loading from "./Loading.vue";
+import MediaDialog from "./MediaDialog.vue";
 
 Vue.component('vueper-slide', VueperSlide);
 Vue.component('vueper-slides', VueperSlides);
@@ -28,6 +29,7 @@ Vue.component('collaborators', Collaborators);
 Vue.component('collaborator-dialog', CollaboratorDialog);
 Vue.component('publish-dialog', PublishDialog);
 Vue.component('loading-dialog', Loading);
+Vue.component('media-dialog', MediaDialog);
 
 
 new Vue({

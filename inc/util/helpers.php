@@ -55,6 +55,8 @@ function cbf_normalize_photos($photos){
     foreach ($photos as $photo){
         $normalized_photos[] = [
             'image' => $photo->id,
+            'primary' => $photo->primary,
+            'caption' => $photo->caption,
         ];
     }
     return $normalized_photos;
