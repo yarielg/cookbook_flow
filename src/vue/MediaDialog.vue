@@ -16,7 +16,7 @@
                             <textarea ref="caption" :value="image.caption"  class="form-control" id="caption" rows="3"></textarea>
                         </div>
                         <div class="form-group form-check">
-                            <input ref="primary" :checked="image.primary" :value="image.primary"  type="checkbox" class="form-check-input" id="primary">
+                            <input ref="primary" :checked="image.primary" :value="image.primary"  type="checkbox" class="form-check-input" id="primary_image">
                             <label  for="primary" class="form-check-label">Use as recipe's feature image</label>
                         </div>
                     </v-col>
