@@ -171,7 +171,7 @@
                        @dragleave.prevent="dragover = false"
                        class="drop_media_zone"
                        @click="launchFilePicker()">
-                     <img class="media_placeholder" src="http://localhost/wp/cookbook/wp-content/uploads/2022/01/image.png" alt="">
+                     <img class="media_placeholder" :src="image_placeholder" alt="">
                      <p>Drag a photo or Click to upload</p>
                   </div>
 
@@ -211,6 +211,7 @@
                dialogIngredient: false,
                dialogMedia: false,
                current_image: null,
+               image_placeholder: '',
                editor: null,
                dialogStory:false,
                editorStory: null,
@@ -264,6 +265,9 @@
                 return false
              }
           }
+       },
+       updated() {
+           this.image_placeholder = parameters.plugin_path + '/assets/images/image.png'
        },
        mounted(){
           var options = {
