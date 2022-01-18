@@ -22,7 +22,7 @@ $upgrading = isset($_GET['registration_type']) && $_GET['registration_type'] == 
 // show any error messages after form submission
 rcp_show_error_messages( 'register' ); ?>
 
-<form id="rcp_registration_form" class="rcp_form register-hubspot" method="POST" action="<?php echo esc_url( rcp_get_current_url() ); ?>">
+<form id="rcp_registration_form" class="register-hubspot" method="POST" action="<?php echo esc_url( rcp_get_current_url() ); ?>">
 
     <div class="container box-panel">
         <div class="row  panel-wrapper">
