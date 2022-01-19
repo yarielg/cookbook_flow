@@ -101,8 +101,71 @@ rcp_show_error_messages( 'register' ); ?>
                         <?php do_action( 'rcp_after_password_registration_field' ); ?>
 
                     <?php } else{
+                        $customer = rcp_get_customer_by_user_id( get_current_user_id() );
+                        if($customer){
+                            $memberships = $customer->get_memberships();
+                            echo "<h5>Customer Details</h5><br>";
+
+                            $user = wp_get_current_user();
+                            ?>
+                            <strong>Name: </strong> <?php echo $user->display_name ?><br><br>
+                            <strong>Email: </strong> <?php echo $user->user_email ?><br><br>
+                            <strong>Current Plan: </strong> Premium<br><br>
+                            <?php
+                            ?>
+                            <h5>Payments</h5>
+                            <table class="rcp-table" id="rcp-payment-history">
+                                <thead>
+                                <tr>
+                                    <!--<th><?php /*_e( 'Invoice #', 'rcp' ); */?></th>-->
+                                    <th><?php _e( 'Plan', 'rcp' ); ?></th>
+                                    <th><?php _e( 'Amount', 'rcp' ); ?></th>
+                                    <th><?php _e( 'Status', 'rcp' ); ?></th>
+                                    <th><?php _e( 'Date', 'rcp' ); ?></th>
+                                    <th><?php _e( '', 'rcp' ); ?></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $payments = is_object( $customer ) ? $customer->get_payments() : false;
+                                if ( $payments ) : ?>
+                                    <?php foreach ( $payments as $payment ) : ?>
+                                        <tr>
+                                            <!--<td data-th="<?php /*esc_attr_e( 'Invoice #', 'rcp' ); */?>"><?php /*echo $payment->id; */?></td>-->
+                                            <td data-th="<?php esc_attr_e( 'Membership', 'rcp' ); ?>"><?php echo esc_html( $payment->subscription ); ?></td>
+                                            <td data-th="<?php esc_attr_e( 'Amount', 'rcp' ); ?>"><?php echo rcp_currency_filter( $payment->amount ); ?></td>
+                                            <td data-th="<?php esc_attr_e( 'Status', 'rcp' ); ?>"><?php echo rcp_get_payment_status_label( $payment ); ?></td>
+                                            <td data-th="<?php esc_attr_e( 'Date', 'rcp' ); ?>"><?php echo date('m-d-Y',strtotime( $payment->date, current_time( 'timestamp' ) )) ?></td>
+                                            <td data-th="<?php esc_attr_e( 'Actions', 'rcp' ); ?>">
+                                                <?php if ( in_array( $payment->status, array( 'pending', 'abandoned', 'failed' ) ) && empty( $payment->transaction_id ) ) : ?>
+                                                    <a href="<?php echo esc_url( rcp_get_payment_recovery_url( $payment->id ) ); ?>">
+                                                        <?php echo 'failed' === $payment->status ? __( 'Retry Payment', 'rcp' ) : __( 'Complete Payment', 'rcp' ); ?>
+                                                    </a> <br/>
+                                                <?php endif; ?>
+                                                <a href="<?php echo esc_url( rcp_get_invoice_url( $payment->id ) ); ?>"><?php _e( 'Receipt', 'rcp' ); ?></a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td data-th="<?php _e( 'Membership', 'rcp' ); ?>" colspan="6"><?php _e( 'You have not made any payments.', 'rcp' ); ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                </tbody>
+                            </table>
+                            <?php
+                        }else{
+                            echo "<h5>Customer Details</h5><br>";
+
+                            $user = wp_get_current_user();
+                            ?>
+                            <strong>Name: </strong> <?php echo $user->display_name ?><br><br>
+                            <strong>Email: </strong> <?php echo $user->user_email ?><br><br>
+                            <strong>Current Plan: </strong> Free<br><br>
+                            <?php
+                        }
                         ?>
-                        Membership Upgrade details goes here.
+
                         <?php
                     } ?>
 
@@ -140,7 +203,8 @@ rcp_show_error_messages( 'register' ); ?>
                         $i      = 0;
                         if( $levels ) : ?>
                             <?php if ( count( $levels ) > 1 ) : ?>
-                                <p class="rcp_subscription_message"><?php echo apply_filters ( 'rcp_registration_choose_subscription', __( 'Choose your plan', 'rcp' ) ); ?></p>
+                                <h5 class="rcp_subscription_message "><?php echo apply_filters ( 'rcp_registration_choose_subscription', __( 'Choose your plan', 'rcp' ) ); ?></h5>
+                                <br>
                             <?php endif; ?>
                             <ul id="rcp_subscription_levels">
                                 <?php foreach( $levels as $key => $level ) : ?>
