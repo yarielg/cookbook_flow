@@ -240,7 +240,6 @@ function cbf_get_user_info(){
 
         if ($customer) {
             $memberships = $customer->get_memberships();
-           // var_dump($memberships[0]->get_status());exit;
             $premium = $memberships[0]->get_gateway() == 'free' || $memberships[0]->get_status() == 'cancelled' ? false : true;
             $account_type = $account_type != CBF_COLLABORATOR_ACCOUNT && $premium ? CBF_OWNER_ACCOUNT : $account_type;
         }

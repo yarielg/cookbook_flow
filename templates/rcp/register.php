@@ -91,7 +91,7 @@ rcp_show_error_messages( 'register' ); ?>
 
                             <p id="rcp_submit_wrap" class="create_account_free" class="form-group col-md-12">
                                 <input type="hidden" name="rcp_register_nonce" value="<?php echo wp_create_nonce('rcp-register-nonce' ); ?>"/>
-                                <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Create Account', 'rcp' ) ) ); ?>"/>
+                                <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Create a free account', 'rcp' ) ) ); ?>"/>
                             </p>
                             <button type="button" class="btn-normal" style="display: none" id="go_free">Go Back</button>
 
@@ -197,7 +197,7 @@ rcp_show_error_messages( 'register' ); ?>
 
                     <?php do_action( 'rcp_before_registration_submit_field', $levels ); ?>
 
-                <?php if(!$upgrading){ ?><br><p id="rcp_submit_wrap"><button class="btn-normal" type="button" id="go_premium">Continue Setup</button></p><?php }  ?>
+                <?php if(!$upgrading){ ?><br><p id="rcp_submit_wrap"><button class="btn-normal" type="button" id="go_premium">Upgrade</button></p><?php }  ?>
                     <p id="rcp_submit_wrap" style="display: <?= $upgrading ? 'block' : 'none' ?>" class="create_account_premium">
                         <input type="hidden" name="rcp_register_nonce" value="<?php echo wp_create_nonce('rcp-register-nonce' ); ?>"/>
                         <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal" value="<?= $upgrading ? 'Update Account' : 'Create Account' ?>"/>

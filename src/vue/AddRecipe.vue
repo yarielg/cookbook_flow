@@ -1,7 +1,7 @@
 <template>
    <div class="container">
       <loading-dialog :loading="loading"></loading-dialog>
-      <v-dialog v-model="dialogStory" width="800" height="300" scrollable>
+      <!--<v-dialog v-model="dialogStory" width="800" height="300" scrollable>
          <v-card>
             <v-card-title class="headline" primary-title> </v-card-title>
 
@@ -34,7 +34,7 @@
                <button class="btn-normal"  @click="closeDialog"> Save Story</button>
             </v-card-actions>
          </v-card>
-      </v-dialog>
+      </v-dialog>-->
       <div class="row">
          <div class="col-md-4">
             <v-icon @click="goBack()">
@@ -104,11 +104,6 @@
                <li><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>
                <li><span :class="!isQuillEmpty()  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
                <li><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
-               <br><br>
-               <li>
-                  <label v-if="!editMode" @click="editStory()" class="label-icon-edit mt-2 pt-2" for="">Add a Story</label>
-                  <label v-if="editMode" @click="editStory()" class="label-icon-edit mt-2 pt-2" for="">Edit your Story</label>
-               </li>
             </ul>
          </div>
 
@@ -157,13 +152,6 @@
 
                <br>
 
-               <!--<div class="form-group">
-                  <label for="">ADD PHOTOS</label>
-                  <v-file-input v-model="current_image" @change="fileChanged"  label="Add an image" />
-               </div>-->
-
-               <div v-html="story"></div>
-
                <div class="media_component">
                   <div @drop.prevent="onDrop($event)"
                        @dragover.prevent="dragover = true"
@@ -192,6 +180,11 @@
                   </div>
                </div>
 
+               <div class="form-group story">
+                  <label for="">RECIPE STORY</label>
+                  <div id="editor_story" ref="editorStory"></div>
+               </div>
+
             </form>
             <media-dialog @updateImage="editPhoto" :photo_update="photo_update" @addImage="fileChanged" :current_image="current_image" @closeDialog="closeMediaDialog()" :dialogMedia="dialogMedia" :multiple="true" ></media-dialog>
          </div>
@@ -201,6 +194,8 @@
 
 <script>
    const axios = require('axios');
+
+   //this is not funny...
 
     export default {
         props:['edit_mode'],
@@ -213,7 +208,6 @@
                current_image: null,
                image_placeholder: '',
                editor: null,
-               dialogStory:false,
                editorStory: null,
                categories:[],
                status: 'Draft',
@@ -228,7 +222,6 @@
                cookbooks_ids: [],
                cookbooks:[],
                cookbooks_selected: [],
-               storyOptions: {}
 
             }
         },
@@ -245,7 +238,7 @@
           this.instructions = '';
           this.story = '';
           this.editor = '';
-          this.editorStory = null;
+          this.editorStory = '';
           this.photos = [];
           this.category = -1;
           this.current_image =  null;
@@ -296,7 +289,7 @@
              theme: 'snow'
           };
 
-          this.storyOptions = {
+          var storyOptions = {
              modules: {
                 toolbar: [
                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -323,6 +316,7 @@
           };
 
           this.editor = new Quill('#editor_instructions', options);
+          this.editorStory = new Quill('#editor_story', storyOptions);
 
        },
         methods:{
@@ -338,15 +332,6 @@
            goBack(){
               this.$emit('goBack');
            },
-           editStory(){
-             this.dialogStory = true;
-              setTimeout(() => {
-                 if(this.editorStory === null){
-                    this.editorStory = new Quill('#editor_story', this.storyOptions);
-                 }
-              },100);
-
-           },
            launchFilePicker(){
               this.$refs.file.click();
            },
@@ -359,9 +344,6 @@
            },
            goCookbookEditWithId(id){
               this.$emit('goCookbookEditWithId',id);
-           },
-           closeDialog(){
-              this.dialogStory = false;
            },
            closeMediaDialog(){
               this.current_image = null;
@@ -408,7 +390,7 @@
                  formData.append('category', this.category);
                  formData.append('title', this.title);
                  formData.append('instructions',this.editor.root.innerHTML.trim());
-                 formData.append('story',this.editorStory !== null ? this.editorStory.root.innerHTML.trim() : '' );
+                 formData.append('story',this.editorStory.root.innerHTML.trim());
                  formData.append('ingredients', JSON.stringify(this.ingredients));
                  formData.append('author_id', parameters.owner.ID);
                  formData.append('photos', JSON.stringify(this.photos));
@@ -597,23 +579,10 @@
                             this.ingredients = response.data.recipe.ingredients;
                             this.photos = response.data.recipe.photos;
                             this.editor.root.innerHTML = response.data.recipe.post_content;
+                            this.editorStory.root.innerHTML = response.data.recipe.story;
 
                             this.status = response.data.recipe.post_status;
                             this.cookbooks_ids = response.data.recipe.cookbooks_ids;
-
-                            if(this.editorStory === null){
-                               this.dialogStory = true;
-                               setTimeout(()=>{
-
-                                  this.editorStory = new Quill('#editor_story', this.storyOptions);
-                                  this.editorStory.root.innerHTML = response.data.recipe.story;
-                                  this.dialogStory = false;
-                               },10)
-                            }else{
-                               this.editorStory.root.innerHTML = response.data.recipe.story;
-                            }
-
-
 
                          }else{
                             toastr.warning('We could not get the recipe categories', 'Error');

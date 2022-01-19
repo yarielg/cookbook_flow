@@ -4,17 +4,6 @@
             <loading-dialog :loading="loading"></loading-dialog>
             <div class="row mb-6">
                 <div class="col-md-6 text-center box-panel">
-                    <div class="panel-wrapper" v-show="!premium_account && account_type == 1">
-                        <h4 class="">
-                            Upgrade to start creating a cookbook!
-                        </h4>
-                        <br>
-                        <p class="">Nam porttitor blandit accumsan. Ut vel
-                            dictum sem, a pretium dui. In malesuada
-                            enim in dolor euismod,Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aperiam aspernatur assumenda, blanditiis corporis delectus dolor eius est eveniet laboriosam libero minima molestiae nam numquam odit qui veritatis vero voluptates.</p>
-                        <br>
-                        <button @click="goToUpgradeMembership()" class="btn-normal">Upgrade Account</button>
-                    </div>
                     <div class="panel-wrapper" v-show="premium_account">
                         <div v-if="cookbooks.length > 0" class="cookbooks_list">
                             <h4 class="mb-4 inline_header">Your Cookbooks</h4>
@@ -29,14 +18,6 @@
                                     </div>
                                     <div class="col-md-1"></div>
 
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="row ">
-                                    <div class="col-12 d-flex justify-content-between">
-                                        <!--<button @click="changeScreen('add-recipe')" class="btn-normal">Create a Recipe</button>-->
-                                        <!--<button @click="changeScreen('all-recipe')" class="btn-normal">All Recipes</button>-->
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -103,13 +84,24 @@
                     </div>
                 </div>
                 <div class="col-md-4 box-panel text-center">
-                    <div class="panel-wrapper">
+                    <div class="panel-wrapper" v-show="premium_account && account_type !== 2 ">
                         <h4 class="mb-5 pb-5">Add / Promotion Space</h4>
                         <p class="">As a user continues to build out their
                             dashboard with content, we could
                             trickle in CTA spaces for promotions
                             or ads. </p>
                         <button class="btn-normal">Promote</button>
+                    </div>
+                    <div class="panel-wrapper" v-show="!premium_account && account_type !== 2">
+                        <h4 class="">
+                            Upgrade to start creating a cookbook!
+                        </h4>
+                        <br>
+                        <p class="">Nam porttitor blandit accumsan. Ut vel
+                            dictum sem, a pretium dui. In malesuada
+                            enim in dolor euismod,Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aperiam aspernatur assumenda, blanditiis corporis delectus dolor eius est eveniet laboriosam libero minima molestiae nam numquam odit qui veritatis vero voluptates.</p>
+                        <br>
+                        <button @click="goToUpgradeMembership()" class="btn-normal">Upgrade Account</button>
                     </div>
                 </div>
             </div>
