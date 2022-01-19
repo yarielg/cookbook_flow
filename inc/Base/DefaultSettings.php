@@ -116,8 +116,11 @@ class DefaultSettings
             case 'form-checkout.php':
                 $template = CBF_PLUGIN_PATH . 'templates/form-checkout.php';
                 break;
-                case 'customer-processing-order.php':
-                $template = CBF_PLUGIN_PATH . 'templates/customer-processing-order.php';
+            case 'customer-processing-order.php':
+            $template = CBF_PLUGIN_PATH . 'templates/customer-processing-order.php';
+            break;
+            case 'form-billing.php':
+                $template = CBF_PLUGIN_PATH . 'templates/form-billing.php';
                 break;
         }
 
