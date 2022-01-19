@@ -104,14 +104,27 @@ rcp_show_error_messages( 'register' ); ?>
                         $customer = rcp_get_customer_by_user_id( get_current_user_id() );
                         if($customer){
                             $memberships = $customer->get_memberships();
-                            echo "<h5>Customer Details</h5><br>";
+                            $premium = $memberships[0]->get_gateway() == 'free' || $memberships[0]->get_status() == 'cancelled' ? false : true;
+                            if($premium){
+                                echo "<h5>Customer Details</h5><br>";
 
-                            $user = wp_get_current_user();
-                            ?>
-                            <strong>Name: </strong> <?php echo $user->display_name ?><br><br>
-                            <strong>Email: </strong> <?php echo $user->user_email ?><br><br>
-                            <strong>Current Plan: </strong> Premium<br><br>
-                            <?php
+                                $user = wp_get_current_user();
+                                ?>
+                                <strong>Name: </strong> <?php echo $user->display_name ?><br><br>
+                                <strong>Email: </strong> <?php echo $user->user_email ?><br><br>
+                                <strong>Current Plan: </strong> Premium<br><br>
+                                <?php
+                            }else{
+                                echo "<h5>Customer Details</h5><br>";
+
+                                $user = wp_get_current_user();
+                                ?>
+                                <strong>Name: </strong> <?php echo $user->display_name ?><br><br>
+                                <strong>Email: </strong> <?php echo $user->user_email ?><br><br>
+                                <strong>Current Plan: </strong> Free<br><br>
+                                <?php
+                            }
+
                             ?>
                             <h5>Payments</h5>
                             <table class="rcp-table" id="rcp-payment-history">
@@ -154,22 +167,11 @@ rcp_show_error_messages( 'register' ); ?>
                                 </tbody>
                             </table>
                             <?php
-                        }else{
-                            echo "<h5>Customer Details</h5><br>";
 
-                            $user = wp_get_current_user();
-                            ?>
-                            <strong>Name: </strong> <?php echo $user->display_name ?><br><br>
-                            <strong>Email: </strong> <?php echo $user->user_email ?><br><br>
-                            <strong>Current Plan: </strong> Free<br><br>
-                            <?php
                         }
-                        ?>
+                    }
 
-                        <?php
-                    } ?>
-
-                    <?php do_action( 'rcp_before_subscription_form_fields' ); ?>
+                    do_action( 'rcp_before_subscription_form_fields' ); ?>
 
 
                     <?php /*do_action( 'rcp_after_register_form_fields', $levels ); */?>
