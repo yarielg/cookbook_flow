@@ -98,8 +98,7 @@
                         </h4>
                         <br>
                         <p class="">Nam porttitor blandit accumsan. Ut vel
-                            dictum sem, a pretium dui. In malesuada
-                            enim in dolor euismod,Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aperiam aspernatur assumenda, blanditiis corporis delectus dolor eius est eveniet laboriosam libero minima molestiae nam numquam odit qui veritatis vero voluptates.</p>
+                            dictum sem, a pretium dui. In malesuada</p>
                         <br>
                         <button @click="goToUpgradeMembership()" class="btn-normal">Upgrade Account</button>
                     </div>
