@@ -4,6 +4,9 @@
  *
  */
 
+$upgrading = isset($_GET['registration_type']) && $_GET['registration_type'] == 'upgrade';
+global $post;
+$post_slug = $post->post_name;
 if(is_user_logged_in()){
     $user_data = cbf_get_user_info();
 ?>
@@ -54,8 +57,15 @@ if(is_user_logged_in()){
     </div>
 </nav>
 <?php }else{
-    wp_redirect(site_url('/login'));
-    die();
+
+    if($post_slug !== 'register'){
+        wp_redirect(site_url('/login'));
+        die();
+    }else{
+        get_header();
+    }
+
+
 } ?>
 <div class=" main">
     <?php
