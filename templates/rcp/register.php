@@ -17,7 +17,7 @@
 global $rcp_options, $post, $rcp_levels_db, $rcp_register_form_atts;
 $discount = ! empty( $_REQUEST['discount'] ) ? sanitize_text_field( $_REQUEST['discount'] ) : '';
 
-$upgrading = isset($_GET['registration_type']) && $_GET['registration_type'] == 'upgrade';
+$upgrading = isset($_GET['registration_type']) && ($_GET['registration_type'] == 'upgrade' || $_GET['registration_type'] == 'renewal');
 
 // show any error messages after form submission
 rcp_show_error_messages( 'register' ); ?>
