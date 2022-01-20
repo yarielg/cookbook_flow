@@ -189,7 +189,7 @@ rcp_show_error_messages( 'register' ); ?>
             <div class="col-md-6 col-xl-5">
                 <?php if( ! is_user_logged_in() ){ ?>
                     <div class="premium_boundaries" style="display: <?= $upgrading ? 'none' : 'block' ?>">
-                        <h5 class="text-center">Create PREMIUM account</h5>
+                        <h5 class="text-center">Create a PREMIUM account</h5>
                         <br><br>
                         <ul>
                             <li> <span class="icon_32"></span> <span class="feature">Add your recipes to a cookbook</span></li>

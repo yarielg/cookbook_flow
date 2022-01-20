@@ -1,40 +1,6 @@
 <template>
    <div class="container">
       <loading-dialog :loading="loading"></loading-dialog>
-      <!--<v-dialog v-model="dialogStory" width="800" height="300" scrollable>
-         <v-card>
-            <v-card-title class="headline" primary-title> </v-card-title>
-
-            <v-spacer></v-spacer>
-
-            <v-card-text style="height: 500px">
-                  <v-container>
-                     <v-row class="story_image">
-                        <img v-if="photos[0]" :src="photos[0].url" alt="">
-                     </v-row>
-                     <v-row><br></v-row>
-                     <v-row>
-                        <h4>Further personalize your public recipe!</h4>
-                        <p>Maybe it was your grandma's famous pie, or a family recipe traditional handed down generation to generation... every recipe has a story! Consider adding a personal story to your recipe before publish it.</p>
-                     </v-row>
-                     <v-row>
-                        <div class="form-group">
-                           <label for="">RECIPE STORY</label>
-                           <div id="editor_story" ref="editorStory"></div>
-                        </div>
-                     </v-row>
-                  </v-container>
-            </v-card-text>
-
-            <v-divider></v-divider>
-
-            <v-card-actions>
-               <v-spacer></v-spacer>
-               <span class="btn-left"  @click="closeDialog">Skip for now </span>
-               <button class="btn-normal"  @click="closeDialog"> Save Story</button>
-            </v-card-actions>
-         </v-card>
-      </v-dialog>-->
       <div class="row">
          <div class="col-md-4">
             <v-icon @click="goBack()">
@@ -146,7 +112,7 @@
                <br><br>
 
                <div class="form-group">
-                  <label for="">RECIPE INSTRUCTIONS</label>
+                  <!--<label for="">RECIPE INSTRUCTIONS</label>-->
                   <div id="editor_instructions" ref="editor"></div>
                </div>
 
@@ -180,8 +146,9 @@
                   </div>
                </div>
 
+               <br>
                <div class="form-group story">
-                  <label for="">RECIPE STORY</label>
+                  <!--<label for="">RECIPE STORY</label>-->
                   <div id="editor_story" ref="editorStory"></div>
                </div>
 
@@ -269,20 +236,13 @@
                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
                    ['blockquote'],
 
-                   [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-                   [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-                   [{ 'direction': 'rtl' }],                         // text direction
+                            // custom button values
+                   // text direction
 
                    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-                   [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
-                   [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
                    [{ 'font': [] }],
-                   [{ 'align': [] }],
 
-                   ['clean']                                         // remove formatting button
                 ]
              },
              placeholder: 'Enter the recipe instructions...',
@@ -295,23 +255,15 @@
                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
                    ['blockquote'],
 
-                   [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-                   [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-                   [{ 'direction': 'rtl' }],                         // text direction
+                   // custom button values
+                   // text direction
 
                    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-                   [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
-                   [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-                   [{ 'font': [] }],
-                   [{ 'align': [] }],
-
-                   ['clean']                                         // remove formatting button
+                   [{ 'font': [] }],                                      // remove formatting button
                 ]
              },
-             placeholder: 'Add your story!',
+             placeholder: 'Add your story! (Optional)',
              theme: 'snow'
           };
 
