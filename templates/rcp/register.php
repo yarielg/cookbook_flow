@@ -97,7 +97,6 @@ rcp_show_error_messages( 'register' ); ?>
 
                         </div>
 
-
                         <?php do_action( 'rcp_after_password_registration_field' ); ?>
 
                     <?php } else{
@@ -189,7 +188,7 @@ rcp_show_error_messages( 'register' ); ?>
             </div>
             <div class="col-md-6 col-xl-5">
                     <div class="premium_boundaries" style="display: <?= $upgrading ? 'none' : 'block' ?>">
-                        <h5 class="text-center">Upgrade to our PREMIUM account</h5>
+                        <h5 class="text-center">Create PREMIUM account</h5>
                         <br><br>
                         <ul>
                             <li> <span class="icon_32"></span> <span class="feature">Add your recipes to a cookbook</span></li>

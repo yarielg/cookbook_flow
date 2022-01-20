@@ -87,6 +87,10 @@ class DefaultSettings
             $translated = __('Cookbook Orders', $domain );
         }
 
+        if( $domain == 'woocommerce' && $text == 'Billing address' ) {
+            $translated = __('Shipping address', $domain );
+        }
+
         return $translated;
     }
 
@@ -121,6 +125,9 @@ class DefaultSettings
             break;
             case 'form-billing.php':
                 $template = CBF_PLUGIN_PATH . 'templates/form-billing.php';
+                break;
+            case 'order-details-customer.php':
+                $template = CBF_PLUGIN_PATH . 'templates/order-details-customer.php';
                 break;
         }
 
