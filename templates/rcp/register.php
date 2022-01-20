@@ -187,6 +187,7 @@ rcp_show_error_messages( 'register' ); ?>
 
             </div>
             <div class="col-md-6 col-xl-5">
+                <?php if( ! is_user_logged_in() ){ ?>
                     <div class="premium_boundaries" style="display: <?= $upgrading ? 'none' : 'block' ?>">
                         <h5 class="text-center">Create PREMIUM account</h5>
                         <br><br>
@@ -196,6 +197,7 @@ rcp_show_error_messages( 'register' ); ?>
                             <li><span class="icon_32"></span> <span class="feature">Selling point</span></li>
                         </ul>
                     </div>
+                <?php } ?>
 
 
                     <fieldset class="rcp_subscription_fieldset" style="display: <?= $upgrading ? 'block' : 'none'  ?>">
