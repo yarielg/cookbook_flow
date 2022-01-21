@@ -25,7 +25,7 @@ jQuery(function($) {
                     alert(response.msg);
                 }
 
-                location.reload();
+                //location.reload();
 
             },
             error : function(jqXHR, exception){
