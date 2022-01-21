@@ -30,6 +30,36 @@ class Checkout{
         */
         add_action( 'woocommerce_admin_order_data_after_order_details', array($this, 'show_cookbook_info') );
 
+        /**
+         * Display zip file in single order
+         */
+        //add_action( 'woocommerce_admin_order_data_after_order_details', array($this, 'show_cookbook_zip') );
+
+        add_action( 'add_meta_boxes', array($this,'generate_xml_files') );
+
+    }
+
+    function generate_xml_files( $checkout ) {
+        add_meta_box( 'generate_xml_files', __('Cookbook Data ','woocommerce'), array($this,'add_file_markup'), 'shop_order', 'side', 'core' );
+    }
+
+    function add_file_markup($post){
+        $order_id = $post->ID;
+        $cookbook_id = get_post_meta( $order_id, 'cbf_cookbook_id', true );
+
+        if($cookbook_id){
+            if(get_post_meta($order_id,'zip_file_generated', true)){
+                ?>
+                <a href="<?php echo get_post_meta($order_id,'zip_file_url', true); ?>">Download file</a><br><br>
+                <?php
+            }
+            ?>
+            <button type="button" data-order_id="<?php echo $order_id ?>" data-cookbook_id="<?php echo $cookbook_id ?>" id="btn_generate_cookbook_file">Generate</button>
+            <?php
+        }else{
+            echo 'There is not a cookbook related with this order';
+        }
+
     }
 
     function show_cookbook_info( $order ){
@@ -92,6 +122,11 @@ class Checkout{
         if(empty($template) && intval($option_type) == 1){
             wc_add_notice(__("Choose a template to publish the cookbook selected"), 'error');
         }
+    }
+
+    function generate_xml($cookbook_id){
+
+
     }
 }
 ?>

@@ -305,4 +305,139 @@ function getServicesACF(){
     return  $services;
 }
 
+function cbf_append_xml_files($zip, $cookbook_id){
+
+    $recipes = getRecipesFromCookbookId($cookbook_id);
+    $cookbook = get_post($cookbook_id);
+
+    $dom = new \DOMDocument();
+
+    $dom->encoding = 'utf-8';
+    $dom->xmlVersion = '1.0';
+    $dom->formatOutput = true;
+    $path_name = $cookbook_id . '-' . time() .'.xml';
+    $xml_file_name = wp_upload_dir()['basedir'] . '/zips/'. $path_name ; //You can give your path to save file.
+
+    //$back_image = get_field( 'back_cover_image',$cookbook_id ) ? get_field( 'back_cover_image',$cookbook_id ) : null;
+    $dedication =  get_field( 'dedication',$cookbook_id );
+    $acknowledgments = get_field( 'acknowledgments',$cookbook_id );
+    $introduction = get_field( 'introduction',$cookbook_id );
+
+    //Root (cookbook)
+    $root = $dom->createElement('cookbook');
+
+    //Cookbook Title
+    $child_cookbook_title= $dom->createElement('cookbook-title', $cookbook->post_title);
+    $root->appendChild($child_cookbook_title);
+
+    //Cookbook Subtitle
+    $child_cookbook_subtitle= $dom->createElement('cookbook-subtitle', '');
+    $root->appendChild($child_cookbook_subtitle);
+
+    //Cookbook by-line
+    $child_cookbook_byline= $dom->createElement('by-line', '');
+    $root->appendChild($child_cookbook_byline);
+
+    //Cookbook ISBN
+    $child_cookbook_isbn= $dom->createElement('ISBN', '');
+    $root->appendChild($child_cookbook_isbn);
+
+    //Dedication
+    $child_cookbook_dedication= $dom->createElement('dedication', $dedication);
+    $root->appendChild($child_cookbook_dedication);
+
+    //Acknowledgments
+    $child_cookbook_acknowledgments= $dom->createElement('acknowledgments', $acknowledgments);
+    $root->appendChild($child_cookbook_acknowledgments);
+
+    //Introduction
+    $child_cookbook_introduction= $dom->createElement('introduction', $introduction);
+    $root->appendChild($child_cookbook_introduction);
+
+    $recipes_node = $dom->createElement('recipes');
+
+    foreach ($recipes as $recipe){
+
+        $recipe_obj = array();
+
+        $recipe_post = get_post($recipe['ID']);
+
+        $story = get_field('story', $recipe['ID']);
+
+        $recipe_node = $dom->createElement('recipe');
+
+        //Recipe Title
+        $child_recipe_title = $dom->createElement('recipe-title', $recipe['post_title']);
+        $recipe_node->appendChild($child_recipe_title);
+
+        //Recipe Instructions
+        /*$child_recipe_instructions = $dom->createElement('recipe-instructions', $recipe_post->post_content);
+        $recipe_node->appendChild($child_recipe_instructions);*/
+
+        //Recipe Story
+        /*$child_recipe_story = $dom->createElement('recipe-story', $story);
+        $recipe_node->appendChild($child_recipe_story);*/
+
+        //$recipe->story = get_field('story', $recipe['ID']);
+
+        $term_obj_list = get_the_terms( $recipe['ID'], 'cat_recipe' );
+        //$recipe['category'] = $term_obj_list ? $term_obj_list[0]->term_id : -1;
+        $category_name = $term_obj_list  ? $term_obj_list[0]->name : '';
+
+        //Category Node
+        $category_node = $dom->createElement('category');
+
+        $child_category_title = $dom->createElement('category-story-title', $category_name);
+        $category_node->appendChild($child_category_title);
+
+        $child_category_photo = $dom->createElement('category-photo', '');
+        $category_node->appendChild($child_category_photo);
+
+        $child_category_caption = $dom->createElement('category-photo-caption', '');
+        $category_node->appendChild($child_category_caption);
+
+        $child_category_text = $dom->createElement('category-photo-text', '');
+        $category_node->appendChild($child_category_text);
+
+        $recipe_node->appendChild($category_node);
+
+        //Ingredients
+        $ingredients_node = $dom->createElement('ingredients');
+
+        $ingredients = get_field( 'cbf_ingredients',$recipe['ID'] );
+       // var_dump($ingredients);exit;
+
+        if(is_array($ingredients) && count($ingredients) > 0){
+            foreach ($ingredients as $ingredient){
+                $ingredient_node = $dom->createElement('ingredient');
+
+                $child_ingredient_name = $dom->createElement('name', $ingredient['name']);
+                $ingredient_node->appendChild($child_ingredient_name);
+
+                $child_ingredient_quantity = $dom->createElement('quantity', $ingredient['quantity']);
+                $ingredient_node->appendChild($child_ingredient_quantity);
+
+                $child_ingredient_unit = $dom->createElement('unit', $ingredient['unit']);
+                $ingredient_node->appendChild($child_ingredient_unit);
+
+                $ingredients_node->appendChild($ingredient_node);
+            }
+        }
+
+        $recipe_node->appendChild($ingredients_node);
+
+        $recipes_node->appendChild($recipe_node);
+    }
+
+    $root->appendChild($recipes_node);
+
+    $dom->appendChild($root);
+    $dom->save($xml_file_name);
+
+    $zip->addFile($xml_file_name ,$cookbook->post_name . '-'. $cookbook->ID . '-' . time() .'.xml');
+
+    return $xml_file_name;
+
+}
+
 

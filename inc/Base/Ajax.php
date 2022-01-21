@@ -55,6 +55,95 @@ class Ajax{
 
         add_action( 'wp_ajax_get_services', array($this, 'getServices') );
         add_action( 'wp_ajax_nopriv_get_services', array($this, 'getServices') );
+
+        /**
+         * Generate cookbook xml files
+         */
+        add_action( 'wp_ajax_generate_xml_files', array($this, 'generate_XML_files') );
+        add_action( 'wp_ajax_nopriv_generate_xml_files', array($this, 'generate_XML_files') );
+    }
+
+    /**
+     * Generate XMl files
+     */
+    function generate_XML_files(){
+
+        $cookbook_id = $_POST['cookbook_id'];
+        $order_id = $_POST['order_id'];
+
+        if(get_post_meta($order_id,'zip_file_generated', true)){
+            unlink(wp_upload_dir()['basedir'] . '/zips/' . get_post_meta($order_id, 'zip_file_name', true));
+            update_post_meta($order_id,'zip_file_generated', false);
+        }
+
+        if($cookbook_id){
+
+            $recipes = get_field( 'recipes',$cookbook_id );
+            $recipe_images = array();
+
+            //Getting images from recipes
+            if(is_array($recipes) && count($recipes) > 0){
+                foreach ($recipes as $recipe_id){
+                    $recipe = get_post($recipe_id);
+                    $images = get_field( 'cbf_photos',$recipe_id );
+                    foreach ($images as $image){
+                        $path = get_attached_file($image['image']['id']);
+                        $path_array = explode('.',$path);
+                        array_push($recipe_images, array(
+                            'id' => $image['image']['id'],
+                            'path' => $path,
+                            'recipe_id' => $recipe_id,
+                            'type' => $path_array[1],
+                            'recipe_name' => $recipe->post_name
+                        ));
+                    }
+                }
+            }
+
+
+            $zip = new \ZipArchive();
+
+            $upload_dir = wp_upload_dir();
+
+            $zip_file_name = 'cookbook_' . $cookbook_id . '_'. time() .'.zip';
+
+            $file_route = '/zips/'. $zip_file_name;
+
+            $url_file = $upload_dir['baseurl'] . $file_route;
+
+            $zip->open($upload_dir['basedir'] . $file_route, \ZipArchive::CREATE);
+
+            $cont = 1;
+
+            foreach($recipe_images as $file){
+
+                $zip->addFile($file['path'],'recipe_' . $file['recipe_name'] . '_image_' . $cont . '.' . $file['type']);
+                $cont++;
+            }
+
+            update_post_meta($order_id,'zip_file_url', $url_file);
+            update_post_meta($order_id,'zip_file_name', $zip_file_name);
+            update_post_meta($order_id,'zip_file_generated', true);
+
+            //  $file = wp_upload_bits( 'yes.zip', null, @file_get_contents( $zip->filename ) );
+
+            /**
+             * Append recipes xml
+             */
+            $xml_path = cbf_append_xml_files($zip, $cookbook_id);
+            
+            $zip->close();
+
+            unlink($xml_path);
+
+        }else{
+            update_post_meta($order_id,'zip_file_generated', false);
+            echo json_encode(array('success'=> false, 'msg' => 'We are not able to generate the files without a cookbook'));
+            wp_die();
+        }
+
+        echo json_encode(array('success'=> 'true', 'post' => $_POST));
+        wp_die();
     }
 
     /**
