@@ -109,13 +109,15 @@ class Ajax{
 
             $upload_dir = wp_upload_dir();
 
-            $zip_file_name = 'cookbook_' . $cookbook_id . '_'. time() .'.zip';
+            $file_name = 'cookbook_' . $cookbook_id . '_'. time() .'.zip';
 
-            $file_route = '/zips/'. $zip_file_name;
+            $zip_file_name = wp_upload_dir()['basedir'] . '/zips/' . $file_name;
+
+            $file_route = '/zips/'. $file_name;
 
             $url_file = $upload_dir['baseurl'] . $file_route;
 
-            $zip->open($upload_dir['basedir'] . $file_route, \ZipArchive::CREATE);
+            $zip->open($zip_file_name, \ZipArchive::CREATE);
 
             //Appending Back cover
             $back_image = get_field( 'back_cover_image',$cookbook_id ) ? get_field( 'back_cover_image',$cookbook_id ) : null;
@@ -128,12 +130,12 @@ class Ajax{
             $cont = 1;
             foreach($recipe_images as $file){
 
-                    $zip->addFile($file['path'],'recipe_' . $file['recipe_name'] . '_image_' . $cont . '.' . $file['type']);
+                $zip->addFile($file['path'],'recipe_' . $file['recipe_name'] . '_image_' . $cont . '.' . $file['type']);
                 $cont++;
             }
 
             update_post_meta($order_id,'zip_file_url', $url_file);
-            update_post_meta($order_id,'zip_file_name', $zip_file_name);
+            update_post_meta($order_id,'zip_file_name', $file_name);
             update_post_meta($order_id,'zip_file_generated', true);
 
             //  $file = wp_upload_bits( 'yes.zip', null, @file_get_contents( $zip->filename ) );
@@ -151,10 +153,10 @@ class Ajax{
             unlink($xml_path);
 
             if(file_exists($zip_file_name)){
-                echo json_encode(array('success'=> 'true', 'post' => $_POST));
+                echo json_encode(array('success'=> true, 'post' => $_POST));
                 wp_die();
             }else{
-                echo json_encode(array('success'=> 'false', 'msg' => 'We could not generate the file.'));
+                echo json_encode(array('success'=> false, 'msg' => 'We could not generate the file.'));
                 wp_die();
             }
 
