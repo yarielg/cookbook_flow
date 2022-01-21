@@ -145,7 +145,18 @@ class Ajax{
 
             $zip->close();
 
+            /**
+             * Remove the xml generated previously
+             */
             unlink($xml_path);
+
+            if(file_exists($zip_file_name)){
+                echo json_encode(array('success'=> 'true', 'post' => $_POST));
+                wp_die();
+            }else{
+                echo json_encode(array('success'=> 'false', 'msg' => 'We could not generate the file.'));
+                wp_die();
+            }
 
         }else{
             update_post_meta($order_id,'zip_file_generated', false);
@@ -153,8 +164,6 @@ class Ajax{
             wp_die();
         }
 
-        echo json_encode(array('success'=> 'true', 'post' => $_POST));
-        wp_die();
     }
 
     /**
