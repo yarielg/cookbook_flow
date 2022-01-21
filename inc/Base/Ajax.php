@@ -72,7 +72,11 @@ class Ajax{
         $order_id = $_POST['order_id'];
 
         if(get_post_meta($order_id,'zip_file_generated', true)){
-            unlink(wp_upload_dir()['basedir'] . '/zips/' . get_post_meta($order_id, 'zip_file_name', true));
+            $zip_file_name = wp_upload_dir()['basedir'] . '/zips/' . get_post_meta($order_id, 'zip_file_name', true);
+            if(file_exists($zip_file_name)){
+                unlink($zip_file_name);
+            }
+
             update_post_meta($order_id,'zip_file_generated', false);
         }
 
@@ -113,11 +117,18 @@ class Ajax{
 
             $zip->open($upload_dir['basedir'] . $file_route, \ZipArchive::CREATE);
 
-            $cont = 1;
+            //Appending Back cover
+            $back_image = get_field( 'back_cover_image',$cookbook_id ) ? get_field( 'back_cover_image',$cookbook_id ) : null;
+            if($back_image){
+                $path = get_attached_file($back_image['ID']);
+                $path_array = explode('.',$path);
+                $zip->addFile($path,'cookbook_back_cover' .  '.' . $path_array[1]);
+            }
 
+            $cont = 1;
             foreach($recipe_images as $file){
 
-                $zip->addFile($file['path'],'recipe_' . $file['recipe_name'] . '_image_' . $cont . '.' . $file['type']);
+                    $zip->addFile($file['path'],'recipe_' . $file['recipe_name'] . '_image_' . $cont . '.' . $file['type']);
                 $cont++;
             }
 
@@ -131,7 +142,7 @@ class Ajax{
              * Append recipes xml
              */
             $xml_path = cbf_append_xml_files($zip, $cookbook_id);
-            
+
             $zip->close();
 
             unlink($xml_path);
