@@ -112,7 +112,7 @@
                <br><br>
 
                <div class="form-group">
-                  <!--<label for="">RECIPE INSTRUCTIONS</label>-->
+                  <label for="">Enter the recipe instructions</label>
                   <div id="editor_instructions" ref="editor"></div>
                </div>
 
@@ -148,7 +148,7 @@
 
                <br>
                <div class="form-group story">
-                  <!--<label for="">RECIPE STORY</label>-->
+                  <label for="">Add your story! (Optional)</label>
                   <div id="editor_story" ref="editorStory"></div>
                </div>
 
@@ -245,7 +245,7 @@
 
                 ]
              },
-             placeholder: 'Enter the recipe instructions...',
+             placeholder: '',
              theme: 'snow'
           };
 
@@ -263,7 +263,7 @@
                    [{ 'font': [] }],                                      // remove formatting button
                 ]
              },
-             placeholder: 'Add your story! (Optional)',
+             placeholder: '',
              theme: 'snow'
           };
 

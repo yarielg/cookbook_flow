@@ -177,6 +177,14 @@ function sendCollaboratorInvitation($email,$data){
     wp_mail( $email, $title, $content,$headers);
 }
 
+function shareRecipeEmail($email,$data){
+	$title   = 'Recipe Shared';
+	$content = memd_template(CBF_PLUGIN_PATH . '/templates/share-recipe.php',$data);
+	$headers = array('Content-Type: text/html; charset=UTF-8');
+	// ...
+	return wp_mail( $email, $title, $content,$headers);
+}
+
 function getCollaboratorOwnerUser($id){
     global $wpdb;
 

@@ -56,6 +56,12 @@ class Ajax{
         add_action( 'wp_ajax_get_services', array($this, 'getServices') );
         add_action( 'wp_ajax_nopriv_get_services', array($this, 'getServices') );
 
+	    /**
+	     * Share Recipe by email
+	     */
+	    add_action( 'wp_ajax_share_recipe', array($this, 'shareRecipe') );
+	    add_action( 'wp_ajax_nopriv_share_recipe', array($this, 'shareRecipe') );
+
         /**
          * Generate cookbook xml files
          */
@@ -435,6 +441,7 @@ class Ajax{
         $recipe->category_name = $term_obj_list  ? $term_obj_list[0]->name : '';
         $recipe->cookbooks_ids = $cookbooks_ids;
         $recipe->cookbooks_selected = getCookbooksFromRecipeId($id);
+        $recipe->url = get_permalink($id);
 
         if($recipe){
             echo json_encode(array('success'=> 'true', 'recipe' => $recipe));
@@ -579,6 +586,25 @@ class Ajax{
         echo json_encode(array('success'=> true , 'collaborators' => $collaborators));
         wp_die();
     }
+
+	/**
+	 * Share Recipe by email
+	 */
+	public function shareRecipe(){
+		$id = $_POST['id'];
+		$email = $_POST['email'];
+
+		$emailed = shareRecipeEmail($email, array('link' => get_permalink($id)));
+
+		if($emailed){
+			echo json_encode(array('success'=> true , 'msg' => 'Recipe Shared!'));
+			wp_die();
+		}
+
+		echo json_encode(array('success'=> false , 'msg' => 'The recipe was not shared'));
+		wp_die();
+
+	}
 
     /**
      * Remove collaboration, action can only be trigger by the owner account

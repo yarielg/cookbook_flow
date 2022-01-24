@@ -30,6 +30,24 @@
 
                 <span class="action_secondary delete-icon mt-5 pt-5">Delete Recipe</span>
 
+                <br><br><br>
+                <label for="">Share Options:</label>
+                <br>
+                <div class="share_section row mt-3">
+                    <button v-if="status !== 'Draft' && !share" class="btn-normal col" @click="showShare">Share By Email</button>
+                    <div v-if="share" class="form-group mt-5 col-9">
+                        <input placeholder="Enter email" v-model="share_email" type="email" class="form-control" id="recipe_title">
+                    </div>
+                    <button class="col-3" v-if="share" @click="shareRecipe()">Send</button>
+                    <br>
+                    <!--<button class="btn-normal" v-if="share" @click="share=false">Close</button>-->
+                </div>
+                <br>
+                <br>
+                <div class="share_section row">
+                    <button @click="copyLink()" class="btn-normal col">Copy Recipe Link</button>
+                </div>
+
             </div>
             <div class="col-md-8 main-panel pt-0" >
                 <div class="section-info" v-if="featured_image !== ''">
@@ -84,7 +102,10 @@
                 categories:[],
                 status: 'Draft',
                 category: -1,
+                share_email: '',
                 title: '',
+                url:'',
+                share:false,
                 ingredients:[
                 ],
                 instructions:'',
@@ -148,12 +169,52 @@
                             this.status = response.data.recipe.post_status
                             this.featured_image = this.photos.length > 0 ? this.photos[0].url : '';
                             this.cookbooks_selected = response.data.recipe.cookbooks_selected;
+                            this.url = response.data.recipe.url;
                         }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
                         }
                         this.loading = false;
                     });
             },
+            showShare(){
+                this.share = !this.share;
+            },
+            shareRecipe(){
+                if(this.share_email !== '' &&  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.share_email)){
+                    const formData = new FormData();
+                    formData.append('action', 'share_recipe');
+                    formData.append('id', this.edit_mode);
+                    formData.append('email', this.share_email);
+                    this.loading = true;
+                    axios.post(parameters.ajax_url, formData)
+                        .then( response => {
+                            if(response.data.success){
+                                toastr.success(response.data.msg, 'Shared!');
+                            }else{
+                                toastr.warning(response.data.msg, 'Error');
+                            }
+
+                        });
+                }else{
+                    toastr.warning('Please enter a valid email', 'Error');
+                }
+                this.loading = false;
+
+            },
+            copyLink(){
+
+                var myTemporaryInputElement = document.createElement("input");
+                myTemporaryInputElement.type = "text";
+                myTemporaryInputElement.value = this.url;
+
+                document.body.appendChild(myTemporaryInputElement);
+
+                myTemporaryInputElement.select();
+                document.execCommand("Copy");
+
+                document.body.removeChild(myTemporaryInputElement);
+                toastr.success('Recipe Url copied', 'Copied!');
+            }
         }
 
     }
