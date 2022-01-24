@@ -37,10 +37,16 @@
                 </div>
                 <br><br>
                 <div class="preview_pdf" v-if="preview_pdf !== null">
-                    <p>
-                        Preview Cookbook Zone
-                    </p>
-                    <a href="" target="_blank" :href="preview_pdf">Click to preview it</a>
+                    <h5>
+                        Preview Cookbook
+                    </h5>
+                    <br>
+                    <a href="" target="_blank" :href="preview_pdf">
+                        <iframe :src="preview_pdf" style="width:100px; height:100px;"></iframe>
+                    </a>
+                    <br>
+                    <a href="" target="_blank" :href="preview_pdf">Download</a>
+
                 </div>
             </div>
             <div class="col-md-8 main-panel pt-0" >
