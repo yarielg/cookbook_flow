@@ -35,6 +35,13 @@
                     <br>
                     <button @click="addComment" class="btn-normal" type="button" data-admin="1" data-cookbook_id="<?php echo $cookbook_id ?>" id="cookbook_send_comment">Sent</button>
                 </div>
+                <br><br>
+                <div class="preview_pdf" v-if="preview_pdf !== null">
+                    <p>
+                        Preview Cookbook Zone
+                    </p>
+                    <a href="" target="_blank" :href="preview_pdf">Click to preview it</a>
+                </div>
             </div>
             <div class="col-md-8 main-panel pt-0" >
                 <div class="row">
@@ -82,6 +89,7 @@
                 comments:[],
                 acknowledgments: '',
                 dedication: '',
+                preview_pdf: null,
                 comment: '',
                 author_name: '',
                 recipes: [],
@@ -127,6 +135,7 @@
                             //this.front_image = response.data.cookbook.front_image;
                             this.back_image = response.data.cookbook.back_image;
                             this.state = response.data.cookbook.state;
+                            this.preview_pdf = response.data.cookbook.preview_pdf;
 
                         }else{
                             toastr.warning('We could not get the recipe categories', 'Error');

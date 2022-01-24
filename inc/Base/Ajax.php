@@ -516,6 +516,13 @@ class Ajax{
         $cookbook->selected_recipes = getRecipesFromCookbookId($id);
         $cookbook->state = get_field('state', $id);
 
+	    $cookbook->preview_pdf = null;
+
+        if($order_id = get_post_meta($id,'cookbook_order_id', true)){
+	        $cookbook->preview_pdf = get_field('preview_pdf', $order_id);
+        }
+
+
         echo json_encode(array('success'=> 'true', 'cookbook' => $cookbook));
         wp_die();
 

@@ -40,10 +40,24 @@ class Checkout{
         //Chat
         add_action( 'add_meta_boxes', array($this,'chat') );
 
+	    //Preview
+	    /*add_action( 'add_meta_boxes', array($this,'preview') );
+	    add_action( 'woocommerce_process_shop_order_meta', array($this, 'save_pdf') );*/
+
     }
+
+	function preview($checkout){
+		add_meta_box( 'preview_cookbook', __('Preview Cookbook (Upload)','woocommerce'), array($this,'preview_cookbook'), 'shop_order', 'side', 'core' );
+	}
 
     function chat($checkout){
 	    add_meta_box( 'chat_order_cookbook', __('Chat about the cookbook in this order','woocommerce'), array($this,'add_chat'), 'shop_order', 'normal', 'core' );
+    }
+
+    function preview_cookbook(){
+        ?>
+        <input name="preview_pdf" type="file" id="preview_pdf">
+        <?php
     }
 
 	function add_chat($post){
@@ -174,6 +188,10 @@ class Checkout{
              * Define the published CBF_SENT (2) state for the cookbook
              */
             update_field( 'state', CBF_SENT ,$_POST['cookbook_id']);
+            /**
+             * Define the reverse relation between cookbook and order
+             */
+	        update_post_meta( sanitize_text_field($_POST['cookbook_id']), 'cookbook_order_id', $order_id );
         }
 
         if ( isset($_POST['template'])) {
@@ -194,6 +212,10 @@ class Checkout{
         if(empty($template) && intval($option_type) == 1){
             wc_add_notice(__("Choose a template to publish the cookbook selected"), 'error');
         }
+    }
+
+    function save_pdf(){
+        var_dump($_POST);exit;
     }
 }
 ?>
