@@ -448,4 +448,30 @@ function cbf_append_xml_files($zip, $cookbook_id){
 
 }
 
+/**
+ * Insert comment
+ *
+ * @param $admin It is flag to know if the comment was sent by the admin or not
+ * @param $comment It contains the message itself
+ * @param $cookbook_id The cookbook id to know where we need to show the messages
+ */
+function insertCommentCookbook($admin, $comment,$cookbook_id){
+	global $wpdb;
+
+	$created = date('Y-m-d H:i:s');
+
+	$wpdb->query("INSERT INTO $wpdb->prefix" . "cbf_comments (admin,cookbook_id,comment,created) VALUES ('$admin','$cookbook_id','$comment','$created')");
+
+}
+
+/**
+ * Get all the comments
+ */
+function getCookbookComments($cookbook_id){
+	global $wpdb;
+
+	$comments = $wpdb->get_results("SELECT * FROM $wpdb->prefix" . "cbf_comments WHERE cookbook_id='$cookbook_id'", ARRAY_A);
+
+	return count($comments) > 0 ? $comments : [];
+}
 

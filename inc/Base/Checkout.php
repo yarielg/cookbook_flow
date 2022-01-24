@@ -37,7 +37,79 @@ class Checkout{
 
         add_action( 'add_meta_boxes', array($this,'generate_xml_files') );
 
+        //Chat
+        add_action( 'add_meta_boxes', array($this,'chat') );
+
     }
+
+    function chat($checkout){
+	    add_meta_box( 'chat_order_cookbook', __('Chat about the cookbook in this order','woocommerce'), array($this,'add_chat'), 'shop_order', 'normal', 'core' );
+    }
+
+	function add_chat($post){
+		$order_id = $post->ID;
+		$cookbook_id = get_post_meta( $order_id, 'cbf_cookbook_id', true );
+
+		$comments = getCookbookComments($cookbook_id);
+		?>
+        <div class="chat_main">
+            <div class="chat_canvas">
+                <?php
+                if(count($comments) > 0){
+	                foreach ($comments as $comment){
+		                // var_dump(date('Y-m-d h:i', strtotime($comment['created'])));exit;
+
+		                $position_class = $comment['admin'] == 1 ? 'right' : 'left';
+		                echo "<p class='cbf-comment ". $position_class ."'>" . $comment['comment'] ."<span class='time'>" . date('Y-m-d h:i', strtotime($comment['created'])) . "</span></p>";
+	                }
+                }else{
+                    echo '<p class="no-comments">There is not message. Start communicating with the cookbook author</p>';
+                }
+                ?>
+            </div>
+            <textarea placeholder="Write a message..." name="" id="cbf_message_value" cols="79" rows="2"></textarea>
+            <br>
+            <button type="button" data-admin="1" data-cookbook_id="<?php echo $cookbook_id ?>" id="cookbook_send_comment">Sent</button>
+        </div>
+        <style>
+            .chat_canvas{
+                height: 300px;
+                width: 500px;
+                background: white;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                border-radius: 8px;
+                border: 1px solid black;
+                overflow-y: scroll;
+            }
+            .no-comments{
+                text-align: center;
+                font-weight: 500;
+                margin: auto;
+            }
+            .cbf-comment{
+                background: #51A351;
+                padding: 8px;
+                border-radius: 4px;
+                color: white;
+                display: block;
+                clear: bottom;
+                width: fit-content;
+                margin: 2px;
+            }
+            .cbf-comment.right{
+                float: right;
+                background: black;
+                align-self: end;
+            }
+            .cbf-comment > span.time{
+                font-size: 8px;
+                margin-left: 12px;
+            }
+        </style>
+		<?php
+	}
 
     function generate_xml_files( $checkout ) {
         add_meta_box( 'generate_xml_files', __('Cookbook Data ','woocommerce'), array($this,'add_file_markup'), 'shop_order', 'side', 'core' );
@@ -122,11 +194,6 @@ class Checkout{
         if(empty($template) && intval($option_type) == 1){
             wc_add_notice(__("Choose a template to publish the cookbook selected"), 'error');
         }
-    }
-
-    function generate_xml($cookbook_id){
-
-
     }
 }
 ?>

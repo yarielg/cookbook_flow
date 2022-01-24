@@ -67,7 +67,48 @@ class Ajax{
          */
         add_action( 'wp_ajax_generate_xml_files', array($this, 'generate_XML_files') );
         add_action( 'wp_ajax_nopriv_generate_xml_files', array($this, 'generate_XML_files') );
+
+        /**
+         * Send Comment
+         */
+	    add_action( 'wp_ajax_add_comment', array($this, 'addComment') );
+	    add_action( 'wp_ajax_nopriv_add_comment', array($this, 'addComment') );
+
+	    /**
+	     * Get All Comments
+	     */
+	    add_action( 'wp_ajax_get_comments', array($this, 'getComments') );
+	    add_action( 'wp_ajax_nopriv_get_comments', array($this, 'getComments') );
+
     }
+
+	/**
+	 * Get all comments by ID
+	 */
+	function getComments(){
+		//$admin = $_POST['admin'];
+		$cookbook_id = $_POST['cookbook_id'];
+
+		$comments = getCookbookComments($cookbook_id);
+
+		echo json_encode(array('success'=> true, 'comments' => $comments));
+		wp_die();
+	}
+
+	/**
+	 * Adding a comment on single order chat
+	 */
+	function addComment(){
+
+		$admin = $_POST['admin'];
+		$cookbook_id = $_POST['cookbook_id'];
+		$comment = $_POST['comment'];
+
+		insertCommentCookbook($admin,$comment,$cookbook_id);
+
+		echo json_encode(array('success'=> true, 'post' => $_POST));
+		wp_die();
+	}
 
     /**
      * Generate XMl files
