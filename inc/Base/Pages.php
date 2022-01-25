@@ -8,7 +8,7 @@
 
 namespace Memd\Inc\Base;
 
-use Memd\Inc\Services\MemdService;
+use Memd\Inc\Services\HubspotService;
 
 class Pages{
 
@@ -16,7 +16,7 @@ class Pages{
 
     function __construct()
     {
-        $this->memd = new MemdService();
+        $this->memd = new HubspotService();
     }
 
     public function register(){

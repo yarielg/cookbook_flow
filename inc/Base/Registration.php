@@ -3,6 +3,8 @@
 
 namespace Cbf\Inc\Base;
 
+use Cbf\Inc\Services\HubspotService;
+
 class Registration
 {
 
@@ -69,7 +71,6 @@ class Registration
             <input name="rcp_type" type="radio" <?php echo count($type) > 0 && $type == 'Fundraiser' ? 'checked' : '' ?>/>
             <label for="rcp_type"><?php _e( 'Fundraiser', 'rcp' ); ?></label>
         </p>
-
         <?php
     }
 
@@ -105,8 +106,24 @@ class Registration
             update_user_meta( $user_id, 'rcp_type', sanitize_text_field( $posted['rcp_type'] ) );
         }
 
+	    /**
+	     * Save user into hubspot
+	     */
+	    $hubspot = new HubspotService();
+	    $email = $_POST['rcp_user_email'];
+	    $hubspot->createContact($email,$_POST['rcp_user_first'],$_POST['rcp_user_last']);
+
+	    if(isset($_POST['rcp_is_premium']) && $_POST['rcp_is_premium'] == 0){
+            $hubspot->addContactToList($email,1);
+	    }else{
+		    $hubspot->addContactToList($email,2);
+	    }
     }
 
+	/**
+     * Save info when the use is registered
+	 * @param $user_id
+	 */
     function cbf_rcp_save_user_fields_on_profile_save( $user_id ) {
 
         if( ! empty( $_POST['rcp_type'] ) ) {

@@ -23,7 +23,8 @@ $upgrading = isset($_GET['registration_type']) && ($_GET['registration_type'] ==
 rcp_show_error_messages( 'register' ); ?>
 
 <form id="rcp_registration_form" class="register-hubspot" method="POST" action="<?php echo esc_url( rcp_get_current_url() ); ?>">
-
+    <!-- Hidden fields -->
+    <input type="hidden" name="rcp_is_premium" id="rcp_is_premium" value="0">
     <div class="container box-panel">
         <div class="row  panel-wrapper">
             <div class="col-md-12">
@@ -305,6 +306,7 @@ if(!$upgrading){
                     $('#rcp_subscription_level_1').trigger('click');
                     $('.left_heading_text').text('Create a PREMIUM account');
                     $('.line_or').css('display','none');
+                    $('#rcp_is_premium').val(1);
                 });
 
                 $('#go_free').on('click',function(){
@@ -318,7 +320,9 @@ if(!$upgrading){
                     $('.create_account_premium').css('display','none');
                     $('.left_heading_text').text('Create a FREE account');
                     $('.line_or').css('display','flex');
+                    $('#rcp_is_premium').val(0);
                 });
+
             });
 
         });

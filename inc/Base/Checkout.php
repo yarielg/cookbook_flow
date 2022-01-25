@@ -44,6 +44,29 @@ class Checkout{
 	    /*add_action( 'add_meta_boxes', array($this,'preview') );
 	    add_action( 'woocommerce_process_shop_order_meta', array($this, 'save_pdf') );*/
 
+        /**
+         * Log time when pdf_preview is saved
+         */
+	    add_filter('acf/update_value', array($this, 'log_preview_time'),10,3);
+
+    }
+
+    function log_preview_time($value, $order_id, $field){
+	    if( $field['name'] == 'preview_pdf' ) {
+
+		    /*$old_value = get_field('preview_pdf', $order_id);
+
+		    $new_value = $_POST['acf']['field_61ef28e864712'];
+
+		    if( $old_value != $new_value ) {
+		    } else {
+		    }*/
+		    update_post_meta($order_id, 'preview_cookboook_time', date('Y-m-d h:i:s'));
+	    }
+
+	    // don't forget to return to be saved in the database
+	    return $value;
+
     }
 
 	function preview($checkout){
