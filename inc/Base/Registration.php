@@ -109,6 +109,11 @@ class Registration
 	    /**
 	     * Save user into hubspot
 	     */
+
+	    /**
+	     * @todo check if the hubspot plugin installed first,
+         * also we need to create an ui to choose the list and store the api key
+	     */
 	    $hubspot = new HubspotService();
 	    $email = $_POST['rcp_user_email'];
 	    $hubspot->createContact($email,$_POST['rcp_user_first'],$_POST['rcp_user_last']);
