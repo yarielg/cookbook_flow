@@ -70,8 +70,15 @@ class Checkout{
             <div class="chat_canvas">
                 <?php
                 if(count($comments) > 0){
+                    $previous_day = 0;
 	                foreach ($comments as $comment){
-		                // var_dump(date('Y-m-d h:i', strtotime($comment['created'])));exit;
+
+		                $day = date("d",strtotime($comment['created']));
+
+		                if($day > $previous_day ){
+		                    echo "<p class='cbf-comment date center'>". date('Y-m-d', strtotime($comment['created'])) ."</p>";
+		                    $previous_day = $day;
+                        }
 
 		                $position_class = $comment['admin'] == 1 ? 'right' : 'left';
 		                echo "<p class='cbf-comment ". $position_class ."'>" . $comment['comment'] ."<span class='time'>" . date('Y-m-d h:i', strtotime($comment['created'])) . "</span></p>";
@@ -111,6 +118,12 @@ class Checkout{
                 clear: bottom;
                 width: fit-content;
                 margin: 2px;
+            }
+            .cbf-comment.center{
+                background: transparent;
+                align-self: center;
+                padding: 2px;
+                color: #78849c;
             }
             .cbf-comment.right{
                 float: right;

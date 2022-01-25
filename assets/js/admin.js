@@ -127,6 +127,7 @@ jQuery(function($) {
             success: function (response) {
                 if(response.success) {
                     renderComments(response.comments)
+                    $('.chat_canvas').scrollTop($('.chat_canvas').prop('scrollHeight'))
                 }else{
                     alert(response.msg);
                 }
@@ -158,6 +159,7 @@ jQuery(function($) {
         var $canvas = $('.chat_canvas');
         var position_class = '';
         $canvas.empty();
+        var previuos_day = 0;
         for (var i=0; i < comments.length; i++){
             var timestamp = comments[i].created;
             var date = new Date(timestamp);
@@ -167,8 +169,14 @@ jQuery(function($) {
             var day = date.getDate();
             var hours = date.getHours();
             var minutes = date.getMinutes();
-            var seconds = date.getSeconds();
-            var formated = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+            var formated = hours + ":" + minutes;
+            var formatedDate = year + "-" + month + "-" + day;
+
+            if(day > previuos_day){
+                previuos_day = day;
+                $canvas.append('<p class="cbf-comment date center">' + formatedDate +'</p>')
+            }
+
             position_class = comments[i].admin == 1 ? 'right' : 'left';
             $canvas.append('<p class="cbf-comment '+ position_class+'">' + comments[i].comment + '<span class="time">'+ formated +'</span></p>')
         }

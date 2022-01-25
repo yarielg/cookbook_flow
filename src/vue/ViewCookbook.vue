@@ -29,6 +29,7 @@
 
                 <div class="chat_main" v-if="state == 2">
                     <div class="chat_canvas">
+
                         <p class="cbf-comment" v-for="comment in comments" :key="comment.id" :class="comment.admin == 1 ? 'right' : 'left'">{{ comment.comment }} <span class="time">{{ formattedCommentTime(comment.created) }}</span></p>
                     </div>
                     <textarea v-model="comment" placeholder="Write a message..." name="" id="cbf_message_value" cols="42" rows="2"></textarea>
@@ -36,7 +37,7 @@
                     <button @click="addComment" class="btn-normal" type="button" data-admin="1" data-cookbook_id="<?php echo $cookbook_id ?>" id="cookbook_send_comment">Sent</button>
                 </div>
                 <br><br>
-                <div class="preview_pdf" v-if="preview_pdf !== null">
+                <div class="preview_pdf text-center" v-if="preview_pdf !== null">
                     <h5>
                         Preview Cookbook
                     </h5>
@@ -177,6 +178,8 @@
                         if(response.data.success){
                             this.comment = '';
                             this.getComments();
+                            /*var myDiv = document.getElementById("chat_canvas");
+                            myDiv.scrollTop = -100000;*/
                         }else{
                             toastr.warning('We could not get the last messages', 'Error');
                         }
