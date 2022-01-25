@@ -38,7 +38,7 @@
                     <div v-if="share" class="form-group mt-5 col-9">
                         <input placeholder="Enter email" v-model="share_email" type="email" class="form-control" id="recipe_title">
                     </div>
-                    <button class="col-3" v-if="share" @click="shareRecipe()">Send</button>
+                    <button class="col-3" v-if="status !== 'Draft' && share" @click="shareRecipe()">Send</button>
                     <br>
                     <!--<button class="btn-normal" v-if="share" @click="share=false">Close</button>-->
                 </div>
