@@ -8,6 +8,7 @@
 
 namespace Cbf\Inc\Base;
 
+use Cbf\Inc\Services\HubspotService;
 
 class Checkout{
 
@@ -49,6 +50,18 @@ class Checkout{
          */
 	    add_filter('acf/update_value', array($this, 'log_preview_time'),10,3);
 
+	    /**
+         * Add publishers to list
+         */
+	    add_action('woocommerce_thankyou', array($this, 'add_list_publishers'), 10, 1);
+    }
+
+    function add_list_publishers($order_id){
+	    global $current_user;
+
+	    $hubspot = new HubspotService();
+
+	    $hubspot->addContactToList($current_user->user_email, 8);
     }
 
     function log_preview_time($value, $order_id, $field){

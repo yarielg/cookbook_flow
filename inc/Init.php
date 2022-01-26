@@ -10,7 +10,7 @@ final class Init{
             Base\DefaultSettings::class,
             Base\TemplateLoader::class,
             Base\Checkout::class,
-            //Base\Pages::class,
+            Base\Pages::class,
             Base\Enqueue::class,
             Base\Registration::class,
             Base\Shortcodes::class,

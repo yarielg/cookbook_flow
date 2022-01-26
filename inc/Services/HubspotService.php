@@ -61,4 +61,17 @@ class HubspotService
         );
     }
 
+	public function getLists(){
+		return $this->makeRequest(
+			'GET',
+			'/contacts/v1/lists',
+			[],
+			[],
+			[
+				'Content-Type' => 'application/json'
+			],
+			true
+		);
+	}
+
 }

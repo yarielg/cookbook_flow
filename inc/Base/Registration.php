@@ -119,9 +119,9 @@ class Registration
 	    $hubspot->createContact($email,$_POST['rcp_user_first'],$_POST['rcp_user_last']);
 
 	    if(isset($_POST['rcp_is_premium']) && $_POST['rcp_is_premium'] == 0){
-            $hubspot->addContactToList($email,1);
+            $hubspot->addContactToList($email,get_option('cbf_hubspot_free_list',1));
 	    }else{
-		    $hubspot->addContactToList($email,2);
+		    $hubspot->addContactToList($email,get_option('cbf_hubspot_premium_list',2));
 	    }
     }
 

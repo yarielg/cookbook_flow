@@ -8,6 +8,8 @@
 
 namespace Cbf\Inc\Base;
 
+use Cbf\Inc\Services\HubspotService;
+
 class Ajax{
 
     public function register(){
@@ -80,6 +82,10 @@ class Ajax{
 	    add_action( 'wp_ajax_get_comments', array($this, 'getComments') );
 	    add_action( 'wp_ajax_nopriv_get_comments', array($this, 'getComments') );
 
+	    /**
+	     * Enroll customer to
+	     */
+	    add_action( 'woocommerce_order_status_completed', array($this,'enroll_customer_after_publishing'), 10, 1 );
     }
 
 	/**

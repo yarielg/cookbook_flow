@@ -1,53 +1,27 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <h4>Memd Integration Setting</h4>
-           <?php echo ( $this->memd->resolveToken(null) != null && strlen($this->memd->resolveToken(null)) > 400) ? '<span class="badge badge-pill badge-success">Connection Success</span>' : '<span class="badge badge-pill badge-danger">Connection failure</span>'; ?>
-            <hr>
-            <form action="" method="post" >
-                <div class="form-group">
-                    <label for="memd_base_uri">Base URI</label>
-                    <input value="<?php echo (get_option('memd_uri') !='' && get_option('memd_uri') != null) ? get_option('memd_uri') :'' ?>" name="memd_base_uri" required type="text" class="form-control" id="memd_base_uri" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="memd_client_id">Client ID</label>
-                    <input value="<?php echo (get_option('memd_client_id') !='' && get_option('memd_client_id') != null) ? get_option('memd_client_id') :'' ?>" name="memd_client_id" required  type="text" class="form-control" id="memd_client_id" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="memd_client_secret">Client Secret</label>
-                    <input value="<?php echo (get_option('memd_client_secret') !='' && get_option('memd_client_secret') != null) ? get_option('memd_client_secret') :'' ?>" name="memd_client_secret" required  type="text" class="form-control" id="memd_client_secret" placeholder="">
-                </div>
-
-                <div class="form-group">
-                    <label for="memd_user">User</label>
-                    <input value="<?php echo (get_option('memd_user') !='' && get_option('memd_user') != null) ? get_option('memd_user') :'' ?>" name="memd_user" required  type="text" class="form-control" id="memd_user" placeholder="">
-                </div>
-
-                <div class="form-group">
-                    <label for="memd_password">Password</label>
-                    <input value="<?php echo (get_option('memd_password') !='' && get_option('memd_password') != null) ? get_option('memd_password') :'' ?>" name="memd_password" required  type="text" class="form-control" id="memd_password" placeholder="">
-                </div>
-
-                <div class="modal-footer">
-                    <button name="memd_update_settings" type="submit" class="btn btn-primary">Save Settings</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<?php
-
-    if(isset($_POST['memd_update_settings'])){
-        update_option('memd_uri',$_POST['memd_base_uri']);
-        update_option('memd_client_id',$_POST['memd_client_id']);
-        update_option('memd_client_secret',$_POST['memd_client_secret']);
-        update_option('memd_user',$_POST['memd_user']);
-        update_option('memd_password',$_POST['memd_password']);
-
-        echo("<script>location.href = '".$_SERVER['HTTP_REFERER']."'</script>");
-
-    }
-
-
-?>
+<h3>Hubspot Settings</h3>
+<form action="<?php echo admin_url( 'admin-post.php' ); ?>" method="post">
+    <input type="hidden" name="action" value="cbf_save_hubspot_settings">
+    <input type="hidden" name="redirect_to" value="<?= admin_url(sprintf(basename($_SERVER['REQUEST_URI']))); ?>">
+    <label for="cbf_hubspot_key">Hubspot Key:</label>
+    <input value="<?= $key ?>" id="cbf_hubspot_key" type="text" name="cbf_hubspot_key" required>
+    <br><br><br>
+    <?php if(!empty($key)){ ?>
+        <label for="cbf_hubspot_premium_list">Select Premium List</label>
+        <select name="cbf_hubspot_premium_list" id="cbf_hubspot_premium_list">
+            <option  value="-1">Choose a list</option>
+            <?php foreach ($lists as $list){ ?>
+                <option <?= $premium_list == $list['listId'] ? 'selected' : '' ?> value="<?= $list['listId'] ?>"><?= $list['name'] ?></option>
+            <?php } ?>
+        </select>
+        <p>Select a list where the user with a free membership will be added</p>
+        <label for="cbf_hubspot_free_list">Select Free List</label>
+        <select name="cbf_hubspot_free_list" id="cbf_free_premium_list">
+            <option value="-1">Choose a list</option>
+		    <?php foreach ($lists as $list){ ?>
+                <option <?= $free_list == $list['listId'] ? 'selected' : '' ?> value="<?= $list['listId'] ?>"><?= $list['name'] ?></option>
+		    <?php } ?>
+        </select>
+        <p>Select a list where the user with a free membership will be added</p>
+    <?php } ?>
+    <button type="submit" name="name" class="btn btn-primary">Save Settings</button>
+</form>

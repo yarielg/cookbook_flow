@@ -16,7 +16,7 @@ trait ConsumeExternalService
                 'base_uri' => 'https://api.hubapi.com'
             ]);
 
-            $queryParams['hapikey'] = '8eb58d35-a8f6-4ef1-8c8a-fba26fccf4e7';
+            $queryParams['hapikey'] = get_option('cbf_hubspot_key', false);
 
             $response = $client->request($method, $requestUrl, [
                 $isJsonRequest ?  'json'  : 'form_params' => $formParams,
