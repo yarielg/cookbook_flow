@@ -17,6 +17,7 @@ $term_obj_list = get_the_terms( $recipe_id, 'cat_recipe' );
 $images = get_field( 'cbf_photos', $recipe_id );
 $category = $term_obj_list ? $term_obj_list[0]->name : '';
 $ingredients = get_field( 'cbf_ingredients',$recipe_id );
+$featured = getFeaturedImageRecipe($images);
 
 ?>
 
@@ -24,14 +25,7 @@ $ingredients = get_field( 'cbf_ingredients',$recipe_id );
     <div class="row">
 
         <div class="image-wrap col-md-6">
-            <?php
-
-            if(count($images) > 0){
-                ?>
-                <img style="width:100%" src="<?php echo $images[0]['image']['url'] ?>" alt="">
-                <?php
-            }
-            ?>
+            <img style="width:100%" src="<?php echo $featured ?>" alt="">
         </div>
 
         <div class="col-md-6">
@@ -46,7 +40,7 @@ $ingredients = get_field( 'cbf_ingredients',$recipe_id );
                 <ul class="recipe_ingredients">
                     <?php
                     foreach ($ingredients as $ingredient){
-                        echo "<li>" . $ingredient['unit'] . " " . $ingredient['quantity'] . " " . $ingredient['name'] . "</li>";
+                        echo "<li>" . $ingredient['quantity'] . " " . $ingredient['unit'] . " " . $ingredient['name'] . "</li>";
                     }
                     ?>
                 </ul>
