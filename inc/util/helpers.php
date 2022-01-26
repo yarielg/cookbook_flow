@@ -475,3 +475,24 @@ function getCookbookComments($cookbook_id){
 	return count($comments) > 0 ? $comments : [];
 }
 
+/**
+ * Get the featured image from recipe photos
+ */
+
+function getFeaturedImageRecipe($images){
+
+	$featured = '';
+
+	if(count($images) > 0){
+		$featured = $images[0]['image']['url'];
+		foreach ($images as $image){
+			if($image['primary']){
+				$featured = $image['image']['url'];
+				break;
+			}
+		}
+	}
+
+	return $featured;
+}
+

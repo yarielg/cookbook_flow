@@ -9,6 +9,7 @@
 namespace Cbf\Inc\Base;
 
 use Cbf\Inc\Services\HubspotService;
+use Cbf\Inc\Base\CountryCodes;
 
 class Pages{
 
@@ -32,6 +33,13 @@ class Pages{
     	$key = get_option('cbf_hubspot_key', false);
 	    $premium_list = get_option('cbf_hubspot_premium_list', false) ? get_option('cbf_hubspot_premium_list', false) : '';
 	    $free_list = get_option('cbf_hubspot_free_list',false) ? get_option('cbf_hubspot_free_list',false) : '';
+
+
+	    /*$countries = new CountryCodes();
+
+	    foreach ($countries::get('alpha2', 'country') as $key => $value){
+	    	echo strtolower($key) . ' : ' . $value . '<br>';
+	    }*/
 
         require_once CBF_PLUGIN_PATH . 'templates/settings.php';
     }
