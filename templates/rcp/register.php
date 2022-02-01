@@ -90,12 +90,12 @@ rcp_show_error_messages( 'register' ); ?>
                                 </div>
                             </div>
 
-                            <p id="rcp_submit_wrap" class="create_account_free" class="form-group col-md-12">
+                            <p id="rcp_submit_wrap" class="" class="form-group col-md-12">
                                 <input type="hidden" name="rcp_register_nonce" value="<?php echo wp_create_nonce('rcp-register-nonce' ); ?>"/>
-                                <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Create a free account', 'rcp' ) ) ); ?>"/>
+                                <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal create_account_free" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Create a free account', 'rcp' ) ) ); ?>"/>
                             </p>
                             <button type="button" class="btn-normal" style="display: none" id="go_free">Go Back</button>
-
+sss
                         </div>
 
                         <?php do_action( 'rcp_after_password_registration_field' ); ?>
@@ -271,7 +271,7 @@ rcp_show_error_messages( 'register' ); ?>
                 <?php if(!$upgrading){ ?><br><p id="rcp_submit_wrap"><button class="btn-normal" type="button" id="go_premium">Create a premium account</button></p><?php }  ?>
                     <p id="rcp_submit_wrap" style="display: <?= $upgrading ? 'block' : 'none' ?>" class="create_account_premium">
                         <input type="hidden" name="rcp_register_nonce" value="<?php echo wp_create_nonce('rcp-register-nonce' ); ?>"/>
-                        <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal mt-3" value="<?= $upgrading ? 'Update Account' : 'Create Account' ?>"/>
+                        <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal mt-3" value="<?= $upgrading ? 'Upgrade Account' : 'Create Account' ?>"/>
                     </p>
             </div>
             <br><br>

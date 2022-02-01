@@ -34,6 +34,8 @@ class Enqueue{
 
         wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js',array('jquery'));
 
+	    wp_enqueue_script('main-js', CBF_PLUGIN_URL . '/assets/js/main.js' ,array('jquery'),'1.0', true);
+
         $pageID = get_the_ID();
 
         if($pageID == 6){

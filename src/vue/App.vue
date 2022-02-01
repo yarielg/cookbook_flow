@@ -97,8 +97,11 @@
                             Upgrade to start creating a cookbook!
                         </h4>
                         <br>
-                        <p class="">Nam porttitor blandit accumsan. Ut vel
-                            dictum sem, a pretium dui. In malesuada</p>
+                        <ul class="text-left">
+                            <li>Add your recipes to a cookbook</li>
+                            <li>Gain access to premium cookbook templates</li>
+                            <li>Selling point</li>
+                        </ul>
                         <br>
                         <button @click="goToUpgradeMembership()" class="btn-normal">Upgrade Account</button>
                     </div>

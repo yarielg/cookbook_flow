@@ -51,7 +51,7 @@ $featured = getFeaturedImageRecipe($images);
     <div class="row">
         <div class="col-12">
             <div class="info-div mr- mt-3">
-                <label for=""><strong>INSTRUCTIONS</strong></label>
+                <label for=""><strong>INSTRUCTIONS </strong></label>
                 <div class="instructions-wrapper ml-3">
                     <?php
                     the_content();
