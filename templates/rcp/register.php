@@ -90,12 +90,12 @@ rcp_show_error_messages( 'register' ); ?>
                                 </div>
                             </div>
 
-                            <p id="rcp_submit_wrap" class="" class="form-group col-md-12">
+                            <p id="rcp_submit_wrap" class="form-group col-md-12 text-center">
                                 <input type="hidden" name="rcp_register_nonce" value="<?php echo wp_create_nonce('rcp-register-nonce' ); ?>"/>
                                 <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal create_account_free" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Create a free account', 'rcp' ) ) ); ?>"/>
                             </p>
                             <button type="button" class="btn-normal" style="display: none" id="go_free">Go Back</button>
-sss
+
                         </div>
 
                         <?php do_action( 'rcp_after_password_registration_field' ); ?>
