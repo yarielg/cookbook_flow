@@ -73,7 +73,7 @@
             </ul>
          </div>
 
-         <div class="col-md-8 main-panel">
+         <div class="col-md-8 main-panel pl-4">
             <form
                method="post"
                action=""
@@ -547,7 +547,7 @@
     }
 </script>
 
-<style>
+<style scoped>
    img.img-badge {
       width: 100px;
    }
@@ -632,5 +632,9 @@
    .drop_media_zone{
       text-align: center;
       cursor: pointer;
+   }
+
+   .top-bar-assign{
+      z-index: 5555;
    }
 </style>

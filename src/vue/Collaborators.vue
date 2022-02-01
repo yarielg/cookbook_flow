@@ -16,30 +16,33 @@
          <div class="row">
              <div class="col-12 text-center">
 
-                 <table class="table">
-                     <thead>
-                     <tr>
-                         <th scope="col">First</th>
-                         <th scope="col">Last</th>
-                         <th scope="col">Email</th>
-                         <th scope="col">Invitation Status</th>
-                         <th scope="col">Actions</th>
-                     </tr>
-                     </thead>
-                     <tbody>
-                     <tr v-for="collaborator in collaborators" :key="collaborator.ID">
-                         <td>{{ collaborator.first }}</td>
-                         <td>{{ collaborator.last }}</td>
-                         <td>{{ collaborator.email }}</td>
-                         <td><span class="badge" :class="collaborator.status === 'Accepted' ? 'badge-success' : 'badge-secondary'">{{ collaborator.status }}</span></td>
-                         <td>
-                             <button class="btn-normal" @click="removeCollaborator(collaborator.ID)">Remove</button>
-                             <!--<button class="btn-normal" @click="sendInvitationLink(collaborator.ID)">Resend Invitation</button>-->
-                         </td>
-                     </tr>
+                 <v-simple-table>
+                     <template v-slot:default>
+                         <thead>
+                         <tr>
+                             <th class="text-left">First</th>
+                             <th class="text-left">Last</th>
+                             <th class="text-left">Email</th>
+                             <th class="text-left">Invitation Status</th>
+                             <th class="text-left">Actions</th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         <tr v-for="collaborator in collaborators" :key="collaborator.ID">
+                             <td>{{ collaborator.first }}</td>
+                             <td>{{ collaborator.last }}</td>
+                             <td>{{ collaborator.email }}</td>
+                             <td><span class="badge" :class="collaborator.status === 'Accepted' ? 'badge-success' : 'badge-secondary'">{{ collaborator.status }}</span></td>
+                             <td>
+                                 <button class="btn-normal" @click="removeCollaborator(collaborator.ID)">Remove</button>
+                                 <!--<button class="btn-normal" @click="sendInvitationLink(collaborator.ID)">Resend Invitation</button>-->
+                             </td>
+                         </tr>
+                         </tbody>
+                     </template>
+                 </v-simple-table>
 
-                     </tbody>
-                 </table>
+
              </div>
          </div>
         </div>

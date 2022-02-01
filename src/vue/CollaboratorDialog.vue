@@ -15,13 +15,13 @@
                 <v-form v-model="valid" ref="form">
                     <v-container>
                         <v-row>
-                            <v-col cols="4">
+                            <v-col sm="12" cols="12" md="4" lg="4">
                                 <input v-model="first" type="text" class="form-control" required placeholder="First Name">
                             </v-col>
-                            <v-col cols="4">
+                            <v-col sm="12" cols="12" md="4" lg="4">
                                 <input v-model="last" type="text" class="form-control" required placeholder="Last Name">
                             </v-col>
-                            <v-col cols="4">
+                            <v-col sm="12" cols="12" md="4" lg="4">
                                 <input v-model="email" type="email" class="form-control" required placeholder="Email">
                             </v-col>
 
