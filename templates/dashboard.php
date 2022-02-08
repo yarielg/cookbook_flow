@@ -39,8 +39,8 @@ if(is_user_logged_in()){
                         <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-recipe') ?>">Create recipe</a>
 			            <?php if($user_data['premium']){?><a class="dropdown-item" href="<?= site_url('welcome/?screen=add-cookbook') ?>">Create cookbook</a><?php } ?>
                     </div>
-                    <!--<a class="nav-link" href="<?/*= site_url('welcome') */?>">Browse Recipe</a>
-                    <a class="nav-link" href="<?/*= site_url('welcome') */?>">My Recipes</a>
+                    <a class="nav-link" href="<?= site_url('search-recipe') ?>">Browse Recipe</a>
+                    <!--<a class="nav-link" href="<?/*= site_url('welcome') */?>">My Recipes</a>
                     <a class="nav-link" href="<?/*= site_url('welcome') */?>">My Cookbooks</a>-->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle account-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
