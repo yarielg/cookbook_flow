@@ -71,7 +71,7 @@
                 <p>Get inspiration or add them to your own recipe book from our library of recipes.</p>
             </div>
             <hr>
-            <form class="container" class="search_recipe_form" action="<?= site_url(). '/' .  $slug ?>" method="get">
+            <form class="container search_recipe_form"  action="<?= site_url(). '/' .  $slug ?>" method="get">
                 <div class="row">
                     <div class="col-12 px-0">
                         <a href="<?= site_url(). '/search-recipe' ?>">Reset Search</a>
