@@ -50,7 +50,7 @@
 
                 </div>
             </div>
-            <div class="col-md-8 main-panel pt-0" >
+            <div class="col-md-8 main-panel pl-4" >
                 <div class="row">
                     <!--<div class="col-md-6" v-if="front_image">
                         <img :src="front_image.url" alt="">

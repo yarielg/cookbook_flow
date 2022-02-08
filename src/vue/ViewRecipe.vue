@@ -49,7 +49,7 @@
                 </div>
 
             </div>
-            <div class="col-md-8 main-panel pt-0" >
+            <div class="col-md-8 main-panel pl-4" >
                 <div class="section-info" v-if="featured_image !== ''">
                     <img class="featured_image" :src="featured_image" alt="">
                 </div>
