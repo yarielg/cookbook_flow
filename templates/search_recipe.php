@@ -84,6 +84,7 @@
                         </select>
                     </div>
                 </div>
+                <br>
                 <div class="row">
                     <div class="col-md-10 p-0">
                         <input class="search_recipe_full" name="search_query" value="<?php echo isset($_GET['search_query']) ? $_GET['search_query'] : '' ?>" type="text" placeholder="Search">
