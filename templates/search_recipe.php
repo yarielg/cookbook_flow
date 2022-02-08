@@ -73,16 +73,6 @@
             <hr>
             <form class="container" action="<?= site_url(). '/' .  $slug ?>" method="get">
                 <div class="row">
-                    <div class="col-md-10 p-0">
-                        <input class="search_recipe_full" name="search_query" value="<?php echo isset($_GET['search_query']) ? $_GET['search_query'] : '' ?>" type="text" placeholder="Search">
-
-                    </div>
-                    <div class="col-md-2 p-0">
-                        <button type="submit" class="search_recipe_full btn-normal">Search</button>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
                     <div class="col-12 px-0">
                         <a href="<?= site_url(). '/search-recipe' ?>">Reset Search</a>
                         <select name="pages" id="pages" class="float-right">
@@ -94,6 +84,17 @@
                         </select>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-10 p-0">
+                        <input class="search_recipe_full" name="search_query" value="<?php echo isset($_GET['search_query']) ? $_GET['search_query'] : '' ?>" type="text" placeholder="Search">
+
+                    </div>
+                    <div class="col-md-2 p-0">
+                        <button type="submit" class="">Search</button>
+                    </div>
+                </div>
+                <br>
+
                 <input type="hidden" name="cat" value="<?php echo isset($_GET['cat']) ? $_GET['cat'] : '' ?>">
             </form>
 
