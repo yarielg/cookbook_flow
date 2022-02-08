@@ -114,10 +114,7 @@ class Shortcodes
 
     public function searchRecipe(){
 
-        global $post;
-        $post_slug = $post->post_name;
-
-        $output = memd_template(CBF_PLUGIN_PATH . 'templates/search_recipe.php' , array('recipes' => $recipes,'slug' => $post_slug));
+        $output = memd_template(CBF_PLUGIN_PATH . 'templates/search_recipe.php' , array('slug' => $post_slug));
         return $output;
     }
 

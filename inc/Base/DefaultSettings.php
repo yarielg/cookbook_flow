@@ -292,6 +292,7 @@ class DefaultSettings
             "rest_controller_class" => "WP_REST_Terms_Controller",
             "show_in_quick_edit" => false,
             "show_in_graphql" => false,
+            "exclude_from_search" => false,
         ];
         register_taxonomy( "cat_recipe", [ "recipe" ], $args );
     }
