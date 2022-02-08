@@ -90,7 +90,7 @@
 
                     </div>
                     <div class="col-md-2 p-0">
-                        <button type="submit" class="">Search</button>
+                        <button type="submit" class="search_recipe_full btn-normal">Search</button>
                     </div>
                 </div>
                 <br>
