@@ -276,8 +276,9 @@ ul.photo_recipe_gallery li.single-image-gallery img{
     height: 150px;
 }
 
-.recipe-img-wrapper h5{
+.recipe-img-wrapper span{
     font-size: 18px !important;
+    font-weight: bold;
 }
 
 /* Bootstrap*/

@@ -116,7 +116,7 @@
                         <div class="col-md-3 box-panel mb-5 text-center">
                             <a class="search_recipe_link" href="<?= $recipe->guid ?>">
                                 <div class="panel-wrapper recipe-img-wrapper" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(<?= $recipe->photo_url ?>);">
-                                    <h5><?= $recipe->post_title ?></h5>
+                                    <span><?= $recipe->post_title ?></span>
                                 </div>
                             </a>
                         </div>
