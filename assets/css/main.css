@@ -279,6 +279,8 @@ ul.photo_recipe_gallery li.single-image-gallery img{
 .recipe-img-wrapper span{
     font-size: 18px !important;
     font-weight: bold;
+    color: white !important;
+    text-decoration: none;
 }
 
 /* Bootstrap*/
