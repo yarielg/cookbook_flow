@@ -60,7 +60,7 @@
             <hr>
             <ul class="category_list">
 	            <?php foreach ($cats as $category){ ?>
-                    <li class="category_item"><a href="?cat=<?php echo $category->term_id ?>"><span class="badge badge-secondary"><?php echo $category->name ?></span></a></li>
+                    <li class="category_item"><a href="?cat=<?php echo $category->term_id ?>"><span class="badge badge-<?php echo isset($_GET['cat']) && intval($_GET['cat']) == $category->term_id ? 'secondary' : 'default' ?>"><?php echo $category->name ?></span></a></li>
 	            <?php } ?>
             </ul>
         </div>
