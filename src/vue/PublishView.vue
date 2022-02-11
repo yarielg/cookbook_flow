@@ -26,11 +26,7 @@
                                             <img @click="selectTemplate(template)" class="card-img-top template_image" :src="template.url" alt="...">
                                             <div class="card-body">
                                                 <h4>{{template.name}}</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, alias animi architecto atque consectetur corporis</p>
-                                                <!--<label :for="'template_' + template.id" class="select_template">
-                                                    <p class="text-center mt-2">{{ template.name }}</p>
-                                                </label>
-                                                <input @click="" :value="template.id" :id="'template_' + template.id" type="radio" class="template_option" v-model="selected_template">-->
+                                                <p>{{template.caption}}</p>
                                             </div>
                                         </div>
                                     </div>
