@@ -47,7 +47,7 @@
 
 /*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IngredientDialog.vue?vue&type=style&index=0&id=652f7b4a&scoped=true&lang=css& */
 
-/*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublishDialog.vue?vue&type=style&index=0&id=1ca068c5&scoped=true&lang=css& */
+/*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublishView.vue?vue&type=style&index=0&id=3f11a4e2&scoped=true&lang=css& */
 
 /*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ViewCookbook.vue?vue&type=style&index=0&lang=css& */
 
@@ -77,7 +77,9 @@
 
 /*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MediaDialog.vue?vue&type=script&lang=js& */
 
-/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublishDialog.vue?vue&type=script&lang=js& */
+/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublishView.vue?vue&type=script&lang=js& */
+
+/*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TemplateDialog.vue?vue&type=script&lang=js& */
 
 /*! -!../../node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ViewCookbook.vue?vue&type=script&lang=js& */
 
@@ -93,7 +95,7 @@
 
 /*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./IngredientDialog.vue?vue&type=style&index=0&id=652f7b4a&scoped=true&lang=css& */
 
-/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublishDialog.vue?vue&type=style&index=0&id=1ca068c5&scoped=true&lang=css& */
+/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublishView.vue?vue&type=style&index=0&id=3f11a4e2&scoped=true&lang=css& */
 
 /*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/postcss-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ViewCookbook.vue?vue&type=style&index=0&lang=css& */
 
@@ -115,7 +117,9 @@
 
 /*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MediaDialog.vue?vue&type=template&id=12c59ada& */
 
-/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublishDialog.vue?vue&type=template&id=1ca068c5&scoped=true& */
+/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PublishView.vue?vue&type=template&id=3f11a4e2&scoped=true& */
+
+/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TemplateDialog.vue?vue&type=template&id=54ca0844&scoped=true& */
 
 /*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ViewCookbook.vue?vue&type=template&id=2a97e658& */
 
@@ -543,19 +547,25 @@
 
 /*! ./MobileRow */
 
-/*! ./PublishDialog.vue */
+/*! ./PublishView.vue */
 
-/*! ./PublishDialog.vue?vue&type=script&lang=js& */
+/*! ./PublishView.vue?vue&type=script&lang=js& */
 
-/*! ./PublishDialog.vue?vue&type=style&index=0&id=1ca068c5&scoped=true&lang=css& */
+/*! ./PublishView.vue?vue&type=style&index=0&id=3f11a4e2&scoped=true&lang=css& */
 
-/*! ./PublishDialog.vue?vue&type=template&id=1ca068c5&scoped=true& */
+/*! ./PublishView.vue?vue&type=template&id=3f11a4e2&scoped=true& */
 
 /*! ./Row */
 
 /*! ./RowGroup */
 
 /*! ./SelectingTimes */
+
+/*! ./TemplateDialog.vue */
+
+/*! ./TemplateDialog.vue?vue&type=script&lang=js& */
+
+/*! ./TemplateDialog.vue?vue&type=template&id=54ca0844&scoped=true& */
 
 /*! ./VAlert */
 
@@ -1847,6 +1857,10 @@
   !*** ./src/vue/MediaDialog.vue ***!
   \*********************************/
 
+/*!*********************************!*\
+  !*** ./src/vue/PublishView.vue ***!
+  \*********************************/
+
 /*!**********************************!*\
   !*** ./src/vue/ViewCookbook.vue ***!
   \**********************************/
@@ -1861,10 +1875,6 @@
 
 /*!***********************************!*\
   !*** ./src/vue/Collaborators.vue ***!
-  \***********************************/
-
-/*!***********************************!*\
-  !*** ./src/vue/PublishDialog.vue ***!
   \***********************************/
 
 /*!***********************************!*\
@@ -1885,6 +1895,10 @@
 
 /*!************************************!*\
   !*** ./src/services/lang/index.ts ***!
+  \************************************/
+
+/*!************************************!*\
+  !*** ./src/vue/TemplateDialog.vue ***!
   \************************************/
 
 /*!*************************************!*\
@@ -3559,6 +3573,10 @@
   !*** ./src/vue/MediaDialog.vue?vue&type=script&lang=js& ***!
   \**********************************************************/
 
+/*!**********************************************************!*\
+  !*** ./src/vue/PublishView.vue?vue&type=script&lang=js& ***!
+  \**********************************************************/
+
 /*!***********************************************************!*\
   !*** ./node_modules/axios/lib/core/InterceptorManager.js ***!
   \***********************************************************/
@@ -3627,10 +3645,6 @@
   !*** ./src/vue/Loading.vue?vue&type=template&id=3c5bde6c& ***!
   \************************************************************/
 
-/*!************************************************************!*\
-  !*** ./src/vue/PublishDialog.vue?vue&type=script&lang=js& ***!
-  \************************************************************/
-
 /*!*************************************************************!*\
   !*** ./src/components/VColorPicker/VColorPickerCanvas.sass ***!
   \*************************************************************/
@@ -3657,6 +3671,10 @@
 
 /*!*************************************************************!*\
   !*** ./src/components/VSkeletonLoader/VSkeletonLoader.sass ***!
+  \*************************************************************/
+
+/*!*************************************************************!*\
+  !*** ./src/vue/TemplateDialog.vue?vue&type=script&lang=js& ***!
   \*************************************************************/
 
 /*!**************************************************************!*\
@@ -3791,17 +3809,21 @@
   !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
   \****************************************************************************/
 
+/*!****************************************************************************!*\
+  !*** ./src/vue/PublishView.vue?vue&type=template&id=3f11a4e2&scoped=true& ***!
+  \****************************************************************************/
+
 /*!******************************************************************************!*\
   !*** ./src/vue/Collaborators.vue?vue&type=template&id=1479608a&scoped=true& ***!
   \******************************************************************************/
 
 /*!******************************************************************************!*\
-  !*** ./src/vue/PublishDialog.vue?vue&type=template&id=1ca068c5&scoped=true& ***!
-  \******************************************************************************/
-
-/*!******************************************************************************!*\
   !*** external {"commonjs":"vue","commonjs2":"vue","amd":"vue","root":"Vue"} ***!
   \******************************************************************************/
+
+/*!*******************************************************************************!*\
+  !*** ./src/vue/TemplateDialog.vue?vue&type=template&id=54ca0844&scoped=true& ***!
+  \*******************************************************************************/
 
 /*!*********************************************************************************!*\
   !*** ./src/vue/IngredientDialog.vue?vue&type=template&id=652f7b4a&scoped=true& ***!
@@ -3815,9 +3837,9 @@
   !*** ./src/vue/AddRecipe.vue?vue&type=style&index=0&id=772033c6&scoped=true&lang=css& ***!
   \****************************************************************************************/
 
-/*!********************************************************************************************!*\
-  !*** ./src/vue/PublishDialog.vue?vue&type=style&index=0&id=1ca068c5&scoped=true&lang=css& ***!
-  \********************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** ./src/vue/PublishView.vue?vue&type=style&index=0&id=3f11a4e2&scoped=true&lang=css& ***!
+  \******************************************************************************************/
 
 /*!***********************************************************************************************!*\
   !*** ./src/vue/IngredientDialog.vue?vue&type=style&index=0&id=652f7b4a&scoped=true&lang=css& ***!
@@ -3868,6 +3890,10 @@
   \***********************************************************************************************************************************************************************************************/
 
 /*!***********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/PublishView.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************/
+
+/*!***********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/App.vue?vue&type=template&id=5e019a2f& ***!
   \***********************************************************************************************************************************************************************************************/
 
@@ -3879,9 +3905,9 @@
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/Collaborators.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************************************************************************************************************************/
 
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/PublishDialog.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-1[0].rules[0].use!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/TemplateDialog.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************/
 
 /*!***************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/Loading.vue?vue&type=template&id=3c5bde6c& ***!
@@ -3915,13 +3941,17 @@
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/AddRecipe.vue?vue&type=template&id=772033c6&scoped=true& ***!
   \*****************************************************************************************************************************************************************************************************************/
 
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/PublishView.vue?vue&type=template&id=3f11a4e2&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/Collaborators.vue?vue&type=template&id=1479608a&scoped=true& ***!
   \*********************************************************************************************************************************************************************************************************************/
 
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/PublishDialog.vue?vue&type=template&id=1ca068c5&scoped=true& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/TemplateDialog.vue?vue&type=template&id=54ca0844&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************/
 
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/IngredientDialog.vue?vue&type=template&id=652f7b4a&scoped=true& ***!
@@ -3951,9 +3981,9 @@
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/AddRecipe.vue?vue&type=style&index=0&id=772033c6&scoped=true&lang=css& ***!
   \***********************************************************************************************************************************************************************************************************************************************************************************************************************************/
 
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/PublishDialog.vue?vue&type=style&index=0&id=1ca068c5&scoped=true&lang=css& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/PublishView.vue?vue&type=style&index=0&id=3f11a4e2&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/IngredientDialog.vue?vue&type=style&index=0&id=652f7b4a&scoped=true&lang=css& ***!
@@ -3983,9 +4013,9 @@
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/AddRecipe.vue?vue&type=style&index=0&id=772033c6&scoped=true&lang=css& ***!
   \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/PublishDialog.vue?vue&type=style&index=0&id=1ca068c5&scoped=true&lang=css& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/PublishView.vue?vue&type=style&index=0&id=3f11a4e2&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/vue/IngredientDialog.vue?vue&type=style&index=0&id=652f7b4a&scoped=true&lang=css& ***!

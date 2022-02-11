@@ -14,9 +14,10 @@ import ViewRecipe from "./ViewRecipe.vue";
 import ViewCookbook from "./ViewCookbook.vue";
 import Collaborators from "./Collaborators.vue";
 import CollaboratorDialog from "./CollaboratorDialog.vue";
-import PublishDialog from "./PublishDialog.vue";
+import PublishView from "./PublishView.vue";
 import Loading from "./Loading.vue";
 import MediaDialog from "./MediaDialog.vue";
+import TemplateDialog from "./TemplateDialog.vue";
 
 Vue.component('vueper-slide', VueperSlide);
 Vue.component('vueper-slides', VueperSlides);
@@ -27,9 +28,10 @@ Vue.component('view-cookbook', ViewCookbook);
 Vue.component('add-cookbook', AddCookbook);
 Vue.component('collaborators', Collaborators);
 Vue.component('collaborator-dialog', CollaboratorDialog);
-Vue.component('publish-dialog', PublishDialog);
+Vue.component('publish-view', PublishView);
 Vue.component('loading-dialog', Loading);
 Vue.component('media-dialog', MediaDialog);
+Vue.component('template-dialog', TemplateDialog);
 
 
 new Vue({

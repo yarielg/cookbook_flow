@@ -1,0 +1,209 @@
+<template>
+    <div class="row">
+        <template-dialog :template="selected_template" @closeTemplateDialog="closeTemplateDialog" @proceed="proceed" :template_dialog="template_dialog"></template-dialog>
+        <loading-dialog :loading="loading"></loading-dialog>
+                    <v-container>
+                        <v-row v-if="current_step === 1">
+                            <v-col cols="5" class="text-center">
+                                <h5>Select a template</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
+                                <button @click="chooseOption(1)" class="btn-normal">Continue with a template</button>
+                            </v-col>
+                            <v-col cols="2" class="text-center">OR</v-col>
+                            <v-col cols="5" class="text-center">
+                                <h5>Choose services</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
+                                <button @click="chooseOption(2)" class="btn-normal">Customize cookbook</button>
+                            </v-col>
+                        </v-row>
+                        <div class="row" v-if="current_step === 2">
+                            <div class="col-12" v-if="option === 1" >
+                                <p>PUBLISH YOUR COOKBOOK</p>
+                                <h5 class="mb-5 pb-5">Choose a Cookbook Template</h5>
+                                <div class="row">
+                                    <div class="col-md-6" v-for="template in templates" :key="template.id">
+                                        <div class="card" style="width: 18rem;">
+                                            <img @click="selectTemplate(template)" class="card-img-top template_image" :src="template.url" alt="...">
+                                            <div class="card-body">
+                                                <h4>{{template.name}}</h4>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, alias animi architecto atque consectetur corporis</p>
+                                                <!--<label :for="'template_' + template.id" class="select_template">
+                                                    <p class="text-center mt-2">{{ template.name }}</p>
+                                                </label>
+                                                <input @click="" :value="template.id" :id="'template_' + template.id" type="radio" class="template_option" v-model="selected_template">-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <v-col cols="12" v-if="option === 2">
+                                <p>PUBLISH YOUR COOKBOOK</p>
+                                <h5 class="mb-5 pb-5" >Choose Services for you Cookbook</h5>
+                                <v-row>
+                                    <v-col cols="6" class="text-center" v-for="service in services" :key="service.id">
+                                        <input v-model="selected_services" :value="service.id" type="checkbox" class="service_option" :id="'service_'+service.id">
+                                        <label :for="'service_'+service.id" class="select_service">
+                                            <img class="service_image" :src="service.url" alt="">
+                                            <p class="mt-2">{{ service.name }}</p>
+                                        </label>
+
+                                    </v-col>
+                                </v-row>
+                            </v-col>
+                        </div>
+                        <br><br>
+                        <div class="row mt-5">
+                            <div class="col-12 text-center">
+
+
+                                <!--<v-btn color="primary" v-if="current_step == 2" text @click="previous()">Previous</v-btn>-->
+                                <button type="button" class="btn-normal" v-if="current_step == 2 && option==2" text @click="proceed()">Proceed</button>
+                                <v-btn color="primary" text @click="goBackToView()">Go Back</v-btn>
+                            </div>
+                        </div>
+                    </v-container>
+
+
+    </div>
+</template>
+
+<script>
+    const axios = require('axios');
+
+    export default {
+        props:['cookbook_id'],
+        computed:{
+            ingredientsList(){
+                return this.ingredients;
+            },
+            modal(){
+                return this.publish_dialog;
+            },
+            cookbook(){
+                return this.cookbook_id;
+            }
+        },
+        data () {
+            return {
+                //  dialog: false,
+                valid:false,
+                current_step : 1,
+                option:null,
+                selected_template: null,
+                services: [],
+                selected_services:[],
+                loading:false,
+                templates:[],
+                template_dialog: false,
+            }
+        },
+        created(){
+            this.getTemplates();
+            this.getServices();
+        },
+        methods:{
+            previous(){
+                this.current_step --;
+            },
+            next(){
+                this.current_step ++;
+            },
+            proceed(){
+                if(this.option === 1 && this.selected_template === null){
+                    toastr.warning('Select a template to continue', 'Error');
+                    return
+                }
+
+                if(this.option === 2 && this.services.length === 0){
+                    toastr.warning('Select at least a service to continue', 'Error');
+                    return;
+                }
+                const formData = new FormData();
+                formData.append('action', 'publish_cookbook');
+                formData.append('cookbook_id', this.cookbook);
+                formData.append('services', JSON.stringify(this.selected_services));
+                formData.append('template', this.selected_template !== null ? this.selected_template.id : '');
+                formData.append('option', this.option);
+
+                this.loading = true;
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            window.location = response.data.checkout_url;
+                        }else{
+                            toastr.warning('We could not publish the cookbook', 'Error');
+                        }
+                        this.loading = false;
+                    });
+            },
+            chooseOption(option){
+                if(option === 1){
+                    this.selected_services = [];
+                }else {
+                    this.selected_template = null;
+                }
+                this.current_step = 2;
+                this.option = option;
+            },
+            getTemplates(){
+                const formData = new FormData();
+                formData.append('action', 'get_templates');
+
+                this.loading = true;
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            this.templates = response.data.templates;
+                        }else{
+                            toastr.warning('We could not get the templates', 'Error');
+                        }
+                        this.loading = false;
+                    });
+            },
+            getServices(){
+                const formData = new FormData();
+                formData.append('action', 'get_services');
+
+                this.loading = true;
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            this.services = response.data.services;
+                        }else{
+                            toastr.warning('We could not get the templates', 'Error');
+                        }
+                        this.loading = false;
+                    });
+            },
+            goBackToView(){
+                this.current_step = 1;
+                this.$emit('goBackToView');
+            },
+            closeTemplateDialog(){
+                this.template_dialog = false;
+                this.selected_template = null;
+            },
+            selectTemplate(template){
+                this.selected_template = template;
+                this.template_dialog = true;
+            }
+        }
+
+    }
+</script>
+
+<style scoped>
+    input[type='checkbox'], input[type='radio']{
+        display: none !important;
+    }
+
+    input[type="radio"]:checked + label img, input[type="checkbox"]:checked + label img{
+        border: 2px solid black !important;
+        filter: drop-shadow(2px 4px 6px black) !important;
+    }
+
+    .template_image:hover, .service_image:hover{
+        filter: drop-shadow(2px 4px 6px black) !important;
+    }
+</style>

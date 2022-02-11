@@ -293,6 +293,7 @@ function getTemplatesACF(){
                 'id' => get_row_index(),
                 'name' => get_sub_field('name'),
                 'url' => get_sub_field('image'),
+	            'images' => get_sub_field('images'),
             ));
 
         endwhile;

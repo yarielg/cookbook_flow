@@ -1,7 +1,6 @@
 <template>
     <div class="container">
         <loading-dialog :loading="loading"></loading-dialog>
-        <publish-dialog @closeDialogPublish="closeDialogPublish" :publish_dialog="publish_dialog" :cookbook_id="cookbook_id"></publish-dialog>
         <div class="row">
             <div class="col-2">
                 <v-icon @click="goBack()">
@@ -24,7 +23,7 @@
                 Author: {{ author_name }}
                 <br>
                 <br>
-                <button class="btn-normal" @click="publish_dialog = true" v-if="checkPublish() && state != 2">Publish Cookbook</button>
+                <button class="btn-normal" @click="publishing = true" v-if="checkPublish() && state != 2 && !publishing">Publish Cookbook</button>
                 <p v-if="state == 2"><strong>Note:</strong> This cookbook was sent to be published, actions are not allowed at this time</p>
 
                 <div class="chat_main" v-if="state == 2">
@@ -50,31 +49,31 @@
 
                 </div>
             </div>
-            <div class="col-md-8 main-panel pl-4" >
-                <div class="row">
-                    <!--<div class="col-md-6" v-if="front_image">
-                        <img :src="front_image.url" alt="">
-                    </div>-->
-                    <div class="col-md-6" v-if="back_image">
-                        <img :src="back_image.url" alt="">
+            <div class="col-md-8 main-panel pl-5" >
+                <publish-view v-if="publishing" :cookbook_id="cookbook_id" @goBackToView="goBackToView"></publish-view>
+                <div class="view-cookbook-info" v-if="!publishing">
+                    <div class="row">
+                        <div class="col-md-6" v-if="back_image">
+                            <img :src="back_image.url" alt="">
+                        </div>
                     </div>
-                </div>
-                <div class="section-info">
-                    <h2>{{ title }}</h2>
-                </div>
-                <div class="section-info" v-if="introduction">
-                    <label class="label-info-header" for="">INTRODUCTION</label>
-                    <p>{{ introduction }}</p>
-                </div>
+                    <div class="section-info">
+                        <h2>{{ title }}</h2>
+                    </div>
+                    <div class="section-info" v-if="introduction">
+                        <label class="label-info-header" for="">INTRODUCTION</label>
+                        <p>{{ introduction }}</p>
+                    </div>
 
-                <div class="section-info" v-if="acknowledgments">
-                    <label class="label-info-header" for="">ACKNOWLEDGEMENTS</label>
-                    <p>{{ acknowledgments }}</p>
-                </div>
+                    <div class="section-info" v-if="acknowledgments">
+                        <label class="label-info-header" for="">ACKNOWLEDGEMENTS</label>
+                        <p>{{ acknowledgments }}</p>
+                    </div>
 
-                <div class="section-info" v-if="dedication">
-                    <label class="label-info-header" for="">DEDICATIONS</label>
-                    <p>{{ dedication }}</p>
+                    <div class="section-info" v-if="dedication">
+                        <label class="label-info-header" for="">DEDICATIONS</label>
+                        <p>{{ dedication }}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -100,7 +99,8 @@
                 comment: '',
                 author_name: '',
                 recipes: [],
-                back_image: null
+                back_image: null,
+                publishing: false,
             }
         },
         created(){
@@ -205,8 +205,9 @@
                 }
                 return false;
             },
-            closeDialogPublish(){
-                this.publish_dialog = false;
+            goBackToView(){
+                this.publishing = false;
+                console.log(this.publishing);
             }
         }
     }
@@ -251,4 +252,12 @@
         font-size: 8px;
         margin-left: 12px;
     }
+
+    @media screen and (min-width: 920px) {
+        .left-panel{
+            height: 100vh;
+        }
+    }
+
+
 </style>
