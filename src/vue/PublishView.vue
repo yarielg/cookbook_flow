@@ -22,7 +22,7 @@
                                 <h5 class="mb-5 pb-5">Choose a Cookbook Template</h5>
                                 <div class="row">
                                     <div class="col-md-6" v-for="template in templates" :key="template.id">
-                                        <div class="card" style="width: 18rem;">
+                                        <div class="card-panel" style="width: 18rem;">
                                             <img @click="selectTemplate(template)" class="card-img-top template_image" :src="template.url" alt="...">
                                             <div class="card-body">
                                                 <h4>{{template.name}}</h4>
@@ -201,5 +201,19 @@
 
     .template_image:hover, .service_image:hover{
         filter: drop-shadow(2px 4px 6px black) !important;
+    }
+
+    .card-panel{
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: 0.25rem;
     }
 </style>
