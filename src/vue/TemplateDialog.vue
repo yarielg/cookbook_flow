@@ -9,7 +9,7 @@
 
             <v-spacer></v-spacer>
 
-            <v-card-text style="height: 800px" >
+            <v-card-text style="height: 700px" >
                 <div class="row" v-if="template_selected">
                     <div class="col-12">
                         <h3 class="text-center mt-5 mb-5">{{template_selected.name}}</h3>
@@ -29,7 +29,6 @@
                <div class="row mt-5">
                    <div class="col-12 text-center">
                        <button class="btn-normal" @click="proceed()">Use this template</button>
-                       <br>
                        <br>
                        <button class="" @click="closeDialog()">Keep Browsing</button>
 
