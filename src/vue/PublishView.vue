@@ -22,7 +22,7 @@
                                 <h5 class="mb-5 pb-5">Choose a Cookbook Template</h5>
                                 <div class="row">
                                     <div class="col-md-6" v-for="template in templates" :key="template.id">
-                                        <div class="card-panel" style="width: 18rem;">
+                                        <div class="card-panel">
                                             <img @click="selectTemplate(template)" class="card-img-top template_image" :src="template.url" alt="...">
                                             <div class="card-body">
                                                 <h4>{{template.name}}</h4>

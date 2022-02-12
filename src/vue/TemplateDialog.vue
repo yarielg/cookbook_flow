@@ -9,7 +9,7 @@
 
             <v-spacer></v-spacer>
 
-            <v-card-text style="height: 600px" >
+            <v-card-text style="height: 640px" >
                 <div class="row" v-if="template_selected">
                     <div class="col-12">
                         <h3 class="text-center mt-5 mb-5">{{template_selected.name}}</h3>
