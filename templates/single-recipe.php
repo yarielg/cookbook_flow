@@ -47,7 +47,7 @@ $featured = getFeaturedImageRecipe($images);
                 </ul>
             </div>
 
-            <div class="info-div">
+            <div class="info-div mt-3">
                 <label for=""><strong>STORY</strong></label>
                 <?php
                 echo $story;
