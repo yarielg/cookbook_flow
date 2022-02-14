@@ -309,3 +309,53 @@ ul.photo_recipe_gallery li.single-image-gallery img{
 .left-bar{
     position: relative !important;
 }
+
+/*Customize styles*/
+.navbar a{
+    font-size:16px
+}
+
+#rcp-account-overview,#rcp-payment-history,#rcp_update_card_form{
+    font-size:16px
+}
+.upgrade_account{
+    margin-top: 30px
+}
+.upgrade_account h3{
+    font-size:22px
+}
+
+.search_recipe_form input, .search_recipe_form select,.search_recipe_form  a{
+    height: 40px;
+    font-size:18px !important;
+
+}
+
+.search_recipe_form select{
+    height: 40px;
+    font-size:14px !important;
+
+}
+
+.search_recipe_link{
+    text-decoration: none !important;
+}
+
+/*Checkout changes*/
+.woocommerce-input-wrapper{
+    width:100%;
+}
+
+.woocommerce-privacy-policy-text{
+    font-size:15px;
+    margin-bottom:15px
+}
+
+.showcoupon{
+    font-size: 15px
+}
+
+.woocommerce p{
+    font-size: 15px;
+    padding:8px
+}

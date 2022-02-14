@@ -56,6 +56,17 @@ class DefaultSettings
         add_filter( 'manage_edit-shop_order_columns', array($this, 'adding_order_column_cookbook') );
         add_action( 'manage_shop_order_posts_custom_column', array($this, 'render_cookbook_column_value'), 2 );
 
+        /**
+         * Redirect page in case are acessed directly (cart and product pages)
+         */
+	    add_action( 'template_redirect', function (){
+		    // Redirect to non existing page that will make a 404
+		    if ( is_cart() || is_product()) {
+			    wp_safe_redirect( home_url('/') );
+			    exit();
+		    }
+	    });
+
     }
 
     function render_cookbook_column_value( $column ) {
