@@ -17,6 +17,7 @@ $term_obj_list = get_the_terms( $recipe_id, 'cat_recipe' );
 $images = get_field( 'cbf_photos', $recipe_id );
 $category = $term_obj_list ? $term_obj_list[0]->name : '';
 $ingredients = get_field( 'cbf_ingredients',$recipe_id );
+$story = get_field( 'story',$recipe_id );
 $featured = getFeaturedImageRecipe($images);
 
 ?>
@@ -44,6 +45,13 @@ $featured = getFeaturedImageRecipe($images);
                     }
                     ?>
                 </ul>
+            </div>
+
+            <div class="info-div">
+                <label for=""><strong>STORY</strong></label>
+                <?php
+                echo $story;
+                ?>
             </div>
 
         </div>
