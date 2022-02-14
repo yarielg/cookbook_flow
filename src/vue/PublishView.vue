@@ -4,13 +4,13 @@
         <loading-dialog :loading="loading"></loading-dialog>
         <div class="container">
             <div class="row" v-if="current_step === 1">
-                <div class="col-md-5 text-center">
+                <div class="col-md-5 text-center mt-2">
                     <h5>Select a template</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
                     <button @click="chooseOption(1)" class="btn-normal">Continue with a template</button>
                 </div>
                 <div class="col-md-2 text-center"> OR </div>
-                <div class="col-md-5 text-center">
+                <div class="col-md-5 text-center mt-2">
                     <h5>Choose services</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
                     <button @click="chooseOption(2)" class="btn-normal">Customize cookbook</button>

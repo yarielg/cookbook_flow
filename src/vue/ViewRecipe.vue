@@ -33,22 +33,27 @@
                 <br><br><br>
                 <label for="">Share Options:</label>
                 <br>
-                <div class="share_section row mt-3">
-                    <button v-if="status !== 'Draft' && !share" class="btn-normal col" @click="showShare">Share By Email</button>
-                    <div v-if="share" class="form-group mt-5 col-9">
-                        <input placeholder="Enter email" v-model="share_email" type="email" class="form-control" id="recipe_title">
+                <div class="share_section row mt-1 text-center">
+                    <div class="col-12 text-center">
+                        <button v-if="status !== 'Draft' && !share" class="btn-normal" @click="showShare">Share By Email</button>
                     </div>
-                    <button class="col-3" v-if="status !== 'Draft' && share" @click="shareRecipe()">Send</button>
-                    <br>
-                    <!--<button class="btn-normal" v-if="share" @click="share=false">Close</button>-->
-                </div>
-                <br>
-                <br>
-                <div class="share_section row">
-                    <button @click="copyLink()" class="btn-normal col">Copy Recipe Link</button>
+                    <div class="col-12">
+                        <div class="row">
+                            <div v-if="share" class="form-group mt-5 col-9">
+                                <input placeholder="Enter email" v-model="share_email" type="email" class="form-control" id="recipe_title">
+                            </div>
+                            <button v-if="status !== 'Draft' && share" @click="shareRecipe()" class="col-3">Send</button>
+                        </div>
+                    </div>
                 </div>
 
+                <div class="share_section row mt-1">
+                    <div class="col-12 text-center">
+                        <button @click="copyLink()" class="btn-normal">Copy Recipe Link</button>
+                    </div>
+                </div>
             </div>
+
             <div class="col-md-8 main-panel pl-4" >
                 <div class="section-info" v-if="featured_image !== ''">
                     <img class="featured_image" :src="featured_image" alt="">
@@ -223,5 +228,9 @@
 <style>
     .featured_image{
         width: 100%;
+    }
+
+    .share_section button {
+        width: 200px;
     }
 </style>
