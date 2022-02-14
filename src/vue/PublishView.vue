@@ -9,7 +9,7 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
                     <button @click="chooseOption(1)" class="btn-normal">Continue with a template</button>
                 </div>
-                <div class="col-md-2 text-center d-sm-none"> OR </div>
+                <div class="col-md-2 text-center"> OR </div>
                 <div class="col-md-5 text-center">
                     <h5>Choose services</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
@@ -49,10 +49,8 @@
                 </div>
             </div>
             <br><br>
-            <div class="row mt-5">
+            <div class="row m2-5">
                 <div class="col-12 text-center">
-
-
                     <!--<v-btn color="primary" v-if="current_step == 2" text @click="previous()">Previous</v-btn>-->
                     <button type="button" class="btn-normal" v-if="current_step == 2 && option==2" text @click="proceed()">Proceed</button>
                     <v-btn color="primary" text @click="goBackToView()">Go Back</v-btn>
