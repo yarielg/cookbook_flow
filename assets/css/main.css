@@ -290,6 +290,13 @@ ul.photo_recipe_gallery li.single-image-gallery img{
     }
 }
 
+@media (max-width: 420px){
+    #cbf_dashboard_nav{
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
+
 .dashboard-header .navbar-brand img{
     width: 250px;
 }

@@ -22,7 +22,7 @@ if(is_user_logged_in()){
 
 <body <?php body_class(); ?>>
 <?php $current_user = wp_get_current_user(); ?>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-5 " id="cbf_dashboard_nav">
         <a class="navbar-brand " href="<?= site_url('welcome') ?>"><img style="width: 150px" src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
