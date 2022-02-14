@@ -2,66 +2,64 @@
     <div class="row">
         <template-dialog :template="selected_template" @closeTemplateDialog="closeTemplateDialog" @proceed="proceed" :template_dialog="template_dialog"></template-dialog>
         <loading-dialog :loading="loading"></loading-dialog>
-                    <v-container>
-                        <v-row v-if="current_step === 1">
-                            <v-col cols="5" class="text-center">
-                                <h5>Select a template</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
-                                <button @click="chooseOption(1)" class="btn-normal">Continue with a template</button>
-                            </v-col>
-                            <v-col cols="2" class="text-center">OR</v-col>
-                            <v-col cols="5" class="text-center">
-                                <h5>Choose services</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
-                                <button @click="chooseOption(2)" class="btn-normal">Customize cookbook</button>
-                            </v-col>
-                        </v-row>
-                        <div class="row" v-if="current_step === 2">
-                            <div class="col-12" v-if="option === 1" >
-                                <p>PUBLISH YOUR COOKBOOK</p>
-                                <h5 class="mb-5 pb-5">Choose a Cookbook Template</h5>
-                                <div class="row">
-                                    <div class="col-md-6" v-for="template in templates" :key="template.id">
-                                        <div class="card-panel">
-                                            <img @click="selectTemplate(template)" class="card-img-top template_image" :src="template.url" alt="...">
-                                            <div class="card-body">
-                                                <h4>{{template.name}}</h4>
-                                                <p>{{template.caption}}</p>
-                                            </div>
-                                        </div>
-                                    </div>
+        <div class="container">
+            <div class="row" v-if="current_step === 1">
+                <div class="col-md-5 text-center">
+                    <h5>Select a template</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
+                    <button @click="chooseOption(1)" class="btn-normal">Continue with a template</button>
+                </div>
+                <div class="col-md-2 text-center d-sm-none"> OR </div>
+                <div class="col-md-5 text-center">
+                    <h5>Choose services</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus aliquid aspernatur assumenda dignissimos, eaque eligendi fuga magni, minus nisi perspiciatis placeat, quaerat repellat veritatis. Consectetur molestias quam quidem.</p>
+                    <button @click="chooseOption(2)" class="btn-normal">Customize cookbook</button>
+                </div>
+            </div>
+            <div class="row" v-if="current_step === 2">
+                <div class="col-12" v-if="option === 1" >
+                    <p>PUBLISH YOUR COOKBOOK</p>
+                    <h5 class="mb-5 pb-5">Choose a Cookbook Template</h5>
+                    <div class="row">
+                        <div class="col-md-6" v-for="template in templates" :key="template.id">
+                            <div class="card-panel">
+                                <img @click="selectTemplate(template)" class="card-img-top template_image" :src="template.url" alt="...">
+                                <div class="card-body">
+                                    <h4>{{template.name}}</h4>
+                                    <p>{{template.caption}}</p>
                                 </div>
                             </div>
-
-                            <v-col cols="12" v-if="option === 2">
-                                <p>PUBLISH YOUR COOKBOOK</p>
-                                <h5 class="mb-5 pb-5" >Choose Services for you Cookbook</h5>
-                                <v-row>
-                                    <v-col cols="6" class="text-center" v-for="service in services" :key="service.id">
-                                        <input v-model="selected_services" :value="service.id" type="checkbox" class="service_option" :id="'service_'+service.id">
-                                        <label :for="'service_'+service.id" class="select_service">
-                                            <img class="service_image" :src="service.url" alt="">
-                                            <p class="mt-2">{{ service.name }}</p>
-                                        </label>
-
-                                    </v-col>
-                                </v-row>
-                            </v-col>
                         </div>
-                        <br><br>
-                        <div class="row mt-5">
-                            <div class="col-12 text-center">
+                    </div>
+                </div>
 
+                <div class="col-12" v-if="option === 2">
+                    <p>PUBLISH YOUR COOKBOOK</p>
+                    <h5 class="mb-5 pb-5" >Choose Services for you Cookbook</h5>
+                    <div class="row">
+                        <div class="text-center col-md-6" v-for="service in services" :key="service.id">
+                            <input v-model="selected_services" :value="service.id" type="checkbox" class="service_option" :id="'service_'+service.id">
+                            <label :for="'service_'+service.id" class="select_service">
+                                <img class="service_image" :src="service.url" alt="">
+                                <p class="mt-2">{{ service.name }}</p>
+                            </label>
 
-                                <!--<v-btn color="primary" v-if="current_step == 2" text @click="previous()">Previous</v-btn>-->
-                                <button type="button" class="btn-normal" v-if="current_step == 2 && option==2" text @click="proceed()">Proceed</button>
-                                <v-btn color="primary" text @click="goBackToView()">Go Back</v-btn>
-                            </div>
                         </div>
-                    </v-container>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="row mt-5">
+                <div class="col-12 text-center">
 
 
-    </div>
+                    <!--<v-btn color="primary" v-if="current_step == 2" text @click="previous()">Previous</v-btn>-->
+                    <button type="button" class="btn-normal" v-if="current_step == 2 && option==2" text @click="proceed()">Proceed</button>
+                    <v-btn color="primary" text @click="goBackToView()">Go Back</v-btn>
+                </div>
+            </div>
+        </div>
+</div>
 </template>
 
 <script>
