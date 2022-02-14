@@ -3,21 +3,18 @@
         <div class="container dashboard" v-if="active_screen == 'dashboard'">
             <loading-dialog :loading="loading"></loading-dialog>
             <div class="row mb-6" v-show="premium_account">
-                <div class="col-md-6 text-center box-panel">
+                <div class="col-md-6 box-panel">
                     <div class="panel-wrapper">
                         <div v-if="cookbooks.length > 0" class="cookbooks_list">
                             <h4 class="mb-4 inline_header">Your Cookbooks</h4>
-                            <button @click="changeScreen('add-cookbook')" class="btn-normal float-right mr-3">Create</button>
+                            <button @click="changeScreen('add-cookbook')" class="btn-normal float-right mr-3 mb-1">Create</button>
                             <div class="container recipe-wrapper">
                                 <div v-for="cookbook in cookbooks" :key="cookbook.ID"  class="row recipe">
-                                    <!--<div class="col-md-2"><img class="recipe_img" :src="recipe.photo_url" alt=""></div>-->
-                                    <div class="col-md-8 centered_col"><p>{{ cookbook.post_title }}</p></div>
-                                    <div class="col-md-3 centered_col float-right">
-                                        <button v-if="cookbook.state != 2" class="btn-normal mr-3" @click="changeScreen('add-cookbook', cookbook.ID)">Edit</button>
-                                        <button class="btn-normal" @click="changeScreen('view-cookbook',cookbook.ID)">View</button>
+                                    <div class="col-12">
+                                        <span>{{ cookbook.post_title }}</span>
+                                        <button v-if="cookbook.state != 2" class="btn-normal float-right ml-3" @click="changeScreen('add-cookbook', cookbook.ID)">Edit</button>
+                                        <button class="btn-normal float-right" @click="changeScreen('view-cookbook',cookbook.ID)">View</button>
                                     </div>
-                                    <div class="col-md-1"></div>
-
                                 </div>
                             </div>
                         </div>
@@ -260,5 +257,10 @@
         color: #78849c;
     }
 
+    .recipe-wrapper{
+        box-shadow: 0px 3px 3px -1px rgba(0,0,0,0.75) inset;
+        -webkit-box-shadow: 0px 3px 3px -1px rgba(0,0,0,0.75) inset;
+        -moz-box-shadow: 0px 3px 3px -1px rgba(0,0,0,0.75) inset;
+    }
 
 </style>
