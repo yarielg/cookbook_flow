@@ -2,11 +2,8 @@
    <div class="container">
       <loading-dialog :loading="loading"></loading-dialog>
       <div class="row">
-         <div class="col-4 mt-3">
-            <v-icon @click="goBack()">
-               mdi-arrow-left
-            </v-icon> Back
-
+         <div class="col-4">
+            <v-icon @click="goBack()">mdi-arrow-left</v-icon>Back
          </div>
          <div class="col-8">
             <button class="float-right btn-normal" v-show="!checkForm()" @click="addRecipe('Draft','no')">Save as Draft</button>
