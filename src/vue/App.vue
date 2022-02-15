@@ -11,7 +11,7 @@
                             <div class="container recipe-wrapper">
                                 <div v-for="cookbook in cookbooks" :key="cookbook.ID"  class="row recipe">
                                     <div class="col-12">
-                                        <span>{{ cookbook.post_title }}</span>
+                                        <span class="cookbook_name">{{ cookbook.post_title }}</span>
                                         <button v-if="cookbook.state != 2" class="btn-normal float-right ml-3" @click="changeScreen('add-cookbook', cookbook.ID)">Edit</button>
                                         <button class="btn-normal float-right" @click="changeScreen('view-cookbook',cookbook.ID)">View</button>
                                     </div>

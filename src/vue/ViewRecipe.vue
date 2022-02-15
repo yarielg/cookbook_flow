@@ -2,7 +2,7 @@
     <div class="container">
         <loading-dialog :loading="loading"></loading-dialog>
         <div class="row">
-            <div class="col-2">
+            <div class="col-md-2">
                 <v-icon @click="goBack()">
                     mdi-arrow-left
                 </v-icon> Back

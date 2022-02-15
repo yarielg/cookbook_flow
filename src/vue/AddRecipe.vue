@@ -2,13 +2,16 @@
    <div class="container">
       <loading-dialog :loading="loading"></loading-dialog>
       <div class="row">
-         <div class="col-md-4">
+         <div class="col-4 mt-3">
             <v-icon @click="goBack()">
                mdi-arrow-left
             </v-icon> Back
 
          </div>
-         <div class="col-md-8">
+         <div class="col-8">
+            <button class="float-right btn-normal" v-show="!checkForm()" @click="addRecipe('Draft','no')">Save as Draft</button>
+         </div>
+         <div class="col-12">
             <div class="top-bar-assign" v-show="checkForm()">
                <div class="left bar">
                   <v-menu  :close-on-content-click="false" :nudge-width="200" offset-y transition="scale-transition">
@@ -57,7 +60,6 @@
                   <button :disabled="!checkForm()" @click="addRecipe(status,'no')" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>
                </div>
             </div>
-            <button class="float-right btn-normal" v-show="!checkForm()" @click="addRecipe('Draft','no')">Save as Draft</button>
          </div>
       </div>
       <div class="row">
