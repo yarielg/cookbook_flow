@@ -107,6 +107,10 @@
                 this.getComments();
             }
 
+            setInterval(()=>{
+                this.getComments();
+            },5000)
+
             this.author_name = parameters.owner.data.display_name.charAt(0).toUpperCase() + parameters.owner.data.display_name.slice(1);
         },
         computed:{
@@ -153,7 +157,7 @@
                 formData.append('action', 'get_comments');
                 formData.append('admin', 0);
                 formData.append('cookbook_id', this.edit_mode);
-                this.loading = true;
+                //this.loading = true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){
@@ -161,7 +165,7 @@
                         }else{
                             toastr.warning('We could not get the last messages', 'Error');
                         }
-                        this.loading = false;
+                        //this.loading = false;
                     });
             },
             addComment(){

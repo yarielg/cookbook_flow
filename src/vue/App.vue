@@ -47,10 +47,9 @@
             <div class="row mt-6" v-if="recipes.length == 0">
                 <div class="col-12 text-center box-panel">
                     <div class="panel-wrapper">
-                        <div class="" v-html="data.second_panel_block"></div>
-                        <!--<h4 class="">Your Recipes</h4>
+                        <h4 class="">Your Recipes</h4>
                         <p class="">To begin building your recipe library, start by adding your first recipe.</p>
-                        <br>-->
+                        <br>
                         <button @click="changeScreen('add-recipe')" class="btn-normal">Create a Recipe</button>
                     </div>
                 </div>
@@ -84,11 +83,12 @@
                 </div>
                 <div class="col-md-4 box-panel text-center">
                     <div class="panel-wrapper" v-show="premium_account && account_type !== 2 ">
-                        <h4 class="mb-5 pb-5">Add / Promotion Space</h4>
+                        <div class="" v-html="data.second_panel_block"></div>
+                        <!--<h4 class="mb-5 pb-5">Add / Promotion Space</h4>
                         <p class="">As a user continues to build out their
                             dashboard with content, we could
                             trickle in CTA spaces for promotions
-                            or ads. </p>
+                            or ads. </p>-->
                         <button class="btn-normal">Promote</button>
                     </div>
                     <div class="panel-wrapper" v-show="!premium_account && account_type !== 2">
