@@ -34,11 +34,12 @@
 
                 <div class="col-md-6 text-center box-panel">
                     <div class="panel-wrapper">
-                        <h4 class="">Help me design my cookbook.</h4>
+                        <div class="" v-html="data.first_panel_block"></div>
+                        <!--<h4 class="">Help me design my cookbook.</h4>
                         <br>
                         <p class="">Nam porttitor blandit accumsan. Ut vel dictum sem,
                             a pretium dui. In malesuada enim in dolor euismod,</p>
-                        <br>
+                        <br>-->
                         <button class="btn-normal">Get started</button>
                     </div>
                 </div>
@@ -46,9 +47,10 @@
             <div class="row mt-6" v-if="recipes.length == 0">
                 <div class="col-12 text-center box-panel">
                     <div class="panel-wrapper">
-                        <h4 class="">Your Recipes</h4>
+                        <div class="" v-html="data.second_panel_block"></div>
+                        <!--<h4 class="">Your Recipes</h4>
                         <p class="">To begin building your recipe library, start by adding your first recipe.</p>
-                        <br>
+                        <br>-->
                         <button @click="changeScreen('add-recipe')" class="btn-normal">Create a Recipe</button>
                     </div>
                 </div>
@@ -127,11 +129,13 @@
                edit_cookbook: -1,
                premium_account: false,
                cookbooks:0,
-               account_type: 0
+               account_type: 0,
+               data: [],
             }
         },
         created(){
             this.premium_account = parameters.premium;
+            this.data = parameters.data;
             this.account_type = parameters.account_type;
             //Determine what flow the app will have depending on the account type and the user role
             this.secureAccount();

@@ -3,7 +3,7 @@
         <loading-dialog :loading="loading"></loading-dialog>
         <div class="row">
             <div class="col-12">
-                <v-icon @click="goBack()">
+                <v-icon class="pr-1" @click="goBack()">
                     mdi-arrow-left
                 </v-icon> Back
             </div>
