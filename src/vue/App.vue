@@ -6,7 +6,7 @@
                 <div class="col-md-6 box-panel">
                     <div class="panel-wrapper">
                         <div v-if="cookbooks.length > 0" class="cookbooks_list">
-                            <h4 class="mb-4 inline_header">Your Cookbooks</h4>
+                            <h4 class="mb-4 inline_header fdgdfgd">Your Cookbooks</h4>
                             <button @click="changeScreen('add-cookbook')" class="btn-normal float-right mr-3 mb-1">Create</button>
                             <div class="container recipe-wrapper">
                                 <div v-for="cookbook in cookbooks" :key="cookbook.ID"  class="row recipe">
