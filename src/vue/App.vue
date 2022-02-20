@@ -4,16 +4,18 @@
             <loading-dialog :loading="loading"></loading-dialog>
             <div class="row mb-6" v-show="premium_account">
                 <div class="col-md-6 box-panel">
-                    <div class="panel-wrapper">
+                    <div class="panel-wrapper recipe-panel">
                         <div v-if="cookbooks.length > 0" class="cookbooks_list">
-                            <h4 class="mb-4 inline_header fdgdfgd">Your Cookbooks</h4>
-                            <button @click="changeScreen('add-cookbook')" class="btn-normal float-right mr-3 mb-1">Create</button>
-                            <div class="container recipe-wrapper">
-                                <div v-for="cookbook in cookbooks" :key="cookbook.ID"  class="row recipe">
-                                    <div class="col-12">
-                                        <span class="cookbook_name">{{ cookbook.post_title }}</span>
-                                        <button v-if="cookbook.state != 2" class="btn-normal float-right ml-3" @click="changeScreen('add-cookbook', cookbook.ID)">Edit</button>
-                                        <button class="btn-normal float-right" @click="changeScreen('view-cookbook',cookbook.ID)">View</button>
+                            <div class="d-flex justify-content-between align-items-center mb-3 pr-8">
+                                <h4 class="inline_header">Your Cookbooks</h4>
+                                <button @click="changeScreen('add-cookbook')" class="btn-normal">Create</button>
+                            </div>
+                            <div class="recipe-wrapper">
+                                <div v-for="cookbook in cookbooks" :key="cookbook.ID"  class="align-items-center py-4 d-flex recipe">
+                                    <div class="recipe-name flex pr-5">{{ cookbook.post_title }}</div>
+                                    <div class="buttons_container">
+                                        <button v-if="cookbook.state != 2" class="btn-outline float-right ml-3" @click="changeScreen('add-cookbook', cookbook.ID)">Edit</button>
+                                        <button class="btn-outline float-right" @click="changeScreen('view-cookbook',cookbook.ID)">View</button>
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 text-center box-panel">
+                <div class="col-md-6 text-center box-panel design_my_cookbook_panel">
                     <div class="panel-wrapper">
                         <div class="" v-html="data.first_panel_block"></div>
                         <!--<h4 class="">Help me design my cookbook.</h4>
@@ -57,18 +59,19 @@
 
             <div class="row mt-6">
                 <div class="col-md-8 box-panel">
-                    <div class="panel-wrapper">
-                        <h4 class="mb-4 inline_header">Your Recipes</h4>
-                        <button @click="changeScreen('add-recipe')" class="btn-normal float-right mr-3">Create</button>
-                        <div class="container recipe-wrapper">
-                            <div v-for="recipe in recipes" :key="recipe.ID"  class="row recipe">
-                                <div class="col-md-2"><img class="recipe_img" :src="recipe.photo_url" alt=""></div>
-                                <div class="col-md-7 centered_col"><p>{{ recipe.post_title }}</p></div>
-                                <div class="col-md-2 centered_col float-right">
-                                    <button class="btn-normal mr-3" @click="changeScreen('add-recipe', recipe.ID)">Edit</button>
-                                    <button class="btn-normal" :disabled="recipes.incomplete" @click="changeScreen('view-recipe',recipe.ID)">View</button>
+                    <div class="panel-wrapper recipe-panel">
+                        <div class="d-flex justify-content-between align-items-center mb-3 pr-8">
+                            <h4 class="inline_header">Your Recipes</h4>
+                            <button @click="changeScreen('add-recipe')" class="btn-normal">Create</button>
+                        </div>
+                        <div class="recipe-wrapper">
+                            <div v-for="recipe in recipes" :key="recipe.ID"  class="align-items-center py-2 d-flex recipe">
+                                <div class="img-container"><img class="recipe_img" :src="recipe.photo_url" alt=""></div>
+                                <div class="recipe-name flex px-5"><p>{{ recipe.post_title }}</p></div>
+                                <div class="buttons_container">
+                                    <button class="btn-outline mr-3" @click="changeScreen('add-recipe', recipe.ID)">Edit</button>
+                                    <button class="btn-outline" :disabled="recipes.incomplete" @click="changeScreen('view-recipe',recipe.ID)">View</button>
                                 </div>
-                                <div class="col-md-1"></div>
                             </div>
                         </div>
                         <div class="container">
@@ -81,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 box-panel text-center">
+                <div class="col-md-4 box-panel text-center design_my_cookbook_panel">
                     <div class="panel-wrapper" v-show="premium_account && account_type !== 2 ">
                         <div class="" v-html="data.second_panel_block"></div>
                         <!--<h4 class="mb-5 pb-5">Add / Promotion Space</h4>
@@ -229,25 +232,39 @@
 
     .recipe-wrapper{
         max-height: 220px;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 
     .recipe-wrapper .recipe{
-        border-bottom: 2px solid #78849c;
+        border-bottom: solid 0.5px #979797;
     }
 
-    .recipe-wrapper img{
-        width: 50px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
+
+    .recipe-wrapper .img-container {
+        width: 75px;
+        height: 44px;
     }
 
-    .inline_header{
+    .recipe-wrapper img {
+        max-width: 100%;
+        height: auto;
+        max-height: 40px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .recipe-name p, .recipe-name {
+        color: #008d97;
+        font-size: 16px;
+        margin-bottom: 0 !important;
+        font-weight: 600;
+    }
+
+    .inline_header {
         display: inline;
     }
 
-    .centered_col{
+    .centered_col {
         display: flex;
         align-items: center;
     }
@@ -259,12 +276,6 @@
 
     label.label-info-header{
         color: #78849c;
-    }
-
-    .recipe-wrapper{
-        box-shadow: 0px 3px 3px -1px rgba(0,0,0,0.75) inset;
-        -webkit-box-shadow: 0px 3px 3px -1px rgba(0,0,0,0.75) inset;
-        -moz-box-shadow: 0px 3px 3px -1px rgba(0,0,0,0.75) inset;
     }
 
 </style>

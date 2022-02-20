@@ -1,15 +1,176 @@
+@font-face {
+    font-family: 'SourceSansProRegular';
+    src: url('../fonts/SourceSansProRegular.eot');
+    src: url('../fonts/SourceSansProRegular.eot') format('embedded-opentype'),
+         url('../fonts/SourceSansProRegular.woff2') format('woff2'),
+         url('../fonts/SourceSansProRegular.woff') format('woff'),
+         url('../fonts/SourceSansProRegular.ttf') format('truetype'),
+         url('../fonts/SourceSansProRegular.svg#SourceSansProRegular') format('svg');
+}
+
 .site-content,.v-application--wrap{
     background: #eef1f5;
 }
 
-.btn-normal{
+.v-application--wrap {
+    font-family: Montserrat;
+}
+
+.box-panel .panel-wrapper h4, .box-panel .panel-wrapper h5 {
+    color: #2e3939 !important;
+}
+
+.v-application h4 {
+    font-size: 19px;
+    font-weight: bold;
+    font-family: Montserrat;
+    color: #2e3939 !important;
+}
+
+.box-panel .panel-wrapper h4 {
+    font-size: 19px;
+    font-weight: bold;
+    font-family: Montserrat;
+    margin-bottom: 18px;
+}
+
+.v-application p, .v-application ul li {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.design_my_cookbook_panel h4 + p, .design_my_cookbook_panel ul {
+    max-width: 377px;
+    margin: 0 auto 55px auto;
+}
+
+.recipe-panel .mCSB_inside>.mCSB_container {
+    margin-right: 32px;
+}
+
+.recipe-panel .mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background-color: #7f8996;
+}
+
+.recipe-panel .mCS-dark.mCSB_scrollTools .mCSB_draggerRail {
+    background-color: #eef1f5;
+}
+
+.recipe-panel .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar, .recipe-panel .mCSB_scrollTools .mCSB_draggerRail {
+    width: 5px;
+}
+
+#create_action_dropmenu:after, #create_action_dropmenu + .dropdown-menu .dropdown-item:after {
+    content: "\F415";
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: 22px;
+    text-rendering: auto;
+    line-height: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    border: 0;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+
+#create_action_dropmenu {
+    padding: 14px 27px 12px 28px;
+    border-radius: 8px;
+    background-color: #f58320;
+    font-size: 16px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-right: 40px;
+    line-height: normal;
+    transition: none;
+}
+
+.navbar-nav.show #create_action_dropmenu {
+    border-radius: 3px 3px 0 0;
+    width: 213px;
+    display: flex;
+    justify-content: space-between;
+    text-transform: none;
+    padding: 14px 27px 12px 35px;
+}
+
+.navbar-nav.show #create_action_dropmenu:after {
+    transform: rotate(45deg);
+}
+
+#create_action_dropmenu + .dropdown-menu {
+    padding: 0 0px 19px 0px;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 11px 10px 0 rgb(155 76 8 / 25%);
+    background-color: #f58320;
+    border: 0;
+    margin-top: 0px;
+    width: 213px;
+}
+
+#create_action_dropmenu + .dropdown-menu .dropdown-item {
+    opacity: 0.75;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 27px 5px 35px;
+    border-bottom: solid 0.5px rgba(255,255,255,.5);
+    display: flex;
+    justify-content: space-between;
+}
+
+#create_action_dropmenu + .dropdown-menu .dropdown-item:hover {
+    background: transparent;
+}
+
+#create_action_dropmenu + .dropdown-menu .dropdown-item:last-child {
+    border: 0;
+    padding-bottom: 0;
+}
+
+#cbf_dashboard_nav.navbar-expand-lg .navbar-nav {
+    align-items: center;
+}
+
+.dashboard .box-panel .recipe-panel {
+    padding: 25px 12px 18px 25px;
+}
+
+.dashboard .box-panel .recipe-panel h4 {
+    margin-bottom: 0;
+}
+
+#cbf_dashboard_nav {
+    padding: 13px;
+}
+
+.btn-outline {
+    background: #ffffff;
+    color: #f58320;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: SourceSansProRegular;
+    padding: 3px 18px;
+    border-radius: 3px;
+    border: solid 1px #f58320;
+    line-height: normal;
+}
+
+.btn-outline:hover {
+    color: #ffffff;;
+}
+
+.btn-normal {
     background: #f58320;
     color: white !important;
-    padding: 9px 14px;
-    border-radius: 2px;
+    padding: 14px 30px;
+    border-radius: 8px;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 14px;
     border: 0 !important;
+    font-family: SourceSansProRegular;
+    text-transform: uppercase;
+    line-height: normal;
 }
 
 .btn-normal a{
@@ -23,8 +184,29 @@
     padding: 50px 20px;
 }
 
+/* recipe_items css */
+.recipe_items ul.ingredients_list li {
+    padding-bottom: 18px;
+}
+
+.recipe_items li {
+    font-size: 14px;
+    color: #758799;
+    font-weight: 600;
+    padding-bottom: 18px;
+}
+.recipe_items li.completed {
+    color: #00b372;
+}
+
+.ingredients_list[data-v-772033c6] {
+    position: relative;
+    padding-left: 65px;
+}
+/* recipe_items css */
+
 .dashboard .box-panel .panel-wrapper{
-    height: 350px;
+    height: 100%;
 }
 
 .top-bar-assign{
@@ -49,8 +231,10 @@
     display: inline-block;
 }
 
-.box-panel .panel-wrapper h4,.box-panel .panel-wrapper h5{
-    color: #78849c;
+.box-panel .panel-wrapper {
+    padding: 73px 29px 48px;
+    border-radius: 5px;
+    box-shadow: 0 8px 11px 0 rgba(0, 0, 0, 0.05);
 }
 
 #rcp_registration_form p, #rcp_registration_form h3, #rcp_registration_form label{
@@ -67,11 +251,12 @@
 }
 
 span.icon_32{
-    width: 24px;
-
-    height: 24px;
-    background-size: cover;
-    content: url("../images/checked.png");
+    width: 21px;
+    height: 16px;
+    content: url("../images/checkmark.png");
+    position: absolute;
+    left: 0;
+    margin-top: 2px;
 }
 
 label.label-icon-edit, .action_btn_icon{

@@ -60,16 +60,16 @@
          </div>
       </div>
       <div class="row">
-         <div class="col-md-4 left-panel">
-            <h4 class="text-center">Create a Recipe</h4>
+         <div class="col-md-4 left-panel recipe_items">
+            <h4 class="pl-7 pt-3 pb-1 mb-0">Create a Recipe</h4>
             <hr>
-            <ul class="ingredients_list">
-               <li><span :class="title !== '' ? 'icon_32' : ''"></span> <span >Give it a title</span></li>
-               <li><span :class="category > 0 ? 'icon_32' : ''"></span> <span >Select a category</span></li>
-               <li><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>
-               <li><span :class="!isQuillEmpty()  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
-               <li><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
-            </ul>
+            <ol class="ingredients_list pt-5 ml-2">
+               <li :class="title !== '' ? 'completed' : ''"><span :class="title !== '' ? 'icon_32' : ''"></span> <span >Give it a title</span></li>
+               <li :class="category > 0 ? 'completed' : ''"><span :class="category > 0 ? 'icon_32' : ''"></span> <span >Select a category</span></li>
+               <li :class="ingredients.length !== 0 ? 'completed' : ''"><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>
+               <li :class="!isQuillEmpty()  ? 'completed' : ''"><span :class="!isQuillEmpty()  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
+               <li :class="photos.length !== 0 ? 'completed' : ''"><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
+            </ol>
          </div>
 
          <div class="col-md-8 main-panel pl-4">
@@ -584,14 +584,9 @@
       list-style: none !important;
    }
 
-   .ingredients_list li{
-      display: flex !important;
+   .ingredients_list li{    
+      list-style: auto;
       clear: both;
-   }
-
-   .ingredients_list li span:first-child{
-      min-width: 24px;
-      display: inline-block;
    }
 
    .ingredients_list li.checked{

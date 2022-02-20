@@ -46,9 +46,11 @@ class Enqueue{
 
             wp_enqueue_style('quill_js', 'https://cdn.quilljs.com/1.3.6/quill.snow.css');
             wp_enqueue_style('main_css', CBF_PLUGIN_URL . '/assets/css/main.css');
+            wp_enqueue_style('mCustomScrollbar_css', CBF_PLUGIN_URL . '/assets/css/jquery.mCustomScrollbar.min.css');
 
             wp_enqueue_script('toastr-js', 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js' ,array(),'1.0', true);
             wp_enqueue_script('quill-js', 'https://cdn.quilljs.com/1.3.6/quill.min.js' ,array(),'1.0', true);
+            wp_enqueue_script('mCustomScrollbar-js', CBF_PLUGIN_URL . '/assets/js/jquery.mCustomScrollbar.concat.min.js' ,array(),'1.0', true);
             wp_enqueue_script('vue-custom-js', CBF_PLUGIN_URL . '/dist/scripts.js' ,array('jquery','toastr-js','quill-js'),'1.0', true);
 
             $data = array(

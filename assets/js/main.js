@@ -1,8 +1,8 @@
-jQuery(function($) {
+jQuery(function ($) {
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#rcp_password_again_wrap label').html('Confirm Password');
-        $('.create_account_premium #rcp_submit').on('click', function(e){
+        $('.create_account_premium #rcp_submit').on('click', function (e) {
 
             /*$cardname = $('#rcp-card-name');
             $cardname = $('#rcp-card-name');
@@ -12,6 +12,17 @@ jQuery(function($) {
             e.stopPropagation();
             alert('asdasdasd');*/
         });
+    });
 
+    $(window).on("load", function () {
+        $(".recipe-wrapper").mCustomScrollbar({
+            theme: "dark"
+        });
+    });
+
+    $(window).on("resize", function () {
+        $(".recipe-wrapper").mCustomScrollbar({
+            theme: "dark"
+        });
     });
 });
