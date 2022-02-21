@@ -301,7 +301,7 @@ body.page-template-no_header_footer-php.register-page span.icon_32 {
 /* Register Page CSS */
 
 .site-content,.v-application--wrap{
-    background: #eef1f5;
+    background: #f4f3ed;
 }
 
 .v-application--wrap {
@@ -589,11 +589,55 @@ label.label-icon-edit:before{
 .left-info{
     margin-left: 30px;
 }
-
+/* recipe panel css */
 .main-panel{
-    padding-left: 55px !important;
+    padding-left: 85px !important;
 }
 
+.main-panel label {
+    opacity: 0.5;
+    font-family: Montserrat;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #758799;
+    text-transform: uppercase;
+}
+
+.main-panel input[type=email], 
+.main-panel input[type=number], 
+.main-panel input[type=password], 
+.main-panel input[type=reset], 
+.main-panel input[type=search], 
+.main-panel input[type=tel], 
+.main-panel input[type=text], 
+.main-panel input[type=url], 
+.main-panel select, 
+.main-panel textarea, 
+.main-panel .ingredients_action {
+    border-radius: 5px;
+    border: solid 0.5px #d7d7d7;
+    background-color: #ffffff;
+    height: 47px;
+}
+
+.main-panel .ingredients_action {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    color: #758799;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-top: 0px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px 0 rgb(117 135 153 / 43%);
+    border: solid 0.5px #d7d7d7;
+    background-color: #ffffff;
+}
+
+
+/* recipe panel css */
 h5{
     font-size: 15px !important;
 }

@@ -60,7 +60,7 @@
          </div>
       </div>
       <div class="row">
-         <div class="col-md-4 left-panel recipe_items">
+         <div class="col-md-3 left-panel recipe_items">
             <h4 class="pl-7 pt-3 pb-1 mb-0">Create a Recipe</h4>
             <hr>
             <ol class="ingredients_list pt-5 ml-2">
@@ -72,7 +72,7 @@
             </ol>
          </div>
 
-         <div class="col-md-8 main-panel pl-4">
+         <div class="col-md-9 main-panel">
             <form
                method="post"
                action=""
@@ -92,13 +92,13 @@
                </div>
 
                <div class="form-group">
-                  <h5>RECIPE INGREDIENTS</h5>
+                  <label>RECIPE INGREDIENTS</label>
                   <ul>
                      <li v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity"> {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</li>
                   </ul>
-               </div>
-               <div @click="dialogIngredient = true" class="ingredients_action">
-                  + Click to start adding recipe ingredients
+                  <div @click="dialogIngredient = true" class="ingredients_action">
+                     + Click to start adding recipe ingredients
+                  </div>
                </div>
 
                <ingredient-dialog @addIngredient="addIngredientHandler"
@@ -108,10 +108,9 @@
                                   :ingredients="ingredients">
                </ingredient-dialog>
 
-               <br><br>
 
                <div class="form-group">
-                  <label for="">Enter the recipe instructions</label>
+                  <label for="">RECIPE INSTRUCTIONS</label>
                   <div id="editor_instructions" ref="editor"></div>
                </div>
 
@@ -125,7 +124,7 @@
                        class="drop_media_zone"
                        @click="launchFilePicker()">
                      <img class="media_placeholder" :src="image_placeholder" alt="">
-                     <p>Drag a photo or Click to upload</p>
+                     <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
                   </div>
 
                   <input type="file"
@@ -135,7 +134,6 @@
                          style="display:none">
                </div>
 
-               <br><br>
 
                <div class="form-group photo-gallery mt-5">
                   <div class="photo-wrapper" v-for="photo in photos">
@@ -617,10 +615,36 @@
       margin-right: 5px !important;
    }
 
-   .media_component{
-      width: 200px;
-      height: 200px;
+   .media_component {
+      width: 100%;
+      height: auto;
       margin: 0 auto;
+      border-radius: 5px;
+      border: solid 0.5px #d7d7d7;
+      background-color: var(--white);
+      padding: 115px 13px 46px 14px;
+      max-width: 325px;
+   }
+
+   img.media_placeholder {
+      max-width: 117px;
+      height: auto;
+      margin-bottom: 33px;
+   }
+   
+   .media-placeholder-title {
+      font-family: Montserrat;
+      font-size: 19px;
+      font-weight: normal;
+      color: #758799;
+   }
+
+   .media-placeholder-title strong {
+      text-decoration: underline;
+   }
+
+   .form-group {
+      margin-bottom: 85px;
    }
 
    .drop_media_zone{

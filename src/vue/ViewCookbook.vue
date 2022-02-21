@@ -255,11 +255,5 @@
         margin-left: 12px;
     }
 
-    @media screen and (min-width: 920px) {
-        .left-panel{
-            height: 100vh;
-        }
-    }
-
 
 </style>
