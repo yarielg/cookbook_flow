@@ -51,7 +51,8 @@ class TemplateLoader{
 
         // Add your templates to this array.
         $this->templates = array(
-          'dashboard.php' => 'Cookbook App Template'
+            'dashboard.php' => 'Cookbook App Template',
+            'no_header_footer.php' => 'Cookbook No Header Footer Template',
         );
     }
 

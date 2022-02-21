@@ -15,26 +15,30 @@
 
 global $rcp_login_form_args; ?>
 
-<?php if ( isset( $_GET['password-reset'] ) && 'true' == $_GET['password-reset'] ) { ?>
-    <p class="rcp_success">
-        <span><?php _e( 'Your password has been successfully reset.', 'rcp' ); if ( ! is_user_logged_in() ) _e( ' You may now log in.', 'rcp' ); ?></span>
-    </p>
-<?php } ?>
+
 
 <?php if ( ! is_user_logged_in() ) : ?>
-    <?php rcp_show_error_messages( 'login' ); ?>
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-3"></div>
+        <div class="row align-items-center">
             <div class="col-md-6 box-panel">
-                <div class="panel-wrapper">
+                <div class="panel-wrapper login-container">
+                <?php if ( isset( $_GET['password-reset'] ) && 'true' == $_GET['password-reset'] ) { ?>
+    <p class="rcp_success">
+        <span><?php _e( 'Your password has been successfully reset.', 'rcp' ); if ( ! is_user_logged_in() ) _e( ' You may now log in.', 'rcp' ); ?></span>
+                </p>
+                    <?php } ?>
+
+                    <?php rcp_show_error_messages( 'login' ); ?>
+                    <a class="navbar-brand" href="<?= site_url() ?>"><img style="width: 200px" src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png"></a>
+                    <h1>Welcome Headline</h1>
+                    <p class="description">Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec. Donec viverra eleifend lacus, vitae ullamcorper metus. Sed sollicitudin ipsum quis nunc sollicitudin ultrices. Donec euismod scelerisque ligula. </p>
                     <form id="rcp_login_form"  class="<?php echo esc_attr( $rcp_login_form_args['class'] ); ?>" method="POST" action="<?php echo esc_url( rcp_get_current_url() ); ?>">
 
                         <?php do_action( 'rcp_before_login_form_fields' ); ?>
                         <div class="form">
                             <p class="form-group">
-                                <label for="rcp_user_login"><?php _e( 'Username or Email', 'rcp' ); ?></label>
+                                <label for="rcp_user_login"><?php _e( 'Username', 'rcp' ); ?></label>
                                 <input name="rcp_user_login" id="rcp_user_login" class="required form-control" type="text"/>
                             </p>
                             <p class="form-group">
@@ -42,17 +46,22 @@ global $rcp_login_form_args; ?>
                                 <input name="rcp_user_pass" id="rcp_user_pass" class="required form-control" type="password"/>
                             </p>
                             <?php do_action( 'rcp_login_form_fields_before_submit' ); ?>
-                            <p>
+                            <!-- <p>
                                 <input type="checkbox" name="rcp_user_remember" id="rcp_user_remember" value="1"/>
-                                <label for="rcp_user_remember"><?php _e( 'Remember me', 'rcp' ); ?></label>
+                                <label for="rcp_user_remember"><?php //_e( 'Remember me', 'rcp' ); ?></label>
                             </p>
-                            <p class="rcp_lost_password"><a href="<?php echo esc_url( add_query_arg( 'rcp_action', 'lostpassword') ); ?>"><?php _e( 'Lost your password?', 'rcp' ); ?></a></p>
-                            <p>
+                            <p class="rcp_lost_password"><a href="<?php //echo esc_url( add_query_arg( 'rcp_action', 'lostpassword') ); ?>"><?php //_e( 'Lost your password?', 'rcp' ); ?></a></p> -->
+                            <div class="d-flex align-items-center justify-content-between submit-container">
                                 <input type="hidden" name="rcp_action" value="login"/>
                                 <input type="hidden" name="rcp_redirect" value="<?php echo esc_url( $rcp_login_form_args['redirect'] ); ?>"/>
                                 <input type="hidden" name="rcp_login_nonce" value="<?php echo wp_create_nonce( 'rcp-login-nonce' ); ?>"/>
                                 <input id="rcp_login_submit" class="btn-normal" type="submit" value="<?php esc_attr_e( 'Login', 'rcp' ); ?>"/>
-                            </p>
+
+                                <div class="signup-section">
+                                    Don’t have an account?
+                                    <a href="<?php echo get_permalink('5'); ?>">Sign Up</a>
+                                </div>
+                            </div>
                             <?php do_action( 'rcp_login_form_fields_after_submit' ); ?>
 
                         </div>
@@ -62,7 +71,9 @@ global $rcp_login_form_args; ?>
                     </form>
                 </div>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-6 stack-login-image">
+                
+            </div>
         </div>
     </div>
 <?php else : ?>
