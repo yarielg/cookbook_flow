@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="beac1eea-7411-4276-9887-fd3951d76db6" name="Cookbook">
+        <fileTransfer accessType="SFTP" host="159.89.230.123" port="22" sshConfigId="d32b1e1c-5647-48f9-9db4-d72d11e1ba37" sshConfig="cookbook@159.89.230.123:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

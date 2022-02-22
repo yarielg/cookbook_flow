@@ -42,17 +42,17 @@
                         <p class="">Nam porttitor blandit accumsan. Ut vel dictum sem,
                             a pretium dui. In malesuada enim in dolor euismod,</p>
                         <br>-->
-                        <button class="btn-normal">Get started</button>
+                        <button class="btn-normal">Schedule a free consultation</button>
                     </div>
                 </div>
             </div>
             <div class="row mt-6" v-if="recipes.length == 0">
                 <div class="col-12 text-center box-panel">
                     <div class="panel-wrapper">
-                        <h4 class="">Your Recipes</h4>
-                        <p class="">To begin building your recipe library, start by adding your first recipe.</p>
+                        <h4 class="">Your Recipe Library</h4>
+                        <p class="">Never lose track of another favorite recipe. Keep adding to your recipe library now.</p>
                         <br>
-                        <button @click="changeScreen('add-recipe')" class="btn-normal">Create a Recipe</button>
+                        <button @click="changeScreen('add-recipe')" class="btn-normal">Add Recipe</button>
                     </div>
                 </div>
             </div>
@@ -96,14 +96,9 @@
                     </div>
                     <div class="panel-wrapper" v-show="!premium_account && account_type !== 2">
                         <h4 class="">
-                            Upgrade to start creating a cookbook!
+                            Upgrade and publish a gorgeous cookbook!
                         </h4>
-                        <br>
-                        <ul class="text-left">
-                            <li>Add your recipes to a cookbook</li>
-                            <li>Gain access to premium cookbook templates</li>
-                            <li>Selling point</li>
-                        </ul>
+                        <p>Whether you're publishing and selling your cookbook or creating a one-of-a-kind gift, get started now.</p>
                         <br>
                         <button @click="goToUpgradeMembership()" class="btn-normal">Upgrade Account</button>
                     </div>

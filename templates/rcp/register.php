@@ -30,8 +30,8 @@ rcp_show_error_messages( 'register' ); ?>
             <div class="col-md-12 top-section">
                 <?php if( ! is_user_logged_in() ) { ?>
                     <div class="logo-wrapper"><a class="navbar-brand text-center" href="<?= site_url() ?>"><img style="width: 200px" src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png"></a></div>
-                    <h1>Welcome Headline</h1>
-                    <p class="description">Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec. Donec viverra eleifend lacus, vitae ullamcorper metus. Sed sollicitudin ipsum quis nunc sollicitudin ultrices. Donec euismod scelerisque ligula. </p>
+                    <h1 id="cbf_login_header">Food is your love language</h1>
+                    <p id="cbf_login_description" class="description">Organize, edit and share your recipes for free. Or, create your one-of-a-kind cookbook. </p>
                 <?php } else { ?>
                     <h3 class="rcp_header text-center">
                         <?php echo apply_filters( 'rcp_registration_header_logged_in', $rcp_register_form_atts['logged_in_header'] ); ?>
@@ -90,7 +90,7 @@ rcp_show_error_messages( 'register' ); ?>
 
                             <p id="rcp_submit_wrap" class="form-group col-md-12 text-center">
                                 <input type="hidden" name="rcp_register_nonce" value="<?php echo wp_create_nonce('rcp-register-nonce' ); ?>"/>
-                                <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal create_account_free" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Create Account', 'rcp' ) ) ); ?>"/>
+                                <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal create_account_free" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Create Free Account', 'rcp' ) ) ); ?>"/>
                             </p>
                             <a href="javascript:void(0);" class="custom-back-button" style="display: none" id="go_free">Back</a>
 
@@ -193,7 +193,7 @@ rcp_show_error_messages( 'register' ); ?>
                         <ul class="mb-left">
                             <li> <span class="icon_32"></span> <span class="feature">Add your recipes to a cookbook</span></li>
                             <li><span class="icon_32"></span> <span class="feature">Gain access to premium cookbook templates</span></li>
-                            <li><span class="icon_32"></span> <span class="feature">Selling point</span></li>
+                            <li><span class="icon_32"></span> <span class="feature">Publish your book online</span></li>
                         </ul>
                     </div>
                 <?php } ?>
@@ -266,10 +266,10 @@ rcp_show_error_messages( 'register' ); ?>
 
                     <?php do_action( 'rcp_before_registration_submit_field', $levels ); ?>
 
-                <?php if(!$upgrading){ ?><p id="rcp_submit_wrap"><button class="btn-normal" type="button" id="go_premium">Continue Setup</button></p><?php }  ?>
+                <?php if(!$upgrading){ ?><p id="rcp_submit_wrap"><button class="btn-normal" type="button" id="go_premium">Create Premium Account</button></p><?php }  ?>
                     <p id="rcp_submit_wrap" style="display: <?= $upgrading ? 'block' : 'none' ?>" class="create_account_premium">
                         <input type="hidden" name="rcp_register_nonce" value="<?php echo wp_create_nonce('rcp-register-nonce' ); ?>"/>
-                        <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal mt-3" value="<?= $upgrading ? 'Upgrade Account' : 'Create Account' ?>"/>
+                        <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal mt-3" value="<?= $upgrading ? 'Upgrade Account' : 'Create Premium Account' ?>"/>
                     </p>
             </div>
             <br><br>
@@ -305,6 +305,9 @@ if(!$upgrading){
                     $('.left_heading_text').text('Create a PREMIUM account');
                     $('.line_or').css('display','none');
                     $('#rcp_is_premium').val(1);
+                    $('#cbf_login_header').text("Let's do this!");
+                    $('#cbf_login_description').text("We can't wait to see what you create!");
+
                 });
 
                 $('#go_free').on('click',function(){
@@ -319,6 +322,9 @@ if(!$upgrading){
                     $('.left_heading_text').text('Create a FREE account');
                     $('.line_or').css('display','flex');
                     $('#rcp_is_premium').val(0);
+                    $('#cbf_login_header').text("Food is your love language");
+                    $('#cbf_login_description').text("Organize, edit and share your recipes for free. Or, create your one-of-a-kind cookbook.");
+
                 });
 
             });
