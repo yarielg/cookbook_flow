@@ -80,13 +80,13 @@
 
                <div class="form-group">
                   <label for="recipe_title">Recipe Title</label>
-                  <input v-model="title" type="text" class="form-control" id="recipe_title">
+                  <input v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title">
                </div>
 
                <div class="form-group">
                   <label for="recipe_category">Recipe Category</label>
                   <select v-model="category" name="recipe_category" class="form-control" id="recipe_category">
-                     <option value="-1" selected>Select Category</option>
+                     <option value="-1" selected>Select a recipe category</option>
                      <option v-for="category in categories" :key="category.term_id" :value="category.term_id">{{ category.name }}</option>
                   </select>
                </div>
@@ -97,7 +97,7 @@
                      <li v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity"> {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</li>
                   </ul>
                   <div @click="dialogIngredient = true" class="ingredients_action">
-                     + Click to start adding recipe ingredients
+                     Click to start adding recipe ingredients
                   </div>
                </div>
 

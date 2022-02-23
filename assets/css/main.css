@@ -618,14 +618,39 @@ label.label-icon-edit:before{
     border: solid 0.5px #d7d7d7;
     background-color: #ffffff;
     height: 47px;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: normal;
+    color: #758799;
 }
 
 .main-panel .ingredients_action {
     font-family: Montserrat;
     font-size: 14px;
-    font-weight: normal;
+    font-weight: 600;
     text-align: center;
     color: #758799;
+    line-height: 47px;
+    cursor: pointer;
+    position: relative;
+}
+
+.main-panel .ingredients_action:after {
+    content: "\F415";
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: 22px;
+    text-rendering: auto;
+    line-height: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    border: 0;
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0, -50%);
+    color: #008d97;
 }
 
 .ql-toolbar.ql-snow + .ql-container.ql-snow {
