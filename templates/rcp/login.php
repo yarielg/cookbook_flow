@@ -31,8 +31,8 @@ global $rcp_login_form_args; ?>
 
                     <?php rcp_show_error_messages( 'login' ); ?>
                     <a class="navbar-brand" href="<?= site_url() ?>"><img style="width: 200px" src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png"></a>
-                    <h1>Welcome Headline</h1>
-                    <p class="description">Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec. Donec viverra eleifend lacus, vitae ullamcorper metus. Sed sollicitudin ipsum quis nunc sollicitudin ultrices. Donec euismod scelerisque ligula. </p>
+                    <h1>Welcome Back!</h1>
+                    <p class="description">While you're adding new recipes to your account, don't forget to visit our Postcards from Kitchen blog! You can even send a digital "postcard" to share you favorite recipes with friends and family!</p>
                     <form id="rcp_login_form"  class="<?php echo esc_attr( $rcp_login_form_args['class'] ); ?>" method="POST" action="<?php echo esc_url( rcp_get_current_url() ); ?>">
 
                         <?php do_action( 'rcp_before_login_form_fields' ); ?>

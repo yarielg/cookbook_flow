@@ -86,7 +86,7 @@
                <div class="form-group">
                   <label for="recipe_category">Recipe Category</label>
                   <select v-model="category" name="recipe_category" class="form-control" id="recipe_category">
-                     <option value="-1" selected>Select a recipe category</option>
+                     <option value="-1" selected>Select a Category</option>
                      <option v-for="category in categories" :key="category.term_id" :value="category.term_id">{{ category.name }}</option>
                   </select>
                </div>

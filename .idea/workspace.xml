@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:hub" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/ViewCookbook.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/ViewCookbook.vue" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsbtTreeLayoutManager">
+    <layout place="tools.popupGrunt">
+      <scroll-view-position x="0" y="0" />
+    </layout>
+    <layout place="tools.popupnpm">
+      <scroll-view-position x="0" y="0" />
+    </layout>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1i9NDqs3pR67xSmNBm2RsPkYuAL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\wp\cookbook\wp-content\plugins\cookbook_flow\assets\images" />
+      <recent name="C:\wamp64\www\wp\cookbook\wp-content\plugins\cookbook_flow\inc\Base" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="" />
+      <created>1601315730702</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601315730702</updated>
+      <workItem from="1601315731981" duration="40848000" />
+      <workItem from="1601990898857" duration="5462000" />
+      <workItem from="1602520878554" duration="1013000" />
+      <workItem from="1603230491161" duration="5066000" />
+      <workItem from="1604588634517" duration="1467000" />
+      <workItem from="1619487854255" duration="4839000" />
+      <workItem from="1619810867584" duration="2923000" />
+      <workItem from="1621099852563" duration="753000" />
+      <workItem from="1637092517110" duration="4387000" />
+      <workItem from="1637168611100" duration="48523000" />
+      <workItem from="1637335496831" duration="9371000" />
+      <workItem from="1637534035090" duration="45145000" />
+      <workItem from="1638141381439" duration="66006000" />
+      <workItem from="1638805352430" duration="3328000" />
+      <workItem from="1638900582020" duration="2000" />
+      <workItem from="1639064978666" duration="11212000" />
+      <workItem from="1639105103665" duration="598000" />
+      <workItem from="1639414420807" duration="3055000" />
+      <workItem from="1639428895662" duration="517000" />
+      <workItem from="1642517840232" duration="6936000" />
+      <workItem from="1642606735419" duration="1630000" />
+      <workItem from="1642609314381" duration="28326000" />
+      <workItem from="1642772012047" duration="21481000" />
+      <workItem from="1642857073887" duration="2768000" />
+      <workItem from="1643031309670" duration="40617000" />
+      <workItem from="1643160385647" duration="16922000" />
+      <workItem from="1643333139412" duration="4924000" />
+      <workItem from="1643499572106" duration="721000" />
+      <workItem from="1643719684452" duration="661000" />
+      <workItem from="1643720459802" duration="12243000" />
+      <workItem from="1644326703727" duration="15163000" />
+      <workItem from="1644501716970" duration="1306000" />
+      <workItem from="1644596224474" duration="15148000" />
+      <workItem from="1644683811206" duration="846000" />
+      <workItem from="1644862853733" duration="28811000" />
+      <workItem from="1645126890268" duration="152000" />
+      <workItem from="1645130152739" duration="1413000" />
+      <workItem from="1645550406161" duration="3388000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="174" key="#Deployment" timestamp="1637106209545">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="552" y="174" key="#Deployment/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1637106209545" />
+    <state x="536" y="161" key="#SSH_Configurations" timestamp="1637106182923">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="536" y="161" key="#SSH_Configurations/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1637106182923" />
+    <state x="706" y="318" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1642727310644">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="706" y="318" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1032/1072.-1085.1920.1032/-848.-1080.1920.1032@0.0.1920.1032" timestamp="1638203827499" />
+    <state x="706" y="318" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1642727310644" />
+    <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1643129096696">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643129096696" />
+    <state x="690" y="263" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1637175914871">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="690" y="263" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1637175914871" />
+    <state x="740" y="270" key="FileChooserDialogImpl" timestamp="1645130165108">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1032/1072.-1085.1920.1032/-848.-1080.1920.1032@0.0.1920.1032" timestamp="1644337646153" />
+    <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1644511041254" />
+    <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1032/14.-1080.1920.1032/1934.-1091.1920.1032/-1906.-1089.1920.1032@0.0.1920.1032" timestamp="1642610397551" />
+    <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1032/1920.0.1920.1032@0.0.1920.1032" timestamp="1645130165108" />
+    <state x="667" y="239" key="NewPhpClassDialog" timestamp="1642689518233">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="667" y="239" key="NewPhpClassDialog/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1642689518233" />
+    <state x="681" y="257" width="540" height="524" key="StructurePopup" timestamp="1637601504793">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="681" y="257" width="540" height="524" key="StructurePopup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1637601504793" />
+    <state x="667" y="249" width="585" height="534" key="find.popup" timestamp="1644870869810">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/1072.-1085.1920.1032/-848.-1080.1920.1032@0.0.1920.1032" timestamp="1638215481582" />
+    <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643725967708" />
+    <state x="2601" y="-842" width="585" height="534" key="find.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@1934.-1091.1920.1032" timestamp="1643513492104" />
+    <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1080@0.0.1920.1032" timestamp="1642781731638" />
+    <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/14.-1080.1920.1032/1934.-1091.1920.1032/-1906.-1089.1920.1032@0.0.1920.1032" timestamp="1642625338646" />
+    <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/1920.0.1920.1032@0.0.1920.1032" timestamp="1644870869810" />
+    <state x="845" y="246" key="ftp.server.browser" timestamp="1637106208399">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="845" y="246" key="ftp.server.browser/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1637106208399" />
+    <state width="600" height="428" key="javadoc.popup" timestamp="1644865116392">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state width="600" height="428" key="javadoc.popup/0.0.1920.1032/1920.0.1920.1032@0.0.1920.1032" timestamp="1644865116392" />
+    <state x="826" y="382" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup" timestamp="1644865121658">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="826" y="382" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup/0.0.1920.1032/1072.-1085.1920.1032/-848.-1080.1920.1032@0.0.1920.1032" timestamp="1638216089948" />
+    <state x="826" y="382" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1637679028864" />
+    <state x="826" y="382" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup/0.0.1920.1032/1920.0.1920.1032@0.0.1920.1032" timestamp="1644865121658" />
+    <state x="616" y="238" key="run.anything.popup" timestamp="1644602699820">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="616" y="238" key="run.anything.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643159005898" />
+    <state x="616" y="238" key="run.anything.popup/0.0.1920.1032/1920.0.1920.1032@0.0.1920.1032" timestamp="1644602699820" />
+    <state x="623" y="223" width="672" height="678" key="search.everywhere.popup" timestamp="1643729218983">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643729218983" />
+    <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/14.-1080.1920.1032/1934.-1091.1920.1032/-1906.-1089.1920.1032@0.0.1920.1032" timestamp="1642611644063" />
+  </component>
+</project>
