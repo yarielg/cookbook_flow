@@ -92,6 +92,14 @@
                </div>
 
                <div class="form-group">
+                  <label for="recipe_category">Recipe Country</label>
+                  <select v-model="country" name="recipe_country" class="form-control" id="recipe_country">
+                     <option value="-1" selected>Select a Country</option>
+                     <option v-for="(name, key) in countries" :key="key" :value="key">{{ name }}</option>
+                  </select>
+               </div>
+
+               <div class="form-group">
                   <label>RECIPE INGREDIENTS</label>
                   <ul>
                      <li v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity"> {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</li>
@@ -174,8 +182,10 @@
                editor: null,
                editorStory: null,
                categories:[],
+               countries:[],
                status: 'Draft',
                category: -1,
+               country: -1,
                title: '',
                photo_update: false,
                ingredients:[
@@ -192,6 +202,7 @@
         created(){
             this.getCategories();
             this.getCookbooks();
+            this.getCountries();
             if(parseFloat(this.edit_mode) > 0){
                this.getRecipe();
             }
@@ -347,6 +358,7 @@
                  formData.append('cookbooks_ids', this.cookbooks_ids);
                  formData.append('edit', this.edit_mode);
                  formData.append('new_cookbook', this.new_cookbook);
+                 formData.append('country', this.country);
                  formData.append('type', type);
 
                  this.loading = true;
@@ -484,6 +496,20 @@
                  return photo.id !== photo_id;
               });
            },
+           getCountries(){
+              const formData = new FormData();
+              formData.append('action', 'get_countries');
+              this.loading = true;
+              axios.post(parameters.ajax_url, formData)
+                      .then( response => {
+                         if(response.data.success){
+                            this.countries =  response.data.countries;
+                         }else{
+                            toastr.warning('We could not get the recipe countries', 'Error');
+                         }
+                         this.loading = false;
+                      });
+           },
            getCategories(){
               const formData = new FormData();
               formData.append('action', 'get_recipe_categories');
@@ -523,6 +549,7 @@
                       .then( response => {
                          if(response.data.success){
                             this.category =  response.data.recipe.category;
+                            this.country =  response.data.recipe.country;
                             this.title = response.data.recipe.post_title;
                             this.status = response.data.recipe.post_status;
                             this.ingredients = response.data.recipe.ingredients;

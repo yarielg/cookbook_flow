@@ -61,6 +61,12 @@
                     <label class="label-info-header" v-if="category !== ''" for="">{{ category }}</label>
                     <h2>{{ title }}</h2>
                 </div>
+
+                <div class="section-info">
+                    <label class="label-info-header" v-if="country_name !== ''" for="">COUNTRY</label>
+                    <h2>{{ country_name }}</h2>
+                </div>
+
                 <div class="section-info" v-if="ingredients.length > 0">
                     <label class="label-info-header" for="">INGREDIENTS</label>
                     <ul>
@@ -106,6 +112,7 @@
                 categories:[],
                 status: 'Draft',
                 category: -1,
+                country_name: '',
                 share_email: '',
                 title: '',
                 url:'',
@@ -166,6 +173,7 @@
                             this.category =  response.data.recipe.category_name !== '' ? response.data.recipe.category_name.toUpperCase() : '';
                             this.title = response.data.recipe.post_title;
                             this.status = response.data.recipe.post_status;
+                            this.country_name = response.data.recipe.country_name;
                             this.ingredients = response.data.recipe.ingredients;
                             this.story = response.data.recipe.story;
                             this.photos = response.data.recipe.photos;

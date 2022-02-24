@@ -195,6 +195,14 @@ function getCollaboratorOwnerUser($id){
     return count($results) > 0 ?  get_user_by('ID', $owner_id ) : -1;
 }
 
+function getCountriesACF(){
+	global $wpdb;
+
+	$result = $wpdb->get_results("SELECT post_content FROM $wpdb->prefix" . "posts WHERE post_excerpt='country_recipe' AND post_type='acf-field' LIMIT 1", OBJECT);
+
+	return count($result) > 0 ? unserialize($result[0]->post_content)['choices'] : [];
+}
+
 function getCollaboratorsByOwnerId($id){
     global $wpdb;
 

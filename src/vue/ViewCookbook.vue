@@ -31,10 +31,10 @@
                     </div>
                     <textarea v-model="comment" placeholder="Write a message..." name="" id="cbf_message_value" cols="42" rows="2"></textarea>
                     <br>
-                    <button @click="addComment" class="btn-normal" type="button" data-admin="1" data-cookbook_id="<?php echo $cookbook_id ?>" id="cookbook_send_comment">Sent</button>
+                    <button @click="addComment" class="btn-normal" type="button" data-admin="1" data-cookbook_id="<?php echo $cookbook_id ?>" id="cookbook_send_comment">Send</button>
                 </div>
                 <br><br>
-                <!--<div class="preview_pdf text-center" v-if="preview_pdf !== null">
+                <div class="preview_pdf text-center" v-if="preview_pdf !== null">
                     <h5>
                         Preview Cookbook
                     </h5>
@@ -45,7 +45,7 @@
                     <br>
                     <a href="" target="_blank" :href="preview_pdf">Download</a>
 
-                </div>-->
+                </div>
             </div>
             <div class="col-md-8 main-panel pl-5" >
                 <publish-view v-if="publishing" :cookbook_id="cookbook_id" @goBackToView="goBackToView"></publish-view>

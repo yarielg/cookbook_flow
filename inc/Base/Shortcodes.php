@@ -68,7 +68,7 @@ class Shortcodes
 
 		if($recipes->have_posts()):
 			while($recipes->have_posts()) : $recipes->the_post();
-				$flag = get_field('country_recipe', get_the_ID());
+				$flag = get_field('country_recipe', get_the_ID())['value'];
 				$images = get_field( 'cbf_photos', get_the_ID() );
 				$featured = '';
 				//var_dump($images);exit;

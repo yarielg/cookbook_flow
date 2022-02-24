@@ -58,6 +58,9 @@ class Ajax{
         add_action( 'wp_ajax_get_services', array($this, 'getServices') );
         add_action( 'wp_ajax_nopriv_get_services', array($this, 'getServices') );
 
+	    add_action( 'wp_ajax_get_countries', array($this, 'getCountries') );
+	    add_action( 'wp_ajax_nopriv_get_countries', array($this, 'getCountries') );
+
 	    /**
 	     * Share Recipe by email
 	     */
@@ -282,6 +285,7 @@ class Ajax{
         $status = strtolower($_POST['status']);
         $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ): -1;
         $new_cook_book = $_POST['new_cookbook'];
+        $country = $_POST['country'];
         $type = $_POST['type'];
 
 
@@ -351,6 +355,11 @@ class Ajax{
              * Add Story
              */
             update_field( 'story', $story, $post_id);
+
+	        /**
+	         * Update/Add country
+	         */
+            update_field( 'country_recipe', $country, $post_id);
 
             /**
              * Add a new Cookbook in case the user select the create a new cookbook on the assign menu
@@ -478,6 +487,9 @@ class Ajax{
         }
 
         $recipe->story = get_field('story', $id);
+
+        $recipe->country = get_field('country_recipe', $id) ? get_field('country_recipe', $id)['value'] : -1;
+        $recipe->country_name = get_field('country_recipe', $id) ? get_field('country_recipe', $id)['label'] : '';
 
         $recipe->ingredients = $ingredients;
         $recipe->post_status  = ucfirst($recipe->post_status);
@@ -718,6 +730,18 @@ class Ajax{
 
         echo json_encode(array('success'=> true , 'checkout_url' => site_url('/checkout' . $parameters)));
         wp_die();
+
+    }
+
+    /**
+     * Get the countries ACF instances
+     */
+    function getCountries(){
+
+	    $countries = getCountriesACF();
+
+	    echo json_encode(array('success'=> true , 'countries' => $countries));
+	    wp_die();
 
     }
 }
