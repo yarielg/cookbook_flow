@@ -399,6 +399,7 @@ body.page-template-no_header_footer-php.register-page span.icon_32 {
     border: 0;
     margin-top: 0px;
     width: 213px;
+    min-width: 213px;
 }
 
 #create_action_dropmenu + .dropdown-menu .dropdown-item {

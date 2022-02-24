@@ -36,13 +36,13 @@ class Enqueue{
 
 	    wp_enqueue_script('main-js', CBF_PLUGIN_URL . '/assets/js/main.js' ,array('jquery'),'1.0', true);
 
+        wp_enqueue_style('vue-custom-icon', 'https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css');
+
         $pageID = get_the_ID();
 
         if($pageID == 6){
 
-            $user_data = cbf_get_user_info();
-
-            wp_enqueue_style('vue-custom-icon', 'https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css');
+            $user_data = cbf_get_user_info();            
 
             wp_enqueue_style('quill_js', 'https://cdn.quilljs.com/1.3.6/quill.snow.css');
             wp_enqueue_style('main_css', CBF_PLUGIN_URL . '/assets/css/main.css');
