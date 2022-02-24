@@ -39,9 +39,9 @@
                         Preview Cookbook
                     </h5>
                     <br>
-                    <a href="" target="_blank" :href="preview_pdf">
-                        <iframe :src="preview_pdf" style="width:100px; height:100px;"></iframe>
-                    </a>
+<!--                    <a href="" target="_blank" :href="preview_pdf">-->
+<!--                        <iframe :src="preview_pdf" style="width:100px; height:100px;"></iframe>-->
+<!--                    </a>-->
                     <br>
                     <a href="" target="_blank" :href="preview_pdf">Download</a>
 
