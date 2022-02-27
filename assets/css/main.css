@@ -625,6 +625,12 @@ label.label-icon-edit:before{
     color: #758799;
 }
 
+.main-panel input:focus, .main-panel select:focus {
+    box-shadow: 0 3px 7px 0 rgba(0, 141, 151, 0.15);
+    outline: 0;
+    border: 0;
+}
+
 .main-panel .ingredients_action {
     font-family: Montserrat;
     font-size: 14px;
