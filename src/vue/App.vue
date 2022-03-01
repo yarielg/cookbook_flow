@@ -1,7 +1,8 @@
 <template>
     <v-app>
-        <div class="container dashboard" v-if="active_screen == 'dashboard'">
+        <div class="container dashboard" v-if="active_screen == 'dashboard' || active_screen == 'postcard'">
             <loading-dialog :loading="loading"></loading-dialog>
+            <postcard-dialog :dashboard="true" :recipe="recipe" @closePostCardDialog="postcard_dialog = false" :postcard_dialog="postcard_dialog"></postcard-dialog>
             <div class="row mb-6" v-show="premium_account">
                 <div class="col-md-6 box-panel">
                     <div class="panel-wrapper recipe-panel">
@@ -129,6 +130,13 @@
                cookbooks:0,
                account_type: 0,
                data: [],
+               postcard_dialog: false,
+               recipe: {
+                   post_title: '',
+                   ID: -1,
+                   url:'',
+                   story:'',
+                }
             }
         },
         created(){
@@ -160,6 +168,11 @@
                 if(screen === 'add-cookbook' || screen === 'view-cookbook'){
                     this.edit_cookbook = id;
                 }
+
+                if(screen === 'postcard'){
+                    this.postcard_dialog = true;
+                }
+
                 this.active_screen = screen;
             },
             goViewRecipeWithId(id){
@@ -271,6 +284,10 @@
 
     label.label-info-header{
         color: #78849c;
+    }
+
+    .trt_loading .v-dialog__container, .trt_loading{
+        z-index: 99999999 !important;
     }
 
 </style>
