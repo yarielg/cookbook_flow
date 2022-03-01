@@ -488,6 +488,26 @@ body.page-template-no_header_footer-php.register-page span.icon_32 {
     font-weight: 600;
     padding-bottom: 18px;
 }
+
+.back-arrow {
+    font-size: 14px;
+    color: #008d97;
+    font-weight: 900;
+    font-family: Montserrat;
+    display: flex;
+    align-items: center;
+}
+
+.back-arrow button {
+    color: #6bc5cc !important;
+    font-size: 16px !important;
+    padding: 0;
+}
+
+.back-arrow button:hover, .back-arrow button:focus, .back-arrow button:after {
+    background: transparent !important;
+}
+
 .recipe_items li.completed {
     color: #00b372;
 }
@@ -672,6 +692,10 @@ label.label-icon-edit:before{
 /* recipe panel css */
 h5{
     font-size: 15px !important;
+}
+
+.left-panel.recipe_items h4 {
+    color: #008d97 !important;
 }
 
 #content.site-content {

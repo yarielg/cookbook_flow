@@ -1,9 +1,11 @@
 <template>
    <div class="container">
       <loading-dialog :loading="loading"></loading-dialog>
-      <div class="row">
+      <div class="row align-items-center">
          <div class="col-6">
-            <v-icon @click="goBack()" class="pr-1">mdi-arrow-left</v-icon>Back
+            <div class="back-arrow">
+               <v-icon @click="goBack()" class="pr-1">mdi-arrow-left</v-icon>Back
+            </div>
          </div>
          <div class="col-6">
             <button class="float-right btn-normal" v-show="!checkForm()" @click="addRecipe('Draft','no')">Save as Draft</button>
@@ -124,6 +126,7 @@
 
                <br>
 
+               <label>Add Photos</label>
                <div class="media_component">
                   <div @drop.prevent="onDrop($event)"
                        @dragover.prevent="dragover = true"
