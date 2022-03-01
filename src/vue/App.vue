@@ -156,7 +156,7 @@
                 this.changeScreen(query_parameter);
             },
             changeScreen(screen, id){
-                if(screen === 'dashboard'){
+                if(screen === 'dashboard' || screen === 'postcard'){
                     this.getYourRecipes();
                     this.getYourCookbooks();
                 }

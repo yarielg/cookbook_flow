@@ -3,9 +3,9 @@
             @click:outside="closeDialog"
             v-model="modal"
             scrollable
-
+            content-class="wrech"
             width="800">
-        <v-card>
+        <v-card class="wrech">
             <v-card-title class="headline" primary-title >Add Ingredients</v-card-title>
 
             <v-spacer></v-spacer>
