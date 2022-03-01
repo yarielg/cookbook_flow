@@ -18,6 +18,7 @@ import PublishView from "./PublishView.vue";
 import Loading from "./Loading.vue";
 import MediaDialog from "./MediaDialog.vue";
 import TemplateDialog from "./TemplateDialog.vue";
+import PostCardDialog from "./PostCardDialog.vue";
 
 Vue.component('vueper-slide', VueperSlide);
 Vue.component('vueper-slides', VueperSlides);
@@ -32,6 +33,7 @@ Vue.component('publish-view', PublishView);
 Vue.component('loading-dialog', Loading);
 Vue.component('media-dialog', MediaDialog);
 Vue.component('template-dialog', TemplateDialog);
+Vue.component('postcard-dialog', PostCardDialog);
 
 
 new Vue({

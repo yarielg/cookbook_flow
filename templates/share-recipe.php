@@ -95,34 +95,34 @@
 
 <body style="margin:0; padding:0;" bgcolor="#F0F0F0" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
+
 <!-- 100% background wrapper (grey background) -->
 <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="#F0F0F0">
+    <tr>
+        <td class="container-padding header" align="center" style="font-family:Helvetica, Arial, sans-serif;font-size:24px;font-weight:bold;padding-bottom:12px;color:#DF4726;padding-left:24px;padding-right:24px">
+            <div style="width:660px;"><img src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png" style="max-width:240px;"/></div>
+        </td>
+    </tr>
 	<tr>
 		<td align="center" valign="top" bgcolor="#F0F0F0" style="background-color: #F0F0F0;">
-
 			<br>
-
 			<!-- 600px container (white background) -->
 			<table border="0" width="600" cellpadding="0" cellspacing="0" class="container" style="width:600px;max-width:600px">
 				<tr>
-					<td class="container-padding header" align="left" style="font-family:Helvetica, Arial, sans-serif;font-size:24px;font-weight:bold;padding-bottom:12px;color:#DF4726;padding-left:24px;padding-right:24px">
-						<div style="width:660px;"><img src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png" style="max-width:240px;"/></div>
-					</td>
-				</tr>
-				<tr>
 					<td class="container-padding content" align="left" style="padding-left:24px;padding-right:24px;padding-top:12px;padding-bottom:12px;background-color:#ffffff">
+                        <img src="<?php echo $image ?>" style="max-width:240px; float: right"/>
 						<br>
-
 						<div class="title" style="font-family:Helvetica, Arial, sans-serif;font-size:18px;font-weight:600;color:#374550">Hi There,</div>
-						<br>
-
 						<div class="body-text" style="font-family:Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:left;color:#333333">
-							<p>You have received a recipe link <a href="<?php $link ?>"></a>.</p>
+                            <p>You have received a postcard.</p>
+                            <p><strong>Name:</strong></p>
+                            <p><?php echo $name ?></p>
+                            <p><strong>Message:</strong></p>
+                            <p><?php echo $message ?></p>
 
 							<p>Please click on the below link to see it</p>
 
-							<p><strong>Recipe Link: </strong> <a href="<?php echo $link ?>"><?php echo $link ?></a></p>
-
+							<p><strong>Recipe Link: </strong> <a href="<?php echo $link ?>"><?php echo $name ?></a></p>
 
 					</td>
 				</tr>
@@ -130,7 +130,7 @@
 					<td class="container-padding footer-text" align="left" style="font-family:Helvetica, Arial, sans-serif;font-size:12px;line-height:16px;color:#aaaaaa;padding-left:24px;padding-right:24px">
 						<br><br>
 						<p class="copyright">
-							Copyright © <?php echo date('Y') ?> The Cookbook Creative       </p>
+							Copyright © <?php echo date('Y') ?> The Cookbook Creative </p>
 						<br><br>
 
 					</td>

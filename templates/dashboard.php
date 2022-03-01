@@ -38,6 +38,7 @@ if(is_user_logged_in()){
                     <div class="dropdown-menu" aria-labelledby="create_action_dropmenu">
                     <?php if($user_data['premium']){?><a class="dropdown-item" href="<?= site_url('welcome/?screen=add-cookbook') ?>">A Cookbook</a><?php } ?>
                         <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-recipe') ?>">A Recipe</a>			            
+                        <a class="dropdown-item" href="<?= site_url('welcome/?screen=postcard') ?>">A Postcard</a>
                     </div>
                     <a class="nav-link" href="<?= site_url('search-recipe') ?>">Browse Recipe</a>
                     <!--<a class="nav-link" href="<?/*= site_url('welcome') */?>">My Recipes</a>

@@ -659,15 +659,19 @@ class Ajax{
 	public function shareRecipe(){
 		$id = $_POST['id'];
 		$email = $_POST['email'];
+		$name = $_POST['name'];
+		$message = $_POST['message'];
 
-		$emailed = shareRecipeEmail($email, array('link' => get_permalink($id)));
+		$postcard_image = CBF_PLUGIN_URL . 'assets/images/postcard.png';
+
+		$emailed = shareRecipeEmail($email, array('link' => get_permalink($id), 'message' => $message, 'name' => $name, 'image' => $postcard_image));
 
 		if($emailed){
-			echo json_encode(array('success'=> true , 'msg' => 'Recipe Shared!'));
+			echo json_encode(array('success'=> true , 'msg' => 'Postcard Shared!', 'image' => $postcard_image));
 			wp_die();
 		}
 
-		echo json_encode(array('success'=> false , 'msg' => 'The recipe was not shared'));
+		echo json_encode(array('success'=> false , 'msg' => 'The postcard was not shared'));
 		wp_die();
 
 	}
