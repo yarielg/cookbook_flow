@@ -4,7 +4,7 @@
       <div class="row align-items-center">
          <div class="col-6">
             <div class="back-arrow">
-               <v-icon @click="goBack()" class="pr-1">mdi-arrow-left</v-icon>Back
+               <v-icon @click="goBack()" class="pr-1">mdi-arrow-left</v-icon>Back 
             </div>
          </div>
          <div class="col-6">
