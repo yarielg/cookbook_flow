@@ -183,7 +183,7 @@
                editorStory: null,
                categories:[],
                countries:[],
-               status: 'Draft',
+               status: 'Publish',
                category: -1,
                country: -1,
                title: '',
