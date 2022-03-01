@@ -27,7 +27,8 @@
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/AddRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddRecipe.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Base/Enqueue.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Enqueue.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/ViewCookbook.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/ViewCookbook.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +77,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../fans-budget" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -135,7 +136,9 @@
       <workItem from="1645550406161" duration="3987000" />
       <workItem from="1645555130923" duration="13975000" />
       <workItem from="1645890647480" duration="92000" />
-      <workItem from="1645918125971" duration="24221000" />
+      <workItem from="1645918125971" duration="25409000" />
+      <workItem from="1646145080616" duration="365000" />
+      <workItem from="1646145536425" duration="481000" />
     </task>
     <servers />
   </component>
