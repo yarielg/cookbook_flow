@@ -118,6 +118,12 @@
                                 this.name = '';
                                 this.closeDialog();
 
+                                if(this.is_dashboard){
+                                    setTimeout(function(){
+                                        window.location = '/welcome';
+                                    },2000);
+                                }
+
                             }else{
                                 toastr.warning(response.data.msg, 'Error');
                             }
