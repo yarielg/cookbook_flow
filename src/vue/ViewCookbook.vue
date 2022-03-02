@@ -22,16 +22,20 @@
                 <br>
                 <br>
                 <button class="btn-normal" @click="publishing = true" v-if="checkPublish() && state != 2 && !publishing">Publish Cookbook</button>
-                <p v-if="state == 2"><strong>Note:</strong> This cookbook was sent to be published, actions are not allowed at this time</p>
+                <div class="state_2" v-if="state == 2">
+                    <!--<p><strong>Note:</strong> This cookbook was sent to be published, actions are not allowed at this time</p>-->
 
-                <div class="chat_main" v-if="state == 2">
-                    <div class="chat_canvas">
+                    <div v-html="data.customer_support_message"></div>
 
-                        <p class="cbf-comment" v-for="comment in comments" :key="comment.id" :class="comment.admin == 1 ? 'right' : 'left'">{{ comment.comment }} <span class="time">{{ formattedCommentTime(comment.created) }}</span></p>
+                    <div class="chat_main">
+                        <div class="chat_canvas">
+
+                            <p class="cbf-comment" v-for="comment in comments" :key="comment.id" :class="comment.admin == 1 ? 'right' : 'left'">{{ comment.comment }} <span class="time">{{ formattedCommentTime(comment.created) }}</span></p>
+                        </div>
+                        <textarea v-model="comment" placeholder="Write a message..." name="" id="cbf_message_value" cols="42" rows="2"></textarea>
+                        <br>
+                        <button @click="addComment" class="btn-normal" type="button" data-admin="1" data-cookbook_id="<?php echo $cookbook_id ?>" id="cookbook_send_comment">Send</button>
                     </div>
-                    <textarea v-model="comment" placeholder="Write a message..." name="" id="cbf_message_value" cols="42" rows="2"></textarea>
-                    <br>
-                    <button @click="addComment" class="btn-normal" type="button" data-admin="1" data-cookbook_id="<?php echo $cookbook_id ?>" id="cookbook_send_comment">Send</button>
                 </div>
                 <br><br>
                 <div class="preview_pdf text-center" v-if="preview_pdf !== null">
@@ -95,6 +99,7 @@
                 dedication: '',
                 preview_pdf: null,
                 comment: '',
+                data: [],
                 author_name: '',
                 recipes: [],
                 back_image: null,
@@ -102,6 +107,7 @@
             }
         },
         created(){
+            this.data = parameters.data;
             if(parseFloat(this.edit_mode) > 0){
                 this.getCookbook();
                 this.getComments();
