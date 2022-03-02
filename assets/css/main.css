@@ -518,6 +518,70 @@ body.page-template-no_header_footer-php.register-page span.icon_32 {
 }
 /* recipe_items css */
 
+/* add Ingredients modal css */
+
+.v-dialog.modal-ingredients:not(.v-dialog--fullscreen) {
+    max-height: 70% !important;
+    border-radius: 7px;
+}
+.modal-ingredients .theme--light.v-card {
+    border-radius: 7px;
+    padding: 11px 13px 18px 20px;
+    border: solid 1px #979797;
+}
+
+.modal-ingredients .ingredient-row input[type=email], 
+.modal-ingredients .ingredient-row input[type=number], 
+.modal-ingredients .ingredient-row input[type=password], 
+.modal-ingredients .ingredient-row input[type=reset], 
+.modal-ingredients .ingredient-row input[type=search], 
+.modal-ingredients .ingredient-row input[type=tel], 
+.modal-ingredients .ingredient-row input[type=text], 
+.modal-ingredients .ingredient-row input[type=url], 
+.modal-ingredients .ingredient-row select, 
+.modal-ingredients .ingredient-row textarea {
+    padding: 0 10px;
+    height: 30px;
+    border-radius: 1px;
+    border: solid 1px #979797;
+    background-color: #f9f9f9;
+    -webkit-appearance: auto;
+}
+
+.v-application .modal-ingredients .primary--text {
+    background: #f58320 !important;
+    color: white !important;
+    padding: 14px 35px !important;
+    border-radius: 8px;
+    height: 45px !important;
+    font-weight: 500;
+    font-size: 14px;
+    border: 0 !important;
+    font-family: SourceSansProRegular;
+    text-transform: uppercase;
+    line-height: normal;
+}
+.modal-ingredients button.mdi.mdi-trash-can {
+    color: #ff0000;
+}
+.modal-ingredients button:hover, .modal-ingredients button:focus, .modal-ingredients button:after {
+    background: transparent !important;
+}
+.modal-ingredients .ingredient-row button {
+    padding: 0;
+    height: 30px;
+}
+
+.v-dialog > .v-card > .v-card__title.headline {
+    font-family: Montserrat !important;
+    font-size: 19px !important;
+    color: #008d97;  
+    font-weight: bold !important;
+    justify-content: center !important;
+}
+
+/* add Ingredients modal css */
+
 .dashboard .box-panel .panel-wrapper{
     height: 100%;
 }

@@ -4,7 +4,8 @@
             v-model="modal"
             scrollable
 
-            width="800">
+            width="970"
+            content-class="modal-ingredients">
         <v-card>
             <v-card-title class="headline" primary-title >Add Ingredients</v-card-title>
 
@@ -43,11 +44,11 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
-                        color="primary"
+                        color="default"
                         text
                         @click="closeDialog"
                 >
-                    Close
+                    Cancel
                 </v-btn>
                 <v-btn
                         color="primary"
