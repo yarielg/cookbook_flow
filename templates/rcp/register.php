@@ -216,6 +216,7 @@ rcp_show_error_messages( 'register' ); ?>
                                             <label for="rcp_subscription_level_<?php echo esc_attr( $level->get_id() ); ?>">
                                                 <span class="rcp_subscription_level_name"><?php echo esc_html( $level->get_name() ); ?></span><span class="rcp_separator">&nbsp;-&nbsp;</span><span class="rcp_price" rel="<?php echo esc_attr( $level->get_price() ); ?>"><?php echo ! $level->is_free() ? rcp_currency_filter( $level->get_price() ) : __( 'free', 'rcp' ); ?></span><span class="rcp_separator">&nbsp;-&nbsp;</span>
                                                 <span class="rcp_level_duration"><?php echo ! $level->is_lifetime() ? $level->get_duration() . '&nbsp;' . rcp_filter_duration_unit( $level->get_duration_unit(), $level->get_duration() ) : __( 'unlimited', 'rcp' ); ?></span>
+                                                <br><span class="rcp_discount_hubspot"><?php if(isset($_GET['hubspot'])){ echo "  (-$2.00) - First Month discount"; } ?></span>
                                                 <?php if ( $level->get_maximum_renewals() > 0 ) : ?>
                                                     <span class="rcp_separator">&nbsp;-&nbsp;</span>
                                                     <span class="rcp_level_bill_times"><?php printf( __( '%d total payments', 'rcp' ), $level->get_maximum_renewals() + 1 ); ?></span>
@@ -231,6 +232,10 @@ rcp_show_error_messages( 'register' ); ?>
                             <p><strong><?php _e( 'You have not created any membership levels yet', 'rcp' ); ?></strong></p>
                         <?php endif; ?>
                     </fieldset>
+
+	            <?php if( rcp_has_discounts() ) : ?>
+				    <input type="hidden" id="rcp_discount_code" name="rcp_discount" class="rcp_discount_code" value="register_discount"/>
+	            <?php endif; ?>
 
                     <div class="rcp_gateway_fields">
                         <?php
