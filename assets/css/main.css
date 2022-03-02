@@ -518,6 +518,137 @@ body.page-template-no_header_footer-php.register-page span.icon_32 {
 }
 /* recipe_items css */
 
+/* add Ingredients modal css */
+
+.v-dialog.modal-ingredients:not(.v-dialog--fullscreen) {
+    max-height: 70% !important;
+    border-radius: 7px;
+}
+.modal-ingredients .theme--light.v-card {
+    border-radius: 7px;
+    border: solid 1px #979797;
+}
+
+.modal-ingredients .ingredient-row input[type=email], 
+.modal-ingredients .ingredient-row input[type=number], 
+.modal-ingredients .ingredient-row input[type=password], 
+.modal-ingredients .ingredient-row input[type=reset], 
+.modal-ingredients .ingredient-row input[type=search], 
+.modal-ingredients .ingredient-row input[type=tel], 
+.modal-ingredients .ingredient-row input[type=text], 
+.modal-ingredients .ingredient-row input[type=url], 
+.modal-ingredients .ingredient-row select, 
+.modal-ingredients .ingredient-row textarea {
+    padding: 0 10px;
+    height: 30px;
+    border-radius: 1px;
+    border: solid 1px #979797;
+    background-color: #f9f9f9;
+    -webkit-appearance: auto;
+}
+
+.v-application .modal-ingredients .bottom-add-buttons .primary--text {
+    background: #f58320 !important;
+    color: white !important;
+    padding: 14px 35px !important;
+    border-radius: 8px;
+    height: 45px !important;
+    font-weight: 500;
+    font-size: 14px;
+    border: 0 !important;
+    font-family: SourceSansProRegular;
+    text-transform: uppercase;
+    line-height: normal;
+}
+.v-application .modal-ingredients.v-dialog > .v-card > .v-card__actions {
+    padding: 18px 32px;
+}
+.v-application .modal-ingredients .v-card__actions .default--text {
+    padding: 0 16px !important;
+    text-transform: none;
+    margin-right: 32px;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    color: #758799;
+}
+.modal-ingredients button.mdi.mdi-trash-can {
+    color: #ff0000;
+}
+.modal-ingredients button:hover, 
+.modal-ingredients button:focus, 
+.modal-ingredients button:after, 
+.v-application .modal-ingredients .v-card__actions .default--text:hover, 
+.v-application .modal-ingredients .v-card__actions .default--text:focus, 
+.v-application .modal-ingredients .v-card__actions .default--text:before, 
+.modal-ingredients-heading .close-button button.v-btn:not(.v-btn--round).v-size--default:before, 
+.modal-ingredients-heading .close-button button.v-btn:not(.v-btn--round).v-size--default .v-icon:after {
+    background: transparent !important;
+    opacity: 1;
+}
+.modal-ingredients .ingredient-row button {
+    padding: 0;
+    height: 30px;
+}
+
+.v-dialog.modal-ingredients > .v-card .v-card__title.headline {
+    font-family: Montserrat !important;
+    font-size: 19px !important;
+    color: #008d97;
+    font-weight: bold !important;
+    justify-content: center !important;
+    padding: 0;
+}
+
+.v-card__actions.top-add-more-button > .v-btn.v-btn {
+    padding: 4px 14px 3px 13px;
+    border-radius: 2px;
+    border: solid 2px #00b372;
+    background-color: #e7fff6;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    color: #00b372 !important;
+    height: auto !important;
+    min-width: auto !important;
+    text-transform: none;
+}
+.ingredient-row {
+    column-gap: 12px;
+    margin-bottom: 17px !important;
+}
+.modal-ingredients-heading .close-button button.v-btn:not(.v-btn--round).v-size--default {
+    padding: 0;
+    min-width: auto;
+    height: auto;
+    color: #758799;
+}
+.modal-ingredients-heading .close-button {
+    text-align: right;
+}
+.ingredient-row .v-card__text {
+    width: auto;
+    padding: 0;
+}
+.ingredient-row .v-card__text.flex-1 {
+    flex: 1;
+}
+.ingredient-row input[type="number"], .ingredient-row select {
+    width: 62px;
+}
+.v-dialog > .v-card > .v-card__text.ingredient-main-container {
+    padding: 24px 32px;
+}
+.v-dialog > .v-card > .v-card__text.ingredient-main-container .container {
+    padding: 0;
+}
+.modal-ingredients-heading {
+    padding: 11px 12px 9px 32px;
+    border-bottom: solid 1px rgb(117 135 153 / 44%);
+}
+
+/* add Ingredients modal css */
+
 .dashboard .box-panel .panel-wrapper{
     height: 100%;
 }
