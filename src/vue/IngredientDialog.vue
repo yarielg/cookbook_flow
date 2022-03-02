@@ -25,9 +25,11 @@
                                     <option value="cup">cup</option>
                                 </select>
                             </v-col>
+
                             <v-col sm="10" cols="10" md="7" lg="7">
                                 <input required v-model="ingredient.name" type="text" class="form-control" >
                             </v-col>
+                            
                             <v-col sm="2" cols="2" md="1" lg="1">
                                 <v-icon @click="removeIngredient(ingredient.key)" aria-hidden="false">
                                     mdi-trash-can
