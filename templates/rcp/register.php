@@ -18,6 +18,14 @@ global $rcp_options, $post, $rcp_levels_db, $rcp_register_form_atts;
 $discount = ! empty( $_REQUEST['discount'] ) ? sanitize_text_field( $_REQUEST['discount'] ) : '';
 
 $upgrading = isset($_GET['registration_type']) && ($_GET['registration_type'] == 'upgrade' || $_GET['registration_type'] == 'renewal');
+$discounts = rcp_get_discounts();
+$code = '';
+$amount_discount = '';
+
+if(count($discounts) > 0){
+	$code = $discounts[0]->code;
+	$amount_discount = $discounts[0]->amount;
+}
 
 // show any error messages after form submission
 rcp_show_error_messages( 'register' ); ?>
@@ -216,7 +224,7 @@ rcp_show_error_messages( 'register' ); ?>
                                             <label for="rcp_subscription_level_<?php echo esc_attr( $level->get_id() ); ?>">
                                                 <span class="rcp_subscription_level_name"><?php echo esc_html( $level->get_name() ); ?></span><span class="rcp_separator">&nbsp;-&nbsp;</span><span class="rcp_price" rel="<?php echo esc_attr( $level->get_price() ); ?>"><?php echo ! $level->is_free() ? rcp_currency_filter( $level->get_price() ) : __( 'free', 'rcp' ); ?></span><span class="rcp_separator">&nbsp;-&nbsp;</span>
                                                 <span class="rcp_level_duration"><?php echo ! $level->is_lifetime() ? $level->get_duration() . '&nbsp;' . rcp_filter_duration_unit( $level->get_duration_unit(), $level->get_duration() ) : __( 'unlimited', 'rcp' ); ?></span>
-                                                <br><span class="rcp_discount_hubspot"><?php if(isset($_GET['hubspot'])){ echo "  (-$2.00) - First Month discount"; } ?></span>
+                                                <br><span class="rcp_discount_hubspot"><?php if(isset($_GET['hubspot'])){ echo "  (-$". $amount_discount . ".00) - First Month discount"; } ?></span>
                                                 <?php if ( $level->get_maximum_renewals() > 0 ) : ?>
                                                     <span class="rcp_separator">&nbsp;-&nbsp;</span>
                                                     <span class="rcp_level_bill_times"><?php printf( __( '%d total payments', 'rcp' ), $level->get_maximum_renewals() + 1 ); ?></span>
@@ -234,7 +242,7 @@ rcp_show_error_messages( 'register' ); ?>
                     </fieldset>
 
 	            <?php if( rcp_has_discounts() ) : ?>
-				    <input type="hidden" id="rcp_discount_code" name="rcp_discount" class="rcp_discount_code" value="register_discount"/>
+				    <input type="hidden" id="rcp_discount_code" name="rcp_discount" class="rcp_discount_code" value="<?php echo $code ?>"/>
 	            <?php endif; ?>
 
                     <div class="rcp_gateway_fields">
