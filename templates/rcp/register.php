@@ -21,10 +21,12 @@ $upgrading = isset($_GET['registration_type']) && ($_GET['registration_type'] ==
 $discounts = rcp_get_discounts();
 $code = '';
 $amount_discount = '';
+$discount_type = '';
 
 if(count($discounts) > 0){
 	$code = $discounts[0]->code;
 	$amount_discount = $discounts[0]->amount;
+	$discount_type = $discounts[0]->unit;
 }
 
 // show any error messages after form submission
@@ -224,7 +226,7 @@ rcp_show_error_messages( 'register' ); ?>
                                             <label for="rcp_subscription_level_<?php echo esc_attr( $level->get_id() ); ?>">
                                                 <span class="rcp_subscription_level_name"><?php echo esc_html( $level->get_name() ); ?></span><span class="rcp_separator">&nbsp;-&nbsp;</span><span class="rcp_price" rel="<?php echo esc_attr( $level->get_price() ); ?>"><?php echo ! $level->is_free() ? rcp_currency_filter( $level->get_price() ) : __( 'free', 'rcp' ); ?></span><span class="rcp_separator">&nbsp;-&nbsp;</span>
                                                 <span class="rcp_level_duration"><?php echo ! $level->is_lifetime() ? $level->get_duration() . '&nbsp;' . rcp_filter_duration_unit( $level->get_duration_unit(), $level->get_duration() ) : __( 'unlimited', 'rcp' ); ?></span>
-                                                <br><span class="rcp_discount_hubspot"><?php if(isset($_GET['hubspot'])){ echo "  (-$". $amount_discount . ".00) - First Month discount"; } ?></span>
+                                                <br><span class="rcp_discount_hubspot"><?php if(isset($_GET['hubspot'])){ echo $discount_type == '%' ? "(-". $amount_discount . "%) - First Month discount" :  "  (-$". $amount_discount . ".00) - First Month discount"; } ?></span>
                                                 <?php if ( $level->get_maximum_renewals() > 0 ) : ?>
                                                     <span class="rcp_separator">&nbsp;-&nbsp;</span>
                                                     <span class="rcp_level_bill_times"><?php printf( __( '%d total payments', 'rcp' ), $level->get_maximum_renewals() + 1 ); ?></span>
