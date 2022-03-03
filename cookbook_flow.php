@@ -6,7 +6,7 @@
 
 Plugin Name:  CookBook Flow
 Plugin URI:   https://thomasgbennett.com/
-Description:  This plugin is the core for all the logic around recipes and cookbooks flow, also contains an integration with hubspot...
+Description:  This plugin is the core for all the logic around recipes and cookbooks flow, also contains an integration with hubspot.
 Version:      1.0.0
 Author:       Thomas Bennett Group
 Author URI:   https://thomasgbennett.com/
