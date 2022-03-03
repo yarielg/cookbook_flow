@@ -3,58 +3,85 @@
             @click:outside="closeDialog"
             v-model="modal"
             scrollable
+            width="970"
+            content-class="wrech modal-ingredients">
+        <v-card class="wrech">
+            <v-row class="no-gutters modal-ingredients-heading align-items-center">
+                <v-col>
+                    <v-card-actions class="top-add-more-button p-0">
+                        <v-btn
+                                color="primary"
+                                text
+                                @click="addIngredient"
+                        >
+                            Add more
+                        </v-btn>
+                    </v-card-actions>
+                </v-col>
 
-            width="800">
-        <v-card>
-            <v-card-title class="headline" primary-title >Add Ingredients</v-card-title>
+                <v-col>
+                    <v-card-title class="headline" primary-title >Add Ingredients</v-card-title>
+                </v-col>
 
+                <v-col class="close-button">
+                    <v-btn
+                            color="default"
+                            text
+                            @click="closeDialog"
+                    >
+                        <v-icon aria-hidden="false">
+                            mdi-close
+                        </v-icon>
+                    </v-btn>                    
+                </v-col>
+            </v-row>
             <v-spacer></v-spacer>
 
-            <v-card-text style="height: 500px">
+            <v-card-text class="ingredient-main-container" style="height: 500px">
                 <v-form v-model="valid" ref="form">
                     <v-container>
-                        <v-row v-for="ingredient in ingredientsList" :key="ingredient.key" class="ingredient-row">
-                            <v-col sm="6" cols="6" md="2" lg="2">
+                        <v-row v-for="ingredient in ingredientsList" :key="ingredient.key" class="ingredient-row no-gutters">
+                            <v-card-text>
                                 <input v-model="ingredient.quantity" type="number" class="form-control" required>
-                            </v-col>
+                            </v-card-text>
 
-                            <v-col sm="6" cols="6" md="2" lg="2">
+                            <v-card-text>
                                 <select v-model="ingredient.unit" name="recipe_category" class="form-control" id="recipe_category">
                                     <option value="oz" selected >oz</option>
                                     <option value="ml">ml</option>
                                     <option value="cup">cup</option>
                                 </select>
-                            </v-col>
-                            <v-col sm="10" cols="10" md="7" lg="7">
+                            </v-card-text>
+
+                            <v-card-text class="flex-1">
                                 <input required v-model="ingredient.name" type="text" class="form-control" >
-                            </v-col>
-                            <v-col sm="2" cols="2" md="1" lg="1">
+                            </v-card-text>
+
+                            <v-card-text>
                                 <v-icon @click="removeIngredient(ingredient.key)" aria-hidden="false">
                                     mdi-trash-can
                                 </v-icon>
-                            </v-col>
+                            </v-card-text>
                         </v-row>
                     </v-container>
                 </v-form>
             </v-card-text>
 
-            <v-divider></v-divider>
-
-            <v-card-actions>
+            <v-card-actions class="bottom-add-buttons">
                 <v-spacer></v-spacer>
+                <v-btn
+                        color="default"
+                        text
+                        @click="closeDialog"
+                >
+                    Cancel
+                </v-btn>
                 <v-btn
                         color="primary"
                         text
                         @click="closeDialog"
                 >
-                    Close
-                </v-btn>
-                <v-btn
-                        color="primary"
-                        text
-                        @click="addIngredient"
-                >
-                    Add
+                    Save Ingredients
                 </v-btn>
             </v-card-actions>
         </v-card>
@@ -107,9 +134,4 @@
 
 
 <style scoped>
-    .ingredient-row{
-        border-bottom: 1px solid #78849c
-    }
-
-
 </style>

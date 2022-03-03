@@ -36,8 +36,9 @@ if(is_user_logged_in()){
                 <ul class="navbar-nav mt-2 mt-lg-0 left-bar">
                     <a class="nav-link dropdown-toggle account-menu" href="#" id="create_action_dropmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Create</a>
                     <div class="dropdown-menu" aria-labelledby="create_action_dropmenu">
-                        <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-recipe') ?>">Create recipe</a>
-			            <?php if($user_data['premium']){?><a class="dropdown-item" href="<?= site_url('welcome/?screen=add-cookbook') ?>">Create cookbook</a><?php } ?>
+                    <?php if($user_data['premium']){?><a class="dropdown-item" href="<?= site_url('welcome/?screen=add-cookbook') ?>">A Cookbook</a><?php } ?>
+                        <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-recipe') ?>">A Recipe</a>			            
+                        <a class="dropdown-item" href="<?= site_url('welcome/?screen=postcard') ?>">A Postcard</a>
                     </div>
                     <a class="nav-link" href="<?= site_url('search-recipe') ?>">Browse Recipe</a>
                     <!--<a class="nav-link" href="<?/*= site_url('welcome') */?>">My Recipes</a>

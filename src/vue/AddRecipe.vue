@@ -1,14 +1,16 @@
 <template>
    <div class="container">
       <loading-dialog :loading="loading"></loading-dialog>
-      <div class="row">
-         <div class="col-md-4">
-            <v-icon @click="goBack()">
-               mdi-arrow-left
-            </v-icon> Back
-
+      <div class="row align-items-center">
+         <div class="col-6">
+            <div class="back-arrow">
+               <v-icon @click="goBack()" class="pr-1">mdi-arrow-left</v-icon>Back 
+            </div>
          </div>
-         <div class="col-md-8">
+         <div class="col-6">
+            <button class="float-right btn-normal" v-show="!checkForm()" @click="addRecipe('Draft','no')">Save as Draft</button>
+         </div>
+         <div class="col-12">
             <div class="top-bar-assign" v-show="checkForm()">
                <div class="left bar">
                   <v-menu  :close-on-content-click="false" :nudge-width="200" offset-y transition="scale-transition">
@@ -57,23 +59,22 @@
                   <button :disabled="!checkForm()" @click="addRecipe(status,'no')" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>
                </div>
             </div>
-            <button class="float-right btn-normal" v-show="!checkForm()" @click="addRecipe('Draft','no')">Save as Draft</button>
          </div>
       </div>
       <div class="row">
-         <div class="col-md-4 left-panel">
-            <h4 class="text-center">Create a Recipe</h4>
+         <div class="col-md-3 left-panel recipe_items">
+            <h4 class="pl-7 pt-3 pb-1 mb-0">Create a Recipe</h4>
             <hr>
-            <ul class="ingredients_list">
-               <li><span :class="title !== '' ? 'icon_32' : ''"></span> <span >Give it a title</span></li>
-               <li><span :class="category > 0 ? 'icon_32' : ''"></span> <span >Select a category</span></li>
-               <li><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>
-               <li><span :class="!isQuillEmpty()  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
-               <li><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
-            </ul>
+            <ol class="ingredients_list pt-5 ml-2">
+               <li :class="title !== '' ? 'completed' : ''"><span :class="title !== '' ? 'icon_32' : ''"></span> <span >Give it a title</span></li>
+               <li :class="category > 0 ? 'completed' : ''"><span :class="category > 0 ? 'icon_32' : ''"></span> <span >Select a category</span></li>
+               <li :class="ingredients.length !== 0 ? 'completed' : ''"><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>
+               <li :class="!isQuillEmpty()  ? 'completed' : ''"><span :class="!isQuillEmpty()  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
+               <li :class="photos.length !== 0 ? 'completed' : ''"><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
+            </ol>
          </div>
 
-         <div class="col-md-8 main-panel pl-4">
+         <div class="col-md-9 main-panel">
             <form
                method="post"
                action=""
@@ -81,25 +82,33 @@
 
                <div class="form-group">
                   <label for="recipe_title">Recipe Title</label>
-                  <input v-model="title" type="text" class="form-control" id="recipe_title">
+                  <input v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title">
                </div>
 
                <div class="form-group">
                   <label for="recipe_category">Recipe Category</label>
                   <select v-model="category" name="recipe_category" class="form-control" id="recipe_category">
-                     <option value="-1" selected>Select Category</option>
+                     <option value="-1" selected>Select a Category</option>
                      <option v-for="category in categories" :key="category.term_id" :value="category.term_id">{{ category.name }}</option>
                   </select>
                </div>
 
                <div class="form-group">
-                  <h5>RECIPE INGREDIENTS</h5>
+                  <label for="recipe_category">Recipe Country</label>
+                  <select v-model="country" name="recipe_country" class="form-control" id="recipe_country">
+                     <option value="-1" selected>Select a Country</option>
+                     <option v-for="(name, key) in countries" :key="key" :value="key">{{ name }}</option>
+                  </select>
+               </div>
+
+               <div class="form-group">
+                  <label>RECIPE INGREDIENTS</label>
                   <ul>
                      <li v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity"> {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</li>
                   </ul>
-               </div>
-               <div @click="dialogIngredient = true" class="ingredients_action">
-                  + Click to start adding recipe ingredients
+                  <div @click="dialogIngredient = true" class="ingredients_action">
+                     Click to start adding recipe ingredients
+                  </div>
                </div>
 
                <ingredient-dialog @addIngredient="addIngredientHandler"
@@ -109,15 +118,15 @@
                                   :ingredients="ingredients">
                </ingredient-dialog>
 
-               <br><br>
 
                <div class="form-group">
-                  <label for="">Enter the recipe instructions</label>
+                  <label for="">RECIPE INSTRUCTIONS</label>
                   <div id="editor_instructions" ref="editor"></div>
                </div>
 
                <br>
 
+               <label>Add Photos</label>
                <div class="media_component">
                   <div @drop.prevent="onDrop($event)"
                        @dragover.prevent="dragover = true"
@@ -126,7 +135,7 @@
                        class="drop_media_zone"
                        @click="launchFilePicker()">
                      <img class="media_placeholder" :src="image_placeholder" alt="">
-                     <p>Drag a photo or Click to upload</p>
+                     <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
                   </div>
 
                   <input type="file"
@@ -136,7 +145,6 @@
                          style="display:none">
                </div>
 
-               <br><br>
 
                <div class="form-group photo-gallery mt-5">
                   <div class="photo-wrapper" v-for="photo in photos">
@@ -177,8 +185,10 @@
                editor: null,
                editorStory: null,
                categories:[],
-               status: 'Draft',
+               countries:[],
+               status: 'Publish',
                category: -1,
+               country: -1,
                title: '',
                photo_update: false,
                ingredients:[
@@ -195,6 +205,7 @@
         created(){
             this.getCategories();
             this.getCookbooks();
+            this.getCountries();
             if(parseFloat(this.edit_mode) > 0){
                this.getRecipe();
             }
@@ -350,6 +361,7 @@
                  formData.append('cookbooks_ids', this.cookbooks_ids);
                  formData.append('edit', this.edit_mode);
                  formData.append('new_cookbook', this.new_cookbook);
+                 formData.append('country', this.country);
                  formData.append('type', type);
 
                  this.loading = true;
@@ -487,6 +499,20 @@
                  return photo.id !== photo_id;
               });
            },
+           getCountries(){
+              const formData = new FormData();
+              formData.append('action', 'get_countries');
+              this.loading = true;
+              axios.post(parameters.ajax_url, formData)
+                      .then( response => {
+                         if(response.data.success){
+                            this.countries =  response.data.countries;
+                         }else{
+                            toastr.warning('We could not get the recipe countries', 'Error');
+                         }
+                         this.loading = false;
+                      });
+           },
            getCategories(){
               const formData = new FormData();
               formData.append('action', 'get_recipe_categories');
@@ -526,6 +552,7 @@
                       .then( response => {
                          if(response.data.success){
                             this.category =  response.data.recipe.category;
+                            this.country =  response.data.recipe.country;
                             this.title = response.data.recipe.post_title;
                             this.status = response.data.recipe.post_status;
                             this.ingredients = response.data.recipe.ingredients;
@@ -585,14 +612,9 @@
       list-style: none !important;
    }
 
-   .ingredients_list li{
-      display: flex !important;
+   .ingredients_list li{    
+      list-style: auto;
       clear: both;
-   }
-
-   .ingredients_list li span:first-child{
-      min-width: 24px;
-      display: inline-block;
    }
 
    .ingredients_list li.checked{
@@ -623,10 +645,36 @@
       margin-right: 5px !important;
    }
 
-   .media_component{
-      width: 200px;
-      height: 200px;
+   .media_component {
+      width: 100%;
+      height: auto;
       margin: 0 auto;
+      border-radius: 5px;
+      border: solid 0.5px #d7d7d7;
+      background-color: var(--white);
+      padding: 115px 13px 46px 14px;
+      max-width: 325px;
+   }
+
+   img.media_placeholder {
+      max-width: 117px;
+      height: auto;
+      margin-bottom: 33px;
+   }
+   
+   .media-placeholder-title {
+      font-family: Montserrat;
+      font-size: 19px;
+      font-weight: normal;
+      color: #758799;
+   }
+
+   .media-placeholder-title strong {
+      text-decoration: underline;
+   }
+
+   .form-group {
+      margin-bottom: 85px;
    }
 
    .drop_media_zone{

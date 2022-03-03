@@ -103,6 +103,7 @@ class Registration
      * @description Save fields on register form
      */
     function cbf_rcp_save_user_fields_on_register($posted, $user_id){
+
         if( ! empty( $posted['rcp_type'] ) ) {
             update_user_meta( $user_id, 'rcp_type', sanitize_text_field( $posted['rcp_type'] ) );
         }

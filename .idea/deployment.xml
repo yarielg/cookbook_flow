@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="Cookbook">
+    <serverData>
+      <paths name="Cookbook">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/cookbook.nextsitehosting.com/htdocs/wp-content/plugins/cookbook_flow" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

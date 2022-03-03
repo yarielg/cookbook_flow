@@ -2,13 +2,12 @@
     <div class="container">
         <loading-dialog :loading="loading"></loading-dialog>
         <div class="row">
-            <div class="col-2">
-                <v-icon @click="goBack()">
+            <div class="col-12">
+                <v-icon class="pr-1" @click="goBack()">
                     mdi-arrow-left
                 </v-icon> Back
             </div>
-            <div class="col-10">
-            </div>
+
         </div>
         <div class="row">
             <div class="col-md-4 left-panel pl-5">
@@ -35,16 +34,17 @@
                 <br>
                 <div class="share_section row mt-1 text-center">
                     <div class="col-12 text-center">
-                        <button v-if="status !== 'Draft' && !share" class="btn-normal" @click="showShare">Share By Email</button>
+                        <button v-if="status !== 'Draft' && !share" class="btn-normal" @click="postcard_dialog = true">Share By Email</button>
                     </div>
-                    <div class="col-12">
+                    <postcard-dialog :dashboard="false" :recipe="recipe" @closePostCardDialog="closePostCardDialog" :postcard_dialog="postcard_dialog"></postcard-dialog>
+                    <!--<div class="col-12">
                         <div class="row">
                             <div v-if="share" class="form-group mt-5 col-9">
                                 <input placeholder="Enter email" v-model="share_email" type="email" class="form-control" id="recipe_title">
                             </div>
                             <button v-if="status !== 'Draft' && share" @click="shareRecipe()" class="col-3">Send</button>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
 
                 <div class="share_section row mt-1">
@@ -62,6 +62,12 @@
                     <label class="label-info-header" v-if="category !== ''" for="">{{ category }}</label>
                     <h2>{{ title }}</h2>
                 </div>
+
+                <div class="section-info">
+                    <label class="label-info-header" v-if="country_name !== ''" for="">COUNTRY</label>
+                    <h2>{{ country_name }}</h2>
+                </div>
+
                 <div class="section-info" v-if="ingredients.length > 0">
                     <label class="label-info-header" for="">INGREDIENTS</label>
                     <ul>
@@ -107,6 +113,7 @@
                 categories:[],
                 status: 'Draft',
                 category: -1,
+                country_name: '',
                 share_email: '',
                 title: '',
                 url:'',
@@ -118,7 +125,14 @@
                 featured_image:'',
                 photos:[],
                 cookbook_id: -1,
-                cookbooks_selected: []
+                cookbooks_selected: [],
+                recipe: {
+                    post_title: '',
+                    ID: -1,
+                    url:'',
+                    story:'',
+                },
+                postcard_dialog: false
             }
         },
         created(){
@@ -149,6 +163,9 @@
 
         },
         methods:{
+            closePostCardDialog(){
+              this.postcard_dialog= false;
+            },
             goBack(){
                 this.$emit('goBack');
             },
@@ -164,9 +181,11 @@
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){
+                            this.recipe = response.data.recipe;
                             this.category =  response.data.recipe.category_name !== '' ? response.data.recipe.category_name.toUpperCase() : '';
                             this.title = response.data.recipe.post_title;
                             this.status = response.data.recipe.post_status;
+                            this.country_name = response.data.recipe.country_name;
                             this.ingredients = response.data.recipe.ingredients;
                             this.story = response.data.recipe.story;
                             this.photos = response.data.recipe.photos;
@@ -184,28 +203,6 @@
             showShare(){
                 this.share = !this.share;
             },
-            shareRecipe(){
-                if(this.share_email !== '' &&  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.share_email)){
-                    const formData = new FormData();
-                    formData.append('action', 'share_recipe');
-                    formData.append('id', this.edit_mode);
-                    formData.append('email', this.share_email);
-                    this.loading = true;
-                    axios.post(parameters.ajax_url, formData)
-                        .then( response => {
-                            if(response.data.success){
-                                toastr.success(response.data.msg, 'Shared!');
-                            }else{
-                                toastr.warning(response.data.msg, 'Error');
-                            }
-
-                        });
-                }else{
-                    toastr.warning('Please enter a valid email', 'Error');
-                }
-                this.loading = false;
-
-            },
             copyLink(){
 
                 var myTemporaryInputElement = document.createElement("input");
@@ -221,7 +218,6 @@
                 toastr.success('Recipe Url copied', 'Copied!');
             }
         }
-
     }
 </script>
 

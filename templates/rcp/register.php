@@ -18,6 +18,16 @@ global $rcp_options, $post, $rcp_levels_db, $rcp_register_form_atts;
 $discount = ! empty( $_REQUEST['discount'] ) ? sanitize_text_field( $_REQUEST['discount'] ) : '';
 
 $upgrading = isset($_GET['registration_type']) && ($_GET['registration_type'] == 'upgrade' || $_GET['registration_type'] == 'renewal');
+$discounts = rcp_get_discounts();
+$code = '';
+$amount_discount = '';
+$discount_type = '';
+
+if(count($discounts) > 0){
+	$code = $discounts[0]->code;
+	$amount_discount = $discounts[0]->amount;
+	$discount_type = $discounts[0]->unit;
+}
 
 // show any error messages after form submission
 rcp_show_error_messages( 'register' ); ?>
@@ -27,13 +37,11 @@ rcp_show_error_messages( 'register' ); ?>
     <input type="hidden" name="rcp_is_premium" id="rcp_is_premium" value="0">
     <div class="container box-panel">
         <div class="row  panel-wrapper">
-            <div class="col-md-12">
+            <div class="col-md-12 top-section">
                 <?php if( ! is_user_logged_in() ) { ?>
-                    <h3 class="rcp_header text-center">
-                        Welcome Headline
-                    </h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur doloribus incidunt rem. Labore numquam praesentium quia quibusdam veritatis. Culpa doloremque ducimus enim impedit iusto officiis perspiciatis sint, tempore ut. Inventore?</p>
-                    <br><br>
+                    <div class="logo-wrapper"><a class="navbar-brand text-center" href="<?= site_url() ?>"><img style="width: 200px" src="https://cookbook.nextsitehosting.com/wp-content/uploads/2021/12/Logo.png"></a></div>
+                    <h1 id="cbf_login_header">Food is your love language</h1>
+                    <p id="cbf_login_description" class="description">Organize, edit and share your recipes for free. Or, create your one-of-a-kind cookbook. </p>
                 <?php } else { ?>
                     <h3 class="rcp_header text-center">
                         <?php echo apply_filters( 'rcp_registration_header_logged_in', $rcp_register_form_atts['logged_in_header'] ); ?>
@@ -77,24 +85,24 @@ rcp_show_error_messages( 'register' ); ?>
                             </div>
                             <div id="rcp_type_wrap" class="form-group col-md-12" >
                                 <div class="type_option text-center">
-                                    <input value="Personal" name="rcp_type" type="radio" <?= isset($_POST['rcp_type']) &&  $_POST['rcp_type'] == 'Personal' || !$upgrading ? 'checked' : '' ?>/>
-                                <label for="rcp_type"><?php _e( 'Personal', 'rcp' ); ?></label>
+                                    <input id="rcp_type_personal" value="Personal" name="rcp_type" type="radio" <?= isset($_POST['rcp_type']) &&  $_POST['rcp_type'] == 'Personal' || !$upgrading ? 'checked' : '' ?>/>
+                                <label for="rcp_type_personal"><?php _e( 'Personal', 'rcp' ); ?></label>
                                 </div>
                                 <div class="type_option text-center">
-                                    <input value="Business" name="rcp_type" type="radio" <?= isset($_POST['rcp_type']) && $_POST['rcp_type']  == 'Business' ? 'checked' : '' ?>/>
-                                <label for="rcp_type"><?php _e( 'Business', 'rcp' ); ?></label>
+                                    <input id="rcp_type_business" value="Business" name="rcp_type" type="radio" <?= isset($_POST['rcp_type']) && $_POST['rcp_type']  == 'Business' ? 'checked' : '' ?>/>
+                                <label for="rcp_type_business"><?php _e( 'Business', 'rcp' ); ?></label>
                                 </div>
                                 <div class="type_option text-center">
-                                    <input value="Fundraiser" name="rcp_type" type="radio" <?= isset($_POST['rcp_type']) && $_POST['rcp_type']  == 'Fundraiser' ? 'checked' : '' ?>/>
-                                <label for="rcp_type"><?php _e( 'Fundraiser', 'rcp' ); ?></label>
+                                    <input id="rcp_type_fundraiser" value="Fundraiser" name="rcp_type" type="radio" <?= isset($_POST['rcp_type']) && $_POST['rcp_type']  == 'Fundraiser' ? 'checked' : '' ?>/>
+                                <label for="rcp_type_fundraiser"><?php _e( 'Fundraiser', 'rcp' ); ?></label>
                                 </div>
                             </div>
 
                             <p id="rcp_submit_wrap" class="form-group col-md-12 text-center">
                                 <input type="hidden" name="rcp_register_nonce" value="<?php echo wp_create_nonce('rcp-register-nonce' ); ?>"/>
-                                <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal create_account_free" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Create a free account', 'rcp' ) ) ); ?>"/>
+                                <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal create_account_free" value="<?php esc_attr_e( apply_filters ( 'rcp_registration_register_button', __( 'Create Free Account', 'rcp' ) ) ); ?>"/>
                             </p>
-                            <button type="button" class="btn-normal" style="display: none" id="go_free">Go Back</button>
+                            <a href="javascript:void(0);" class="custom-back-button" style="display: none" id="go_free">Back</a>
 
                         </div>
 
@@ -190,12 +198,12 @@ rcp_show_error_messages( 'register' ); ?>
             <div class="col-md-6 col-xl-5">
                 <?php if( ! is_user_logged_in() ){ ?>
                     <div class="premium_boundaries" style="display: <?= $upgrading ? 'none' : 'block' ?>">
-                        <h5 class="text-center">Create a PREMIUM account</h5>
+                        <h5 class="text-center">Upgrade to our PREMIUM account</h5>
                         <br><br>
-                        <ul>
+                        <ul class="mb-left">
                             <li> <span class="icon_32"></span> <span class="feature">Add your recipes to a cookbook</span></li>
                             <li><span class="icon_32"></span> <span class="feature">Gain access to premium cookbook templates</span></li>
-                            <li><span class="icon_32"></span> <span class="feature">Selling point</span></li>
+                            <li><span class="icon_32"></span> <span class="feature">Publish your book online</span></li>
                         </ul>
                     </div>
                 <?php } ?>
@@ -218,6 +226,7 @@ rcp_show_error_messages( 'register' ); ?>
                                             <label for="rcp_subscription_level_<?php echo esc_attr( $level->get_id() ); ?>">
                                                 <span class="rcp_subscription_level_name"><?php echo esc_html( $level->get_name() ); ?></span><span class="rcp_separator">&nbsp;-&nbsp;</span><span class="rcp_price" rel="<?php echo esc_attr( $level->get_price() ); ?>"><?php echo ! $level->is_free() ? rcp_currency_filter( $level->get_price() ) : __( 'free', 'rcp' ); ?></span><span class="rcp_separator">&nbsp;-&nbsp;</span>
                                                 <span class="rcp_level_duration"><?php echo ! $level->is_lifetime() ? $level->get_duration() . '&nbsp;' . rcp_filter_duration_unit( $level->get_duration_unit(), $level->get_duration() ) : __( 'unlimited', 'rcp' ); ?></span>
+                                                <br><span class="rcp_discount_hubspot"><?php if(isset($_GET['hubspot'])){ echo $discount_type == '%' ? "(-". $amount_discount . "%) - First Month discount" :  "  (-$". $amount_discount . ".00) - First Month discount"; } ?></span>
                                                 <?php if ( $level->get_maximum_renewals() > 0 ) : ?>
                                                     <span class="rcp_separator">&nbsp;-&nbsp;</span>
                                                     <span class="rcp_level_bill_times"><?php printf( __( '%d total payments', 'rcp' ), $level->get_maximum_renewals() + 1 ); ?></span>
@@ -233,6 +242,10 @@ rcp_show_error_messages( 'register' ); ?>
                             <p><strong><?php _e( 'You have not created any membership levels yet', 'rcp' ); ?></strong></p>
                         <?php endif; ?>
                     </fieldset>
+
+	            <?php if( rcp_has_discounts() ) : ?>
+				    <input type="hidden" id="rcp_discount_code" name="rcp_discount" class="rcp_discount_code" value="<?php echo $code ?>"/>
+	            <?php endif; ?>
 
                     <div class="rcp_gateway_fields">
                         <?php
@@ -268,16 +281,16 @@ rcp_show_error_messages( 'register' ); ?>
 
                     <?php do_action( 'rcp_before_registration_submit_field', $levels ); ?>
 
-                <?php if(!$upgrading){ ?><br><p id="rcp_submit_wrap"><button class="btn-normal" type="button" id="go_premium">Create a premium account</button></p><?php }  ?>
+                <?php if(!$upgrading){ ?><p id="rcp_submit_wrap"><button class="btn-normal" type="button" id="go_premium">Create Premium Account</button></p><?php }  ?>
                     <p id="rcp_submit_wrap" style="display: <?= $upgrading ? 'block' : 'none' ?>" class="create_account_premium">
                         <input type="hidden" name="rcp_register_nonce" value="<?php echo wp_create_nonce('rcp-register-nonce' ); ?>"/>
-                        <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal mt-3" value="<?= $upgrading ? 'Upgrade Account' : 'Create Account' ?>"/>
+                        <input type="submit" name="rcp_submit_registration" id="rcp_submit" class="btn-normal mt-3" value="<?= $upgrading ? 'Upgrade Account' : 'Create Premium Account' ?>"/>
                     </p>
             </div>
             <br><br>
             <div class="col-12 text-center mt-3">
                 <?php if(!$upgrading){ ?>
-                    <p class="text-center">Already have an account <a href="/login">Log in</a></p>
+                    <p class="text-center signup-section">Already have an account? <a href="/login">Log in</a></p>
                 <?php } ?>
             </div>
         </div>
@@ -307,6 +320,9 @@ if(!$upgrading){
                     $('.left_heading_text').text('Create a PREMIUM account');
                     $('.line_or').css('display','none');
                     $('#rcp_is_premium').val(1);
+                    $('#cbf_login_header').text("Let's do this!");
+                    $('#cbf_login_description').text("We can't wait to see what you create!");
+
                 });
 
                 $('#go_free').on('click',function(){
@@ -321,6 +337,9 @@ if(!$upgrading){
                     $('.left_heading_text').text('Create a FREE account');
                     $('.line_or').css('display','flex');
                     $('#rcp_is_premium').val(0);
+                    $('#cbf_login_header').text("Food is your love language");
+                    $('#cbf_login_description').text("Organize, edit and share your recipes for free. Or, create your one-of-a-kind cookbook.");
+
                 });
 
             });

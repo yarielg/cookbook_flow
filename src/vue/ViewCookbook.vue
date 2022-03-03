@@ -2,12 +2,10 @@
     <div class="container">
         <loading-dialog :loading="loading"></loading-dialog>
         <div class="row">
-            <div class="col-2">
+            <div class="col-12">
                 <v-icon @click="goBack()">
                     mdi-arrow-left
-                </v-icon> Back
-            </div>
-            <div class="col-10">
+                </v-icon>Back
             </div>
         </div>
         <div class="row">
@@ -24,16 +22,20 @@
                 <br>
                 <br>
                 <button class="btn-normal" @click="publishing = true" v-if="checkPublish() && state != 2 && !publishing">Publish Cookbook</button>
-                <p v-if="state == 2"><strong>Note:</strong> This cookbook was sent to be published, actions are not allowed at this time</p>
+                <div class="state_2" v-if="state == 2">
+                    <!--<p><strong>Note:</strong> This cookbook was sent to be published, actions are not allowed at this time</p>-->
 
-                <div class="chat_main" v-if="state == 2">
-                    <div class="chat_canvas">
+                    <div v-html="data.customer_support_message"></div>
 
-                        <p class="cbf-comment" v-for="comment in comments" :key="comment.id" :class="comment.admin == 1 ? 'right' : 'left'">{{ comment.comment }} <span class="time">{{ formattedCommentTime(comment.created) }}</span></p>
+                    <div class="chat_main">
+                        <div class="chat_canvas">
+
+                            <p class="cbf-comment" v-for="comment in comments" :key="comment.id" :class="comment.admin == 1 ? 'right' : 'left'">{{ comment.comment }} <span class="time">{{ formattedCommentTime(comment.created) }}</span></p>
+                        </div>
+                        <textarea v-model="comment" placeholder="Write a message..." name="" id="cbf_message_value" cols="42" rows="2"></textarea>
+                        <br>
+                        <button @click="addComment" class="btn-normal" type="button" data-admin="1" data-cookbook_id="<?php echo $cookbook_id ?>" id="cookbook_send_comment">Send</button>
                     </div>
-                    <textarea v-model="comment" placeholder="Write a message..." name="" id="cbf_message_value" cols="42" rows="2"></textarea>
-                    <br>
-                    <button @click="addComment" class="btn-normal" type="button" data-admin="1" data-cookbook_id="<?php echo $cookbook_id ?>" id="cookbook_send_comment">Sent</button>
                 </div>
                 <br><br>
                 <div class="preview_pdf text-center" v-if="preview_pdf !== null">
@@ -41,9 +43,9 @@
                         Preview Cookbook
                     </h5>
                     <br>
-                    <a href="" target="_blank" :href="preview_pdf">
-                        <iframe :src="preview_pdf" style="width:100px; height:100px;"></iframe>
-                    </a>
+<!--                    <a href="" target="_blank" :href="preview_pdf">-->
+<!--                        <iframe :src="preview_pdf" style="width:100px; height:100px;"></iframe>-->
+<!--                    </a>-->
                     <br>
                     <a href="" target="_blank" :href="preview_pdf">Download</a>
 
@@ -97,6 +99,7 @@
                 dedication: '',
                 preview_pdf: null,
                 comment: '',
+                data: [],
                 author_name: '',
                 recipes: [],
                 back_image: null,
@@ -104,10 +107,15 @@
             }
         },
         created(){
+            this.data = parameters.data;
             if(parseFloat(this.edit_mode) > 0){
                 this.getCookbook();
                 this.getComments();
             }
+
+            setInterval(()=>{
+                this.getComments();
+            },5000)
 
             this.author_name = parameters.owner.data.display_name.charAt(0).toUpperCase() + parameters.owner.data.display_name.slice(1);
         },
@@ -155,7 +163,7 @@
                 formData.append('action', 'get_comments');
                 formData.append('admin', 0);
                 formData.append('cookbook_id', this.edit_mode);
-                this.loading = true;
+                //this.loading = true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){
@@ -163,7 +171,7 @@
                         }else{
                             toastr.warning('We could not get the last messages', 'Error');
                         }
-                        this.loading = false;
+                        //this.loading = false;
                     });
             },
             addComment(){
@@ -251,12 +259,6 @@
     .cbf-comment > span.time{
         font-size: 8px;
         margin-left: 12px;
-    }
-
-    @media screen and (min-width: 920px) {
-        .left-panel{
-            height: 100vh;
-        }
     }
 
 

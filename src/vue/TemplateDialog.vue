@@ -27,10 +27,10 @@
                 </div>
                 <br>
                <div class="row mt-5">
-                   <div class="col-12 text-center">
-                       <button class="btn-normal" @click="proceed()">Use this template</button>
-                       <br>
-                       <button class="" @click="closeDialog()">Keep Browsing</button>
+                   <div class="col-12 d-flex align-items-center justify-content-center text-center">
+                       <button class="btn-normal mr-3" @click="proceed()">Use this template</button>
+                       
+                       <button class="btn-normal" @click="closeDialog()">Keep Browsing</button>
 
                    </div>
                </div>
