@@ -41,7 +41,7 @@ $featured = getFeaturedImageRecipe($images);
                 <ul class="recipe_ingredients">
                     <?php
                     foreach ($ingredients as $ingredient){
-                        echo "<li>" . $ingredient['quantity'] . " " . $ingredient['unit'] . " " . $ingredient['name'] . "</li>";
+                        echo "<li>" . $ingredient['quantity'] . " " . $ingredient['unit']['value'] . " " . $ingredient['name'] . "</li>";
                     }
                     ?>
                 </ul>

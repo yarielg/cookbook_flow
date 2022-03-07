@@ -61,6 +61,9 @@ class Ajax{
 	    add_action( 'wp_ajax_get_countries', array($this, 'getCountries') );
 	    add_action( 'wp_ajax_nopriv_get_countries', array($this, 'getCountries') );
 
+	    add_action( 'wp_ajax_get_units', array($this, 'getUnits') );
+	    add_action( 'wp_ajax_nopriv_get_units', array($this, 'getUnits') );
+
 	    /**
 	     * Share Recipe by email
 	     */
@@ -482,7 +485,7 @@ class Ajax{
                 'key' => $cont++,
                 'name' => $ingredient['name'],
                 'quantity' => $ingredient['quantity'],
-                'unit' => $ingredient['unit'],
+                'unit' => $ingredient['unit']['value'],
             ];
         }
 
@@ -748,4 +751,13 @@ class Ajax{
 	    wp_die();
 
     }
+
+	function getUnits(){
+
+		$units = getUnitACF();
+
+		echo json_encode(array('success'=> true , 'units' => $units));
+		wp_die();
+
+	}
 }

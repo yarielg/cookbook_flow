@@ -47,9 +47,7 @@
 
                             <v-card-text>
                                 <select v-model="ingredient.unit" name="recipe_category" class="form-control" id="recipe_category">
-                                    <option value="oz" selected >oz</option>
-                                    <option value="ml">ml</option>
-                                    <option value="cup">cup</option>
+                                    <option v-for="(name, key) in units" :key="key" :value="key">{{ name }}</option>
                                 </select>
                             </v-card-text>
 
@@ -89,6 +87,7 @@
 </template>
 
 <script>
+    const axios = require('axios');
     export default {
         props:['dialogIngredient','ingredients'],
         computed:{
@@ -103,6 +102,7 @@
             return {
               //  dialog: false,
                 valid:false,
+                units:[],
                 nameRules: [
                     v => !!v || 'Name is required',
                 ],
@@ -115,7 +115,7 @@
             }
         },
         created(){
-
+            this.getUnits();
         },
         methods:{
             closeDialog(){
@@ -126,6 +126,20 @@
             },
             addIngredient(key){
                 this.$emit('addIngredient',key);
+            },
+            getUnits(){
+                const formData = new FormData();
+                formData.append('action', 'get_units');
+                this.loading = true;
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            this.units =  response.data.units;
+                        }else{
+                            toastr.warning('We could not get the recipe units', 'Error');
+                        }
+                        this.loading = false;
+                    });
             }
         }
 
