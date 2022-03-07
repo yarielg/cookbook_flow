@@ -26,8 +26,6 @@ if( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php') ){
 //Change WRPL for plugin's initials
 define('CBF_TEST_ENV', 1);
 
-
-
 define('CBF_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define('CBF_PLUGIN_URL' , plugin_dir_url(  __FILE__  ) );
 define('CBF_ADMIN_URL' , get_admin_url() );

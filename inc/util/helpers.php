@@ -203,6 +203,14 @@ function getCountriesACF(){
 	return count($result) > 0 ? unserialize($result[0]->post_content)['choices'] : [];
 }
 
+function getUnitACF(){
+	global $wpdb;
+
+	$result = $wpdb->get_results("SELECT post_content FROM $wpdb->prefix" . "posts WHERE post_excerpt='unit' AND post_type='acf-field' LIMIT 1", OBJECT);
+
+	return count($result) > 0 ? unserialize($result[0]->post_content)['choices'] : [];
+}
+
 function getCollaboratorsByOwnerId($id){
     global $wpdb;
 
