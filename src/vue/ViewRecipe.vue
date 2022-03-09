@@ -68,14 +68,20 @@
                     <h2>{{ country_name }}</h2>
                 </div>
 
-                <div class="section-info" v-if="ingredients.length > 0">
+                <!--<div class="section-info" v-if="ingredients.length > 0">
                     <label class="label-info-header" for="">INGREDIENTS</label>
                     <ul>
                         <li v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity">
                             <h5>{{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</h5>
                         </li>
                     </ul>
+                </div>-->
+
+                <div v-if="ingredients !== '<p><br></p>'" class="section-info">
+                    <label class="label-info-header" for="">RECIPE INGREDIENTS</label>
+                    <div v-html="ingredients"></div>
                 </div>
+
                 <div v-if="instructions !== '<p><br></p>'" class="section-info">
                     <label class="label-info-header" for="">INSTRUCTIONS</label>
                     <div v-html="instructions"></div>
@@ -118,8 +124,8 @@
                 title: '',
                 url:'',
                 share:false,
-                ingredients:[
-                ],
+                //ingredients:[],
+                ingredients:'',
                 instructions:'',
                 story:'',
                 featured_image:'',

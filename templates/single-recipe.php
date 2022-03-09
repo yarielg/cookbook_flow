@@ -16,7 +16,8 @@ $recipe_id = get_the_id();
 $term_obj_list = get_the_terms( $recipe_id, 'cat_recipe' );
 $images = get_field( 'cbf_photos', $recipe_id );
 $category = $term_obj_list ? $term_obj_list[0]->name : '';
-$ingredients = get_field( 'cbf_ingredients',$recipe_id );
+//$ingredients = get_field( 'cbf_ingredients',$recipe_id );
+$ingredients = get_field( 'cbf_ingredients_text',$recipe_id );
 $story = get_field( 'story',$recipe_id );
 $featured = getFeaturedImageRecipe($images);
 
@@ -38,13 +39,16 @@ $featured = getFeaturedImageRecipe($images);
             <br><br>
             <div class="info-div">
                 <label for=""><strong>INGREDIENTS</strong></label>
-                <ul class="recipe_ingredients">
+                <!--<ul class="recipe_ingredients">
                     <?php
-                    foreach ($ingredients as $ingredient){
+/*                    foreach ($ingredients as $ingredient){
                         echo "<li>" . $ingredient['quantity'] . " " . $ingredient['unit']['value'] . " " . $ingredient['name'] . "</li>";
                     }
-                    ?>
-                </ul>
+                    */?>
+                </ul>-->
+	            <?php
+	            echo $ingredients;
+	            ?>
             </div>
 
             <div class="info-div mt-3">

@@ -68,8 +68,9 @@
             <ol class="ingredients_list pt-5 ml-2">
                <li :class="title !== '' ? 'completed' : ''"><span :class="title !== '' ? 'icon_32' : ''"></span> <span >Give it a title</span></li>
                <li :class="category > 0 ? 'completed' : ''"><span :class="category > 0 ? 'icon_32' : ''"></span> <span >Select a category</span></li>
-               <li :class="ingredients.length !== 0 ? 'completed' : ''"><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>
-               <li :class="!isQuillEmpty()  ? 'completed' : ''"><span :class="!isQuillEmpty()  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
+               <!--<li :class="ingredients.length !== 0 ? 'completed' : ''"><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>-->
+               <li :class="!isQuillEmpty(editorIngredients)  ? 'completed' : ''"><span :class="!isQuillEmpty(editorIngredients)  ? 'icon_32' : ''"></span> <span >Add Ingredients</span></li>
+               <li :class="!isQuillEmpty(editor)  ? 'completed' : ''"><span :class="!isQuillEmpty(editor)  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
                <li :class="photos.length !== 0 ? 'completed' : ''"><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
             </ol>
          </div>
@@ -101,7 +102,7 @@
                   </select>
                </div>
 
-               <div class="form-group">
+               <!--<div class="form-group">
                   <label>RECIPE INGREDIENTS</label>
                   <ul>
                      <li v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity"> {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</li>
@@ -109,14 +110,19 @@
                   <div @click="dialogIngredient = true" class="ingredients_action">
                      Click to start adding recipe ingredients
                   </div>
-               </div>
+               </div>-->
 
-               <ingredient-dialog @addIngredient="addIngredientHandler"
+               <!--<ingredient-dialog @addIngredient="addIngredientHandler"
                                   @removeIngredient="removeIngredientHandler"
                                   @closeDialog="closeIngredientDialogHandler()"
                                   :dialogIngredient="dialogIngredient"
                                   :ingredients="ingredients">
-               </ingredient-dialog>
+               </ingredient-dialog>-->
+
+               <div class="form-group">
+                  <label for="">INGREDIENTS</label>
+                  <div id="editor_ingredients" ref="editorIngredients"></div>
+               </div>
 
 
                <div class="form-group">
@@ -178,12 +184,13 @@
             return {
                loading:false,
                new_cookbook: '',
-               dialogIngredient: false,
+               //dialogIngredient: false,
                dialogMedia: false,
                current_image: null,
                image_placeholder: '',
                editor: null,
                editorStory: null,
+               editorIngredients: null,
                categories:[],
                countries:[],
                status: 'Publish',
@@ -191,10 +198,10 @@
                country: -1,
                title: '',
                photo_update: false,
-               ingredients:[
-               ],
+               //ingredients:[],
                instructions:'',
                story: '',
+               ingredients: '',
                photos:[],
                cookbooks_ids: [],
                cookbooks:[],
@@ -212,11 +219,13 @@
         },
         setDefaults(){
           this.title = "";
-          this.ingredients = [];
+          //this.ingredients = [];
+          this.ingredients = '';
           this.instructions = '';
           this.story = '';
           this.editor = '';
           this.editorStory = '';
+          this.editorIngredients = '';
           this.photos = [];
           this.category = -1;
           this.current_image =  null;
@@ -247,7 +256,7 @@
                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
                    ['blockquote'],
 
-                            // custom button values
+                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                    // text direction
 
                    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
@@ -265,7 +274,25 @@
                 toolbar: [
                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
                    ['blockquote'],
+                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                   // custom button values
+                   // text direction
 
+                   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+
+                   [{ 'font': [] }],                                      // remove formatting button
+                ]
+             },
+             placeholder: '',
+             theme: 'snow'
+          };
+
+          var ingredientsOptions = {
+             modules: {
+                toolbar: [
+                   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                   ['blockquote'],
+                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                    // custom button values
                    // text direction
 
@@ -280,6 +307,7 @@
 
           this.editor = new Quill('#editor_instructions', options);
           this.editorStory = new Quill('#editor_story', storyOptions);
+          this.editorIngredients = new Quill('#editor_ingredients', ingredientsOptions);
 
        },
         methods:{
@@ -320,12 +348,12 @@
               this.dialogIngredient = false;
            },
            checkForm(){
-              if(parseInt(this.category) !== -1 && this.title !== '' && !this.isQuillEmpty() && this.ingredients.length > 0 && this.photos.length > 0 ){
+              if(parseInt(this.category) !== -1 && this.title !== '' && !this.isQuillEmpty(this.editor) && !this.isQuillEmpty(this.editorIngredients) && this.photos.length > 0 ){
                  return true;
               }
               return false;
            },
-           removeIngredientHandler(key){
+           /*removeIngredientHandler(key){
               this.ingredients = this.ingredients.filter(function( ingredient ) {
                  return ingredient.key !== key;
               });
@@ -341,7 +369,7 @@
                          unit: 'oz'
                       }
               );
-           },
+           },*/
            addRecipe(status, type){
               if(type === 'new' && this.new_cookbook === ''){
                  toastr.error('You must define a valid cookbook name', 'Error');
@@ -354,7 +382,8 @@
                  formData.append('title', this.title);
                  formData.append('instructions',this.editor.root.innerHTML.trim());
                  formData.append('story',this.editorStory.root.innerHTML.trim());
-                 formData.append('ingredients', JSON.stringify(this.ingredients));
+                 //formData.append('ingredients', JSON.stringify(this.ingredients));
+                 formData.append('ingredients', this.editorIngredients.root.innerHTML.trim());
                  formData.append('author_id', parameters.owner.ID);
                  formData.append('photos', JSON.stringify(this.photos));
                  formData.append('status', status);
@@ -485,10 +514,10 @@
                  }
               }
            },
-           isQuillEmpty() {
-              if(this.editor){
-                 if ((this.editor.getContents()['ops'] || []).length !== 1) { return false }
-                 return this.editor.getText().trim().length === 0
+           isQuillEmpty(editor) {
+              if(editor){
+                 if ((editor.getContents()['ops'] || []).length !== 1) { return false }
+                 return editor.getText().trim().length === 0
               }else{
                  return false;
               }
@@ -555,8 +584,8 @@
                             this.country =  response.data.recipe.country;
                             this.title = response.data.recipe.post_title;
                             this.status = response.data.recipe.post_status;
-                            this.ingredients = response.data.recipe.ingredients;
                             this.photos = response.data.recipe.photos;
+                            this.editorIngredients.root.innerHTML = response.data.recipe.ingredients;
                             this.editor.root.innerHTML = response.data.recipe.post_content;
                             this.editorStory.root.innerHTML = response.data.recipe.story;
 
