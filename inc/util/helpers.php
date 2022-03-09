@@ -428,12 +428,13 @@ function cbf_append_xml_files($zip, $cookbook_id){
         $recipe_node->appendChild($category_node);
 
         //Ingredients
-        $ingredients_node = $dom->createElement('ingredients');
+	    $ingredients = get_field( 'cbf_ingredients_text',$recipe['ID'] );
+        $ingredients_node = $dom->createElement('ingredients',"![CDATA" . $ingredients . ']]');
 
-        $ingredients = get_field( 'cbf_ingredients',$recipe['ID'] );
+
        // var_dump($ingredients);exit;
 
-        if(is_array($ingredients) && count($ingredients) > 0){
+        /*if(is_array($ingredients) && count($ingredients) > 0){
             foreach ($ingredients as $ingredient){
                 $ingredient_node = $dom->createElement('ingredient');
 
@@ -448,7 +449,7 @@ function cbf_append_xml_files($zip, $cookbook_id){
 
                 $ingredients_node->appendChild($ingredient_node);
             }
-        }
+        }*/
 
         $recipe_node->appendChild($ingredients_node);
 
