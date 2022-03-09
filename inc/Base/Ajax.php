@@ -488,13 +488,13 @@ class Ajax{
             ];
         }*/
 
-        $recipe->story = get_field('story', $id);
+        $recipe->story = str_replace("\n","",get_field('story', $id));
 
         $recipe->country = get_field('country_recipe', $id) ? get_field('country_recipe', $id)['value'] : -1;
         $recipe->country_name = get_field('country_recipe', $id) ? get_field('country_recipe', $id)['label'] : '';
 
         //$recipe->ingredients = $ingredients;
-        $recipe->ingredients = get_field('cbf_ingredients_text', $id);
+        $recipe->ingredients = str_replace("\n","",get_field('cbf_ingredients_text', $id));
         $recipe->post_status  = ucfirst($recipe->post_status);
 
         $term_obj_list = get_the_terms( $id, 'cat_recipe' );
