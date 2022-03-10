@@ -25,7 +25,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/rcp/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rcp/login.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +139,7 @@
       <workItem from="1646489380479" duration="45000" />
       <workItem from="1646662627489" duration="3576000" />
       <workItem from="1646675540930" duration="1195000" />
-      <workItem from="1646745349444" duration="7407000" />
+      <workItem from="1646745349444" duration="7715000" />
     </task>
     <servers />
   </component>

@@ -56,11 +56,12 @@ global $rcp_login_form_args; ?>
                                 <input type="hidden" name="rcp_redirect" value="<?php echo esc_url( $rcp_login_form_args['redirect'] ); ?>"/>
                                 <input type="hidden" name="rcp_login_nonce" value="<?php echo wp_create_nonce( 'rcp-login-nonce' ); ?>"/>
                                 <input id="rcp_login_submit" class="btn-normal" type="submit" value="<?php esc_attr_e( 'Login', 'rcp' ); ?>"/>
-                                <a href="/my-account/lost-password/">Lost your password?</a>
-                                <br>
-                                <div class="signup  -section">
+
+                                <div class="signup-section">
                                     Don’t have an account?
                                     <a href="<?php echo get_permalink('5'); ?>">Sign Up</a>
+                                    <br>
+                                    <a href="/my-account/lost-password/">Lost your password?</a>
                                 </div>
                             </div>
                             <?php do_action( 'rcp_login_form_fields_after_submit' ); ?>
