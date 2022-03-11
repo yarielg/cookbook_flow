@@ -60,6 +60,8 @@ global $rcp_login_form_args; ?>
                                 <div class="signup-section">
                                     Don’t have an account?
                                     <a href="<?php echo get_permalink('5'); ?>">Sign Up</a>
+                                    <br>
+                                    <a href="/my-account/lost-password/">Lost your password?</a>
                                 </div>
                             </div>
                             <?php do_action( 'rcp_login_form_fields_after_submit' ); ?>

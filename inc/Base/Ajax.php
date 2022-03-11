@@ -278,8 +278,9 @@ class Ajax{
     public function addRecipe(){
 
         $cookbooks_ids = !empty($_POST['cookbooks_ids']) ? explode(',',$_POST['cookbooks_ids']) : [];
-        $ingredients = json_decode(str_replace("\\","",$_POST['ingredients']));
-        $photos = json_decode(str_replace("\\","",$_POST['photos']));
+        //$ingredients = json_decode(str_replace("\\","",$_POST['ingredients']));
+	    $ingredients = str_replace('\\','',$_POST['ingredients']);
+	    $photos = json_decode(str_replace("\\","",$_POST['photos']));
         $title = $_POST['title'];
         $category = $_POST['category'];
         $instructions = str_replace('\\','',$_POST['instructions']);
@@ -329,16 +330,14 @@ class Ajax{
             /**
              * Adding/Updating the ingredients to ACF
              */
-            if(count($ingredients) > 0){
+            /*if(count($ingredients) > 0){
                 $ingredients_normalized = cbf_normalize_ingredients($ingredients);
-                // var_dump(update_field( 'cbf_ingredients', $ingredients_normalized,$post_id));exit;
                 update_field( 'cbf_ingredients', [],$post_id);
                 if(!update_field( 'cbf_ingredients', $ingredients_normalized,$post_id)){
                     echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted, error inserting ingredients'));
-                    //   wp_die();
                 }
-
-            }
+            }*/
+	        update_field( 'cbf_ingredients_text', $ingredients, $post_id);
 
             /**
              * Adding/Updating the photos to ACF
@@ -477,7 +476,7 @@ class Ajax{
 
         $recipe->photos = $photos;
 
-        $ingredients_wo_key = get_field( 'cbf_ingredients',$id );
+        /*$ingredients_wo_key = get_field( 'cbf_ingredients',$id );
         $ingredients = [];
         $cont = 1;
         foreach ($ingredients_wo_key as $ingredient){
@@ -487,14 +486,15 @@ class Ajax{
                 'quantity' => $ingredient['quantity'],
                 'unit' => $ingredient['unit']['value'],
             ];
-        }
+        }*/
 
-        $recipe->story = get_field('story', $id);
+        $recipe->story = str_replace("\n","",get_field('story', $id));
 
         $recipe->country = get_field('country_recipe', $id) ? get_field('country_recipe', $id)['value'] : -1;
         $recipe->country_name = get_field('country_recipe', $id) ? get_field('country_recipe', $id)['label'] : '';
 
-        $recipe->ingredients = $ingredients;
+        //$recipe->ingredients = $ingredients;
+        $recipe->ingredients = str_replace("\n","",get_field('cbf_ingredients_text', $id));
         $recipe->post_status  = ucfirst($recipe->post_status);
 
         $term_obj_list = get_the_terms( $id, 'cat_recipe' );
