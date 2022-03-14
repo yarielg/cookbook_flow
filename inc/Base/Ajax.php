@@ -267,8 +267,14 @@ class Ajax{
             'taxonomy' => 'cat_recipe',
             'hide_empty' => false,
         ) );
+		$categories = array();
+        foreach ($terms as $term){
+        	$term->name = str_replace('&amp;', '&', $term->name);
+			array_push($categories, $term);
+        }
 
-        echo json_encode(array('success'=> 'true', 'categories' => $terms));
+
+        echo json_encode(array('success'=> 'true', 'categories' => $categories));
         wp_die();
     }
 
