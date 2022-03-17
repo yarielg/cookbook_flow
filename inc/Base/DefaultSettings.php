@@ -67,11 +67,16 @@ class DefaultSettings
 		    }
 	    });
 
+	    /**
+	     * Change coupon text on checkput page
+	     */
+	    add_filter( 'woocommerce_checkout_coupon_message', array($this, 'cbf_woocommerce_rename_coupon_message_on_checkout') );
 
+    }
 
-	// Hooking up our functions to WordPress filters
-	   // add_filter( 'wp_mail_from_name', array($this, 'cbf_sender_name') );
+    function cbf_woocommerce_rename_coupon_message_on_checkout(){
 
+    	return esc_html__( 'Have a special offer code?', 'woocommerce' ) . ' <a href="#" class="showcoupon">' . esc_html__( 'Click here to enter your code', 'woocommerce' ) . '</a>';
     }
 
 	// Function to change sender name

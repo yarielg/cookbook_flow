@@ -183,6 +183,9 @@ function shareRecipeEmail($email,$data){
 	$headers[] = 'Content-Type: text/html; charset=UTF-8';
 
 	add_filter( 'wp_mail_from_name', function() use ($data){
+		if(empty($data['sender_name'])){
+			return 'The Creative Cookbook';
+		}
 		return $data['sender_name'] . ' via The Creative Cookbook';
 	} );
 

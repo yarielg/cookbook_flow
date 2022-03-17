@@ -506,7 +506,7 @@ class Ajax{
         $term_obj_list = get_the_terms( $id, 'cat_recipe' );
 
         $recipe->category = $term_obj_list ? $term_obj_list[0]->term_id : -1;
-        $recipe->category_name = $term_obj_list  ? $term_obj_list[0]->name : '';
+        $recipe->category_name = $term_obj_list  ? str_replace('&amp;', '&', $term_obj_list[0]->name) : '';
         $recipe->cookbooks_ids = $cookbooks_ids;
         $recipe->cookbooks_selected = getCookbooksFromRecipeId($id);
         $recipe->url = get_permalink($id);
