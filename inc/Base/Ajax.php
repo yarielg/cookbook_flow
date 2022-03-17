@@ -259,7 +259,7 @@ class Ajax{
         wp_die();
     }
 
-    /**
+    /**he
      * Get Recipe Categories
      */
     public function getRecipeCategories(){

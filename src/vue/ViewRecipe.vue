@@ -33,8 +33,9 @@
                 <label for="">Share Options:</label>
                 <br>
                 <div class="share_section row mt-1 text-center">
-                    <div class="col-12 text-center">
-                        <button v-if="status !== 'Draft' && !share" class="btn-normal" @click="postcard_dialog = true">Share By Email</button>
+                    <div class="col-12 text-center"  v-if="status !== 'Draft' && !share">
+                        <button class="btn-normal" @click="postcard_dialog = true">Send a Postcard from the Kitchen</button>
+                        <p>Your recipe will be automatically sent in an email!</p>
                     </div>
                     <postcard-dialog :dashboard="false" :recipe="recipe" @closePostCardDialog="closePostCardDialog" :postcard_dialog="postcard_dialog"></postcard-dialog>
                     <!--<div class="col-12">

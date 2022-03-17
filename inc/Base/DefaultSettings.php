@@ -67,7 +67,17 @@ class DefaultSettings
 		    }
 	    });
 
+
+
+	// Hooking up our functions to WordPress filters
+	    add_filter( 'wp_mail_from_name', array($this, 'cbf_sender_name') );
+
     }
+
+	// Function to change sender name
+	function cbf_sender_name( $original_email_from ) {
+		return "Sender's Name via The Cookbook Creative.";
+	}
 
     function render_cookbook_column_value( $column ) {
         global $post;
