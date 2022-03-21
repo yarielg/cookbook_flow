@@ -26,7 +26,7 @@
   <component name="ChangeListManager">
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rcp/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rcp/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/AddRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddRecipe.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +146,7 @@
       <workItem from="1647278144977" duration="2500000" />
       <workItem from="1647347800298" duration="14963000" />
       <workItem from="1647653805773" duration="1108000" />
-      <workItem from="1647884314552" duration="6855000" />
+      <workItem from="1647884314552" duration="7427000" />
     </task>
     <servers />
   </component>

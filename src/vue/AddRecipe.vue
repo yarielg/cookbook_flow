@@ -54,10 +54,10 @@
                      </v-card>
                   </v-menu>
                </div>
-               <!--<div class="right bar">
+               <div class="right bar">
                   <span class="link_action" @click="goViewRecipe()" >Cancel</span>
                   <button :disabled="!checkForm()" @click="addRecipe(status,'no')" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>
-               </div>-->
+               </div>
             </div>
          </div>
       </div>
@@ -168,8 +168,8 @@
 
             </form>
             <media-dialog @updateImage="editPhoto" :photo_update="photo_update" @addImage="fileChanged" :current_image="current_image" @closeDialog="closeMediaDialog()" :dialogMedia="dialogMedia" :multiple="true" ></media-dialog>
-            <span class="link_action" @click="goViewRecipe()" >Cancel</span>
-            <button :disabled="!checkForm()" @click="addRecipe(status,'no')" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>
+            <!--<span class="link_action" @click="goViewRecipe()" >Cancel</span>
+            <button :disabled="!checkForm()" @click="addRecipe(status,'no')" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>-->
          </div>
       </div>
    </div>
