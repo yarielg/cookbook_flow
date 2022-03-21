@@ -244,7 +244,7 @@ rcp_show_error_messages( 'register' ); ?>
                     </fieldset>
 
 	            <?php if( rcp_has_discounts() ) : ?>
-                    <fieldset class="rcp_discounts_fieldset" style="display: none">
+                    <fieldset class="rcp_discounts_fieldset" <?php echo !$upgrading ? 'style="display: none"' : '' ?>>
                         <p id="rcp_discount_code_wrap">
                             <label for="rcp_discount_code">
 					            <?php _e( 'I have Discount Code', 'rcp' ); ?>
