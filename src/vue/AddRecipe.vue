@@ -54,10 +54,10 @@
                      </v-card>
                   </v-menu>
                </div>
-               <div class="right bar">
+               <!--<div class="right bar">
                   <span class="link_action" @click="goViewRecipe()" >Cancel</span>
                   <button :disabled="!checkForm()" @click="addRecipe(status,'no')" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>
-               </div>
+               </div>-->
             </div>
          </div>
       </div>
@@ -715,5 +715,9 @@
 
    .top-bar-assign{
       z-index: 5555;
+      position: fixed;
+      top: 36px;
+      width: 75%;
+
    }
 </style>

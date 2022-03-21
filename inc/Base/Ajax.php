@@ -31,6 +31,9 @@ class Ajax{
         add_action( 'wp_ajax_get_recipe', array($this, 'getRecipe') );
         add_action( 'wp_ajax_nopriv_get_recipe', array($this, 'getRecipe') );
 
+	    add_action( 'wp_ajax_delete_recipe', array($this, 'deleteRecipe') );
+	    add_action( 'wp_ajax_nopriv_delete_recipe', array($this, 'deleteRecipe') );
+
         add_action( 'wp_ajax_get_cookbook', array($this, 'getCookbookById') );
         add_action( 'wp_ajax_nopriv_get_cookbook', array($this, 'getCookbookById') );
 
@@ -452,6 +455,24 @@ class Ajax{
 
         echo json_encode(array('success'=> 'false', 'msg' => 'The Cookbook could not be inserted', 'id' => $post_id));
         wp_die();
+    }
+
+	/**
+	 * Remove recipe by ID
+	 */
+    function deleteRecipe(){
+	    $id = $_POST['id'];
+
+	    $deleted = wp_delete_post($id);
+
+	    if($deleted){
+		    echo json_encode(array('success'=> 'true', 'msg' => 'The Recipe was deleted'));
+		    wp_die();
+	    }
+
+	    echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe was not deleted'));
+	    wp_die();
+
     }
 
     /**

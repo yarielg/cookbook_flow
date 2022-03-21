@@ -27,7 +27,7 @@
                 </div>
                 <br>
 
-                <span class="action_secondary delete-icon mt-5 pt-5">Delete Recipe</span>
+                <span @click="deleteRecipe" class="action_secondary delete-icon mt-5 pt-5">Delete Recipe</span>
 
                 <br><br><br>
                 <label for="">Share Options:</label>
@@ -223,6 +223,22 @@
 
                 document.body.removeChild(myTemporaryInputElement);
                 toastr.success('Recipe Url copied', 'Copied!');
+            },
+            deleteRecipe(){
+                const formData = new FormData();
+                formData.append('action', 'delete_recipe');
+                formData.append('id', this.edit_mode);
+                this.loading = true;
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            toastr.success('The recipe was deleted', 'Deleted!');
+                            this.$emit('goBack');
+                        }else{
+                            toastr.warning('We could not get the recipe categories', 'Error');
+                        }
+                        this.loading = false;
+                    });
             }
         }
     }

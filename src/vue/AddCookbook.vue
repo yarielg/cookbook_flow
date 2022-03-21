@@ -179,7 +179,7 @@
                 this.$emit('goBack');
             },
             checkForm(){
-                if(this.title !== '' && this.dedication !== '' && this.acknowledgments !== '' && this.introduction !== '' && this.selected_recipes.length > 0 ){
+                if(this.title !== '' && this.selected_recipes.length > 0 ){
                     return true;
                 }
                 return false;
