@@ -27,14 +27,15 @@
                 </div>
                 <br>
 
-                <span class="action_secondary delete-icon mt-5 pt-5">Delete Recipe</span>
+                <span @click="deleteRecipe" class="action_secondary delete-icon mt-5 pt-5">Delete Recipe</span>
 
                 <br><br><br>
                 <label for="">Share Options:</label>
                 <br>
                 <div class="share_section row mt-1 text-center">
-                    <div class="col-12 text-center">
-                        <button v-if="status !== 'Draft' && !share" class="btn-normal" @click="postcard_dialog = true">Share By Email</button>
+                    <div class="col-12 text-center"  v-if="status !== 'Draft' && !share">
+                        <button class="btn-normal" @click="postcard_dialog = true">Send a Postcard from the Kitchen</button>
+                        <p>Your recipe will be automatically sent in an email!</p>
                     </div>
                     <postcard-dialog :dashboard="false" :recipe="recipe" @closePostCardDialog="closePostCardDialog" :postcard_dialog="postcard_dialog"></postcard-dialog>
                     <!--<div class="col-12">
@@ -222,6 +223,22 @@
 
                 document.body.removeChild(myTemporaryInputElement);
                 toastr.success('Recipe Url copied', 'Copied!');
+            },
+            deleteRecipe(){
+                const formData = new FormData();
+                formData.append('action', 'delete_recipe');
+                formData.append('id', this.edit_mode);
+                this.loading = true;
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            toastr.success('The recipe was deleted', 'Deleted!');
+                            this.$emit('goBack');
+                        }else{
+                            toastr.warning('We could not get the recipe categories', 'Error');
+                        }
+                        this.loading = false;
+                    });
             }
         }
     }

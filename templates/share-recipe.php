@@ -112,15 +112,15 @@
 					<td class="container-padding content" align="left" style="padding-left:24px;padding-right:24px;padding-top:12px;padding-bottom:12px;background-color:#ffffff">
                         <img src="<?php echo $image ?>" style="max-width:240px; float: right"/>
 						<br>
-						<div class="title" style="font-family:Helvetica, Arial, sans-serif;font-size:18px;font-weight:600;color:#374550">Hi There,</div>
+						<div class="title" style="font-family:Helvetica, Arial, sans-serif;font-size:18px;font-weight:600;color:#374550">Hi there!</div>
 						<div class="body-text" style="font-family:Helvetica, Arial, sans-serif;font-size:14px;line-height:20px;text-align:left;color:#333333">
                             <p>You have received a postcard.</p>
-                            <p><strong>Name:</strong></p>
-                            <p><?php echo $name ?></p>
+                            <p><strong>To:</strong> <?php echo $name ?></p>
+                            <p><strong>From:</strong> <?php echo $sender_name ?></p>
                             <p><strong>Message:</strong></p>
                             <p><?php echo $message ?></p>
 
-							<p>Please click on the below link to see it</p>
+							<p>Please click on the below!</p>
 
 							<p><strong>Recipe Link: </strong> <a href="<?php echo $link ?>"><?php echo $name ?></a></p>
 

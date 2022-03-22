@@ -59,6 +59,8 @@ class Enqueue{
             	'customer_support_message' => get_field('customer_support_message', 'option'),
             );
 
+           // var_dump($user_data['user']->data->display_name);exit;
+
             wp_localize_script( 'vue-custom-js', 'parameters', ['ajax_url'=> admin_url('admin-ajax.php'), 'plugin_path' => CBF_PLUGIN_URL, 'current_user' =>  $user_data['user'],'user' =>  $user_data['user'], 'account_type' => $user_data['account_type'],'premium' => $user_data['premium'], 'owner' => $user_data['owner'],'data' => $data]);
 
         }

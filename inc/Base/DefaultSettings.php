@@ -67,7 +67,22 @@ class DefaultSettings
 		    }
 	    });
 
+	    /**
+	     * Change coupon text on checkput page
+	     */
+	    add_filter( 'woocommerce_checkout_coupon_message', array($this, 'cbf_woocommerce_rename_coupon_message_on_checkout') );
+
     }
+
+    function cbf_woocommerce_rename_coupon_message_on_checkout(){
+
+    	return esc_html__( 'Have a special offer code?', 'woocommerce' ) . ' <a href="#" class="showcoupon">' . esc_html__( 'Click here to enter your code', 'woocommerce' ) . '</a>';
+    }
+
+	// Function to change sender name
+	function cbf_sender_name( $original_email_from ) {
+		return "The Cookbook Creative.";
+	}
 
     function render_cookbook_column_value( $column ) {
         global $post;

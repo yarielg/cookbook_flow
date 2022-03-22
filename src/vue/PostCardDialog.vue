@@ -68,6 +68,7 @@
             if(this.dashboard){
                 this.getYourRecipes();
             }
+
         },
         computed:{
             modal(){
@@ -107,6 +108,7 @@
                     formData.append('id', this.recipe_obj.ID);
                     formData.append('email', this.share_email);
                     formData.append('name', this.name);
+                    formData.append('sender_name', parameters.user.data.display_name);
                     formData.append('message', this.message);
                     this.loading = true;
                     axios.post(parameters.ajax_url, formData)

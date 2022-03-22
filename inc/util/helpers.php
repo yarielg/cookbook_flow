@@ -180,8 +180,15 @@ function sendCollaboratorInvitation($email,$data){
 function shareRecipeEmail($email,$data){
 	$title   = 'Recipe Shared';
 	$content = memd_template(CBF_PLUGIN_PATH . '/templates/share-recipe.php',$data);
-	$headers = array('Content-Type: text/html; charset=UTF-8');
-	// ...
+	$headers[] = 'Content-Type: text/html; charset=UTF-8';
+
+	add_filter( 'wp_mail_from_name', function() use ($data){
+		if(empty($data['sender_name'])){
+			return 'The Creative Cookbook';
+		}
+		return $data['sender_name'] . ' via The Creative Cookbook';
+	} );
+
 	return wp_mail( $email, $title, $content,$headers);
 }
 
