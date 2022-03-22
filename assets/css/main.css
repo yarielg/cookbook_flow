@@ -1063,8 +1063,14 @@ body.page-template-no_header_footer-php.register-page .box-panel .panel-wrapper 
 body.page-template-no_header_footer-php.register-page .top-section {
     margin-bottom: 20px;
 }
-.stack-login-image {
-    display: none;
+.mobile-class .box-panel {
+    z-index: 9;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+body.page-template-no_header_footer-php .mobile-class .box-panel .panel-wrapper {
+    border-radius: 25px;
+    padding: 30px 15px;
 }
 body.page-template-no_header_footer-php .box-panel .panel-wrapper {
     padding: 0 0px 0 0;
