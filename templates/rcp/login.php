@@ -20,7 +20,7 @@ global $rcp_login_form_args; ?>
 <?php if ( ! is_user_logged_in() ) : ?>
 
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center mobile-class">
             <div class="col-md-6 box-panel">
                 <div class="panel-wrapper login-container">
                 <?php if ( isset( $_GET['password-reset'] ) && 'true' == $_GET['password-reset'] ) { ?>
@@ -38,7 +38,7 @@ global $rcp_login_form_args; ?>
                         <?php do_action( 'rcp_before_login_form_fields' ); ?>
                         <div class="form">
                             <p class="form-group">
-                                <label for="rcp_user_login"><?php _e( 'Username', 'rcp' ); ?></label>
+                                <label for="rcp_user_login"><?php _e( 'Email', 'rcp' ); ?></label>
                                 <input name="rcp_user_login" id="rcp_user_login" class="required form-control" type="text"/>
                             </p>
                             <p class="form-group">

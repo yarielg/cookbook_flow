@@ -119,7 +119,7 @@
                                   :ingredients="ingredients">
                </ingredient-dialog>-->
 
-               <div class="form-group">
+               <div class="form-group"> 
                   <label for="">INGREDIENTS</label>
                   <div id="editor_ingredients" ref="editorIngredients"></div>
                </div>
@@ -168,6 +168,8 @@
 
             </form>
             <media-dialog @updateImage="editPhoto" :photo_update="photo_update" @addImage="fileChanged" :current_image="current_image" @closeDialog="closeMediaDialog()" :dialogMedia="dialogMedia" :multiple="true" ></media-dialog>
+            <!--<span class="link_action" @click="goViewRecipe()" >Cancel</span>
+            <button :disabled="!checkForm()" @click="addRecipe(status,'no')" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>-->
          </div>
       </div>
    </div>
@@ -713,5 +715,9 @@
 
    .top-bar-assign{
       z-index: 5555;
+      position: fixed;
+      top: 36px;
+      width: 75%;
+
    }
 </style>

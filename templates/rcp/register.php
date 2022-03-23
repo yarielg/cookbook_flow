@@ -44,7 +44,7 @@ rcp_show_error_messages( 'register' ); ?>
                     <p id="cbf_login_description" class="description">Organize, edit and share your recipes for free. Or, create your one-of-a-kind cookbook. </p>
                 <?php } else { ?>
                     <h3 class="rcp_header text-center">
-                        <?php echo apply_filters( 'rcp_registration_header_logged_in', $rcp_register_form_atts['logged_in_header'] ); ?>
+                        Upgrade or Renew Your Account
                     </h3>
                     <br>
                 <?php } ?>
@@ -107,6 +107,7 @@ rcp_show_error_messages( 'register' ); ?>
                         </div>
 
                         <?php do_action( 'rcp_after_password_registration_field' ); ?>
+
 
                     <?php } else{
                         $customer = rcp_get_customer_by_user_id( get_current_user_id() );
@@ -178,7 +179,6 @@ rcp_show_error_messages( 'register' ); ?>
 
                         }
                     }
-
                     do_action( 'rcp_before_subscription_form_fields' ); ?>
 
 
@@ -244,7 +244,19 @@ rcp_show_error_messages( 'register' ); ?>
                     </fieldset>
 
 	            <?php if( rcp_has_discounts() ) : ?>
-				    <input type="hidden" id="rcp_discount_code" name="rcp_discount" class="rcp_discount_code" value="<?php echo $code ?>"/>
+                    <fieldset class="rcp_discounts_fieldset" <?php echo !$upgrading ? 'style="display: none"' : '' ?>>
+                        <p id="rcp_discount_code_wrap">
+                            <label for="rcp_discount_code">
+					            <?php _e( 'I have Discount Code', 'rcp' ); ?>
+                                <span class="rcp_discount_valid" style="display: none;"> - <?php _e( 'Valid', 'rcp' ); ?></span>
+                                <span class="rcp_discount_invalid" style="display: none;"> - <?php _e( 'Invalid', 'rcp' ); ?></span>
+                            </label>
+                            <span class="rcp_discount_code_field_wrap">
+				<input type="text" id="rcp_discount_code" name="rcp_discount" class="rcp_discount_code" value="<?php echo isset($_GET['hubspot']) ? $code : '' ?>"/>
+				<button class="rcp_button" id="rcp_apply_discount"><?php _e( 'Apply', 'rcp' ); ?></button>
+			</span>
+                        </p>
+                    </fieldset>
 	            <?php endif; ?>
 
                     <div class="rcp_gateway_fields">
@@ -278,6 +290,7 @@ rcp_show_error_messages( 'register' ); ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
+
 
                     <?php do_action( 'rcp_before_registration_submit_field', $levels ); ?>
 
@@ -322,6 +335,7 @@ if(!$upgrading){
                     $('#rcp_is_premium').val(1);
                     $('#cbf_login_header').text("Let's do this!");
                     $('#cbf_login_description').text("We can't wait to see what you create!");
+                    $('.rcp_discounts_fieldset').css('display', 'block');
 
                 });
 
@@ -339,6 +353,7 @@ if(!$upgrading){
                     $('#rcp_is_premium').val(0);
                     $('#cbf_login_header').text("Food is your love language");
                     $('#cbf_login_description').text("Organize, edit and share your recipes for free. Or, create your one-of-a-kind cookbook.");
+                    $('.rcp_discounts_fieldset').css('display', 'none');
 
                 });
 

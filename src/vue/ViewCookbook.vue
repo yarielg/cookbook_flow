@@ -208,7 +208,7 @@
                 return formatted;
             },
             checkPublish(){
-                if(this.title !== '' && this.dedication !== '' && this.acknowledgments !== '' && this.introduction !== '' && this.front_image !== null && this.back_image !== null){
+                if(this.title){
                     return true;
                 }
                 return false;

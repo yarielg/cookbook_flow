@@ -1051,3 +1051,38 @@ ul.photo_recipe_gallery li.single-image-gallery img{
     font-size: 15px;
     padding:8px
 }
+
+@media screen and (max-width: 767px) {
+body.page-template-no_header_footer-php.register-page .box-panel .panel-wrapper {
+    padding: 30px 15px;
+    row-gap: 40px;
+}
+.panel-wrapper br {
+    display: none;
+}
+body.page-template-no_header_footer-php.register-page .top-section {
+    margin-bottom: 20px;
+}
+.mobile-class .box-panel {
+    z-index: 9;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+body.page-template-no_header_footer-php .mobile-class .box-panel .panel-wrapper {
+    border-radius: 25px;
+    padding: 30px 15px;
+}
+body.page-template-no_header_footer-php .box-panel .panel-wrapper {
+    padding: 0 0px 0 0;
+}
+.panel-wrapper.login-container {
+    text-align: center;
+}
+form#rcp_login_form {
+    text-align: left;
+}
+body.page-template-no_header_footer-php .submit-container {
+    row-gap: 40px;
+    flex-direction: column;
+}
+}

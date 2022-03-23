@@ -31,6 +31,9 @@ class Ajax{
         add_action( 'wp_ajax_get_recipe', array($this, 'getRecipe') );
         add_action( 'wp_ajax_nopriv_get_recipe', array($this, 'getRecipe') );
 
+	    add_action( 'wp_ajax_delete_recipe', array($this, 'deleteRecipe') );
+	    add_action( 'wp_ajax_nopriv_delete_recipe', array($this, 'deleteRecipe') );
+
         add_action( 'wp_ajax_get_cookbook', array($this, 'getCookbookById') );
         add_action( 'wp_ajax_nopriv_get_cookbook', array($this, 'getCookbookById') );
 
@@ -259,7 +262,7 @@ class Ajax{
         wp_die();
     }
 
-    /**
+    /**he
      * Get Recipe Categories
      */
     public function getRecipeCategories(){
@@ -267,8 +270,14 @@ class Ajax{
             'taxonomy' => 'cat_recipe',
             'hide_empty' => false,
         ) );
+		$categories = array();
+        foreach ($terms as $term){
+        	$term->name = str_replace('&amp;', '&', $term->name);
+			array_push($categories, $term);
+        }
 
-        echo json_encode(array('success'=> 'true', 'categories' => $terms));
+
+        echo json_encode(array('success'=> 'true', 'categories' => $categories));
         wp_die();
     }
 
@@ -448,6 +457,24 @@ class Ajax{
         wp_die();
     }
 
+	/**
+	 * Remove recipe by ID
+	 */
+    function deleteRecipe(){
+	    $id = $_POST['id'];
+
+	    $deleted = wp_delete_post($id);
+
+	    if($deleted){
+		    echo json_encode(array('success'=> 'true', 'msg' => 'The Recipe was deleted'));
+		    wp_die();
+	    }
+
+	    echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe was not deleted'));
+	    wp_die();
+
+    }
+
     /**
      * Get a recipe by ID
      */
@@ -500,7 +527,7 @@ class Ajax{
         $term_obj_list = get_the_terms( $id, 'cat_recipe' );
 
         $recipe->category = $term_obj_list ? $term_obj_list[0]->term_id : -1;
-        $recipe->category_name = $term_obj_list  ? $term_obj_list[0]->name : '';
+        $recipe->category_name = $term_obj_list  ? str_replace('&amp;', '&', $term_obj_list[0]->name) : '';
         $recipe->cookbooks_ids = $cookbooks_ids;
         $recipe->cookbooks_selected = getCookbooksFromRecipeId($id);
         $recipe->url = get_permalink($id);
@@ -664,10 +691,11 @@ class Ajax{
 		$email = $_POST['email'];
 		$name = $_POST['name'];
 		$message = $_POST['message'];
+		$sender_name = $_POST['sender_name'];
 
 		$postcard_image = CBF_PLUGIN_URL . 'assets/images/postcard.png';
 
-		$emailed = shareRecipeEmail($email, array('link' => get_permalink($id), 'message' => $message, 'name' => $name, 'image' => $postcard_image));
+		$emailed = shareRecipeEmail($email, array('link' => get_permalink($id), 'message' => $message, 'name' => $name, 'image' => $postcard_image,'sender_name' => $sender_name));
 
 		if($emailed){
 			echo json_encode(array('success'=> true , 'msg' => 'Postcard Shared!', 'image' => $postcard_image));
