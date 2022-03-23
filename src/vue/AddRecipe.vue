@@ -119,7 +119,7 @@
                                   :ingredients="ingredients">
                </ingredient-dialog>-->
 
-               <div class="form-group">
+               <div class="form-group"> 
                   <label for="">INGREDIENTS</label>
                   <div id="editor_ingredients" ref="editorIngredients"></div>
                </div>
