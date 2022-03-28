@@ -492,7 +492,7 @@
              // if (this.uploadedFiles.length > 0) this.uploadedFiles = [];
               if (e.dataTransfer.files.length > 1) {
                  toastr.warning("Only one file can be uploaded at a time..", 'Error');
-                 return''
+                 return;
               }
 
               this.current_image = e.dataTransfer.files[0];
@@ -635,10 +635,6 @@
       font-size: 10px;
    }
 
-   .photo-gallery{
-      display: flex;
-   }
-
    .ingredients_list{
       list-style: none !important;
    }
@@ -676,42 +672,6 @@
       margin-right: 5px !important;
    }
 
-   .media_component {
-      width: 100%;
-      height: auto;
-      margin: 0 auto;
-      border-radius: 5px;
-      border: solid 0.5px #d7d7d7;
-      background-color: var(--white);
-      padding: 115px 13px 46px 14px;
-      max-width: 325px;
-   }
-
-   img.media_placeholder {
-      max-width: 117px;
-      height: auto;
-      margin-bottom: 33px;
-   }
-   
-   .media-placeholder-title {
-      font-family: Montserrat;
-      font-size: 19px;
-      font-weight: normal;
-      color: #758799;
-   }
-
-   .media-placeholder-title strong {
-      text-decoration: underline;
-   }
-
-   .form-group {
-      margin-bottom: 85px;
-   }
-
-   .drop_media_zone{
-      text-align: center;
-      cursor: pointer;
-   }
 
    .top-bar-assign{
       z-index: 5555;

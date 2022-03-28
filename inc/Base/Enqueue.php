@@ -57,6 +57,7 @@ class Enqueue{
             	'first_panel_block' => get_field('right_first_panel_content', 'option'),
             	'second_panel_block' => get_field('right_second_panel_content', 'option'),
             	'customer_support_message' => get_field('customer_support_message', 'option'),
+            	'start_creating_a_cookbook_headline' => get_field('start_creating_a_cookbook_headline', 'option'),
             );
 
            // var_dump($user_data['user']->data->display_name);exit;

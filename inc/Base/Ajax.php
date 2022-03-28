@@ -409,11 +409,17 @@ class Ajax{
      */
     public function addCookbook(){
         $title = $_POST['title'];
+        $author = $_POST['author'];
+
         $acknowledgments = $_POST['acknowledgments'];
+        $introduction_headline = $_POST['introduction_headline'];
         $introduction = $_POST['introduction'];
+        $back_cover_headline = $_POST['back_cover_headline'];
+	    $back_cover_story = $_POST['back_cover_story'];
         $dedication = $_POST['dedication'];
-        //$front = $_POST['front'];
-        $back = $_POST['back'];
+        $front_image = $_POST['front_image'];
+        $introduction_image = $_POST['introduction_image'];
+        $back_image = $_POST['back_image'];
         $author_id = $_POST['author_id'];
         $recipes = $_POST['recipes'];
 
@@ -442,11 +448,17 @@ class Ajax{
 
         }
 
-        $back =  $back > 0 ? update_field( 'back_cover_image', $back,$post_id) : '';
-        //$front =  $front > 0 ? update_field( 'front_cover_image', $front,$post_id) : '';
+        $front_image > 0 ? update_field( 'cbf_front_cover_image', $front_image,$post_id) : '';
+	    $introduction_image > 0 ? update_field( 'cbf_introduction_image', $introduction_image,$post_id) : '';
+	    $back_image > 0 ? update_field( 'cbf_back_cover_image', $back_image,$post_id) : '';
 
         //Updating the ACF related to the new/updated cookbook
+
+        update_field( 'cbf_author_name', $author,$post_id);
         update_field( 'dedication', $dedication,$post_id);
+        update_field( 'cbf_back_cover_headline', $back_cover_headline,$post_id);
+        update_field( 'cbf_back_cover_story', $back_cover_story,$post_id);
+	    update_field( 'cbf_introduction_headline', $introduction_headline,$post_id);
         update_field( 'introduction', $introduction,$post_id);
         update_field( 'acknowledgments', $acknowledgments,$post_id);
 
@@ -555,11 +567,15 @@ class Ajax{
 
         $cookbook = get_post($id);
 
-        $cookbook->front_image = get_field( 'front_cover_image',$id ) ? get_field( 'front_cover_image',$id ) : null;
-        $cookbook->back_image = get_field( 'back_cover_image',$id ) ? get_field( 'back_cover_image',$id ) : null;
+        $cookbook->front_image = get_field( 'cbf_front_cover_image',$id ) ? get_field( 'cbf_front_cover_image',$id ) : -1;
+        $cookbook->introduction_image = get_field( 'cbf_introduction_image',$id ) ? get_field( 'cbf_introduction_image',$id ) : -1;
+        $cookbook->back_image = get_field( 'cbf_back_cover_image',$id ) ? get_field( 'cbf_back_cover_image',$id ) : -1;
+        $cookbook->author =  get_field( 'cbf_author_name',$id );
         $cookbook->dedication =  get_field( 'dedication',$id );
-        $cookbook->acknowledgments = get_field( 'acknowledgments',$id );
+        $cookbook->back_cover_story =  get_field( 'cbf_back_cover_story',$id );
         $cookbook->introduction = get_field( 'introduction',$id );
+        $cookbook->introduction_headline = get_field( 'cbf_introduction_headline',$id );
+        $cookbook->back_cover_headline = get_field( 'cbf_back_cover_headline',$id );
         $cookbook->recipes = get_field( 'recipes',$id );
         $cookbook->selected_recipes = getRecipesFromCookbookId($id);
         $cookbook->state = get_field('state', $id);

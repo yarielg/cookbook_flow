@@ -35,7 +35,6 @@ Vue.component('media-dialog', MediaDialog);
 Vue.component('template-dialog', TemplateDialog);
 Vue.component('postcard-dialog', PostCardDialog);
 
-
 new Vue({
     el: '#vwp-plugin',
     vuetify,
