@@ -69,9 +69,9 @@
                <li :class="title !== '' ? 'completed' : ''"><span :class="title !== '' ? 'icon_32' : ''"></span> <span >Give it a title</span></li>
                <li :class="category > 0 ? 'completed' : ''"><span :class="category > 0 ? 'icon_32' : ''"></span> <span >Select a category</span></li>
                <!--<li :class="ingredients.length !== 0 ? 'completed' : ''"><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>-->
-               <li :class="!isQuillEmpty(editorIngredients)  ? 'completed' : ''"><span :class="!isQuillEmpty(editorIngredients)  ? 'icon_32' : ''"></span> <span >Add Ingredients</span></li>
-               <li :class="!isQuillEmpty(editor)  ? 'completed' : ''"><span :class="!isQuillEmpty(editor)  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
-               <li :class="photos.length !== 0 ? 'completed' : ''"><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
+               <li :class="ingredients !== ''  ? 'completed' : ''"><span :class="ingredients !== ''  ? 'icon_32' : ''"></span> <span >Add Ingredients</span></li>
+               <li :class="instructions !== ''  ? 'completed' : ''"><span :class="instructions !== ''  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
+               <li :class="photos.length !== 0 ? 'completed' : ''"><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Food Photo</span></li>
             </ol>
          </div>
 
@@ -120,14 +120,14 @@
                </ingredient-dialog>-->
 
                <div class="form-group"> 
-                  <label for="">INGREDIENTS</label>
-                  <div id="editor_ingredients" ref="editorIngredients"></div>
+                  <label for="ingredients">INGREDIENTS</label>
+                  <textarea v-model="ingredients" class="form-control" id="ingredients" rows="3"></textarea>
                </div>
 
 
                <div class="form-group">
-                  <label for="">RECIPE INSTRUCTIONS</label>
-                  <div id="editor_instructions" ref="editor"></div>
+                  <label for="instructions">RECIPE INSTRUCTIONS</label>
+                  <textarea v-model="instructions" class="form-control" id="instructions" rows="3"></textarea>
                </div>
 
                <br>
@@ -162,8 +162,8 @@
 
                <br>
                <div class="form-group story">
-                  <label for="">Add your story! (Optional)</label>
-                  <div id="editor_story" ref="editorStory"></div>
+                  <label for="story">Add your story! (Optional)</label>
+                  <textarea v-model="story" class="form-control" id="story" rows="3"></textarea>
                </div>
 
             </form>
@@ -252,7 +252,7 @@
            this.image_placeholder = parameters.plugin_path + '/assets/images/image.png'
        },
        mounted(){
-          var options = {
+         /* var options = {
              modules: {
                 toolbar: [
                    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -269,47 +269,9 @@
              },
              placeholder: '',
              theme: 'snow'
-          };
+          };*/
 
-          var storyOptions = {
-             modules: {
-                toolbar: [
-                   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                   ['blockquote'],
-                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                   // custom button values
-                   // text direction
-
-                   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-
-                   [{ 'font': [] }],                                      // remove formatting button
-                ]
-             },
-             placeholder: '',
-             theme: 'snow'
-          };
-
-          var ingredientsOptions = {
-             modules: {
-                toolbar: [
-                   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                   ['blockquote'],
-                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                   // custom button values
-                   // text direction
-
-                   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-
-                   [{ 'font': [] }],                                      // remove formatting button
-                ]
-             },
-             placeholder: '',
-             theme: 'snow'
-          };
-
-          this.editor = new Quill('#editor_instructions', options);
-          this.editorStory = new Quill('#editor_story', storyOptions);
-          this.editorIngredients = new Quill('#editor_ingredients', ingredientsOptions);
+          //this.editor = new Quill('#editor_instructions', options);
 
        },
         methods:{
@@ -350,7 +312,7 @@
               this.dialogIngredient = false;
            },
            checkForm(){
-              if(parseInt(this.category) !== -1 && this.title !== '' && !this.isQuillEmpty(this.editor) && !this.isQuillEmpty(this.editorIngredients) && this.photos.length > 0 ){
+              if(parseInt(this.category) !== -1 && this.title !== '' && this.instructions !== '' && this.ingredients !=='' && this.photos.length > 0 ){
                  return true;
               }
               return false;
@@ -382,10 +344,10 @@
                  formData.append('action', 'add_recipe');
                  formData.append('category', this.category);
                  formData.append('title', this.title);
-                 formData.append('instructions',this.editor.root.innerHTML.trim());
-                 formData.append('story',this.editorStory.root.innerHTML.trim());
+                 formData.append('instructions',this.instructions);
+                 formData.append('story',this.story);
                  //formData.append('ingredients', JSON.stringify(this.ingredients));
-                 formData.append('ingredients', this.editorIngredients.root.innerHTML.trim());
+                 formData.append('ingredients', this.ingredients);
                  formData.append('author_id', parameters.owner.ID);
                  formData.append('photos', JSON.stringify(this.photos));
                  formData.append('status', status);
@@ -587,9 +549,9 @@
                             this.title = response.data.recipe.post_title;
                             this.status = response.data.recipe.post_status;
                             this.photos = response.data.recipe.photos;
-                            this.editorIngredients.root.innerHTML = response.data.recipe.ingredients;
-                            this.editor.root.innerHTML = response.data.recipe.post_content;
-                            this.editorStory.root.innerHTML = response.data.recipe.story;
+                            this.ingredients = response.data.recipe.ingredients;
+                            this.instructions = response.data.recipe.post_content;
+                            this.story = response.data.recipe.story;
 
                             this.status = response.data.recipe.post_status;
                             this.cookbooks_ids = response.data.recipe.cookbooks_ids;

@@ -288,12 +288,13 @@ class Ajax{
 
         $cookbooks_ids = !empty($_POST['cookbooks_ids']) ? explode(',',$_POST['cookbooks_ids']) : [];
         //$ingredients = json_decode(str_replace("\\","",$_POST['ingredients']));
-	    $ingredients = str_replace('\\','',$_POST['ingredients']);
+	    $ingredients = $_POST['ingredients'];
+
 	    $photos = json_decode(str_replace("\\","",$_POST['photos']));
         $title = $_POST['title'];
         $category = $_POST['category'];
-        $instructions = str_replace('\\','',$_POST['instructions']);
-        $story = str_replace('\\','',$_POST['story']);
+        $instructions = $_POST['instructions'];
+        $story = $_POST['story'];
         $author_id = $_POST['author_id'];
         $status = strtolower($_POST['status']);
         $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ): -1;
@@ -527,13 +528,15 @@ class Ajax{
             ];
         }*/
 
-        $recipe->story = str_replace("\n","",get_field('story', $id));
+	    //$recipe->post_content = str_replace("\r\n", '<br>', $recipe->post_content);
+
+        $recipe->story = get_field('story', $id);
 
         $recipe->country = get_field('country_recipe', $id) ? get_field('country_recipe', $id)['value'] : -1;
         $recipe->country_name = get_field('country_recipe', $id) ? get_field('country_recipe', $id)['label'] : '';
 
         //$recipe->ingredients = $ingredients;
-        $recipe->ingredients = str_replace("\n","",get_field('cbf_ingredients_text', $id));
+        $recipe->ingredients = str_replace("\r\n", '<br>', get_field('cbf_ingredients_text', $id));
         $recipe->post_status  = ucfirst($recipe->post_status);
 
         $term_obj_list = get_the_terms( $id, 'cat_recipe' );

@@ -21,10 +21,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="cookbooks.length == 0" class="no-cookbooks">
-                            <h4 class="">
-                                Start creating a cookbook!
-                            </h4>
+                        <div  class="no-cookbooks text-center">
+
                             <br>
                             <div v-html="data.start_creating_a_cookbook_headline" class="start_creating_cookbook">
 

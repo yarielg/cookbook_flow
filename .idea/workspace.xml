@@ -28,14 +28,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/Base/Ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Ajax.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Base/Enqueue.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Enqueue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/AddCookbook.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddCookbook.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vue/AddRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddRecipe.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vue/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/MediaDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/MediaDialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/plugin/vuetify.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/plugin/vuetify.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +152,7 @@
       <workItem from="1647884314552" duration="10991000" />
       <workItem from="1648053278342" duration="19897000" />
       <workItem from="1648310795286" duration="14000" />
-      <workItem from="1648311531116" duration="1694000" />
+      <workItem from="1648311531116" duration="6925000" />
     </task>
     <servers />
   </component>
