@@ -25,10 +25,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Base/Ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Ajax.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/AddRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddRecipe.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vue/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/App.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +148,7 @@
       <workItem from="1647884314552" duration="10991000" />
       <workItem from="1648053278342" duration="19897000" />
       <workItem from="1648310795286" duration="14000" />
-      <workItem from="1648311531116" duration="6925000" />
+      <workItem from="1648311531116" duration="7111000" />
     </task>
     <servers />
   </component>
@@ -226,5 +222,17 @@
     <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/949.-1080.1920.1032/-971.-1088.1920.1032@0.0.1920.1032" timestamp="1646662983437" />
     <state x="-348" y="-857" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@-971.-1080.1920.1032" timestamp="1647567384641" />
     <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@0.0.1920.1032" timestamp="1648473459959" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/vue/App.vue</url>
+          <line>8</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

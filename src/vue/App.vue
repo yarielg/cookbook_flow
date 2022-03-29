@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div  class="no-cookbooks text-center">
+                        <div v-if="cookbooks.length == 0" class="no-cookbooks text-center">
 
                             <br>
                             <div v-html="data.start_creating_a_cookbook_headline" class="start_creating_cookbook">
