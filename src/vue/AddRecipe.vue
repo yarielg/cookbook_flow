@@ -104,13 +104,13 @@
 
                <div class="form-group"> 
                   <label for="ingredients">INGREDIENTS</label>
-                  <textarea v-model="ingredients" class="form-control" id="ingredients" rows="3"></textarea>
+                  <textarea v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
                </div>
 
 
                <div class="form-group">
                   <label for="instructions">RECIPE INSTRUCTIONS</label>
-                  <textarea v-model="instructions" class="form-control" id="instructions" rows="3"></textarea>
+                  <textarea v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
                </div>
 
                <br>
@@ -165,12 +165,12 @@
             <h4>SHARE YOUR STORY (OPTIONAL)</h4>
             <div class="form-group story">
                <label for="headline_story">HEADLINE (Optional)</label>
-               <textarea v-model="headline_story" class="form-control" id="headline_story" rows="3"></textarea>
+               <textarea v-model="headline_story" class="form-control" id="headline_story" rows="5"></textarea>
             </div>
 
             <div class="form-group story">
                <label for="story">ADD YOUR STORY! (Optional)</label>
-               <textarea v-model="story" class="form-control" id="story" rows="3"></textarea>
+               <textarea v-model="story" class="form-control" id="story" rows="5"></textarea>
             </div>
 
             <label>ADD ONE FOOD PHOTO</label>

@@ -40,13 +40,6 @@ $featured = getFeaturedImageRecipe($images);
             <br><br>
             <div class="info-div">
                 <label for=""><strong>INGREDIENTS</strong></label><br>
-                <!--<ul class="recipe_ingredients">
-                    <?php
-/*                    foreach ($ingredients as $ingredient){
-                        echo "<li>" . $ingredient['quantity'] . " " . $ingredient['unit']['value'] . " " . $ingredient['name'] . "</li>";
-                    }
-                    */?>
-                </ul>-->
 	            <?php
 	            echo str_replace("\r\n", '<br>',$ingredients);
 	            ?>
