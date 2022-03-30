@@ -19,6 +19,7 @@ $category = $term_obj_list ? $term_obj_list[0]->name : '';
 //$ingredients = get_field( 'cbf_ingredients',$recipe_id );
 $ingredients = get_field( 'cbf_ingredients_text',$recipe_id );
 $story = get_field( 'story',$recipe_id );
+$instructions = get_field( 'cbf_instructions',$recipe_id );
 $featured = getFeaturedImageRecipe($images);
 
 ?>
@@ -65,9 +66,7 @@ $featured = getFeaturedImageRecipe($images);
             <div class="info-div mr- mt-3">
                 <label for=""><strong>INSTRUCTIONS </strong></label>
                 <div class="instructions-wrapper ml-3">
-                    <?php
-                    the_content();
-                    ?>
+                    <?php echo $instructions ?>
                 </div>
             </div>
         </div>
