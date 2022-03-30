@@ -11,7 +11,7 @@
                         <img :src="image_url" alt="">
                     </v-col>
                     <v-col cols="8">
-                        <div class="form-group">
+                        <div class="form-group" v-show="caption">
                             <label for="caption">CAPTION (optional)</label>
                             <textarea ref="caption" :value="image.caption"  class="form-control" id="caption" rows="3"></textarea>
                         </div>
@@ -39,7 +39,7 @@
 <script>
     export default {
         name: "Upload",
-        props: ['dialogMedia','current_image','photo_update'],
+        props: ['dialogMedia','current_image','photo_update','caption'],
         computed:{
             modal(){
                 return this.dialogMedia;
