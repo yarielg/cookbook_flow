@@ -612,10 +612,15 @@ class Ajax{
         $cookbook->back_image = get_field( 'cbf_back_cover_image',$id ) ? get_field( 'cbf_back_cover_image',$id ) : -1;
         $cookbook->author =  get_field( 'cbf_author_name',$id );
         $cookbook->dedication =  get_field( 'dedication',$id );
+        $cookbook->dedication_transformed =  str_replace("\r\n", '<br>', get_field('dedication', $id));
         $cookbook->back_cover_story =  get_field( 'cbf_back_cover_story',$id );
+        $cookbook->back_cover_story_transformed =  str_replace("\r\n", '<br>', get_field('cbf_back_cover_story', $id));
         $cookbook->introduction = get_field( 'introduction',$id );
+        $cookbook->introduction_transformed = str_replace("\r\n", '<br>', get_field('introduction', $id));
         $cookbook->introduction_headline = get_field( 'cbf_introduction_headline',$id );
+        $cookbook->introduction_headline_transformed = str_replace("\r\n", '<br>', get_field('cbf_introduction_headline', $id));
         $cookbook->back_cover_headline = get_field( 'cbf_back_cover_headline',$id );
+        $cookbook->back_cover_headline_transformed = str_replace("\r\n", '<br>', get_field('cbf_back_cover_headline', $id));
         $cookbook->recipes = get_field( 'recipes',$id );
         $cookbook->selected_recipes = getRecipesFromCookbookId($id);
         $cookbook->state = get_field('state', $id);

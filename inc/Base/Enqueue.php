@@ -51,7 +51,8 @@ class Enqueue{
             wp_enqueue_script('toastr-js', 'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js' ,array(),'1.0', true);
             wp_enqueue_script('quill-js', 'https://cdn.quilljs.com/1.3.6/quill.min.js' ,array(),'1.0', true);
             wp_enqueue_script('mCustomScrollbar-js', CBF_PLUGIN_URL . '/assets/js/jquery.mCustomScrollbar.concat.min.js' ,array(),'1.0', true);
-            wp_enqueue_script('vue-custom-js', CBF_PLUGIN_URL . '/dist/scripts.js' ,array('jquery','toastr-js','quill-js'),'1.0', true);
+            wp_enqueue_script('zoom-js', 'https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js' ,array(),'1.0', true);
+            wp_enqueue_script('vue-custom-js', CBF_PLUGIN_URL . '/dist/scripts.js' ,array('jquery','toastr-js','quill-js','zoom-js'),'1.0', true);
 
             $data = array(
             	'first_panel_block' => get_field('right_first_panel_content', 'option'),

@@ -1,6 +1,10 @@
 <template>
     <div class="container">
         <loading-dialog :loading="loading"></loading-dialog>
+        <form
+                method="post"
+                action=""
+                @submit.prevent="addCookbook()">
         <div class="row">
             <div class="col-10">
                 <v-icon @click="goBack()">
@@ -15,23 +19,13 @@
                 <h4>Create a Cookbook</h4>
                 <hr>
 
-                <div class="img-enlarge-wrapper">
-                    <img :src="front_image.url" alt="">
-                </div>
-                <div class="img-enlarge-wrapper">
-                    <img :src="introduction_image.url" alt="">
-                </div>
-
-                <div class="img-enlarge-wrapper">
-                    <img :src="back_image.url" alt="">
+                <div v-show="front_image.id !== -1" class="img-enlarge-wrapper text-center">
+                    <span>CLICK TO ENLARGE </span><br>
+                    <img data-zoomable="" class="zoomable" :src="front_image.url" alt="">
                 </div>
 
             </div>
             <div class="col-md-8">
-                <form
-                        method="post"
-                        action=""
-                        @submit.prevent="addCookbook()">
 
                     <div class="form-group">
                         <label for="cookbook_title">Title</label>
@@ -62,125 +56,151 @@
                                style="display:none">
                     </div>
 
-                    <div class="form-group">
-                        <label for="dedications_title">Dedications</label>
-                        <textarea v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="introduction_headline">Introduction Headline</label>
-                        <textarea v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
-                    </div>
-
-                    <!--<div class="form-group">
-                        <label for="acknowledgments_title">Acknowledgements</label>
-                        <textarea v-model="acknowledgments" class="form-control" id="acknowledgments_title" rows="3"></textarea>
-                    </div>-->
-
-                    <div class="form-group">
-                        <label for="introduction_title">Introduction</label>
-                        <textarea v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
-                    </div>
-
-                    <label>Add Introduction Page Photo</label>
-                    <div class="media_component">
-                        <div @drop.prevent="onDrop('introduction')"
-                             @dragover.prevent="dragover = true"
-                             @dragenter.prevent="dragover = true"
-                             @dragleave.prevent="dragover = false"
-                             class="drop_media_zone"
-                             @click="launchFilePickerFront('introduction')">
-                            <img class="media_placeholder" :src="image_placeholder" alt="">
-                            <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
-                        </div>
-
-                        <input type="file"
-                               ref="file_introduction"
-                               @change="onFileChange(
-                         $event.target.name, $event.target.files,'introduction')"
-                               style="display:none">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="back_cover_headline">Back Cover Headline</label>
-                        <textarea v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="back_cover_story">Back Cover Story</label>
-                        <textarea v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
-                    </div>
-
-                    <!--<div class="form-group">
-                        <label for="">Front Cover</label>
-                        <v-file-input v-model="front_image" @change="fileChanged(1)"  label="Add an image" />
-                    </div>-->
-
-                    <!--<div v-if="front_image !== null" class="form-group photo-gallery">
-                        <div class="photo-wrapper">
-                            <img class="img-badge"  :src="front_image.url" alt="">
-                            <span :data-photo-id="front_image.id" class="delete_photo_btn" @click="deletePhoto(front_image.id,1)">X</span>
-                        </div>
-                    </div>-->
-
-                    <!--<div class="form-group">
-                        <label for="">Back Cover</label>
-                        <v-file-input v-model="back_image" @change="fileChanged(2)"  label="Add an image" />
-                    </div>-->
-
-                    <!--<div v-if="back_image !== null" class="form-group photo-gallery">
-                        <div class="photo-wrapper">
-                            <img class="img-badge" :src="back_image.url" alt="">
-                            <span :data-photo-id="back_image.id" class="delete_photo_btn" @click="deletePhoto(back_image.id,2)">X</span>
-                        </div>
-                    </div>-->
-
-
-                    <label>Add Back Cover Photo</label>
-                    <div class="media_component">
-                        <div @drop.prevent="onDrop('back')"
-                             @dragover.prevent="dragover = true"
-                             @dragenter.prevent="dragover = true"
-                             @dragleave.prevent="dragover = false"
-                             class="drop_media_zone"
-                             @click="launchFilePickerFront('back')">
-                            <img class="media_placeholder" :src="image_placeholder" alt="">
-                            <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
-                        </div>
-
-                        <input type="file"
-                               ref="file_back"
-                               @change="onFileChange(
-                         $event.target.name, $event.target.files,'back')"
-                               style="display:none">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Add Recipes</label>
-                        <!--<select  v-model="recipe" name="recipe_search" class="form-control" id="recipe_search">
-                            <option value="-1" selected>Select Recipe</option>
-                            <option  v-for="recipe in recipes" :key="recipe.ID" :value="recipe"><img class="recipe_img" :src="recipe.photo_url" alt=""> {{ recipe.post_title }}</option>
-                        </select>-->
-                        <v-combobox
-                                @change="selectRecipe()"
-                                v-model="selected_recipes"
-                                :items="recipes"
-                                item-text="post_title"
-                                item-value="ID"
-                                :search-input.sync="search"
-                                hide-selected
-                                multiple
-                                persistent-hint
-                                close
-                                chips
-                        >
-
-                        </v-combobox>
-                    </div>
-                    <button :disabled="!checkForm()"  type="submit" class="btn-normal">{{ edit_mode > 1 ? 'Save Cookbook' : 'Add Cookbook' }}</button>
-                </form>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-4">
+
+                <div v-show="front_image.id !== -1" class="img-enlarge-wrapper text-center">
+                    <span>CLICK TO ENLARGE </span><br>
+                    <img data-zoomable="" class="zoomable" :src="introduction_image.url" alt="">
+                </div>
+
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="dedications_title">Dedications</label>
+                    <textarea v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="introduction_headline">Introduction Headline</label>
+                    <textarea v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
+                </div>
+
+                <!--<div class="form-group">
+                    <label for="acknowledgments_title">Acknowledgements</label>
+                    <textarea v-model="acknowledgments" class="form-control" id="acknowledgments_title" rows="3"></textarea>
+                </div>-->
+
+                <div class="form-group">
+                    <label for="introduction_title">Introduction</label>
+                    <textarea v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
+                </div>
+
+                <label>Add Introduction Page Photo</label>
+                <div class="media_component">
+                    <div @drop.prevent="onDrop('introduction')"
+                         @dragover.prevent="dragover = true"
+                         @dragenter.prevent="dragover = true"
+                         @dragleave.prevent="dragover = false"
+                         class="drop_media_zone"
+                         @click="launchFilePickerFront('introduction')">
+                        <img class="media_placeholder" :src="image_placeholder" alt="">
+                        <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                    </div>
+
+                    <input type="file"
+                           ref="file_introduction"
+                           @change="onFileChange(
+                         $event.target.name, $event.target.files,'introduction')"
+                           style="display:none">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div v-show="front_image.id !== -1" class="img-enlarge-wrapper text-center">
+                    <span>CLICK TO ENLARGE </span><br>
+                    <img data-zoomable="" class="zoomable" :src="back_image.url" alt="">
+                </div>
+
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="back_cover_headline">Back Cover Headline</label>
+                    <textarea v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="back_cover_story">Back Cover Story</label>
+                    <textarea v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
+                </div>
+
+                <!--<div class="form-group">
+                    <label for="">Front Cover</label>
+                    <v-file-input v-model="front_image" @change="fileChanged(1)"  label="Add an image" />
+                </div>-->
+
+                <!--<div v-if="front_image !== null" class="form-group photo-gallery">
+                    <div class="photo-wrapper">
+                        <img class="img-badge"  :src="front_image.url" alt="">
+                        <span :data-photo-id="front_image.id" class="delete_photo_btn" @click="deletePhoto(front_image.id,1)">X</span>
+                    </div>
+                </div>-->
+
+                <!--<div class="form-group">
+                    <label for="">Back Cover</label>
+                    <v-file-input v-model="back_image" @change="fileChanged(2)"  label="Add an image" />
+                </div>-->
+
+                <!--<div v-if="back_image !== null" class="form-group photo-gallery">
+                    <div class="photo-wrapper">
+                        <img class="img-badge" :src="back_image.url" alt="">
+                        <span :data-photo-id="back_image.id" class="delete_photo_btn" @click="deletePhoto(back_image.id,2)">X</span>
+                    </div>
+                </div>-->
+
+
+                <label>Add Back Cover Photo</label>
+                <div class="media_component">
+                    <div @drop.prevent="onDrop('back')"
+                         @dragover.prevent="dragover = true"
+                         @dragenter.prevent="dragover = true"
+                         @dragleave.prevent="dragover = false"
+                         class="drop_media_zone"
+                         @click="launchFilePickerFront('back')">
+                        <img class="media_placeholder" :src="image_placeholder" alt="">
+                        <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                    </div>
+
+                    <input type="file"
+                           ref="file_back"
+                           @change="onFileChange(
+                         $event.target.name, $event.target.files,'back')"
+                           style="display:none">
+                </div>
+
+                <div class="form-group">
+                    <label>Add Recipes</label>
+                    <!--<select  v-model="recipe" name="recipe_search" class="form-control" id="recipe_search">
+                        <option value="-1" selected>Select Recipe</option>
+                        <option  v-for="recipe in recipes" :key="recipe.ID" :value="recipe"><img class="recipe_img" :src="recipe.photo_url" alt=""> {{ recipe.post_title }}</option>
+                    </select>-->
+                    <v-combobox
+                            @change="selectRecipe()"
+                            v-model="selected_recipes"
+                            :items="recipes"
+                            item-text="post_title"
+                            item-value="ID"
+                            :search-input.sync="search"
+                            hide-selected
+                            multiple
+                            persistent-hint
+                            close
+                            chips
+                    >
+
+                    </v-combobox>
+                </div>
+                <button :disabled="!checkForm()"  type="submit" class="btn-normal">{{ edit_mode > 1 ? 'Save Cookbook' : 'Add Cookbook' }}</button>
+            </div>
+        </div>
+        </form>
         <media-dialog @updateImage="editPhoto" :photo_update="photo_update" @addImage="fileChanged" :current_image="current_image" @closeDialog="closeMediaDialog()" :dialogMedia="dialogMedia" :multiple="true" ></media-dialog>
 
     </div>
@@ -229,6 +249,8 @@
             if(parseFloat(this.edit_mode) > 0){
                 this.getCookbook();
             }
+
+            mediumZoom('.zoomable')
         },
         setDefaults(){
             this.title = "";
@@ -257,7 +279,7 @@
             this.image_placeholder = parameters.plugin_path + '/assets/images/image.png'
         },
         mounted(){
-
+            mediumZoom('.zoomable')
         },
         methods:{
             editPhoto(photo){
@@ -343,7 +365,9 @@
                 return false;
             },
             addCookbook(){
+                console.log('Add Cookbook')
                 if(this.checkForm() ){
+                    console.log('Enter Add Cookbook')
                     const formData = new FormData();
                     formData.append('action', 'add_cookbook');
                     formData.append('title', this.title);
@@ -524,5 +548,10 @@
 
     #input-13{
         border: none !important;
+    }
+
+    .img-enlarge-wrapper{
+        width: 200px;
+        margin-bottom: 30px;
     }
 </style>
