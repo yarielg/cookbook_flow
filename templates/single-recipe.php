@@ -48,7 +48,7 @@ $featured = getFeaturedImageRecipe($images);
                     */?>
                 </ul>-->
 	            <?php
-	            echo $ingredients;
+	            echo str_replace("\r\n", '<br>',$ingredients);
 	            ?>
             </div>
 
@@ -66,7 +66,7 @@ $featured = getFeaturedImageRecipe($images);
             <div class="info-div mr- mt-3">
                 <label for=""><strong>INSTRUCTIONS </strong></label>
                 <div class="instructions-wrapper ml-3">
-                    <?php echo $instructions ?>
+                    <?php echo str_replace("\r\n", '<br>',$instructions) ?>
                 </div>
             </div>
         </div>
