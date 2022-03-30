@@ -39,7 +39,7 @@ $featured = getFeaturedImageRecipe($images);
             <span class="badge badge-secondary"><?php echo $category; ?></span>
             <br><br>
             <div class="info-div">
-                <label for=""><strong>INGREDIENTS</strong></label>
+                <label for=""><strong>INGREDIENTS</strong></label><br>
                 <!--<ul class="recipe_ingredients">
                     <?php
 /*                    foreach ($ingredients as $ingredient){
