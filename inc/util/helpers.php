@@ -401,18 +401,16 @@ function cbf_append_csv_recipes($zip,$cookbook_id){
 			$path_to_add = '';
 			foreach ($images as $image){
 				$path = get_attached_file($image['image']['ID']);
-				$path_array = explode('.',$path);
-				$path_to_add = $image['image']['filename'];
-				$zip->addFile($path,'images/'. $path_to_add);
+				$path_to_add = 'images/'. $image['image']['filename'];
+				$zip->addFile($path, $path_to_add);
 			}
 
 			$images_story = get_field( 'cbf_story_photos',$recipe['ID'] );
 			$path_to_add_story= '';
 			foreach ($images_story as $image){
 				$path_story = get_attached_file($image['image']['ID']);
-				$path_array_story = explode('.',$path_story);
-				$path_to_add_story = $image['image']['filename'];
-				$zip->addFile($path_story,'images/'. $path_to_add_story);
+				$path_to_add_story = 'images/'.  $image['image']['filename'];
+				$zip->addFile($path_story,$path_to_add_story);
 			}
 
 			$data[] = [$category_name,$recipe_title,$path_to_add,$ingredients_transformed,$instructions_transformed,$path_to_add_story,$headline_story_transformed,$story_transformed];
