@@ -137,7 +137,7 @@
 
                <div class="form-group photo-gallery mt-5">
                   <div class="photo-wrapper" v-for="photo in food_photo">
-                     <img @click="updatePhoto(photo)" class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
+                     <img  class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
                      <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id,'food')">X</span>
                      <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>
                   </div>
@@ -173,7 +173,7 @@
                <textarea v-model="story" class="form-control" id="story" rows="5"></textarea>
             </div>
 
-            <label>ADD ONE FOOD PHOTO</label>
+            <label>ADD A PHOTO (OPTIONAL)</label>
             <div class="media_component">
                <div @drop.prevent="onDrop($event)"
                     @dragover.prevent="dragover = true"
@@ -194,7 +194,7 @@
 
             <div class="form-group photo-gallery mt-5">
                <div class="photo-wrapper" v-for="photo in story_photo">
-                  <img @click="updatePhoto(photo)" class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
+                  <img class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
                   <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id,'story')">X</span>
                   <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>
                </div>
@@ -681,4 +681,9 @@
       width: 75%;
 
    }
+
+   textarea.form-control{
+      resize: none;
+   }
+
 </style>

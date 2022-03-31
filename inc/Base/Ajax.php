@@ -79,6 +79,12 @@ class Ajax{
         add_action( 'wp_ajax_generate_xml_files', array($this, 'generate_XML_files') );
         add_action( 'wp_ajax_nopriv_generate_xml_files', array($this, 'generate_XML_files') );
 
+	    /**
+	     * Generate the CSV files
+	     */
+	    add_action( 'wp_ajax_generate_csv_files', array($this, 'generateCsvFiles') );
+	    add_action( 'wp_ajax_nopriv_generate_csv_files', array($this, 'generateCsvFiles') );
+
         /**
          * Send Comment
          */
@@ -128,7 +134,8 @@ class Ajax{
     /**
      * Generate XMl files
      */
-    function generate_XML_files(){
+   // function generate_XML_files(){
+    function generate_XMLDISCOUNTINUED_files(){
 
         $cookbook_id = $_POST['cookbook_id'];
         $order_id = $_POST['order_id'];
@@ -229,6 +236,105 @@ class Ajax{
         }
 
     }
+
+    function generate_XML_files(){
+
+		$cookbook_id = $_POST['cookbook_id'];
+		$order_id = $_POST['order_id'];
+
+	    $order = wc_get_order( $order_id );
+
+		if(get_post_meta($order_id,'zip_file_generated', true)){
+			$zip_file_name = wp_upload_dir()['basedir'] . '/zips/' . get_post_meta($order_id, 'zip_file_name', true);
+			if(file_exists($zip_file_name)){
+				unlink($zip_file_name);
+			}
+
+			update_post_meta($order_id,'zip_file_generated', false);
+		}
+
+		if($cookbook_id){
+
+			$zip = new \ZipArchive();
+
+			$upload_dir = wp_upload_dir();
+
+			$file_name = 'cookbook_' . $cookbook_id . '_'. time() .'.zip';
+
+			$zip_file_name = wp_upload_dir()['basedir'] . '/zips/' . $file_name;
+
+			$file_route = '/zips/'. $file_name;
+
+			$url_file = $upload_dir['baseurl'] . $file_route;
+
+			$zip->open($zip_file_name, \ZipArchive::CREATE);
+
+			//Appending Back cover
+
+			$zip->addEmptyDir('images');
+
+			$back_image = get_field( 'back_cover_image',$cookbook_id ) ? get_field( 'back_cover_image',$cookbook_id ) : null;
+			$front_image = get_field( 'cbf_front_cover_image',$cookbook_id ) ? get_field( 'cbf_front_cover_image',$cookbook_id ) : -1;
+			$introduction_image = get_field( 'cbf_introduction_image',$cookbook_id ) ? get_field( 'cbf_introduction_image',$cookbook_id ) : -1;
+
+			$image_paths = array(
+				'back_image' => '',
+				'front_image' => '',
+				'introduction_image' => '',
+			);
+
+			if($back_image){
+				$path = get_attached_file($back_image['ID']);
+				$path_array = explode('.',$path);
+				$image_paths['back_image'] = $path_to_add = 'images/'.$back_image['filename'] .  '.' . $path_array[1];
+				$zip->addFile($path,$path_to_add);
+			}
+			if($front_image){
+				$path = get_attached_file($front_image['ID']);
+				$path_array = explode('.',$path);
+				$image_paths['front_image'] = $path_to_add = 'images/'.$front_image['filename'] .  '.' . $path_array[1];
+				$zip->addFile($path,$path_to_add);
+			}
+			if($introduction_image){
+				$path = get_attached_file($introduction_image['ID']);
+				$path_array = explode('.',$path);
+				$image_paths['introduction_image'] = $path_to_add = 'images/'.$introduction_image['filename'] . '.' . $path_array[1];
+				$zip->addFile($path,$path_to_add);
+			}
+
+			update_post_meta($order_id,'zip_file_url', $url_file);
+			update_post_meta($order_id,'zip_file_name', $file_name);
+			update_post_meta($order_id,'zip_file_generated', true);
+
+			/**
+			 * Append cookbook csv
+			 */
+			$cookbook_path = cbf_append_csv_files($zip, $cookbook_id, $image_paths,$order);
+			$recipes_path = cbf_append_csv_recipes($zip,$cookbook_id);
+
+			$zip->close();
+
+			/**
+			 * Remove the csv generated previously
+			 */
+			unlink($cookbook_path);
+			unlink($recipes_path);
+
+			if(file_exists($zip_file_name)){
+				echo json_encode(array('success'=> true, 'post' => $_POST));
+				wp_die();
+			}else{
+				echo json_encode(array('success'=> false, 'msg' => 'We could not generate the file.'));
+				wp_die();
+			}
+
+		}else{
+			update_post_meta($order_id,'zip_file_generated', false);
+			echo json_encode(array('success'=> false, 'msg' => 'We are not able to generate the files without a cookbook'));
+			wp_die();
+		}
+
+	}
 
     /**
      * Get the templates from the option plugin page ACF
@@ -438,6 +544,7 @@ class Ajax{
         $back_image = $_POST['back_image'];
         $author_id = $_POST['author_id'];
         $recipes = $_POST['recipes'];
+        $introduction_image_caption = $_POST['introduction_image_caption'];
 
         $recipes = explode(',', $recipes);
 
@@ -462,6 +569,10 @@ class Ajax{
                 'post_title'    => $title,
             ) );
 
+        }
+
+        if(!empty($introduction_image_caption)){
+	        update_field( 'cbf_introduction_image_caption', $introduction_image_caption,$post_id);
         }
 
         $front_image > 0 ? update_field( 'cbf_front_cover_image', $front_image,$post_id) : '';

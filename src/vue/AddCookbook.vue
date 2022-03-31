@@ -201,7 +201,7 @@
             </div>
         </div>
         </form>
-        <media-dialog @updateImage="editPhoto" :photo_update="photo_update" @addImage="fileChanged" :current_image="current_image" @closeDialog="closeMediaDialog()" :dialogMedia="dialogMedia" :multiple="true" ></media-dialog>
+        <media-dialog :caption="caption" @updateImage="editPhoto" :photo_update="photo_update" @addImage="fileChanged" :current_image="current_image" @closeDialog="closeMediaDialog()" :dialogMedia="dialogMedia" :multiple="true" ></media-dialog>
 
     </div>
 
@@ -242,7 +242,9 @@
                 current_image: null,
                 photo_update: false,
                 dialogMedia: false,
-                image_type: ''
+                caption: false,
+                image_type: '',
+                introduction_image_caption: ''
             }
         },
         created(){
@@ -313,6 +315,11 @@
                         this.image_type = type;
                         this.current_image = imageFile;
                         this.dialogMedia = true;
+                        if(this.image_type === 'introduction'){
+                            this.caption = true;
+                        }else{
+                            this.caption = false;
+                        }
                     }
                 }
             },
@@ -384,6 +391,7 @@
                     formData.append('recipes', this.getTheRecipesIDs());
                     formData.append('author_id', parameters.owner.ID);
                     formData.append('edit', this.edit_mode);
+                    formData.append('introduction_image_caption', this.introduction_image_caption);
 
                     this.loading= true;
 
@@ -406,8 +414,8 @@
                     toastr.warning('You have some errors, please correct them.', 'Error');
                 }
             },
-            fileChanged(file){
-                console.log('addImage');
+            fileChanged(image){
+
                 const formData = new FormData();
                 formData.append('action', 'add_photo');
                 formData.append('type', this.image_type);
@@ -427,6 +435,7 @@
                                     id: response.data.image.id,
                                     url: response.data.image.url
                                 }
+                                this.introduction_image_caption = image.caption;
                             }else{
                                 this.back_image = {
                                     id: response.data.image.id,

@@ -338,6 +338,100 @@ function getServicesACF(){
     return  $services;
 }
 
+function cbf_append_csv_files($zip, $cookbook_id,$image_paths, $order){
+
+	$cookbook = get_post($cookbook_id);
+
+	$path_name = $cookbook_id . '-' . time() .'.csv';
+	$csv_file_name = wp_upload_dir()['basedir'] . '/zips/'. $path_name ; //You can give your path to save file.
+
+	$author =  get_field( 'cbf_author_name',$cookbook_id );
+	$image_caption_introduction =  get_field( 'cbf_introduction_image_caption',$cookbook_id );
+	$dedication_transformed =  str_replace("\r\n", '<BREAK>', get_field('dedication', $cookbook_id));
+	$back_cover_story_transformed =  str_replace("\r\n", '<BREAK>', get_field('cbf_back_cover_story', $cookbook_id));
+	$introduction_transformed = str_replace("\r\n", '<BREAK>', get_field('introduction', $cookbook_id));
+	$introduction_headline_transformed = str_replace("\r\n", '<BREAK>', get_field('cbf_introduction_headline', $cookbook_id));
+	$back_cover_headline_transformed = str_replace("\r\n", '<BREAK>', get_field('cbf_back_cover_headline', $cookbook_id));
+
+	$user = $order->get_user();
+
+	$data = [
+		['username', 'email', 'title','author','@fontcoverphoto','year','isbnpaper','isbnhard','libraryofcongresscom','dedication','@introphoto','introcaption','introheadline','introtext','backcoverheadline','backcoverstory','@backcoverphoto'],
+		[$user->user_login,$order->get_billing_email(),$cookbook->post_title, "by " . $author,$image_paths['front_image'], date('Y'),'','','', $dedication_transformed,$image_paths['introduction_image'],$image_caption_introduction, $introduction_headline_transformed,$introduction_transformed,$back_cover_headline_transformed,$back_cover_story_transformed,$image_paths['back_image'] ]
+	];
+
+	$f = fopen($csv_file_name, 'w');
+
+	foreach ($data as $row) {
+		fputcsv($f, $row);
+	}
+
+	//$zip->addFile($csv_file_name ,$cookbook->post_name . '-'. $cookbook->ID . '-' . time() .'.csv');
+	$zip->addFile($csv_file_name ,'cookbook-data.csv');
+
+	return $csv_file_name;
+
+}
+
+function cbf_append_csv_recipes($zip,$cookbook_id){
+
+	$recipes = getRecipesFromCookbookId($cookbook_id);
+	$recipe_images = array();
+
+	$path_name =   'recipe-' . time() .'.csv';
+	$csv_file_name = wp_upload_dir()['basedir'] . '/zips/'. $path_name ; //You can give your path to save file.
+
+	$data = [
+		['recipecategory', 'recipetitle', '@rescipephoto','ingredients','recipeinstructions','@recipestoryphoto','recipestoryheadline','recipestorytext']
+	];
+
+	//Getting images from recipes
+	if(is_array($recipes) && count($recipes) > 0){
+		foreach ($recipes as $recipe){
+			$recipe_obj = get_post($recipe['ID']);
+			$ingredients_transformed = str_replace("\r\n", '<BREAK>', get_field('cbf_ingredients_text', $recipe['ID']));
+			$story_transformed = str_replace("\r\n", '<BREAK>',get_field('story', $recipe['ID']));
+			$instructions_transformed = str_replace("\r\n", '<BREAK>', get_field('cbf_instructions', $recipe['ID']));
+			$headline_story_transformed = str_replace("\r\n", '<BREAK>',get_field('cbf_headline_story', $recipe['ID']));
+			$recipe_title = $recipe_obj->post_title;
+			$term_obj_list = get_the_terms( $recipe['ID'], 'cat_recipe' );
+			$category_name = $term_obj_list  ? str_replace('&amp;', '&', $term_obj_list[0]->name) : '';
+
+			$images = get_field( 'cbf_photos',$recipe['ID'] );
+			$path_to_add = '';
+			foreach ($images as $image){
+				$path = get_attached_file($image['image']['ID']);
+				$path_array = explode('.',$path);
+				$path_to_add = $image['image']['filename'] .  '.' . $path_array[1];
+				$zip->addFile($path,'images/'. $path_to_add);
+			}
+
+			$images_story = get_field( 'cbf_story_photos',$recipe['ID'] );
+			$path_to_add_story= '';
+			foreach ($images_story as $image){
+				$path_story = get_attached_file($image['image']['ID']);
+				$path_array_story = explode('.',$path_story);
+				$path_to_add_story = $image['image']['filename'] .   '.' . $path_array_story[1];
+				$zip->addFile($path_story,'images/'. $path_to_add_story);
+			}
+
+			$data[] = [$category_name,$recipe_title,$path_to_add,$ingredients_transformed,$instructions_transformed,$path_to_add_story,$headline_story_transformed,$story_transformed];
+
+		}
+	}
+
+	$f = fopen($csv_file_name, 'w');
+
+	foreach ($data as $row) {
+		fputcsv($f, $row);
+	}
+
+	$zip->addFile($csv_file_name ,'recipes-data.csv');
+
+	return $csv_file_name;
+
+}
+
 function cbf_append_xml_files($zip, $cookbook_id){
 
     $recipes = getRecipesFromCookbookId($cookbook_id);
