@@ -29,12 +29,12 @@
 
                     <div class="form-group">
                         <label for="cookbook_title">Title</label>
-                        <input v-model="title" type="text" class="form-control" id="cookbook_title">
+                        <input @keydown="onKeyDown($event,title,60)" v-model="title" type="text" class="form-control" id="cookbook_title">
                     </div>
 
                     <div class="form-group">
                         <label for="cookbook_author_name">Author Name</label>
-                        <input v-model="author_name" type="text" class="form-control" id="cookbook_author_name">
+                        <input @keydown="onKeyDown($event,author_name,50)" v-model="author_name" type="text" class="form-control" id="cookbook_author_name">
                     </div>
 
                     <label>Add Front Cover Photo</label>
@@ -72,22 +72,18 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="dedications_title">Dedications</label>
-                    <textarea v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
+                    <textarea @keydown="onKeyDown($event,dedication,2300)"  v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="introduction_headline">Introduction Headline</label>
-                    <textarea v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
+                    <textarea @keydown="onKeyDown($event,introduction_headline,60)" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
                 </div>
 
-                <!--<div class="form-group">
-                    <label for="acknowledgments_title">Acknowledgements</label>
-                    <textarea v-model="acknowledgments" class="form-control" id="acknowledgments_title" rows="3"></textarea>
-                </div>-->
 
                 <div class="form-group">
                     <label for="introduction_title">Introduction</label>
-                    <textarea v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
+                    <textarea @keydown="onKeyDown($event,back_cover_headline,2300)" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
                 </div>
 
                 <label>Add Introduction Page Photo</label>
@@ -123,12 +119,12 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="back_cover_headline">Back Cover Headline</label>
-                    <textarea v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
+                    <textarea @keydown="onKeyDown($event,back_cover_headline,60)" v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="back_cover_story">Back Cover Story</label>
-                    <textarea v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
+                    <textarea @keydown="onKeyDown($event,back_cover_headline,2300)" v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
                 </div>
 
                 <!--<div class="form-group">
@@ -251,7 +247,7 @@
             if(parseFloat(this.edit_mode) > 0){
                 this.getCookbook();
             }
-
+            this.image_placeholder = parameters.plugin_path + '/assets/images/image.png';
             mediumZoom('.zoomable')
         },
         setDefaults(){
@@ -259,7 +255,6 @@
             this.dedication = "";
             this.acknowledgments= "";
             this.introduction= "";
-            //this.front_image = null;
             this.back_image = null;
             this.recipe = null;
             this.search = null;
@@ -278,12 +273,20 @@
             }
         },
         updated(){
-            this.image_placeholder = parameters.plugin_path + '/assets/images/image.png'
+
         },
         mounted(){
             mediumZoom('.zoomable')
         },
         methods:{
+            onKeyDown(evt,element,max){
+                if (element.length >= max) {
+                    if (evt.keyCode >= 48 && evt.keyCode <= 90) {
+                        evt.preventDefault()
+                        return
+                    }
+                }
+            },
             editPhoto(photo){
                 var photoIndex = this.photos.findIndex((obj => obj.id === this.current_image.id));
                 photo.id = this.current_image.id;
@@ -562,5 +565,9 @@
     .img-enlarge-wrapper{
         width: 200px;
         margin-bottom: 30px;
+    }
+
+    textarea.form-control{
+        resize: none;
     }
 </style>
