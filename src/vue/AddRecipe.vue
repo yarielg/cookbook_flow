@@ -83,7 +83,7 @@
 
                <div class="form-group">
                   <label for="recipe_title">Recipe Title</label>
-                  <input v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title">
+                  <input @keydown="onKeyDown($event,title,60)" v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title">
                </div>
 
                <div class="form-group">
@@ -104,13 +104,13 @@
 
                <div class="form-group"> 
                   <label for="ingredients">INGREDIENTS</label>
-                  <textarea v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
+                  <textarea @keydown="onKeyDown($event,ingredients,2300)" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
                </div>
 
 
                <div class="form-group">
                   <label for="instructions">RECIPE INSTRUCTIONS</label>
-                  <textarea v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
+                  <textarea @keydown="onKeyDown($event,instructions,2300)" v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
                </div>
 
                <br>
@@ -165,12 +165,12 @@
             <h4>SHARE YOUR STORY (OPTIONAL)</h4>
             <div class="form-group story">
                <label for="headline_story">HEADLINE (Optional)</label>
-               <textarea v-model="headline_story" class="form-control" id="headline_story" rows="5"></textarea>
+               <textarea @keydown="onKeyDown($event,headline_story,60)" v-model="headline_story" class="form-control" id="headline_story" rows="5"></textarea>
             </div>
 
             <div class="form-group story">
                <label for="story">ADD YOUR STORY! (Optional)</label>
-               <textarea v-model="story" class="form-control" id="story" rows="5"></textarea>
+               <textarea @keydown="onKeyDown($event,story,2300)" v-model="story" class="form-control" id="story" rows="5"></textarea>
             </div>
 
             <label>ADD A PHOTO (OPTIONAL)</label>
@@ -297,6 +297,14 @@
            },
            goBack(){
               this.$emit('goBack');
+           },
+           onKeyDown(evt,element,max){
+              if (element.length >= max) {
+                 if (evt.keyCode >= 48 && evt.keyCode <= 90) {
+                    evt.preventDefault()
+                    return
+                 }
+              }
            },
            launchFilePicker(type){
               if(type === 'food'){
