@@ -77,7 +77,7 @@
 
                 <div class="form-group">
                     <label for="introduction_headline">Introduction Headline</label>
-                    <textarea @keydown="onKeyDown($event,introduction_headline,60)" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
+                    <textarea maxlength="60" @keydown="onKeyDown($event,introduction_headline,60)" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
                 </div>
 
 
