@@ -11,13 +11,16 @@
                         <img :src="image_url" alt="">
                     </v-col>
                     <v-col cols="8">
-                        <div class="form-group">
+                        <div class="form-group" v-show="caption">
                             <label for="caption">CAPTION (optional)</label>
                             <textarea ref="caption" :value="image.caption"  class="form-control" id="caption" rows="3"></textarea>
                         </div>
                         <div class="form-group form-check">
                             <input ref="primary" :checked="image.primary" :value="image.primary"  type="checkbox" class="form-check-input" id="primary_image">
                             <label  for="primary" class="form-check-label">Use as recipe's feature image</label>
+                            <br>
+                            <input ref="owner_rights"  type="checkbox" class="form-check-input" id="owner_rights">
+                            <label  for="owner_rights" class="form-check-label"> I confirm that I own the rights to this image and have permission to publish it.</label>
                         </div>
                     </v-col>
                 </v-row>
@@ -36,7 +39,7 @@
 <script>
     export default {
         name: "Upload",
-        props: ['dialogMedia','current_image','photo_update'],
+        props: ['dialogMedia','current_image','photo_update','caption'],
         computed:{
             modal(){
                 return this.dialogMedia;
@@ -70,14 +73,19 @@
                 this.primary = false;*/
             },
             submit() {
-
-                let image = {
-                    caption: this.$refs.caption.value,
-                    primary: this.$refs.primary.checked,
-                    url: this.image_url
+                if(this.$refs.owner_rights.checked){
+                    let image = {
+                        caption: this.$refs.caption.value,
+                        primary: this.$refs.primary.checked,
+                        url: this.image_url
+                    }
+                    this.setDefaults();
+                    this.$emit('addImage',image);
+                }else{
+                    toastr.warning('You need to have owner rights over this image to use it.', 'Error');
                 }
-                this.setDefaults();
-                this.$emit('addImage',image);
+
+
             },
             submitEdit(){
                 let image = {

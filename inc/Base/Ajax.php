@@ -79,6 +79,12 @@ class Ajax{
         add_action( 'wp_ajax_generate_xml_files', array($this, 'generate_XML_files') );
         add_action( 'wp_ajax_nopriv_generate_xml_files', array($this, 'generate_XML_files') );
 
+	    /**
+	     * Generate the CSV files
+	     */
+	    add_action( 'wp_ajax_generate_csv_files', array($this, 'generateCsvFiles') );
+	    add_action( 'wp_ajax_nopriv_generate_csv_files', array($this, 'generateCsvFiles') );
+
         /**
          * Send Comment
          */
@@ -128,7 +134,8 @@ class Ajax{
     /**
      * Generate XMl files
      */
-    function generate_XML_files(){
+   // function generate_XML_files(){
+    function generate_XMLDISCOUNTINUED_files(){
 
         $cookbook_id = $_POST['cookbook_id'];
         $order_id = $_POST['order_id'];
@@ -230,6 +237,102 @@ class Ajax{
 
     }
 
+    function generate_XML_files(){
+
+		$cookbook_id = $_POST['cookbook_id'];
+		$order_id = $_POST['order_id'];
+
+	    $order = wc_get_order( $order_id );
+
+		if(get_post_meta($order_id,'zip_file_generated', true)){
+			$zip_file_name = wp_upload_dir()['basedir'] . '/zips/' . get_post_meta($order_id, 'zip_file_name', true);
+			if(file_exists($zip_file_name)){
+				unlink($zip_file_name);
+			}
+
+			update_post_meta($order_id,'zip_file_generated', false);
+		}
+
+		if($cookbook_id){
+
+			$zip = new \ZipArchive();
+
+			$upload_dir = wp_upload_dir();
+
+			$file_name = 'cookbook_' . $cookbook_id . '_'. time() .'.zip';
+
+			$zip_file_name = wp_upload_dir()['basedir'] . '/zips/' . $file_name;
+
+			$file_route = '/zips/'. $file_name;
+
+			$url_file = $upload_dir['baseurl'] . $file_route;
+
+			$zip->open($zip_file_name, \ZipArchive::CREATE);
+
+			//Appending Back cover
+
+			$zip->addEmptyDir('images');
+
+			$back_image = get_field( 'back_cover_image',$cookbook_id ) ? get_field( 'back_cover_image',$cookbook_id ) : null;
+			$front_image = get_field( 'cbf_front_cover_image',$cookbook_id ) ? get_field( 'cbf_front_cover_image',$cookbook_id ) : -1;
+			$introduction_image = get_field( 'cbf_introduction_image',$cookbook_id ) ? get_field( 'cbf_introduction_image',$cookbook_id ) : -1;
+
+			$image_paths = array(
+				'back_image' => '',
+				'front_image' => '',
+				'introduction_image' => '',
+			);
+
+			if($back_image){
+				$path = get_attached_file($back_image['ID']);
+				$image_paths['back_image'] = $path_to_add = 'images/'.$back_image['filename'];
+				$zip->addFile($path,$path_to_add);
+			}
+			if($front_image){
+				$path = get_attached_file($front_image['ID']);
+				$image_paths['front_image'] = $path_to_add = 'images/'.$front_image['filename'];
+				$zip->addFile($path,$path_to_add);
+			}
+			if($introduction_image){
+				$path = get_attached_file($introduction_image['ID']);
+				$image_paths['introduction_image'] = $path_to_add = 'images/'.$introduction_image['filename'];
+				$zip->addFile($path,$path_to_add);
+			}
+
+			update_post_meta($order_id,'zip_file_url', $url_file);
+			update_post_meta($order_id,'zip_file_name', $file_name);
+			update_post_meta($order_id,'zip_file_generated', true);
+
+			/**
+			 * Append cookbook csv
+			 */
+			$cookbook_path = cbf_append_csv_files($zip, $cookbook_id, $image_paths,$order);
+			$recipes_path = cbf_append_csv_recipes($zip,$cookbook_id);
+
+			$zip->close();
+
+			/**
+			 * Remove the csv generated previously
+			 */
+			unlink($cookbook_path);
+			unlink($recipes_path);
+
+			if(file_exists($zip_file_name)){
+				echo json_encode(array('success'=> true, 'post' => $_POST));
+				wp_die();
+			}else{
+				echo json_encode(array('success'=> false, 'msg' => 'We could not generate the file.'));
+				wp_die();
+			}
+
+		}else{
+			update_post_meta($order_id,'zip_file_generated', false);
+			echo json_encode(array('success'=> false, 'msg' => 'We are not able to generate the files without a cookbook'));
+			wp_die();
+		}
+
+	}
+
     /**
      * Get the templates from the option plugin page ACF
      */
@@ -288,12 +391,15 @@ class Ajax{
 
         $cookbooks_ids = !empty($_POST['cookbooks_ids']) ? explode(',',$_POST['cookbooks_ids']) : [];
         //$ingredients = json_decode(str_replace("\\","",$_POST['ingredients']));
-	    $ingredients = str_replace('\\','',$_POST['ingredients']);
+	    $ingredients = $_POST['ingredients'];
+
 	    $photos = json_decode(str_replace("\\","",$_POST['photos']));
+	    $story_photos = json_decode(str_replace("\\","",$_POST['story_photos']));
         $title = $_POST['title'];
         $category = $_POST['category'];
-        $instructions = str_replace('\\','',$_POST['instructions']);
-        $story = str_replace('\\','',$_POST['story']);
+        $instructions = $_POST['instructions'];
+        $story = $_POST['story'];
+        $headline_story = $_POST['headline_story'];
         $author_id = $_POST['author_id'];
         $status = strtolower($_POST['status']);
         $post_id = $_POST['edit'] > 0 ? intval($_POST['edit'] ): -1;
@@ -305,7 +411,7 @@ class Ajax{
         if($post_id == -1){
             $post_id  = wp_insert_post( array(
                     'post_title'    => $title ,
-                    'post_content'  => $instructions,
+                    'post_content'  => '',
                     'post_status'   => $status,
                     'post_type'   => 'recipe',
                     'post_author'   => $author_id,
@@ -347,6 +453,7 @@ class Ajax{
                 }
             }*/
 	        update_field( 'cbf_ingredients_text', $ingredients, $post_id);
+	        update_field( 'cbf_instructions', $instructions, $post_id);
 
             /**
              * Adding/Updating the photos to ACF
@@ -362,10 +469,22 @@ class Ajax{
                 }
             }
 
+	        if(count($story_photos) > 0){
+		        $photos = cbf_normalize_photos($story_photos);
+
+		        update_field( 'cbf_story_photos', [],$post_id);
+
+		        if(!update_field( 'cbf_story_photos', $photos,$post_id)){
+			        echo json_encode(array('success'=> 'false', 'msg' => 'The Recipe could not be inserted, error inserting photos'));
+			        wp_die();
+		        }
+	        }
+
             /**
              * Add Story
              */
             update_field( 'story', $story, $post_id);
+            update_field( 'cbf_headline_story', $headline_story, $post_id);
 
 	        /**
 	         * Update/Add country
@@ -409,13 +528,20 @@ class Ajax{
      */
     public function addCookbook(){
         $title = $_POST['title'];
+        $author = $_POST['author'];
+
         $acknowledgments = $_POST['acknowledgments'];
+        $introduction_headline = $_POST['introduction_headline'];
         $introduction = $_POST['introduction'];
+        $back_cover_headline = $_POST['back_cover_headline'];
+	    $back_cover_story = $_POST['back_cover_story'];
         $dedication = $_POST['dedication'];
-        //$front = $_POST['front'];
-        $back = $_POST['back'];
+        $front_image = $_POST['front_image'];
+        $introduction_image = $_POST['introduction_image'];
+        $back_image = $_POST['back_image'];
         $author_id = $_POST['author_id'];
         $recipes = $_POST['recipes'];
+        $introduction_image_caption = $_POST['introduction_image_caption'];
 
         $recipes = explode(',', $recipes);
 
@@ -442,11 +568,21 @@ class Ajax{
 
         }
 
-        $back =  $back > 0 ? update_field( 'back_cover_image', $back,$post_id) : '';
-        //$front =  $front > 0 ? update_field( 'front_cover_image', $front,$post_id) : '';
+        if(!empty($introduction_image_caption)){
+	        update_field( 'cbf_introduction_image_caption', $introduction_image_caption,$post_id);
+        }
+
+        $front_image > 0 ? update_field( 'cbf_front_cover_image', $front_image,$post_id) : '';
+	    $introduction_image > 0 ? update_field( 'cbf_introduction_image', $introduction_image,$post_id) : '';
+	    $back_image > 0 ? update_field( 'cbf_back_cover_image', $back_image,$post_id) : '';
 
         //Updating the ACF related to the new/updated cookbook
+
+        update_field( 'cbf_author_name', $author,$post_id);
         update_field( 'dedication', $dedication,$post_id);
+        update_field( 'cbf_back_cover_headline', $back_cover_headline,$post_id);
+        update_field( 'cbf_back_cover_story', $back_cover_story,$post_id);
+	    update_field( 'cbf_introduction_headline', $introduction_headline,$post_id);
         update_field( 'introduction', $introduction,$post_id);
         update_field( 'acknowledgments', $acknowledgments,$post_id);
 
@@ -501,7 +637,20 @@ class Ajax{
             ];
         }
 
-        $recipe->photos = $photos;
+	    $recipe->photos = $photos;
+
+	    $images = get_field( 'cbf_story_photos',$id );
+	    $story_photos = [];
+	    foreach ($images as $image){
+		    $story_photos[] = [
+			    "id" => $image['image']['id'],
+			    "url" => $image['image']['url'],
+			    "caption" => $image['caption'],
+			    "primary" => $image['primary'],
+		    ];
+	    }
+
+	    $recipe->story_photos = $story_photos;
 
         /*$ingredients_wo_key = get_field( 'cbf_ingredients',$id );
         $ingredients = [];
@@ -515,13 +664,24 @@ class Ajax{
             ];
         }*/
 
-        $recipe->story = str_replace("\n","",get_field('story', $id));
+	    //$recipe->post_content = str_replace("\r\n", '<br>', $recipe->post_content);
+
+        $recipe->story = get_field('story', $id);
+        $recipe->story_transformed = str_replace("\r\n", '<br>',get_field('story', $id));
+
+        $recipe->headline_story = get_field('cbf_headline_story', $id);
+        $recipe->headline_story_transformed = str_replace("\r\n", '<br>',get_field('cbf_headline_story', $id));
 
         $recipe->country = get_field('country_recipe', $id) ? get_field('country_recipe', $id)['value'] : -1;
         $recipe->country_name = get_field('country_recipe', $id) ? get_field('country_recipe', $id)['label'] : '';
 
         //$recipe->ingredients = $ingredients;
-        $recipe->ingredients = str_replace("\n","",get_field('cbf_ingredients_text', $id));
+        $recipe->ingredients_transformed = str_replace("\r\n", '<br>', get_field('cbf_ingredients_text', $id));
+        $recipe->ingredients = get_field('cbf_ingredients_text', $id);
+
+	    $recipe->instructions_transformed = str_replace("\r\n", '<br>', get_field('cbf_instructions', $id));
+	    $recipe->instructions = get_field('cbf_instructions', $id);
+
         $recipe->post_status  = ucfirst($recipe->post_status);
 
         $term_obj_list = get_the_terms( $id, 'cat_recipe' );
@@ -555,11 +715,20 @@ class Ajax{
 
         $cookbook = get_post($id);
 
-        $cookbook->front_image = get_field( 'front_cover_image',$id ) ? get_field( 'front_cover_image',$id ) : null;
-        $cookbook->back_image = get_field( 'back_cover_image',$id ) ? get_field( 'back_cover_image',$id ) : null;
+        $cookbook->front_image = get_field( 'cbf_front_cover_image',$id ) ? get_field( 'cbf_front_cover_image',$id ) : -1;
+        $cookbook->introduction_image = get_field( 'cbf_introduction_image',$id ) ? get_field( 'cbf_introduction_image',$id ) : -1;
+        $cookbook->back_image = get_field( 'cbf_back_cover_image',$id ) ? get_field( 'cbf_back_cover_image',$id ) : -1;
+        $cookbook->author =  get_field( 'cbf_author_name',$id );
         $cookbook->dedication =  get_field( 'dedication',$id );
-        $cookbook->acknowledgments = get_field( 'acknowledgments',$id );
+        $cookbook->dedication_transformed =  str_replace("\r\n", '<br>', get_field('dedication', $id));
+        $cookbook->back_cover_story =  get_field( 'cbf_back_cover_story',$id );
+        $cookbook->back_cover_story_transformed =  str_replace("\r\n", '<br>', get_field('cbf_back_cover_story', $id));
         $cookbook->introduction = get_field( 'introduction',$id );
+        $cookbook->introduction_transformed = str_replace("\r\n", '<br>', get_field('introduction', $id));
+        $cookbook->introduction_headline = get_field( 'cbf_introduction_headline',$id );
+        $cookbook->introduction_headline_transformed = str_replace("\r\n", '<br>', get_field('cbf_introduction_headline', $id));
+        $cookbook->back_cover_headline = get_field( 'cbf_back_cover_headline',$id );
+        $cookbook->back_cover_headline_transformed = str_replace("\r\n", '<br>', get_field('cbf_back_cover_headline', $id));
         $cookbook->recipes = get_field( 'recipes',$id );
         $cookbook->selected_recipes = getRecipesFromCookbookId($id);
         $cookbook->state = get_field('state', $id);

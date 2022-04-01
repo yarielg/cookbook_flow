@@ -69,9 +69,9 @@
                <li :class="title !== '' ? 'completed' : ''"><span :class="title !== '' ? 'icon_32' : ''"></span> <span >Give it a title</span></li>
                <li :class="category > 0 ? 'completed' : ''"><span :class="category > 0 ? 'icon_32' : ''"></span> <span >Select a category</span></li>
                <!--<li :class="ingredients.length !== 0 ? 'completed' : ''"><span :class="ingredients.length !== 0 ? 'icon_32' : ''"></span> <span >Add ingredients</span></li>-->
-               <li :class="!isQuillEmpty(editorIngredients)  ? 'completed' : ''"><span :class="!isQuillEmpty(editorIngredients)  ? 'icon_32' : ''"></span> <span >Add Ingredients</span></li>
-               <li :class="!isQuillEmpty(editor)  ? 'completed' : ''"><span :class="!isQuillEmpty(editor)  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
-               <li :class="photos.length !== 0 ? 'completed' : ''"><span :class="photos.length !== 0 ? 'icon_32' : ''"></span> <span >Add Photo(s)</span></li>
+               <li :class="ingredients !== ''  ? 'completed' : ''"><span :class="ingredients !== ''  ? 'icon_32' : ''"></span> <span >Add Ingredients</span></li>
+               <li :class="instructions !== ''  ? 'completed' : ''"><span :class="instructions !== ''  ? 'icon_32' : ''"></span> <span >Add Instructions</span></li>
+               <li :class="food_photo.length !== 0 ? 'completed' : ''"><span :class="food_photo.length !== 0 ? 'icon_32' : ''"></span> <span >Add Food Photo</span></li>
             </ol>
          </div>
 
@@ -83,7 +83,7 @@
 
                <div class="form-group">
                   <label for="recipe_title">Recipe Title</label>
-                  <input v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title">
+                  <input maxlength="60" @keydown="onKeyDown($event,title,60)" v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title">
                </div>
 
                <div class="form-group">
@@ -102,44 +102,27 @@
                   </select>
                </div>
 
-               <!--<div class="form-group">
-                  <label>RECIPE INGREDIENTS</label>
-                  <ul>
-                     <li v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity"> {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</li>
-                  </ul>
-                  <div @click="dialogIngredient = true" class="ingredients_action">
-                     Click to start adding recipe ingredients
-                  </div>
-               </div>-->
-
-               <!--<ingredient-dialog @addIngredient="addIngredientHandler"
-                                  @removeIngredient="removeIngredientHandler"
-                                  @closeDialog="closeIngredientDialogHandler()"
-                                  :dialogIngredient="dialogIngredient"
-                                  :ingredients="ingredients">
-               </ingredient-dialog>-->
-
                <div class="form-group"> 
-                  <label for="">INGREDIENTS</label>
-                  <div id="editor_ingredients" ref="editorIngredients"></div>
+                  <label for="ingredients">INGREDIENTS</label>
+                  <textarea maxlength="2300" @keydown="onKeyDown($event,ingredients,2300)" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
                </div>
 
 
                <div class="form-group">
-                  <label for="">RECIPE INSTRUCTIONS</label>
-                  <div id="editor_instructions" ref="editor"></div>
+                  <label for="instructions">RECIPE INSTRUCTIONS</label>
+                  <textarea maxlength="2300" @keydown="onKeyDown($event,instructions,2300)" v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
                </div>
 
                <br>
 
-               <label>Add Photos</label>
+               <label>ADD ONE FOOD PHOTO</label>
                <div class="media_component">
                   <div @drop.prevent="onDrop($event)"
                        @dragover.prevent="dragover = true"
                        @dragenter.prevent="dragover = true"
                        @dragleave.prevent="dragover = false"
                        class="drop_media_zone"
-                       @click="launchFilePicker()">
+                       @click="launchFilePicker('food')">
                      <img class="media_placeholder" :src="image_placeholder" alt="">
                      <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
                   </div>
@@ -147,38 +130,83 @@
                   <input type="file"
                          ref="file"
                          @change="onFileChange(
-                         $event.target.name, $event.target.files)"
+                         $event.target.name, $event.target.files, false,'food')"
                          style="display:none">
                </div>
 
 
                <div class="form-group photo-gallery mt-5">
-                  <div class="photo-wrapper" v-for="photo in photos">
-                     <img @click="updatePhoto(photo)" class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
-                     <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id)">X</span>
+                  <div class="photo-wrapper" v-for="photo in food_photo">
+                     <img  class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
+                     <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id,'food')">X</span>
                      <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>
                   </div>
                </div>
 
                <br>
-               <div class="form-group story">
-                  <label for="">Add your story! (Optional)</label>
-                  <div id="editor_story" ref="editorStory"></div>
-               </div>
 
             </form>
-            <media-dialog @updateImage="editPhoto" :photo_update="photo_update" @addImage="fileChanged" :current_image="current_image" @closeDialog="closeMediaDialog()" :dialogMedia="dialogMedia" :multiple="true" ></media-dialog>
-            <!--<span class="link_action" @click="goViewRecipe()" >Cancel</span>
-            <button :disabled="!checkForm()" @click="addRecipe(status,'no')" class="btn-normal">{{ edit_mode > 1 ? 'Save' : 'Add' }}</button>-->
          </div>
       </div>
+      <br>
+
+      <div class="row mt-4">
+         <div class="col-md-3 left-panel recipe_items">
+            <h4 class="pl-7 pt-3 pb-1 mb-0">Share Your Story</h4>
+            <hr>
+            <ol class="ingredients_list pt-5 ml-2">
+               <li :class="headline_story !== '' ? 'completed' : ''"><span :class="headline_story !== '' ? 'icon_32' : ''"></span> <span >Give Your Story a Headline</span></li>
+               <li :class="story !== '' ? 'completed' : ''"><span :class="story !== '' ? 'icon_32' : ''"></span> <span >Share Your Story</span></li>
+               <li :class="story_photo.length !== 0 ? 'completed' : ''"><span :class="story_photo.length !== 0 ? 'icon_32' : ''"></span> <span >Add a Photo</span></li>
+            </ol>
+         </div>
+
+         <div class="col-md-9 main-panel">
+            <h4>SHARE YOUR STORY (OPTIONAL)</h4>
+            <div class="form-group story">
+               <label for="headline_story">HEADLINE (Optional)</label>
+               <textarea maxlength="60" @keydown="onKeyDown($event,headline_story,60)" v-model="headline_story" class="form-control" id="headline_story" rows="5"></textarea>
+            </div>
+
+            <div class="form-group story">
+               <label for="story">ADD YOUR STORY! (Optional)</label>
+               <textarea maxlength="2300" @keydown="onKeyDown($event,story,2300)" v-model="story" class="form-control" id="story" rows="5"></textarea>
+            </div>
+
+            <label>ADD A PHOTO (OPTIONAL)</label>
+            <div class="media_component">
+               <div @drop.prevent="onDrop($event)"
+                    @dragover.prevent="dragover = true"
+                    @dragenter.prevent="dragover = true"
+                    @dragleave.prevent="dragover = false"
+                    class="drop_media_zone"
+                    @click="launchFilePicker('story')">
+                  <img class="media_placeholder" :src="image_placeholder" alt="">
+                  <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+               </div>
+
+               <input type="file"
+                      ref="file_story"
+                      @change="onFileChange(
+                         $event.target.name, $event.target.files, true,'story')"
+                      style="display:none">
+            </div>
+
+            <div class="form-group photo-gallery mt-5">
+               <div class="photo-wrapper" v-for="photo in story_photo">
+                  <img class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
+                  <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id,'story')">X</span>
+                  <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>
+               </div>
+            </div>
+         </div>
+      </div>
+      <media-dialog @updateImage="editPhoto" :caption="caption" :photo_update="photo_update" @addImage="fileChanged" :current_image="current_image" @closeDialog="closeMediaDialog()" :dialogMedia="dialogMedia" :multiple="true" ></media-dialog>
    </div>
 </template>
 
 <script>
    const axios = require('axios');
-
-   //this is not funny...
 
     export default {
         props:['edit_mode'],
@@ -186,7 +214,6 @@
             return {
                loading:false,
                new_cookbook: '',
-               //dialogIngredient: false,
                dialogMedia: false,
                current_image: null,
                image_placeholder: '',
@@ -200,14 +227,17 @@
                country: -1,
                title: '',
                photo_update: false,
-               //ingredients:[],
                instructions:'',
                story: '',
                ingredients: '',
-               photos:[],
+               food_photo:[],
                cookbooks_ids: [],
                cookbooks:[],
                cookbooks_selected: [],
+               caption: false,
+               headline_story: "",
+               story_photo: [],
+               image_type: 'food'
 
             }
         },
@@ -221,14 +251,15 @@
         },
         setDefaults(){
           this.title = "";
-          //this.ingredients = [];
           this.ingredients = '';
           this.instructions = '';
           this.story = '';
+          this.headline_story = '';
           this.editor = '';
           this.editorStory = '';
           this.editorIngredients = '';
-          this.photos = [];
+          this.food_photo = [];
+          this.story_photo = [];
           this.category = -1;
           this.current_image =  null;
           this.status = 'Draft';
@@ -252,64 +283,6 @@
            this.image_placeholder = parameters.plugin_path + '/assets/images/image.png'
        },
        mounted(){
-          var options = {
-             modules: {
-                toolbar: [
-                   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                   ['blockquote'],
-
-                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                   // text direction
-
-                   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-
-                   [{ 'font': [] }],
-
-                ]
-             },
-             placeholder: '',
-             theme: 'snow'
-          };
-
-          var storyOptions = {
-             modules: {
-                toolbar: [
-                   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                   ['blockquote'],
-                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                   // custom button values
-                   // text direction
-
-                   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-
-                   [{ 'font': [] }],                                      // remove formatting button
-                ]
-             },
-             placeholder: '',
-             theme: 'snow'
-          };
-
-          var ingredientsOptions = {
-             modules: {
-                toolbar: [
-                   ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                   ['blockquote'],
-                   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                   // custom button values
-                   // text direction
-
-                   [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-
-                   [{ 'font': [] }],                                      // remove formatting button
-                ]
-             },
-             placeholder: '',
-             theme: 'snow'
-          };
-
-          this.editor = new Quill('#editor_instructions', options);
-          this.editorStory = new Quill('#editor_story', storyOptions);
-          this.editorIngredients = new Quill('#editor_ingredients', ingredientsOptions);
 
        },
         methods:{
@@ -325,8 +298,21 @@
            goBack(){
               this.$emit('goBack');
            },
-           launchFilePicker(){
-              this.$refs.file.click();
+           onKeyDown(evt,element,max){
+              if (element.length >= max) {
+                 if (evt.keyCode >= 48 && evt.keyCode <= 90) {
+                    evt.preventDefault()
+                    return
+                 }
+              }
+           },
+           launchFilePicker(type){
+              if(type === 'food'){
+                 this.$refs.file.click();
+              }else{
+                 this.$refs.file_story.click();
+              }
+
            },
            goViewRecipe(){
               if(this.edit_mode > 0){
@@ -350,7 +336,7 @@
               this.dialogIngredient = false;
            },
            checkForm(){
-              if(parseInt(this.category) !== -1 && this.title !== '' && !this.isQuillEmpty(this.editor) && !this.isQuillEmpty(this.editorIngredients) && this.photos.length > 0 ){
+              if(parseInt(this.category) !== -1 && this.title !== '' && this.instructions !== '' && this.ingredients !=='' && this.food_photo.length > 0 ){
                  return true;
               }
               return false;
@@ -382,12 +368,14 @@
                  formData.append('action', 'add_recipe');
                  formData.append('category', this.category);
                  formData.append('title', this.title);
-                 formData.append('instructions',this.editor.root.innerHTML.trim());
-                 formData.append('story',this.editorStory.root.innerHTML.trim());
+                 formData.append('instructions',this.instructions);
+                 formData.append('story',this.story);
+                 formData.append('headline_story',this.headline_story);
                  //formData.append('ingredients', JSON.stringify(this.ingredients));
-                 formData.append('ingredients', this.editorIngredients.root.innerHTML.trim());
+                 formData.append('ingredients', this.ingredients);
                  formData.append('author_id', parameters.owner.ID);
-                 formData.append('photos', JSON.stringify(this.photos));
+                 formData.append('photos', JSON.stringify(this.food_photo));
+                 formData.append('story_photos', JSON.stringify(this.story_photo));
                  formData.append('status', status);
                  formData.append('cookbooks_ids', this.cookbooks_ids);
                  formData.append('edit', this.edit_mode);
@@ -438,12 +426,21 @@
                  axios.post(parameters.ajax_url, formData)
                    .then( response => {
                       if(response.data.success){
-                         this.photos.push({
-                            id: response.data.image.id,
-                            url: URL.createObjectURL(this.current_image),
-                            caption: image.caption,
-                            primary: image.primary
-                         });
+                         if(this.image_type === 'food'){
+                            this.food_photo = [{
+                               id: response.data.image.id,
+                               url: URL.createObjectURL(this.current_image),
+                               caption: image.caption,
+                               primary: image.primary
+                            }];
+                         }else{
+                            this.story_photo = [{
+                               id: response.data.image.id,
+                               url: URL.createObjectURL(this.current_image),
+                               caption: image.caption,
+                               primary: image.primary
+                            }];
+                         }
 
                          if(image.primary)
                             this.definePrimary(response.data.image.id);
@@ -460,21 +457,21 @@
               }
            },
            editPhoto(photo){
-              var photoIndex = this.photos.findIndex((obj => obj.id === this.current_image.id));
+              /*var photoIndex = this.food_photo.findIndex((obj => obj.id === this.current_image.id));
               photo.id = this.current_image.id;
               photo.url = this.current_image.url;
-              this.photos[photoIndex] = photo;
+              this.food_photo[photoIndex] = photo;
 
               if(photo.primary)
                this.definePrimary(this.current_image.id)
 
               this.photo_update = false;
               this.dialogMedia = false;
-              this.current_image = false;
+              this.current_image = false;*/
 
            },
            definePrimary(id){
-              this.photos.forEach(function(photo){
+              this.food_photo.forEach(function(photo){
                  photo.primary = false;
                  if(photo.id === id){
                     photo.primary = true;
@@ -492,14 +489,14 @@
              // if (this.uploadedFiles.length > 0) this.uploadedFiles = [];
               if (e.dataTransfer.files.length > 1) {
                  toastr.warning("Only one file can be uploaded at a time..", 'Error');
-                 return''
+                 return;
               }
 
               this.current_image = e.dataTransfer.files[0];
               this.dialogMedia = true;
 
            },
-           onFileChange(fieldName, file) {
+           onFileChange(fieldName, file, caption,type) {
               const { maxSize } = this
               let imageFile = file[0];
 
@@ -513,6 +510,8 @@
 
                     this.current_image = imageFile;
                     this.dialogMedia = true;
+                    this.caption = caption;
+                    this.image_type = type;
                  }
               }
            },
@@ -525,10 +524,18 @@
               }
 
            },
-           deletePhoto(photo_id){
-              this.photos = this.photos.filter(function( photo ) {
-                 return photo.id !== photo_id;
-              });
+           deletePhoto(photo_id, type){
+              console.log('Deleting Image')
+              if(type === 'food'){
+                 this.food_photo = this.food_photo.filter(function( photo ) {
+                    return photo.id !== photo_id;
+                 });
+              }else{
+                 this.story_photo = this.story_photo.filter(function( photo ) {
+                    return photo.id !== photo_id;
+                 });
+              }
+
            },
            getCountries(){
               const formData = new FormData();
@@ -586,11 +593,12 @@
                             this.country =  response.data.recipe.country;
                             this.title = response.data.recipe.post_title;
                             this.status = response.data.recipe.post_status;
-                            this.photos = response.data.recipe.photos;
-                            this.editorIngredients.root.innerHTML = response.data.recipe.ingredients;
-                            this.editor.root.innerHTML = response.data.recipe.post_content;
-                            this.editorStory.root.innerHTML = response.data.recipe.story;
-
+                            this.food_photo = response.data.recipe.photos;
+                            this.story_photo = response.data.recipe.story_photos;
+                            this.ingredients = response.data.recipe.ingredients;
+                            this.instructions = response.data.recipe.instructions;
+                            this.story = response.data.recipe.story;
+                            this.headline_story = response.data.recipe.headline_story;
                             this.status = response.data.recipe.post_status;
                             this.cookbooks_ids = response.data.recipe.cookbooks_ids;
 
@@ -633,10 +641,7 @@
       border-radius: 50%;
       color: white;
       font-size: 10px;
-   }
-
-   .photo-gallery{
-      display: flex;
+      cursor: pointer;
    }
 
    .ingredients_list{
@@ -676,42 +681,6 @@
       margin-right: 5px !important;
    }
 
-   .media_component {
-      width: 100%;
-      height: auto;
-      margin: 0 auto;
-      border-radius: 5px;
-      border: solid 0.5px #d7d7d7;
-      background-color: var(--white);
-      padding: 115px 13px 46px 14px;
-      max-width: 325px;
-   }
-
-   img.media_placeholder {
-      max-width: 117px;
-      height: auto;
-      margin-bottom: 33px;
-   }
-   
-   .media-placeholder-title {
-      font-family: Montserrat;
-      font-size: 19px;
-      font-weight: normal;
-      color: #758799;
-   }
-
-   .media-placeholder-title strong {
-      text-decoration: underline;
-   }
-
-   .form-group {
-      margin-bottom: 85px;
-   }
-
-   .drop_media_zone{
-      text-align: center;
-      cursor: pointer;
-   }
 
    .top-bar-assign{
       z-index: 5555;
@@ -720,4 +689,9 @@
       width: 75%;
 
    }
+
+   textarea.form-control{
+      resize: none;
+   }
+
 </style>

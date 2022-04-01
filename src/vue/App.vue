@@ -21,14 +21,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="cookbooks.length == 0" class="no-cookbooks">
-                            <h4 class="">
-                                Start creating a cookbook!
-                            </h4>
+                        <div v-if="cookbooks.length == 0" class="no-cookbooks text-center">
+
                             <br>
-                            <p class="">Nam porttitor blandit accumsan. Ut vel
-                                dictum sem, a pretium dui. In malesuada
-                                enim in dolor euismod,</p>
+                            <div v-html="data.start_creating_a_cookbook_headline" class="start_creating_cookbook">
+
+                            </div>
                             <br>
                             <button class="btn-normal"><a href="/welcome/?screen=add-cookbook">Create a Cookbook</a></button>
                         </div>
@@ -289,5 +287,47 @@
     .trt_loading .v-dialog__container, .trt_loading{
         z-index: 99999999 !important;
     }
+
+    .photo-gallery{
+        display: flex;
+    }
+
+    .media_component {
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 5px;
+        border: solid 0.5px #d7d7d7;
+        background-color: var(--white);
+        padding: 115px 13px 46px 14px;
+        max-width: 325px;
+    }
+
+    img.media_placeholder {
+        max-width: 117px;
+        height: auto;
+        margin-bottom: 33px;
+    }
+    .drop_media_zone{
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .media-placeholder-title {
+        font-family: Montserrat;
+        font-size: 19px;
+        font-weight: normal;
+        color: #758799;
+    }
+
+    .media-placeholder-title strong {
+        text-decoration: underline;
+    }
+
+    .form-group {
+
+    }
+
+
 
 </style>

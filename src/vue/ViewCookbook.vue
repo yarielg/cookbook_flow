@@ -54,28 +54,59 @@
             <div class="col-md-8 main-panel pl-5" >
                 <publish-view v-if="publishing" :cookbook_id="cookbook_id" @goBackToView="goBackToView"></publish-view>
                 <div class="view-cookbook-info" v-if="!publishing">
-                    <div class="row">
-                        <div class="col-md-6" v-if="back_image">
-                            <img :src="back_image.url" alt="">
-                        </div>
-                    </div>
-                    <div class="section-info">
-                        <h2>{{ title }}</h2>
-                    </div>
-                    <div class="section-info" v-if="introduction">
-                        <label class="label-info-header" for="">INTRODUCTION</label>
-                        <p>{{ introduction }}</p>
+
+                    <div class="section-info" v-if="front_image.id !== -1">
+                        <label class="label-info-header" for="">Front Cover Photo</label><br>
+                        <img :src="front_image.url" alt="">
                     </div>
 
-                    <div class="section-info" v-if="acknowledgments">
-                        <label class="label-info-header" for="">ACKNOWLEDGEMENTS</label>
-                        <p>{{ acknowledgments }}</p>
+                    <div class="section-info">
+                        <label class="label-info-header" for="">Title</label>
+                        <p>{{ title }}</p>
+                    </div>
+
+                    <div class="section-info" v-if="author_name">
+                        <label class="label-info-header" for="">Author Name</label>
+                        <p>{{ author_name }}</p>
                     </div>
 
                     <div class="section-info" v-if="dedication">
-                        <label class="label-info-header" for="">DEDICATIONS</label>
-                        <p>{{ dedication }}</p>
+                        <label class="label-info-header" for="">Dedications</label>
+                        <p v-html="dedication"></p>
                     </div>
+
+                    <div class="section-info" v-if="introduction_image.id !== -1">
+                        <label class="label-info-header" for="">Introduction Page Photo</label><br>
+                        <img :src="introduction_image.url" alt="">
+                    </div>
+
+                    <div class="section-info" v-if="introduction_headline">
+                        <label class="label-info-header" for="">Introduction Headline</label>
+                        <p v-html="introduction_headline"></p>
+                    </div>
+
+                    <div class="section-info" v-if="introduction">
+                        <label class="label-info-header" for="">Introduction</label>
+                        <p v-html="introduction"></p>
+                    </div>
+
+
+                    <div class="section-info" v-if="back_image.id !== -1">
+                        <label class="label-info-header" for="">Back Cover  Photo</label><br>
+                        <img :src="back_image.url" alt="">
+                    </div>
+
+                    <div class="section-info" v-if="back_cover_headline">
+                        <label class="label-info-header" for="">Back Cover Headline</label>
+                        <p v-html="back_cover_headline"></p>
+                    </div>
+
+                    <div class="section-info" v-if="back_cover_story">
+                        <label class="label-info-header" for="">Back Cover Story</label>
+                        <p v-html="back_cover_story"></p>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -94,15 +125,28 @@
                 loading: false,
                 state: 1,
                 introduction: '',
+                introduction_headline:'',
                 comments:[],
-                acknowledgments: '',
                 dedication: '',
                 preview_pdf: null,
                 comment: '',
                 data: [],
+                back_cover_story: '',
+                back_cover_headline: '',
                 author_name: '',
                 recipes: [],
-                back_image: null,
+                front_image: {
+                    id: -1,
+                    url: ''
+                },
+                introduction_image: {
+                    id: -1,
+                    url: ''
+                },
+                back_image: {
+                    id: -1,
+                    url: ''
+                },
                 publishing: false,
             }
         },
@@ -143,14 +187,36 @@
                     .then( response => {
                         if(response.data.success){
                             this.title = response.data.cookbook.post_title;
-                            this.dedication = response.data.cookbook.dedication;
-                            this.introduction = response.data.cookbook.introduction;
-                            this.acknowledgments = response.data.cookbook.acknowledgments;
+                            this.author = response.data.cookbook.author;
+                            this.dedication = response.data.cookbook.dedication_transformed;
+                            this.introduction = response.data.cookbook.introduction_transformed;
+                            this.introduction_headline = response.data.cookbook.introduction_headline_transformed;
+                            this.back_cover_headline = response.data.cookbook.back_cover_headline_transformed;
+                            this.back_cover_story = response.data.cookbook.back_cover_story_transformed;
                             this.recipes = response.data.cookbook.selected_recipes;
-                            //this.front_image = response.data.cookbook.front_image;
-                            this.back_image = response.data.cookbook.back_image;
                             this.state = response.data.cookbook.state;
                             this.preview_pdf = response.data.cookbook.preview_pdf;
+
+                            if(response.data.cookbook.front_image !== -1){
+                                this.front_image = {
+                                    id: response.data.cookbook.front_image.id,
+                                    url: response.data.cookbook.front_image.url,
+                                }
+                            }
+
+                            if(response.data.cookbook.back_image !== -1){
+                                this.back_image = {
+                                    id: response.data.cookbook.back_image.id,
+                                    url: response.data.cookbook.back_image.url,
+                                }
+                            }
+
+                            if(response.data.cookbook.introduction_image !== -1){
+                                this.introduction_image = {
+                                    id: response.data.cookbook.introduction_image.id,
+                                    url: response.data.cookbook.introduction_image.url,
+                                }
+                            }
 
                         }else{
                             toastr.warning('We could not get the recipe categories', 'Error');
@@ -215,7 +281,6 @@
             },
             goBackToView(){
                 this.publishing = false;
-                console.log(this.publishing);
             }
         }
     }

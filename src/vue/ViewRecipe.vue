@@ -69,15 +69,6 @@
                     <h2>{{ country_name }}</h2>
                 </div>
 
-                <!--<div class="section-info" v-if="ingredients.length > 0">
-                    <label class="label-info-header" for="">INGREDIENTS</label>
-                    <ul>
-                        <li v-for="ingredient in ingredients" :key="ingredient.key" v-if="ingredient.name && ingredient.unit && ingredient.quantity">
-                            <h5>{{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</h5>
-                        </li>
-                    </ul>
-                </div>-->
-
                 <div v-if="ingredients !== '<p><br></p>'" class="section-info">
                     <label class="label-info-header" for="">RECIPE INGREDIENTS</label>
                     <div v-html="ingredients"></div>
@@ -87,7 +78,7 @@
                     <label class="label-info-header" for="">INSTRUCTIONS</label>
                     <div v-html="instructions"></div>
                 </div>
-                <div class="section-info" v-if="photos.length > 0">
+                <!--<div class="section-info" v-if="photos.length > 0">
                     <vueper-slides
                             class="no-shadow"
                             :visible-slides="3"
@@ -98,8 +89,18 @@
                             :breakpoints="{ 800: { visibleSlides: 2, slideMultiple: 2 } }">
                         <vueper-slide v-for="photo in photos" :key="photo.id" :image="photo.url" />
                     </vueper-slides>
+                </div>-->
+                <br>
+                <h4>Story</h4>
+                <div class="section-info" v-if="story_photos !== ''">
+                    <img class="featured_image" :src="featured_image_story" alt="">
                 </div>
-                <div v-if="story !== '<p><br></p>'" class="section-info">
+                <div v-if="headline_story !== ''" class="section-info">
+                    <label class="label-info-header" for="">HEADLINE STORY</label>
+                    <div v-html="headline_story"></div>
+                </div>
+
+                <div v-if="story !== ''" class="section-info">
                     <label class="label-info-header" for="">RECIPE STORY</label>
                     <div v-html="story"></div>
                 </div>
@@ -129,8 +130,11 @@
                 ingredients:'',
                 instructions:'',
                 story:'',
+                headline_story:'',
                 featured_image:'',
+                featured_image_story: '',
                 photos:[],
+                story_photos:[],
                 cookbook_id: -1,
                 cookbooks_selected: [],
                 recipe: {
@@ -193,12 +197,15 @@
                             this.title = response.data.recipe.post_title;
                             this.status = response.data.recipe.post_status;
                             this.country_name = response.data.recipe.country_name;
-                            this.ingredients = response.data.recipe.ingredients;
-                            this.story = response.data.recipe.story;
+                            this.ingredients = response.data.recipe.ingredients_transformed;
+                            this.story = response.data.recipe.story_transformed;
+                            this.headline_story = response.data.recipe.headline_story_transformed;
                             this.photos = response.data.recipe.photos;
-                            this.instructions = response.data.recipe.post_content;
+                            this.story_photos = response.data.recipe.story_photos;
+                            this.instructions = response.data.recipe.instructions_transformed;
                             this.status = response.data.recipe.post_status
                             this.featured_image = this.photos.length > 0 ? this.photos[0].url : '';
+                            this.featured_image_story = this.story_photos.length > 0 ? this.story_photos[0].url : '';
                             this.cookbooks_selected = response.data.recipe.cookbooks_selected;
                             this.url = response.data.recipe.url;
                         }else{

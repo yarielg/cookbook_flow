@@ -19,6 +19,7 @@ $category = $term_obj_list ? $term_obj_list[0]->name : '';
 //$ingredients = get_field( 'cbf_ingredients',$recipe_id );
 $ingredients = get_field( 'cbf_ingredients_text',$recipe_id );
 $story = get_field( 'story',$recipe_id );
+$instructions = get_field( 'cbf_instructions',$recipe_id );
 $featured = getFeaturedImageRecipe($images);
 
 ?>
@@ -38,21 +39,14 @@ $featured = getFeaturedImageRecipe($images);
             <span class="badge badge-secondary"><?php echo $category; ?></span>
             <br><br>
             <div class="info-div">
-                <label for=""><strong>INGREDIENTS</strong></label>
-                <!--<ul class="recipe_ingredients">
-                    <?php
-/*                    foreach ($ingredients as $ingredient){
-                        echo "<li>" . $ingredient['quantity'] . " " . $ingredient['unit']['value'] . " " . $ingredient['name'] . "</li>";
-                    }
-                    */?>
-                </ul>-->
+                <label for=""><strong>INGREDIENTS</strong></label><br>
 	            <?php
-	            echo $ingredients;
+	            echo str_replace("\r\n", '<br>',$ingredients);
 	            ?>
             </div>
 
             <div class="info-div mt-3">
-                <label for=""><strong>STORY</strong></label>
+                <label for=""><strong>STORY</strong></label><br>
                 <?php
                 echo $story;
                 ?>
@@ -65,9 +59,7 @@ $featured = getFeaturedImageRecipe($images);
             <div class="info-div mr- mt-3">
                 <label for=""><strong>INSTRUCTIONS </strong></label>
                 <div class="instructions-wrapper ml-3">
-                    <?php
-                    the_content();
-                    ?>
+                    <?php echo str_replace("\r\n", '<br>',$instructions) ?>
                 </div>
             </div>
         </div>
