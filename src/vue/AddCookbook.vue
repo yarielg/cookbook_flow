@@ -83,7 +83,7 @@
 
                 <div class="form-group">
                     <label for="introduction_title">Introduction</label>
-                    <textarea @keydown="onKeyDown($event,back_cover_headline,2300)" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
+                    <textarea @keydown="onKeyDown($event,back_cover_headline,60)" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
                 </div>
 
                 <label>Add Introduction Page Photo</label>
