@@ -110,7 +110,7 @@ jQuery(function($) {
 
 
     setInterval(function(){
-        
+
         if($('#cookbook_send_comment')){
             var cookbook_id = $('#cookbook_send_comment').data('cookbook_id');
             getComments(cookbook_id,1);
