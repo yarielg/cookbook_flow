@@ -24,20 +24,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/Enlarged-Back-Cover.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Enlarged-Cover-Front.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Enlarged-Dedication.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Enlarged-Introduction.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Thumbnail-Back-Cover.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Thumbnail-Cover-Front.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Thumbnail-Dedication.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/Thumbnail-Introduction.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Base/Ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Ajax.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/AddCookbook.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddCookbook.vue" afterDir="false" />
-    </list>
+    <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -166,7 +153,7 @@
       <workItem from="1648311531116" duration="7873000" />
       <workItem from="1648645651887" duration="45759000" />
       <workItem from="1648908204597" duration="15000" />
-      <workItem from="1649092522039" duration="4043000" />
+      <workItem from="1649092522039" duration="4375000" />
     </task>
     <servers />
   </component>
