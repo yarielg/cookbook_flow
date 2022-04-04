@@ -25,9 +25,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/images/Enlarged-Back-Cover.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/Enlarged-Cover-Front.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/Enlarged-Dedication.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/Enlarged-Introduction.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/Thumbnail-Back-Cover.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/Thumbnail-Cover-Front.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/Thumbnail-Dedication.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/Thumbnail-Introduction.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/AddRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddRecipe.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/MediaDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/MediaDialog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Base/Ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Ajax.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/AddCookbook.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddCookbook.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,10 +85,14 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/images" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\wp\cookbook\wp-content\plugins\cookbook_flow\assets\images" />
+      <recent name="C:\wamp64\www\wp\cookbook\wp-content\plugins\cookbook_flow\src\img" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp64\www\wp\cookbook\wp-content\plugins\cookbook_flow\assets\images" />
       <recent name="C:\wamp64\www\wp\cookbook\wp-content\plugins\cookbook_flow\inc\Base" />
@@ -153,7 +166,7 @@
       <workItem from="1648311531116" duration="7873000" />
       <workItem from="1648645651887" duration="45759000" />
       <workItem from="1648908204597" duration="15000" />
-      <workItem from="1649092522039" duration="336000" />
+      <workItem from="1649092522039" duration="4043000" />
     </task>
     <servers />
   </component>
@@ -220,7 +233,7 @@
     <state x="616" y="238" key="run.anything.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643159005898" />
     <state x="616" y="238" key="run.anything.popup/0.0.1920.1032/1920.0.1920.1032@0.0.1920.1032" timestamp="1644602699820" />
     <state x="616" y="238" key="run.anything.popup/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@0.0.1920.1032" timestamp="1648682459976" />
-    <state x="623" y="223" width="672" height="678" key="search.everywhere.popup" timestamp="1648473459959">
+    <state x="623" y="223" width="672" height="678" key="search.everywhere.popup" timestamp="1649094141707">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643729218983" />
@@ -228,6 +241,7 @@
     <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/949.-1080.1920.1032/-971.-1088.1920.1032@0.0.1920.1032" timestamp="1646662983437" />
     <state x="-348" y="-857" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@-971.-1080.1920.1032" timestamp="1647567384641" />
     <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@0.0.1920.1032" timestamp="1648473459959" />
+    <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1649094141707" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

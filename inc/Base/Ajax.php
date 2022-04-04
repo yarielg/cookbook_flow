@@ -572,9 +572,9 @@ class Ajax{
 	        update_field( 'cbf_introduction_image_caption', $introduction_image_caption,$post_id);
         }
 
-        $front_image > 0 ? update_field( 'cbf_front_cover_image', $front_image,$post_id) : '';
-	    $introduction_image > 0 ? update_field( 'cbf_introduction_image', $introduction_image,$post_id) : '';
-	    $back_image > 0 ? update_field( 'cbf_back_cover_image', $back_image,$post_id) : '';
+        update_field( 'cbf_front_cover_image', $front_image,$post_id);
+	    update_field( 'cbf_introduction_image', $introduction_image,$post_id);
+	    update_field( 'cbf_back_cover_image', $back_image,$post_id);
 
         //Updating the ACF related to the new/updated cookbook
 

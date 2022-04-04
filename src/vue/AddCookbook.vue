@@ -19,9 +19,9 @@
                 <h4>Create a Cookbook</h4>
                 <hr>
 
-                <div v-show="front_image.id !== -1" class="img-enlarge-wrapper text-center">
+                <div class="img-enlarge-wrapper text-center">
                     <span>CLICK TO ENLARGE </span><br>
-                    <img data-zoomable="" class="zoomable" :src="front_image.url" alt="">
+                    <img data-zoomable="" class="zoomable" :src="cover_front_placeholder" :data-zoom-src="cover_front_placeholder_enlarge" alt="">
                 </div>
 
             </div>
@@ -56,6 +56,12 @@
                                style="display:none">
                     </div>
 
+                <div v-show="front_image.id !==- 1" class="form-group photo-gallery mt-5">
+                    <div class="photo-wrapper">
+                        <img class="img-badge" :src="front_image.url" alt="">
+                        <span :data-photo-id="front_image.id" class="delete_photo_btn" @click="deletePhoto(front_image.id,'front')">X</span>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -63,9 +69,14 @@
         <div class="row">
             <div class="col-md-4">
 
-                <div v-show="front_image.id !== -1" class="img-enlarge-wrapper text-center">
+                <div class="img-enlarge-wrapper text-center">
                     <span>CLICK TO ENLARGE </span><br>
-                    <img data-zoomable="" class="zoomable" :src="introduction_image.url" alt="">
+                    <img data-zoomable="" class="zoomable" :src="introduction_placeholder" :data-zoom-src="introduction_placeholder_enlarge" alt="">
+                </div>
+
+                <div class="img-enlarge-wrapper text-center">
+                    <span>CLICK TO ENLARGE </span><br>
+                    <img data-zoomable="" class="zoomable" :src="dedication_placeholder" :data-zoom-src="dedication_placeholder_enlarge" alt="">
                 </div>
 
             </div>
@@ -104,15 +115,22 @@
                          $event.target.name, $event.target.files,'introduction')"
                            style="display:none">
                 </div>
+
+                <div v-show="introduction_image.id !==-1" class="form-group photo-gallery mt-5">
+                    <div class="photo-wrapper">
+                        <img class="img-badge" :src="introduction_image.url" alt="">
+                        <span :data-photo-id="introduction_image.id" class="delete_photo_btn" @click="deletePhoto(introduction_image.id,'introduction')">X</span>
+                    </div>
+                </div>
             </div>
         </div>
 
 
         <div class="row">
             <div class="col-md-4">
-                <div v-show="front_image.id !== -1" class="img-enlarge-wrapper text-center">
+                <div class="img-enlarge-wrapper text-center">
                     <span>CLICK TO ENLARGE </span><br>
-                    <img data-zoomable="" class="zoomable" :src="back_image.url" alt="">
+                    <img data-zoomable="" class="zoomable" :src="back_cover_placeholder" :data-zoom-src="back_cover_placeholder_enlarge" alt="">
                 </div>
 
             </div>
@@ -169,6 +187,13 @@
                            @change="onFileChange(
                          $event.target.name, $event.target.files,'back')"
                            style="display:none">
+                </div>
+
+                <div v-show="back_image.id !==-1" class="form-group photo-gallery mt-5">
+                    <div class="photo-wrapper">
+                        <img class="img-badge" :src="back_image.url" alt="">
+                        <span :data-photo-id="back_image.id" class="delete_photo_btn" @click="deletePhoto(back_image.id,'back')">X</span>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -235,6 +260,14 @@
                 search:null,
                 selected_recipes:[],
                 image_placeholder: '',
+                back_cover_placeholder: '',
+                cover_front_placeholder: '',
+                dedication_placeholder: '',
+                introduction_placeholder: '',
+                back_cover_placeholder_enlarge: '',
+                cover_front_placeholder_enlarge: '',
+                dedication_placeholder_enlarge: '',
+                introduction_placeholder_enlarge: '',
                 current_image: null,
                 photo_update: false,
                 dialogMedia: false,
@@ -248,6 +281,14 @@
                 this.getCookbook();
             }
             this.image_placeholder = parameters.plugin_path + '/assets/images/image.png';
+            this.back_cover_placeholder = parameters.plugin_path + '/assets/images/Thumbnail-Back-Cover.jpg';
+            this.cover_front_placeholder = parameters.plugin_path + '/assets/images/Thumbnail-Cover-Front.jpg';
+            this.dedication_placeholder = parameters.plugin_path + '/assets/images/Thumbnail-Dedication.png';
+            this.introduction_placeholder = parameters.plugin_path + '/assets/images/Thumbnail-Introduction.png';
+            this.back_cover_placeholder_enlarge = parameters.plugin_path + '/assets/images/Enlarged-Back-Cover.jpg';
+            this.cover_front_placeholder_enlarge = parameters.plugin_path + '/assets/images/Enlarged-Cover-Front.jpg';
+            this.dedication_placeholder_enlarge = parameters.plugin_path + '/assets/images/Enlarged-Dedication.jpg';
+            this.introduction_placeholder_enlarge = parameters.plugin_path + '/assets/images/Enlarged-Introduction.jpg';
             mediumZoom('.zoomable')
         },
         setDefaults(){
@@ -456,10 +497,22 @@
 
             },
             deletePhoto(photo_id,type){
-                if(type == 1){
-                    //this.front_image = null;
+                if(type === 'front'){
+                    this.front_image = {
+                        id: -1,
+                        url: ''
+                    }
+                }
+                else if(type === 'introduction'){
+                    this.introduction_image = {
+                        id: -1,
+                        url: ''
+                    }
                 }else{
-                    this.back_image = null;
+                    this.back_image = {
+                        id: -1,
+                        url: ''
+                    }
                 }
             },
             getCookbook(){
