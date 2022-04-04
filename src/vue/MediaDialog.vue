@@ -16,9 +16,9 @@
                             <textarea ref="caption" :value="image.caption"  class="form-control" id="caption" rows="3"></textarea>
                         </div>
                         <div class="form-group form-check">
-                            <input ref="primary" :checked="image.primary" :value="image.primary"  type="checkbox" class="form-check-input" id="primary_image">
+                            <!--<input ref="primary" :checked="image.primary" :value="image.primary"  type="checkbox" class="form-check-input" id="primary_image">
                             <label  for="primary" class="form-check-label">Use as recipe's feature image</label>
-                            <br>
+                            <br>-->
                             <input ref="owner_rights"  type="checkbox" class="form-check-input" id="owner_rights">
                             <label  for="owner_rights" class="form-check-label"> I confirm that I own the rights to this image and have permission to publish it.</label>
                         </div>
@@ -76,7 +76,7 @@
                 if(this.$refs.owner_rights.checked){
                     let image = {
                         caption: this.$refs.caption.value,
-                        primary: this.$refs.primary.checked,
+                       /* primary: this.$refs.primary.checked,*/
                         url: this.image_url
                     }
                     this.setDefaults();
@@ -90,7 +90,7 @@
             submitEdit(){
                 let image = {
                     caption: this.$refs.caption.value,
-                    primary: this.$refs.primary.checked,
+                   // primary: this.$refs.primary.checked,
                 }
                  this.setDefaults();
                 this.$emit('updateImage',image);

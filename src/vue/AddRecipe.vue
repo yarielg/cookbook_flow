@@ -139,7 +139,7 @@
                   <div class="photo-wrapper" v-for="photo in food_photo">
                      <img  class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
                      <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id,'food')">X</span>
-                     <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>
+                    <!-- <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>-->
                   </div>
                </div>
 
@@ -196,7 +196,7 @@
                <div class="photo-wrapper" v-for="photo in story_photo">
                   <img class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
                   <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id,'story')">X</span>
-                  <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>
+                  <!--<span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>-->
                </div>
             </div>
          </div>
@@ -431,19 +431,19 @@
                                id: response.data.image.id,
                                url: URL.createObjectURL(this.current_image),
                                caption: image.caption,
-                               primary: image.primary
+                              /* primary: image.primary*/
                             }];
                          }else{
                             this.story_photo = [{
                                id: response.data.image.id,
                                url: URL.createObjectURL(this.current_image),
                                caption: image.caption,
-                               primary: image.primary
+                              /* primary: image.primary*/
                             }];
                          }
 
-                         if(image.primary)
-                            this.definePrimary(response.data.image.id);
+                         /*if(image.primary)
+                            this.definePrimary(response.data.image.id);*/
 
                          this.current_image = null;
                       }else{
@@ -473,9 +473,9 @@
            definePrimary(id){
               this.food_photo.forEach(function(photo){
                  photo.primary = false;
-                 if(photo.id === id){
+                 /*if(photo.id === id){
                     photo.primary = true;
-                 }
+                 }*/
               });
            },
            updatePhoto(photo){

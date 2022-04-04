@@ -633,7 +633,7 @@ class Ajax{
                 "id" => $image['image']['id'],
                 "url" => $image['image']['url'],
                 "caption" => $image['caption'],
-                "primary" => $image['primary'],
+               /* "primary" => $image['primary'],*/
             ];
         }
 
@@ -646,7 +646,7 @@ class Ajax{
 			    "id" => $image['image']['id'],
 			    "url" => $image['image']['url'],
 			    "caption" => $image['caption'],
-			    "primary" => $image['primary'],
+			   /* "primary" => $image['primary'],*/
 		    ];
 	    }
 
