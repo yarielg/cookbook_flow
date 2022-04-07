@@ -336,7 +336,7 @@
               this.dialogIngredient = false;
            },
            checkForm(){
-              if(parseInt(this.category) !== -1 && this.title !== '' && this.instructions !== '' && this.ingredients !=='' ){
+              if(parseInt(this.category) !== -1 && this.title !== '' && this.instructions !== '' && this.ingredients !=='' && this.country !== '-1'){
                  return true;
               }
               return false;
