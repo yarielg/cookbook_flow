@@ -110,8 +110,12 @@ jQuery(function($) {
 
 
     setInterval(function(){
-        var cookbook_id = $('#cookbook_send_comment').data('cookbook_id');
-        getComments(cookbook_id,1);
+
+        if($('#cookbook_send_comment')){
+            var cookbook_id = $('#cookbook_send_comment').data('cookbook_id');
+            getComments(cookbook_id,1);
+        }
+
     },5000)
 
     function getComments(cookbook_id,admin){

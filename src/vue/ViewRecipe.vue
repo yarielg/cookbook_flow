@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="section-info">
-                    <label class="label-info-header" v-if="country_name !== ''" for="">COUNTRY</label>
+                    <label class="label-info-header" v-if="country_name !== -1" for="">COUNTRY</label>
                     <h2>{{ country_name }}</h2>
                 </div>
 
@@ -91,15 +91,13 @@
                     </vueper-slides>
                 </div>-->
                 <br>
-                <h4>Story</h4>
-                <div class="section-info" v-if="story_photos !== ''">
-                    <img class="featured_image" :src="featured_image_story" alt="">
-                </div>
-                <div v-if="headline_story !== ''" class="section-info">
+                <div v-show="headline_story !== ''" class="section-info">
                     <label class="label-info-header" for="">HEADLINE STORY</label>
                     <div v-html="headline_story"></div>
                 </div>
-
+                <div class="section-info" v-show="story_photos !== ''">
+                    <img class="featured_image" :src="featured_image_story" alt="">
+                </div>
                 <div v-if="story !== ''" class="section-info">
                     <label class="label-info-header" for="">RECIPE STORY</label>
                     <div v-html="story"></div>

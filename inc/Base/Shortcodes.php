@@ -49,6 +49,7 @@ class Shortcodes
 		$recipes = new \WP_Query($args);
 
 		$output = memd_template(CBF_PLUGIN_PATH . 'templates/featured-recipes.php' , array('a' => $a, 'cols' => $cols, 'recipes' => $recipes));
+		wp_reset_postdata();
 		return $output;
 	}
 

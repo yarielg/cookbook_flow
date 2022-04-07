@@ -763,8 +763,7 @@ label.label-icon-edit:before{
 .main-panel input[type=tel], 
 .main-panel input[type=text], 
 .main-panel input[type=url], 
-.main-panel select, 
-.main-panel textarea, 
+.main-panel select,
 .main-panel .ingredients_action {
     border-radius: 5px;
     border: solid 0.5px #d7d7d7;

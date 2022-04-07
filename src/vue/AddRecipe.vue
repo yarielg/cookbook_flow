@@ -139,7 +139,7 @@
                   <div class="photo-wrapper" v-for="photo in food_photo">
                      <img  class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
                      <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id,'food')">X</span>
-                     <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>
+                    <!-- <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>-->
                   </div>
                </div>
 
@@ -165,7 +165,7 @@
             <h4>SHARE YOUR STORY (OPTIONAL)</h4>
             <div class="form-group story">
                <label for="headline_story">HEADLINE (Optional)</label>
-               <textarea maxlength="60" @keydown="onKeyDown($event,headline_story,60)" v-model="headline_story" class="form-control" id="headline_story" rows="5"></textarea>
+               <input maxlength="60" @keydown="onKeyDown($event,title,60)" v-model="headline_story" type="text" class="form-control" id="headline_story">
             </div>
 
             <div class="form-group story">
@@ -196,7 +196,7 @@
                <div class="photo-wrapper" v-for="photo in story_photo">
                   <img class="img-badge" :alt="photo.caption"  :src="photo.url" alt="">
                   <span :data-photo-id="photo.id" class="delete_photo_btn" @click="deletePhoto(photo.id,'story')">X</span>
-                  <span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>
+                  <!--<span class="photo-featured badge badge-secondary" v-if="photo.primary">Featured</span>-->
                </div>
             </div>
          </div>
@@ -336,7 +336,7 @@
               this.dialogIngredient = false;
            },
            checkForm(){
-              if(parseInt(this.category) !== -1 && this.title !== '' && this.instructions !== '' && this.ingredients !=='' && this.food_photo.length > 0 ){
+              if(parseInt(this.category) !== -1 && this.title !== '' && this.instructions !== '' && this.ingredients !=='' && this.country !== '-1'){
                  return true;
               }
               return false;
@@ -431,19 +431,19 @@
                                id: response.data.image.id,
                                url: URL.createObjectURL(this.current_image),
                                caption: image.caption,
-                               primary: image.primary
+                              /* primary: image.primary*/
                             }];
                          }else{
                             this.story_photo = [{
                                id: response.data.image.id,
                                url: URL.createObjectURL(this.current_image),
                                caption: image.caption,
-                               primary: image.primary
+                              /* primary: image.primary*/
                             }];
                          }
 
-                         if(image.primary)
-                            this.definePrimary(response.data.image.id);
+                         /*if(image.primary)
+                            this.definePrimary(response.data.image.id);*/
 
                          this.current_image = null;
                       }else{
@@ -473,9 +473,9 @@
            definePrimary(id){
               this.food_photo.forEach(function(photo){
                  photo.primary = false;
-                 if(photo.id === id){
+                 /*if(photo.id === id){
                     photo.primary = true;
-                 }
+                 }*/
               });
            },
            updatePhoto(photo){
