@@ -356,7 +356,7 @@ function cbf_append_csv_files($zip, $cookbook_id,$image_paths, $order){
 	$user = $order->get_user();
 
 	$data = [
-		['username', 'email', 'title','author','frontcoverphoto','year','isbnpaper','isbnhard','libraryofcongresscom','dedication','@introphoto','introcaption','introheadline','introtext','backcoverheadline','backcoverstory','@backcoverphoto'],
+		['username', 'email', 'title','author','frontcoverphoto','year','isbnpaper','isbnhard','libraryofcongresscom','dedication','introphoto','introcaption','introheadline','introtext','backcoverheadline','backcoverstory','backcoverphoto'],
 		[$user->user_login,$order->get_billing_email(),$cookbook->post_title, "by " . $author,$image_paths['front_image'], date('Y'),'','','', $dedication_transformed,$image_paths['introduction_image'],$image_caption_introduction, $introduction_headline_transformed,$introduction_transformed,$back_cover_headline_transformed,$back_cover_story_transformed,$image_paths['back_image'] ]
 	];
 
@@ -382,7 +382,7 @@ function cbf_append_csv_recipes($zip,$cookbook_id){
 	$csv_file_name = wp_upload_dir()['basedir'] . '/zips/'. $path_name ; //You can give your path to save file.
 
 	$data = [
-		['recipecategory', 'recipetitle', 'recipephoto','ingredients','recipeinstructions','@recipestoryphoto','recipestoryheadline','recipestorytext']
+		['recipecategory', 'recipetitle', 'recipephoto','ingredients','recipeinstructions','recipestoryphoto','recipestoryheadline','recipestorytext']
 	];
 
 	//Getting images from recipes
@@ -398,22 +398,31 @@ function cbf_append_csv_recipes($zip,$cookbook_id){
 			$category_name = $term_obj_list  ? str_replace('&amp;', '&', $term_obj_list[0]->name) : '';
 
 			$images = get_field( 'cbf_photos',$recipe['ID'] );
+			$path_to_add_csv = '';
 			$path_to_add = '';
 			foreach ($images as $image){
 				$path = get_attached_file($image['image']['ID']);
-				$path_to_add = 'images/'. $image['image']['filename'];
-				$zip->addFile($path, $path_to_add);
+				if(!empty($image['image']['filename'])){
+					$path_to_add_csv = 'images\"'. $image['image']['filename'];
+					$path_to_add = 'images/'. $image['image']['filename'];
+					$zip->addFile($path, $path_to_add);
+				}
 			}
 
 			$images_story = get_field( 'cbf_story_photos',$recipe['ID'] );
-			$path_to_add_story= '';
+			$path_to_add_story = '';
+			$path_to_add_story_csv= '';
 			foreach ($images_story as $image){
 				$path_story = get_attached_file($image['image']['ID']);
-				$path_to_add_story = 'images/'.  $image['image']['filename'];
-				$zip->addFile($path_story,$path_to_add_story);
+				if(!empty($image['image']['filename'])){
+					$path_to_add_story_csv = 'images\"'.  $image['image']['filename'];
+					$path_to_add_story = 'images/'.  $image['image']['filename'];
+					$zip->addFile($path_story,$path_to_add_story);
+				}
+
 			}
 
-			$data[] = [$category_name,$recipe_title,$path_to_add,$ingredients_transformed,$instructions_transformed,$path_to_add_story,$headline_story_transformed,$story_transformed];
+			$data[] = [$category_name,$recipe_title,$path_to_add_csv,$ingredients_transformed,$instructions_transformed,$path_to_add_story_csv,$headline_story_transformed,$story_transformed];
 
 		}
 	}
