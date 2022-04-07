@@ -355,9 +355,13 @@ function cbf_append_csv_files($zip, $cookbook_id,$image_paths, $order){
 
 	$user = $order->get_user();
 
+	$isbn_paper = get_field('isbn_paper' , $order->get_id());
+	$isbn_hard = get_field('isbn_hard' , $order->get_id());
+	$library = get_field('library_of_congress' , $order->get_id());
+
 	$data = [
 		['username', 'email', 'title','author','frontcoverphoto','year','isbnpaper','isbnhard','libraryofcongresscom','dedication','introphoto','introcaption','introheadline','introtext','backcoverheadline','backcoverstory','backcoverphoto'],
-		[$user->user_login,$order->get_billing_email(),$cookbook->post_title, "by " . $author,$image_paths['front_image'], date('Y'),'','','', $dedication_transformed,$image_paths['introduction_image'],$image_caption_introduction, $introduction_headline_transformed,$introduction_transformed,$back_cover_headline_transformed,$back_cover_story_transformed,$image_paths['back_image'] ]
+		[$user->user_login,$order->get_billing_email(),$cookbook->post_title, "by " . $author,$image_paths['front_image'], date('Y'),$isbn_paper,$isbn_hard,$library, $dedication_transformed,$image_paths['introduction_image'],$image_caption_introduction, $introduction_headline_transformed,$introduction_transformed,$back_cover_headline_transformed,$back_cover_story_transformed,$image_paths['back_image'] ]
 	];
 
 	$f = fopen($csv_file_name, 'w');
