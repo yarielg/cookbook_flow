@@ -98,8 +98,6 @@
                 <div class="section-info" v-if="story_photos !== ''">
                     <img class="featured_image" :src="featured_image_story" alt="">
                 </div>
-
-
                 <div v-if="story !== ''" class="section-info">
                     <label class="label-info-header" for="">RECIPE STORY</label>
                     <div v-html="story"></div>
