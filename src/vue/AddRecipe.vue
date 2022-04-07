@@ -171,7 +171,7 @@
             <div class="form-group story">
                <label for="story">ADD YOUR STORY! (Optional)</label>
                <textarea maxlength="2300" @keydown="onKeyDown($event,story,2300)" v-model="story" class="form-control" id="story" rows="5"></textarea>
-            </div> 
+            </div>
 
             <label>ADD A PHOTO (OPTIONAL)</label>
             <div class="media_component">
@@ -336,7 +336,7 @@
               this.dialogIngredient = false;
            },
            checkForm(){
-              if(parseInt(this.category) !== -1 && this.title !== '' && this.instructions !== '' && this.ingredients !=='' && this.food_photo.length > 0 ){
+              if(parseInt(this.category) !== -1 && this.title !== '' && this.instructions !== '' && this.ingredients !=='' ){
                  return true;
               }
               return false;
