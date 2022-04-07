@@ -285,19 +285,19 @@ class Ajax{
 
 			if($back_image){
 				$path = get_attached_file($back_image['ID']);
-				$image_paths['back_image'] = 'images\"'.$back_image['filename'];
+				$image_paths['back_image'] = '\"images\"'.$back_image['filename'];
 				$path_to_add = 'images/'.$back_image['filename'];
 				$zip->addFile($path,$path_to_add);
 			}
 			if($front_image){
 				$path = get_attached_file($front_image['ID']);
-				$image_paths['front_image'] = 'images\"'.$front_image['filename'];
+				$image_paths['front_image'] = '\"images\"'.$front_image['filename'];
 				$path_to_add = 'images/'.$front_image['filename'];
 				$zip->addFile($path,$path_to_add);
 			}
 			if($introduction_image){
 				$path = get_attached_file($introduction_image['ID']);
-				$image_paths['introduction_image'] = 'images\"'.$introduction_image['filename'];
+				$image_paths['introduction_image'] = '\"images\"'.$introduction_image['filename'];
 				$path_to_add = 'images/'.$introduction_image['filename'];
 				$zip->addFile($path,$path_to_add);
 			}
