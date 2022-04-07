@@ -165,13 +165,13 @@
             <h4>SHARE YOUR STORY (OPTIONAL)</h4>
             <div class="form-group story">
                <label for="headline_story">HEADLINE (Optional)</label>
-               <textarea maxlength="60" @keydown="onKeyDown($event,headline_story,60)" v-model="headline_story" class="form-control" id="headline_story" rows="5"></textarea>
+               <input maxlength="60" @keydown="onKeyDown($event,title,60)" v-model="headline_story" type="text" class="form-control" id="headline_story">
             </div>
 
             <div class="form-group story">
                <label for="story">ADD YOUR STORY! (Optional)</label>
                <textarea maxlength="2300" @keydown="onKeyDown($event,story,2300)" v-model="story" class="form-control" id="story" rows="5"></textarea>
-            </div>
+            </div> 
 
             <label>ADD A PHOTO (OPTIONAL)</label>
             <div class="media_component">
