@@ -864,10 +864,11 @@ class Ajax{
 		$name = $_POST['name'];
 		$message = $_POST['message'];
 		$sender_name = $_POST['sender_name'];
+		$recipe_title = get_the_title($id);
 
 		$postcard_image = CBF_PLUGIN_URL . 'assets/images/postcard.png';
 
-		$emailed = shareRecipeEmail($email, array('link' => get_permalink($id), 'message' => $message, 'name' => $name, 'image' => $postcard_image,'sender_name' => $sender_name));
+		$emailed = shareRecipeEmail($email, array('link' => get_permalink($id), 'message' => $message, 'name' => $name, 'image' => $postcard_image,'sender_name' => $sender_name,'recipe_title' => $recipe_title);
 
 		if($emailed){
 			echo json_encode(array('success'=> true , 'msg' => 'Postcard Shared!', 'image' => $postcard_image));

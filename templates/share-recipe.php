@@ -122,7 +122,7 @@
 
 							<p>Please click on the below!</p>
 
-							<p><strong>Recipe Link: </strong> <a href="<?php echo $link ?>"><?php echo $name ?></a></p>
+							<p><strong>Recipe Link: </strong> <a href="<?php echo $link ?>"><?php echo $recipe_title ?></a></p>
 
 					</td>
 				</tr>
