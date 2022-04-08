@@ -91,11 +91,11 @@
                     </vueper-slides>
                 </div>-->
                 <br>
-                <div v-show="headline_story !== ''" class="section-info">
+                <div v-if="headline_story !== ''" class="section-info">
                     <label class="label-info-header" for="">HEADLINE STORY</label>
                     <div v-html="headline_story"></div>
                 </div>
-                <div class="section-info" v-show="story_photos !== ''">
+                <div class="section-info" v-if="story_photos !== ''">
                     <img class="featured_image" :src="featured_image_story" alt="">
                 </div>
                 <div v-if="story !== ''" class="section-info">
