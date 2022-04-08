@@ -26,8 +26,7 @@
   <component name="ChangeListManager">
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/ViewRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/ViewRecipe.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Base/Ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Ajax.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +158,7 @@
       <workItem from="1648908204597" duration="15000" />
       <workItem from="1649092522039" duration="6455000" />
       <workItem from="1649344930825" duration="6491000" />
-      <workItem from="1649429242233" duration="3476000" />
+      <workItem from="1649429242233" duration="4072000" />
     </task>
     <servers />
   </component>

@@ -868,7 +868,7 @@ class Ajax{
 
 		$postcard_image = CBF_PLUGIN_URL . 'assets/images/postcard.png';
 
-		$emailed = shareRecipeEmail($email, array('link' => get_permalink($id), 'message' => $message, 'name' => $name, 'image' => $postcard_image,'sender_name' => $sender_name,'recipe_title' => $recipe_title);
+		$emailed = shareRecipeEmail($email, array('link' => get_permalink($id), 'message' => $message, 'name' => $name, 'image' => $postcard_image,'sender_name' => $sender_name,'recipe_title' => $recipe_title));
 
 		if($emailed){
 			echo json_encode(array('success'=> true , 'msg' => 'Postcard Shared!', 'image' => $postcard_image));
