@@ -83,18 +83,18 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="dedications_title">Dedications</label>
-                    <textarea maxlength="2300" @keydown="onKeyDown($event,dedication,2300)"  v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
+                    <textarea maxlength="2300"  v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="introduction_headline">Introduction Headline</label>
-                    <textarea maxlength="60" @keydown="onKeyDown($event,introduction_headline,60)" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
+                    <textarea maxlength="60" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
                 </div>
 
 
                 <div class="form-group">
                     <label for="introduction_title">Introduction</label>
-                    <textarea maxlength="60" @keydown="onKeyDown($event,back_cover_headline,60)" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
+                    <textarea maxlength="2300" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
                 </div>
 
                 <label>Add Introduction Page Photo</label>
@@ -137,12 +137,12 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="back_cover_headline">Back Cover Headline</label>
-                    <textarea maxlength="60" @keydown="onKeyDown($event,back_cover_headline,60)" v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
+                    <textarea maxlength="60" v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="back_cover_story">Back Cover Story</label>
-                    <textarea maxlength="2300" @keydown="onKeyDown($event,back_cover_headline,2300)" v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
+                    <textarea maxlength="2300" v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
                 </div>
 
                 <!--<div class="form-group">

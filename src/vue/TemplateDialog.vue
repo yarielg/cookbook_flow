@@ -71,6 +71,8 @@
 </script>
 
 
-<style scoped>
-
+<style >
+    .vueperslides__arrow.vueperslides__arrow--prev, .vueperslides__arrow.vueperslides__arrow--next{
+        background: black !important;
+    }
 </style>
