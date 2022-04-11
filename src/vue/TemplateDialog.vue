@@ -75,4 +75,8 @@
     .vueperslides__arrow.vueperslides__arrow--prev, .vueperslides__arrow.vueperslides__arrow--next{
         background: black !important;
     }
+
+    .vueperslides__arrow.vueperslides__arrow--prev:hover, .vueperslides__arrow.vueperslides__arrow--next:hover{
+        background: #f58320 !important;
+    }
 </style>

@@ -27,9 +27,6 @@
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/scripts.js.LICENSE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js.LICENSE.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/AddCookbook.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddCookbook.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/AddRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddRecipe.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vue/TemplateDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/TemplateDialog.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -162,7 +159,7 @@
       <workItem from="1648908204597" duration="15000" />
       <workItem from="1649092522039" duration="6455000" />
       <workItem from="1649344930825" duration="6491000" />
-      <workItem from="1649429242233" duration="7781000" />
+      <workItem from="1649429242233" duration="8201000" />
     </task>
     <servers />
   </component>
