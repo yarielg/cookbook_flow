@@ -39,7 +39,7 @@
 
                     <label>Add Front Cover Photo</label>
                     <div class="media_component">
-                        <div @drop.prevent="onDrop('front')"
+                        <div @drop.prevent="onDrop($event,'front')"
                              @dragover.prevent="dragover = true"
                              @dragenter.prevent="dragover = true"
                              @dragleave.prevent="dragover = false"
@@ -99,7 +99,7 @@
 
                 <label>Add Introduction Page Photo</label>
                 <div class="media_component">
-                    <div @drop.prevent="onDrop('introduction')"
+                    <div @drop.prevent="onDrop($event,'introduction')"
                          @dragover.prevent="dragover = true"
                          @dragenter.prevent="dragover = true"
                          @dragleave.prevent="dragover = false"
@@ -172,7 +172,7 @@
 
                 <label>Add Back Cover Photo</label>
                 <div class="media_component">
-                    <div @drop.prevent="onDrop('back')"
+                    <div @drop.prevent="onDrop($event,'back')"
                          @dragover.prevent="dragover = true"
                          @dragenter.prevent="dragover = true"
                          @dragleave.prevent="dragover = false"
@@ -385,7 +385,6 @@
                 }
 
                 this.image_type = type;
-
                 this.current_image = e.dataTransfer.files[0];
                 this.dialogMedia = true;
 

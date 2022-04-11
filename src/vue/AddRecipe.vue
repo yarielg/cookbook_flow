@@ -117,7 +117,7 @@
 
                <label>ADD ONE FOOD PHOTO</label>
                <div class="media_component">
-                  <div @drop.prevent="onDrop($event)"
+                  <div @drop.prevent="onDrop($event,'food')"
                        @dragover.prevent="dragover = true"
                        @dragenter.prevent="dragover = true"
                        @dragleave.prevent="dragover = false"
@@ -175,7 +175,7 @@
 
             <label>ADD A PHOTO (OPTIONAL)</label>
             <div class="media_component">
-               <div @drop.prevent="onDrop($event)"
+               <div @drop.prevent="onDrop($event,'story')"
                     @dragover.prevent="dragover = true"
                     @dragenter.prevent="dragover = true"
                     @dragleave.prevent="dragover = false"
@@ -483,7 +483,7 @@
              this.photo_update = true;
              this.dialogMedia = true;
            },
-           onDrop(e) {
+           onDrop(e,type) {
               //this.dragover = false;
               // If there are already uploaded files remove them
              // if (this.uploadedFiles.length > 0) this.uploadedFiles = [];
@@ -494,6 +494,7 @@
 
               this.current_image = e.dataTransfer.files[0];
               this.dialogMedia = true;
+              this.image_type = type;
 
            },
            onFileChange(fieldName, file, caption,type) {
