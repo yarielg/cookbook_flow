@@ -145,31 +145,6 @@
                     <textarea maxlength="2300" v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
                 </div>
 
-                <!--<div class="form-group">
-                    <label for="">Front Cover</label>
-                    <v-file-input v-model="front_image" @change="fileChanged(1)"  label="Add an image" />
-                </div>-->
-
-                <!--<div v-if="front_image !== null" class="form-group photo-gallery">
-                    <div class="photo-wrapper">
-                        <img class="img-badge"  :src="front_image.url" alt="">
-                        <span :data-photo-id="front_image.id" class="delete_photo_btn" @click="deletePhoto(front_image.id,1)">X</span>
-                    </div>
-                </div>-->
-
-                <!--<div class="form-group">
-                    <label for="">Back Cover</label>
-                    <v-file-input v-model="back_image" @change="fileChanged(2)"  label="Add an image" />
-                </div>-->
-
-                <!--<div v-if="back_image !== null" class="form-group photo-gallery">
-                    <div class="photo-wrapper">
-                        <img class="img-badge" :src="back_image.url" alt="">
-                        <span :data-photo-id="back_image.id" class="delete_photo_btn" @click="deletePhoto(back_image.id,2)">X</span>
-                    </div>
-                </div>-->
-
-
                 <label>Add Back Cover Photo</label>
                 <div class="media_component">
                     <div @drop.prevent="onDrop($event,'back')"
