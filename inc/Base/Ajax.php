@@ -273,7 +273,7 @@ class Ajax{
 
 			$zip->addEmptyDir('images');
 
-			$back_image = get_field( 'back_cover_image',$cookbook_id ) ? get_field( 'back_cover_image',$cookbook_id ) : null;
+			$back_image = get_field( 'cbf_back_cover_image',$cookbook_id ) ? get_field( 'cbf_back_cover_image',$cookbook_id ) : null;
 			$front_image = get_field( 'cbf_front_cover_image',$cookbook_id ) ? get_field( 'cbf_front_cover_image',$cookbook_id ) : -1;
 			$introduction_image = get_field( 'cbf_introduction_image',$cookbook_id ) ? get_field( 'cbf_introduction_image',$cookbook_id ) : -1;
 
@@ -309,7 +309,6 @@ class Ajax{
 			/**
 			 * Append cookbook csv
 			 */
-			var_dump($image_paths);exit;
 			$cookbook_path = cbf_append_csv_files($zip, $cookbook_id, $image_paths,$order);
 			$recipes_path = cbf_append_csv_recipes($zip,$cookbook_id);
 
