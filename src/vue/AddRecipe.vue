@@ -83,7 +83,7 @@
 
                <div class="form-group">
                   <label for="recipe_title">Recipe Title</label>
-                  <input maxlength="60" @keydown="onKeyDown($event,title,60)" v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title">
+                  <input maxlength="60"  v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title">
                </div>
 
                <div class="form-group">
@@ -104,20 +104,20 @@
 
                <div class="form-group"> 
                   <label for="ingredients">INGREDIENTS</label>
-                  <textarea maxlength="2300" @keydown="onKeyDown($event,ingredients,2300)" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
+                  <textarea maxlength="2300" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
                </div>
 
 
                <div class="form-group">
                   <label for="instructions">RECIPE INSTRUCTIONS</label>
-                  <textarea maxlength="2300" @keydown="onKeyDown($event,instructions,2300)" v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
+                  <textarea maxlength="2300" v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
                </div>
 
                <br>
 
                <label>ADD ONE FOOD PHOTO</label>
                <div class="media_component">
-                  <div @drop.prevent="onDrop($event)"
+                  <div @drop.prevent="onDrop($event,'food')"
                        @dragover.prevent="dragover = true"
                        @dragenter.prevent="dragover = true"
                        @dragleave.prevent="dragover = false"
@@ -165,17 +165,17 @@
             <h4>SHARE YOUR STORY (OPTIONAL)</h4>
             <div class="form-group story">
                <label for="headline_story">HEADLINE (Optional)</label>
-               <input maxlength="60" @keydown="onKeyDown($event,title,60)" v-model="headline_story" type="text" class="form-control" id="headline_story">
+               <input maxlength="60"  v-model="headline_story" type="text" class="form-control" id="headline_story">
             </div>
 
             <div class="form-group story">
                <label for="story">ADD YOUR STORY! (Optional)</label>
-               <textarea maxlength="2300" @keydown="onKeyDown($event,story,2300)" v-model="story" class="form-control" id="story" rows="5"></textarea>
+               <textarea maxlength="2300"  v-model="story" class="form-control" id="story" rows="5"></textarea>
             </div>
 
             <label>ADD A PHOTO (OPTIONAL)</label>
             <div class="media_component">
-               <div @drop.prevent="onDrop($event)"
+               <div @drop.prevent="onDrop($event,'story')"
                     @dragover.prevent="dragover = true"
                     @dragenter.prevent="dragover = true"
                     @dragleave.prevent="dragover = false"
@@ -483,7 +483,7 @@
              this.photo_update = true;
              this.dialogMedia = true;
            },
-           onDrop(e) {
+           onDrop(e,type) {
               //this.dragover = false;
               // If there are already uploaded files remove them
              // if (this.uploadedFiles.length > 0) this.uploadedFiles = [];
@@ -494,6 +494,7 @@
 
               this.current_image = e.dataTransfer.files[0];
               this.dialogMedia = true;
+              this.image_type = type;
 
            },
            onFileChange(fieldName, file, caption,type) {

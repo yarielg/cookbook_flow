@@ -91,7 +91,7 @@
                             dashboard with content, we could
                             trickle in CTA spaces for promotions
                             or ads. </p>-->
-                        <button class="btn-normal">Promote</button>
+                        <button class="btn-normal">Download</button>
                     </div>
                     <div class="panel-wrapper" v-show="!premium_account && account_type !== 2">
                         <h4 class="">

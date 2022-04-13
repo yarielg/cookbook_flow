@@ -386,7 +386,7 @@ function cbf_append_csv_recipes($zip,$cookbook_id){
 	$csv_file_name = wp_upload_dir()['basedir'] . '/zips/'. $path_name ; //You can give your path to save file.
 
 	$data = [
-		['recipecategory', 'recipetitle', 'recipephoto','ingredients','recipeinstructions','recipestoryphoto','recipestoryheadline','recipestorytext']
+		['recipecategory', 'recipetitle', "'@recipephoto",'ingredients','recipeinstructions',"'@recipestoryphoto",'recipestoryheadline','recipestorytext']
 	];
 
 	//Getting images from recipes

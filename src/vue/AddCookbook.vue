@@ -39,7 +39,7 @@
 
                     <label>Add Front Cover Photo</label>
                     <div class="media_component">
-                        <div @drop.prevent="onDrop('front')"
+                        <div @drop.prevent="onDrop($event,'front')"
                              @dragover.prevent="dragover = true"
                              @dragenter.prevent="dragover = true"
                              @dragleave.prevent="dragover = false"
@@ -83,23 +83,23 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="dedications_title">Dedications</label>
-                    <textarea maxlength="2300" @keydown="onKeyDown($event,dedication,2300)"  v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
+                    <textarea maxlength="2300"  v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="introduction_headline">Introduction Headline</label>
-                    <textarea maxlength="60" @keydown="onKeyDown($event,introduction_headline,60)" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
+                    <textarea maxlength="60" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
                 </div>
 
 
                 <div class="form-group">
                     <label for="introduction_title">Introduction</label>
-                    <textarea maxlength="60" @keydown="onKeyDown($event,back_cover_headline,60)" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
+                    <textarea maxlength="2300" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
                 </div>
 
                 <label>Add Introduction Page Photo</label>
                 <div class="media_component">
-                    <div @drop.prevent="onDrop('introduction')"
+                    <div @drop.prevent="onDrop($event,'introduction')"
                          @dragover.prevent="dragover = true"
                          @dragenter.prevent="dragover = true"
                          @dragleave.prevent="dragover = false"
@@ -137,42 +137,17 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="back_cover_headline">Back Cover Headline</label>
-                    <textarea maxlength="60" @keydown="onKeyDown($event,back_cover_headline,60)" v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
+                    <textarea maxlength="60" v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="back_cover_story">Back Cover Story</label>
-                    <textarea maxlength="2300" @keydown="onKeyDown($event,back_cover_headline,2300)" v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
+                    <textarea maxlength="2300" v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
                 </div>
-
-                <!--<div class="form-group">
-                    <label for="">Front Cover</label>
-                    <v-file-input v-model="front_image" @change="fileChanged(1)"  label="Add an image" />
-                </div>-->
-
-                <!--<div v-if="front_image !== null" class="form-group photo-gallery">
-                    <div class="photo-wrapper">
-                        <img class="img-badge"  :src="front_image.url" alt="">
-                        <span :data-photo-id="front_image.id" class="delete_photo_btn" @click="deletePhoto(front_image.id,1)">X</span>
-                    </div>
-                </div>-->
-
-                <!--<div class="form-group">
-                    <label for="">Back Cover</label>
-                    <v-file-input v-model="back_image" @change="fileChanged(2)"  label="Add an image" />
-                </div>-->
-
-                <!--<div v-if="back_image !== null" class="form-group photo-gallery">
-                    <div class="photo-wrapper">
-                        <img class="img-badge" :src="back_image.url" alt="">
-                        <span :data-photo-id="back_image.id" class="delete_photo_btn" @click="deletePhoto(back_image.id,2)">X</span>
-                    </div>
-                </div>-->
-
 
                 <label>Add Back Cover Photo</label>
                 <div class="media_component">
-                    <div @drop.prevent="onDrop('back')"
+                    <div @drop.prevent="onDrop($event,'back')"
                          @dragover.prevent="dragover = true"
                          @dragenter.prevent="dragover = true"
                          @dragleave.prevent="dragover = false"
@@ -385,7 +360,6 @@
                 }
 
                 this.image_type = type;
-
                 this.current_image = e.dataTransfer.files[0];
                 this.dialogMedia = true;
 
