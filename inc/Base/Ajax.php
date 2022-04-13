@@ -309,6 +309,7 @@ class Ajax{
 			/**
 			 * Append cookbook csv
 			 */
+			var_dump($image_paths);exit;
 			$cookbook_path = cbf_append_csv_files($zip, $cookbook_id, $image_paths,$order);
 			$recipes_path = cbf_append_csv_recipes($zip,$cookbook_id);
 
