@@ -224,7 +224,7 @@
                countries:[],
                status: 'Publish',
                category: -1,
-               country: -1,
+               country: 'us',
                title: '',
                photo_update: false,
                instructions:'',

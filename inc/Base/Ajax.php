@@ -533,7 +533,6 @@ class Ajax{
         $title = $_POST['title'];
         $author = $_POST['author'];
 
-        $acknowledgments = $_POST['acknowledgments'];
         $introduction_headline = $_POST['introduction_headline'];
         $introduction = $_POST['introduction'];
         $back_cover_headline = $_POST['back_cover_headline'];
@@ -587,7 +586,6 @@ class Ajax{
         update_field( 'cbf_back_cover_story', $back_cover_story,$post_id);
 	    update_field( 'cbf_introduction_headline', $introduction_headline,$post_id);
         update_field( 'introduction', $introduction,$post_id);
-        update_field( 'acknowledgments', $acknowledgments,$post_id);
 
         //update_field('recipes', $recipes, $post_id);
         insertRecipeCookBook($post_id,$recipes);
