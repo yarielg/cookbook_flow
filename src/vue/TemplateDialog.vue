@@ -21,7 +21,7 @@
                                 fixed-height="400px"
                                 :dragging-distance="200"
                                 :breakpoints="{ 800: { visibleSlides: 1, slideMultiple: 1 } }">
-                            <vueper-slide v-for="(photo, index) in template_selected.images" :key="index" :image="photo.image" />
+                            <vueper-slide v-for="(photo, index) in template_selected.images" :key="index" :image="photo.image.url" />
                         </vueper-slides>
                     </div>
                 </div>

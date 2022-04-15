@@ -363,6 +363,10 @@
                  toastr.error('You must define a valid cookbook name', 'Error');
                  return;
               }
+              if(this.country == -1){
+                 toastr.error('You must define a country', 'Error');
+                 return;
+              }
               if(this.title !== '' ){
                  const formData = new FormData();
                  formData.append('action', 'add_recipe');

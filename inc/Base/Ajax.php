@@ -269,8 +269,6 @@ class Ajax{
 
 			$zip->open($zip_file_name, \ZipArchive::CREATE);
 
-			//Appending Back cover
-
 			$zip->addEmptyDir('images');
 
 			$back_image = get_field( 'cbf_back_cover_image',$cookbook_id ) ? get_field( 'cbf_back_cover_image',$cookbook_id ) : null;
@@ -307,9 +305,27 @@ class Ajax{
 			update_post_meta($order_id,'zip_file_generated', true);
 
 			/**
+			 * Add template path
+			 */
+			$template_id = get_post_meta( $order->get_id(), 'cbf_template', true );
+			$option = get_post_meta( $order->get_id(), 'cbf_option_type', true );
+			$template_path = '';
+			if($option == 1 && $template_id > 0){
+				$template = getTemplateACFByID($template_id);
+				$path = get_attached_file($template['image']['id']);
+				$template_filename = $template['image']['filename'];
+
+				$zip->addEmptyDir('template');
+				$template_path = '\template\\'.$template_filename;
+				$path_to_add = 'template/'.$template_filename;
+				$zip->addFile($path,$path_to_add);
+
+			}
+
+			/**
 			 * Append cookbook csv
 			 */
-			$cookbook_path = cbf_append_csv_files($zip, $cookbook_id, $image_paths,$order);
+			$cookbook_path = cbf_append_csv_files($zip, $cookbook_id, $image_paths,$order,$template_path);
 			$recipes_path = cbf_append_csv_recipes($zip,$cookbook_id);
 
 			$zip->close();
@@ -836,7 +852,6 @@ class Ajax{
 
         echo json_encode(array('success'=> true , 'collaborator' => $collaborator ));
         wp_die();
-
 
     }
 
