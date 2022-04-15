@@ -224,7 +224,7 @@
                countries:[],
                status: 'Publish',
                category: -1,
-               country: -1,
+               country: 'us',
                title: '',
                photo_update: false,
                instructions:'',
@@ -361,6 +361,10 @@
            addRecipe(status, type){
               if(type === 'new' && this.new_cookbook === ''){
                  toastr.error('You must define a valid cookbook name', 'Error');
+                 return;
+              }
+              if(this.country == -1){
+                 toastr.error('You must define a country', 'Error');
                  return;
               }
               if(this.title !== '' ){

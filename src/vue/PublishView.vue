@@ -6,7 +6,7 @@
             <div class="row" v-if="current_step === 1">
                 <div class="col-12 text-center mt-2">
                     <h5>Select a template</h5>
-                    <p>We offer professionally designed templates for your cookbook. Choose the one you like best, and keep in mind that we’ll be posting even more beautiful new templates in the very near future. We want to publish a book you'll be proud to see your name on. After choosing your template, you can expect to see a proof of your book in about three working days.</p>
+                    <p class="text-justify">We offer professionally designed templates for your cookbook. Choose the one you like best, and keep in mind that we’ll be posting even more beautiful new templates in the very near future. We want to publish a book you'll be proud to see your name on. After choosing your template, you can expect to see a proof of your book in about three working days.</p>
                     <button @click="chooseOption(1)" class="btn-normal">Continue with a template</button>
                 </div>
                 <!--<div class="col-md-2 text-center"> OR </div>

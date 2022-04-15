@@ -218,7 +218,7 @@ class Checkout{
 
             echo '<div style="margin-left: 30px;" class="order_data_column cookbook_info">';
             echo "<h3>Template Info</h3><br>";
-            echo '<div style="background-image: url('.$template['url'].');width: 100px;height: 100px;background-size: cover"></div>';
+            echo '<div style="background-image: url('.$template['image']['url'].');width: 100px;height: 100px;background-size: cover"></div>';
             echo '<p>Name: <strong> ' . $template['name'] . '</strong></p>';
             echo "</div>";
         }
