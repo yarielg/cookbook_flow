@@ -94,7 +94,7 @@
                             or ads. </p>-->
                         <button class="btn-normal">Download</button>
                     </div>
-                    <div class="panel-wrapper" v-show="!premium_account && account_type !== 2">
+                    <div class="panel-wrapper" v-show="!premium_account && account_type !== 'collaborator'">
                         <h4 class="">
                             Upgrade and publish a gorgeous cookbook!
                         </h4>
@@ -198,7 +198,7 @@
                         if(response.data.success){
                             this.accounts = response.data.accounts;
                             this.account_selected = response.data.selection;
-                            this.premium_account = this.account_selected.premium;
+                            this.premium_account = this.account_selected.premium == 'false' ? false : true;
                             this.account_type = this.account_selected.account_type;
                         }
 
