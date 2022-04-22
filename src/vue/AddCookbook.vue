@@ -47,6 +47,7 @@
                              @click="launchFilePickerFront('front')">
                             <img class="media_placeholder" :src="image_placeholder" alt="">
                             <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                            <p class="media-placeholder-title">JPG file format only</p>
                         </div>
 
                         <input type="file"
@@ -107,6 +108,7 @@
                          @click="launchFilePickerFront('introduction')">
                         <img class="media_placeholder" :src="image_placeholder" alt="">
                         <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                        <p class="media-placeholder-title">JPG file format only</p>
                     </div>
 
                     <input type="file"
@@ -155,6 +157,7 @@
                          @click="launchFilePickerFront('back')">
                         <img class="media_placeholder" :src="image_placeholder" alt="">
                         <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                        <p class="media-placeholder-title">JPG file format only</p>
                     </div>
 
                     <input type="file"
@@ -326,8 +329,9 @@
 
                 if (file.length>0) {
                     let size = imageFile.size / maxSize / maxSize
-                    if (!imageFile.type.match('image.*')) {
-                        toastr.warning('Please choose an image file', 'Error');
+                    //if (!imageFile.type.match('image.*')) {
+                    if (!imageFile.type.match('image.jp*')) {
+                        toastr.warning('JPG file format only', 'Error');
                     } else if (size>1) {
                         toastr.warning('Your file is too big! Please select an image under 1MB', 'Error');
                     } else {
@@ -359,8 +363,16 @@
                     return;
                 }
 
+                console.log(e.dataTransfer.files[0].type)
+
+                if(e.dataTransfer.files[0].type !== 'image/jpeg' && e.dataTransfer.files[0].type !== 'image/jpg'){
+                    toastr.warning("JPG file format only", 'Error');
+                    return;
+                }
+
                 this.image_type = type;
                 this.current_image = e.dataTransfer.files[0];
+
                 this.dialogMedia = true;
 
             },

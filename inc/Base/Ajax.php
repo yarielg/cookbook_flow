@@ -921,6 +921,7 @@ class Ajax{
         //$user->remove_role( 'subscriber' );
 
         $link = get_option('siteurl') . '/collaborator-sign-up?token=' . $token . '&email='.$email . '&first=' . $first . '&has_account=' . $has_account . '&last=' . $last . '&collaborator_id=' . $user_id . '&owner_id=' . $author_id;
+        
 
         sendCollaboratorInvitation($email,array('first' => $first, 'link'=> $link));
 

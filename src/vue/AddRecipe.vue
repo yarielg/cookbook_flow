@@ -125,6 +125,7 @@
                        @click="launchFilePicker('food')">
                      <img class="media_placeholder" :src="image_placeholder" alt="">
                      <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                     <p class="media-placeholder-title">JPG file format only</p>
                   </div>
 
                   <input type="file"
@@ -183,6 +184,7 @@
                     @click="launchFilePicker('story')">
                   <img class="media_placeholder" :src="image_placeholder" alt="">
                   <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                  <p class="media-placeholder-title">JPG file format only</p>
                </div>
 
                <input type="file"
@@ -341,23 +343,6 @@
               }
               return false;
            },
-           /*removeIngredientHandler(key){
-              this.ingredients = this.ingredients.filter(function( ingredient ) {
-                 return ingredient.key !== key;
-              });
-           },
-
-           addIngredientHandler(e){
-              e.preventDefault();
-              this.ingredients.push(
-                      {
-                         key: this.ingredients.length + 1,
-                         name:'',
-                         quantity:1,
-                         unit: 'oz'
-                      }
-              );
-           },*/
            addRecipe(status, type){
               if(type === 'new' && this.new_cookbook === ''){
                  toastr.error('You must define a valid cookbook name', 'Error');
@@ -496,6 +481,11 @@
                  return;
               }
 
+              if(e.dataTransfer.files[0].type !== 'image/jpeg' && e.dataTransfer.files[0].type !== 'image/jpg'){
+                 toastr.warning("JPG file format only", 'Error');
+                 return;
+              }
+
               this.current_image = e.dataTransfer.files[0];
               this.dialogMedia = true;
               this.image_type = type;
@@ -507,8 +497,8 @@
 
               if (file.length>0) {
                  let size = imageFile.size / maxSize / maxSize
-                 if (!imageFile.type.match('image.*')) {
-                    toastr.warning('Please choose an image file', 'Error');
+                 if (!imageFile.type.match('image.jp*')) {
+                    toastr.warning('JPG file format only', 'Error');
                  } else if (size>1) {
                     toastr.warning('Your file is too big! Please select an image under 1MB', 'Error');
                  } else {
