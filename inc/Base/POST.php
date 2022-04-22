@@ -32,7 +32,7 @@ class POST{
     public function changeCollaboratorPassword(){
         if(isset($_POST['cbf_token']) && (isset($_POST['cbf_password']) || $_POST['cbf_has_account'] == 1) && isset($_POST['cbf_collaborator_id']) && $_POST['cbf_email'] && $_POST['cbf_owner_id']){
 
-            if($_POST['cbf_has_account'] == 1){
+            if($_POST['cbf_has_account'] == 0){
 	            wp_set_password( $_POST['cbf_password'], $_POST['cbf_collaborator_id'] );
             }
 
