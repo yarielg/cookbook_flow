@@ -101,6 +101,70 @@ class Ajax{
 	     * Enroll customer to
 	     */
 	    add_action( 'woocommerce_order_status_completed', array($this,'enroll_customer_after_publishing'), 10, 1 );
+
+	    /**
+	     * Get Accounts
+	     */
+	    add_action( 'wp_ajax_get_accounts', array($this, 'getAccounts') );
+	    add_action( 'wp_ajax_nopriv_get_accounts', array($this, 'getAccounts') );
+
+	    /**
+	     * Select Account
+	     */
+	    add_action( 'wp_ajax_select_account', array($this, 'selectAccount') );
+	    add_action( 'wp_ajax_nopriv_select_account', array($this, 'selectAccount') );
+    }
+
+	/**
+	 * Select account
+	 */
+    function selectAccount(){
+    	$user_id = $_POST['user_id'];
+    	$email = $_POST['email'];
+    	$username = $_POST['username'];
+    	$collaborator_id = $_POST['collaborator_id'];
+    	$account_type = $_POST['account_type'];
+    	$premium = $_POST['premium'];
+
+	    $user = wp_get_current_user();
+
+
+	    $account_selected = array(
+		    'id' => $user_id,
+		    'email' => $email,
+		    'account_type' => $account_type,
+		    'collaborator_id' => $collaborator_id,
+		    'username' => $username,
+		    'premium' => $premium,
+	    );
+
+	    update_user_meta($user->ID,'account_selected',serialize($account_selected) );
+
+	    echo json_encode(array('success'=> true, 'selection' => $account_selected));
+	    wp_die();
+    }
+
+	/**
+	 * Get all the user accounts
+	 */
+    function getAccounts(){
+
+
+	    $user = wp_get_current_user();
+
+	    $account_selected = null;
+
+	    $accounts = getAccountsByUserId($user->ID);
+
+		if($selection = get_user_meta($user->ID, 'account_selected', true)){
+			$account_selected = unserialize($selection);
+		}else{
+			$account_selected = count($accounts) > 0 ?  $accounts[0] : null;
+		}
+
+
+	    echo json_encode(array('success'=> true, 'accounts' => $accounts, 'selection' => $account_selected));
+	    wp_die();
     }
 
 	/**
@@ -827,26 +891,38 @@ class Ajax{
         $password = cbf_generate_string(12);
         $token = cbf_generate_string(22);
 
+        $collaborator = null;
+        $has_account = 0;
+
         if(email_exists($email)){
-            echo json_encode(array('success'=> false, 'msg' => 'There is a collaborator with the same email'));
-            wp_die();
+
+        	$has_account = 1;
+
+        	$collaborator = get_user_by( 'email', $email );
+
+        	if(existCollaboratorOwner($author_id, $collaborator->ID)){
+		        echo json_encode(array('success'=> false, 'msg' => 'You already added this collaborator'));
+		        wp_die();
+        	}
+
         }
 
-        $user_id = wp_create_user( $email, $password, $email );
-        $user = get_user_by( 'id', $user_id );
+        $user_id = $collaborator->ID > 0 ? $collaborator->ID : wp_create_user( $email, $password, $email );
+        $user = $collaborator->ID > 0 ? $collaborator : get_user_by( 'id', $user_id );
 
-        update_user_meta($user_id,'first_name',$first);
-        update_user_meta($user_id,'last_name',$last);
-        update_user_meta($user_id,'invitation_status','Sent');
+        if($collaborator === null){
+	        update_user_meta($user_id,'first_name',$first);
+	        update_user_meta($user_id,'last_name',$last);
+        }
 
         insertCollaboratorUser($author_id, $user_id, $token);
 
         $user->add_role( 'cbf_collaborator' );
-        $user->remove_role( 'subscriber' );
+        //$user->remove_role( 'subscriber' );
 
-        $link = get_option('siteurl') . '/collaborator-sign-up?token=' . $token . '&email='.$email . '&first=' . $first . '&last=' . $last . '&collaborator_id=' . $user_id;
+        $link = get_option('siteurl') . '/collaborator-sign-up?token=' . $token . '&email='.$email . '&first=' . $first . '&has_account=' . $has_account . '&last=' . $last . '&collaborator_id=' . $user_id . '&owner_id=' . $author_id;
 
-        sendCollaboratorInvitation($email,array('link' => 'https://google.com', 'first' => $first, 'link'=> $link));
+        sendCollaboratorInvitation($email,array('first' => $first, 'link'=> $link));
 
         $collaborator = array('first' => $first, 'last' => $last, 'email' => $email, 'token' => $token, 'ID' => $user_id, 'status' => 'Sent');
 
@@ -898,6 +974,7 @@ class Ajax{
      */
     public function removeCollaborator(){
         $id = $_POST['collaborator_id'];
+        $owner_id = $_POST['owner_id'];
 
         if(empty($id)){
             echo json_encode(array('success'=> false , 'msg' => 'There was am error removing the collaborator, collaborator id was not provided'));
@@ -908,6 +985,10 @@ class Ajax{
             echo json_encode(array('success'=> false , 'msg' => 'There user could not be deleted'));
             wp_die();
         }
+
+	    global $wpdb;
+
+	    $wpdb->query("DELETE FROM $wpdb->prefix" . "cbf_users_collaborators WHERE user_id='$owner_id' AND collaborator_id='$id'");
 
         echo json_encode(array('success'=> true , 'msg' => 'Collaborator deleted'));
         wp_die();

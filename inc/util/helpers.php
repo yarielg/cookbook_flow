@@ -119,10 +119,27 @@ function insertCookbooksToRecipe($cookbooks, $recipe_id){
 
 }
 
-function insertCollaboratorUser($user_id,$collaborator_id,$token){
+function insertCollaboratorUser($user_id,$collaborator_id,$token, $status = 'Sent'){
     global $wpdb;
 
-    $wpdb->query("INSERT INTO $wpdb->prefix" . "cbf_users_collaborators (user_id,collaborator_id,token) VALUES ('$user_id','$collaborator_id','$token')");
+    $wpdb->query("INSERT INTO $wpdb->prefix" . "cbf_users_collaborators (user_id,collaborator_id,token,status) VALUES ('$user_id','$collaborator_id','$token','$status')");
+
+}
+
+function updateCollaboratorUserInvitation($user_id,$collaborator_id, $status){
+	global $wpdb;
+
+	$wpdb->query("UPDATE $wpdb->prefix" . "cbf_users_collaborators set status='$status' WHERE user_id='$user_id' AND collaborator_id='$collaborator_id'");
+
+}
+
+
+function existCollaboratorOwner($user_id,$collaborator_id){
+	global $wpdb;
+
+	$results = $wpdb->get_results("SELECT user_id FROM $wpdb->prefix" . "cbf_users_collaborators WHERE user_id='$user_id' AND collaborator_id='$collaborator_id'", OBJECT);
+
+	return count($results) > 0;
 
 }
 
@@ -223,7 +240,7 @@ function getCollaboratorsByOwnerId($id){
 
     $collaborators = array();
 
-    $results = $wpdb->get_results("SELECT u.ID, u.user_email as email, uc.token
+    $results = $wpdb->get_results("SELECT u.ID, u.user_email as email, uc.token,uc.status
                                   FROM $wpdb->prefix" . "cbf_users_collaborators uc
                                   INNER JOIN $wpdb->prefix" . "users u ON uc.collaborator_id = u.ID
                                   WHERE uc.user_id='$id'", ARRAY_A);
@@ -234,11 +251,51 @@ function getCollaboratorsByOwnerId($id){
             'token' => $collaborator['token'],
             'first' => get_user_meta($collaborator['ID'],'first_name',true),
             'last' => get_user_meta($collaborator['ID'],'last_name',true),
-            'status' => get_user_meta($collaborator['ID'],'invitation_status',true)
+            'status' => $collaborator['status']
         ));
     }
 
     return $collaborators;
+}
+
+function getAccountsByUserId($user_id){
+	global $wpdb;
+
+	$user = $wpdb->get_results("SELECT ID as id, user_login as username, user_email as email  FROM  $wpdb->prefix" . "users WHERE ID='$user_id' ", ARRAY_A);
+
+	$collaborators = $wpdb->get_results("SELECT u.ID as id, u.user_login as username, u.user_email as email, uc.collaborator_id  FROM $wpdb->prefix" . "cbf_users_collaborators uc
+                                  INNER JOIN $wpdb->prefix" . "users u ON uc.user_id = u.ID
+                                  WHERE uc.collaborator_id='$user_id'", ARRAY_A);
+
+	$accounts = array();
+	foreach ($user as $u){
+		$u['collaborator_id'] = $u['id'];
+		$u['account_type'] = 'owner';
+
+		$customer = rcp_get_customer_by_user_id($u['id']);
+		$premium = false;
+		if ($customer) {
+			$memberships = $customer->get_memberships();
+			$premium = $memberships[0]->get_gateway() == 'free' || $memberships[0]->get_status() == 'cancelled' ? false : true;
+		}
+		$u['premium'] = $premium;
+		array_push($accounts, $u);
+	}
+
+	foreach ($collaborators as $collaborator){
+		$collaborator['account_type'] = 'collaborator';
+
+		$customer = rcp_get_customer_by_user_id($collaborator['id']);
+		$premium = false;
+		if ($customer) {
+			$memberships = $customer->get_memberships();
+			$premium = $memberships[0]->get_gateway() == 'free' || $memberships[0]->get_status() == 'cancelled' ? false : true;
+		}
+		$collaborator['premium'] = $premium;
+		array_push($accounts, $collaborator);
+	}
+
+	return $accounts;
 }
 
 function cbf_get_user_info(){

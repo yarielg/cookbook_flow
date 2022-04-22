@@ -377,7 +377,7 @@
                  formData.append('headline_story',this.headline_story);
                  //formData.append('ingredients', JSON.stringify(this.ingredients));
                  formData.append('ingredients', this.ingredients);
-                 formData.append('author_id', parameters.owner.ID);
+                 formData.append('author_id', parameters.account_selected.id);
                  formData.append('photos', JSON.stringify(this.food_photo));
                  formData.append('story_photos', JSON.stringify(this.story_photo));
                  formData.append('status', status);
@@ -573,7 +573,7 @@
            getCookbooks(){
               const formData = new FormData();
               formData.append('action', 'get_user_cookbooks');
-              formData.append('author_id', parameters.owner.ID);
+              formData.append('author_id', parameters.account_selected.id);
               this.loading = true;
               axios.post(parameters.ajax_url, formData)
                       .then( response => {
@@ -589,7 +589,7 @@
               const formData = new FormData();
               formData.append('action', 'get_recipe');
               formData.append('id', this.edit_mode);
-              formData.append('author_id', parameters.owner.ID);
+              formData.append('author_id', parameters.account_selected.id);
               this.loading = true;
               axios.post(parameters.ajax_url, formData)
                       .then( response => {

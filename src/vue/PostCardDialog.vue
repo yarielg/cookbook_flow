@@ -140,7 +140,7 @@
             getYourRecipes(){
                 const formData = new FormData();
                 formData.append('action', 'get_your_recipes');
-                formData.append('author_id', parameters.owner.ID);
+                formData.append('author_id', parameters.account_selected.id);
                 this.loading = true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
@@ -151,12 +151,6 @@
                         }
                 });
                 this.loading= false;
-            },
-            recipeSelected(){
-                /*if(this.selected_recipe != -1){
-                    this.recipe = this.selected_recipe;
-                    this.$emit('changeDashboard');
-                }*/
             }
         }
 

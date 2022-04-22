@@ -1,8 +1,9 @@
 <template>
     <v-app>
-        <div class="container dashboard" v-if="active_screen == 'dashboard' || active_screen == 'postcard'">
+        <div class="container dashboard" v-if="(active_screen == 'dashboard' || active_screen == 'postcard') && account_selected !== null">
             <loading-dialog :loading="loading"></loading-dialog>
             <postcard-dialog :dashboard="true" :recipe="recipe" @closePostCardDialog="postcard_dialog = false" :postcard_dialog="postcard_dialog"></postcard-dialog>
+
             <div class="row mb-6" v-show="premium_account">
                 <div class="col-md-6 box-panel">
                     <div class="panel-wrapper recipe-panel">
@@ -110,6 +111,20 @@
         <view-recipe :edit_mode="edit_recipe" v-if="active_screen == 'view-recipe'" :recipes="recipes" @goEditRecipe="changeScreen('add-recipe',edit_recipe)" @goBack="changeScreen('dashboard')" ></view-recipe>
         <view-cookbook  :edit_mode="edit_cookbook" v-if="active_screen == 'view-cookbook'" @goEditCookbook="changeScreen('add-cookbook',edit_cookbook)"  :recipes="recipes" @goBack="changeScreen('dashboard')" ></view-cookbook>
         <collaborators  v-if="active_screen == 'collaborators'"></collaborators>
+
+        <div class="container" v-if="active_screen == 'account-selection'">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="text-center">Your Accounts</h1>
+                    <p>You have multiple accounts, please select one to start working on it!</p>
+                    <div v-for="account in accounts" :key="account.id">
+                        <input type="radio"  name="select_account"  v-model="account_selected" :value="account" :id="'option_account_'+ account.id">
+                        <label :for="'option_account_'+ account.id"> {{ account.username }} ({{account.account_type}})</label><br>
+                    </div>
+                    <button @click="selectAccount()" class="btn-normal">Select</button>
+                </div>
+            </div>
+        </div>
     </v-app>
 </template>
 
@@ -126,6 +141,8 @@
                edit_cookbook: -1,
                premium_account: false,
                cookbooks:0,
+               accounts: [],
+               account_selected: null,
                account_type: 0,
                data: [],
                postcard_dialog: false,
@@ -138,17 +155,56 @@
             }
         },
         created(){
-            this.premium_account = parameters.premium;
+
+            if(this.account_selected === null){
+                this.getAccounts();
+            }
+
             this.data = parameters.data;
-            this.account_type = parameters.account_type;
-            //Determine what flow the app will have depending on the account type and the user role
-            this.secureAccount();
+            this.account_selected = parameters.account_selected;
+
             //Change screen in case there is a query parameter
             this.queryParameterChangeScreen();
 
-            this.getYourRecipes();
         },
         methods:{
+            selectAccount(){
+                const formData = new FormData();
+                formData.append('action', 'select_account');
+                formData.append('user_id', this.account_selected.id);
+                formData.append('username', this.account_selected.username);
+                formData.append('collaborator_id', this.account_selected.collaborator_id);
+                formData.append('account_type', this.account_selected.account_type);
+                formData.append('email', this.account_selected.email);
+                formData.append('premium', this.account_selected.premium);
+                this.loading= true;
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            this.account_selected = response.data.selection;
+                            toastr.success('You are now on ' + this.account_selected.username + " account", 'Info!');
+                            window.location =  parameters.site_url + '/welcome';
+                        }
+
+                    });
+                this.loading= false;
+            },
+            getAccounts(){
+                const formData = new FormData();
+                formData.append('action', 'get_accounts');
+                this.loading= true;
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            this.accounts = response.data.accounts;
+                            this.account_selected = response.data.selection;
+                            this.premium_account = this.account_selected.premium;
+                            this.account_type = this.account_selected.account_type;
+                        }
+
+                    });
+                this.loading= false;
+            },
             queryParameterChangeScreen(){
                 let query_parameter = window.location.search.substring(1).length > 0 ? window.location.search.substring(1).split('=')[1] : 'dashboard';
                 this.changeScreen(query_parameter);
@@ -165,6 +221,7 @@
 
                 if(screen === 'add-cookbook' || screen === 'view-cookbook'){
                     this.edit_cookbook = id;
+                    this.getYourRecipes();
                 }
 
                 if(screen === 'postcard'){
@@ -188,7 +245,7 @@
             getYourRecipes(){
                 const formData = new FormData();
                 formData.append('action', 'get_your_recipes');
-                formData.append('author_id', parameters.owner.ID);
+                formData.append('author_id', parameters.account_selected.id);
                 this.loading= true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
@@ -203,7 +260,7 @@
             getYourCookbooks(){
                 const formData = new FormData();
                 formData.append('action', 'get_user_cookbooks');
-                formData.append('author_id', parameters.owner.ID);
+                formData.append('author_id', parameters.account_selected.id);
                 this.loading= true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
@@ -215,13 +272,8 @@
                         this.loading= false;
                     });
             },
-            viewRecipe(id){
-            },
             goToUpgradeMembership(){
                 window.location = '/register/?registration_type=upgrade';
-            },
-            secureAccount(){
-
             }
         }
 

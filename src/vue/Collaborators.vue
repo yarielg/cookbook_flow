@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <div v-if="account_type == 1" class="container">
+        <div v-if="account_type === 'owner'" class="container">
             <div class="row">
                 <div class="col-12">
                     <button class="btn-normal" @click="dialogCollaborator = true">Create Collaborator</button>
@@ -57,11 +57,11 @@
             return {
                 dialogCollaborator: false,
                 collaborators:[],
-                account_type: 0
+                account_type: 0,
             }
         },
         created(){
-            this.account_type = parameters.account_type;
+            this.account_type = parameters.account_selected.account_type;
             this.getCollaborators();
         },
         methods:{
@@ -71,7 +71,7 @@
             getCollaborators(){
                 const formData = new FormData();
                 formData.append('action', 'get_collaborators');
-                formData.append('user_id', parameters.owner.ID);
+                formData.append('user_id', parameters.account_selected.id);
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
                         if(response.data.success){
@@ -86,6 +86,7 @@
                     const formData = new FormData();
                     formData.append('action', 'remove_collaborator');
                     formData.append('collaborator_id', id);
+                    formData.append('owner_id', parameters.account_selected.id);
                     axios.post(parameters.ajax_url, formData)
                         .then( response => {
                             if(response.data.success){

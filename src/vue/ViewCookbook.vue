@@ -161,7 +161,7 @@
                 this.getComments();
             },5000)
 
-            this.author_name = parameters.owner.data.display_name.charAt(0).toUpperCase() + parameters.owner.data.display_name.slice(1);
+            this.author_name = parameters.account_selected.username.charAt(0).toUpperCase() + parameters.account_selected.username.slice(1);
         },
         computed:{
             cookbook_id(){

@@ -99,7 +99,7 @@
                     formData.append('first', this.first);
                     formData.append('last', this.last);
                     formData.append('email', this.email);
-                    formData.append('author_id', parameters.owner.ID)
+                    formData.append('author_id', parameters.account_selected.id)
 
                     axios.post(parameters.ajax_url, formData)
                         .then( response => {
@@ -119,7 +119,8 @@
                 }
             },
             checkForm(){
-                if(this.first !== '' && this.last !== '' && this.email !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)){
+           /* && this.email !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email*/
+                if(this.first !== '' && this.last !== '' && this.email !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email) ){
                     return true;
                 }
                 return false;

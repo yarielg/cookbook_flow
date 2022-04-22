@@ -407,7 +407,7 @@
                     formData.append('introduction_image', this.introduction_image.id);
                     formData.append('back_image', this.back_image.id);
                     formData.append('recipes', this.getTheRecipesIDs());
-                    formData.append('author_id', parameters.owner.ID);
+                    formData.append('author_id', parameters.account_selected.id);
                     formData.append('edit', this.edit_mode);
                     formData.append('introduction_image_caption', this.introduction_image_caption);
 

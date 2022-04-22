@@ -26,12 +26,23 @@
   <component name="ChangeListManager">
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/Base/Ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Ajax.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Base/Checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Checkout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Base/Enqueue.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Enqueue.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Base/POST.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/POST.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Base/Shortcodes.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Shortcodes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/util/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/util/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/AddCookbook.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddCookbook.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vue/AddRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddRecipe.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/TemplateDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/TemplateDialog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/CollaboratorDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/CollaboratorDialog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/Collaborators.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/Collaborators.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/PostCardDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/PostCardDialog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/ViewCookbook.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/ViewCookbook.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/ViewRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/ViewRecipe.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/collaborator_sign_up.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/collaborator_sign_up.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +174,10 @@
       <workItem from="1648908204597" duration="15000" />
       <workItem from="1649092522039" duration="6455000" />
       <workItem from="1649344930825" duration="6491000" />
-      <workItem from="1649429242233" duration="25517000" />
+      <workItem from="1649429242233" duration="26114000" />
+      <workItem from="1650171044557" duration="594000" />
+      <workItem from="1650208504723" duration="6305000" />
+      <workItem from="1650464245944" duration="30681000" />
     </task>
     <servers />
   </component>
@@ -207,7 +221,7 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="667" y="239" key="NewPhpClassDialog/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1642689518233" />
-    <state x="667" y="249" width="585" height="534" key="find.popup" timestamp="1650051059602">
+    <state x="667" y="249" width="585" height="534" key="find.popup" timestamp="1650650314220">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643725967708" />
@@ -217,7 +231,7 @@
     <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/1920.0.1920.1032@0.0.1920.1032" timestamp="1644870869810" />
     <state x="2587" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/920.-1080.1920.1032/1920.0.1920.1032@1920.0.1920.1032" timestamp="1645924723318" />
     <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@0.0.1920.1032" timestamp="1648770461922" />
-    <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1650051059602" />
+    <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1650650314220" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1644865116392">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
@@ -226,13 +240,14 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="826" y="382" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup/0.0.1920.1032/1920.0.1920.1032@0.0.1920.1032" timestamp="1644865121658" />
-    <state x="616" y="238" key="run.anything.popup" timestamp="1648682459976">
+    <state x="616" y="238" key="run.anything.popup" timestamp="1650570562802">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="616" y="238" key="run.anything.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643159005898" />
     <state x="616" y="238" key="run.anything.popup/0.0.1920.1032/1920.0.1920.1032@0.0.1920.1032" timestamp="1644602699820" />
     <state x="616" y="238" key="run.anything.popup/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@0.0.1920.1032" timestamp="1648682459976" />
-    <state x="623" y="223" width="672" height="678" key="search.everywhere.popup" timestamp="1649808355955">
+    <state x="616" y="238" key="run.anything.popup/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1650570562802" />
+    <state x="623" y="223" width="672" height="678" key="search.everywhere.popup" timestamp="1650649171204">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643729218983" />
@@ -240,14 +255,14 @@
     <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/949.-1080.1920.1032/-971.-1088.1920.1032@0.0.1920.1032" timestamp="1646662983437" />
     <state x="-348" y="-857" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@-971.-1080.1920.1032" timestamp="1647567384641" />
     <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@0.0.1920.1032" timestamp="1648473459959" />
-    <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1649808355955" />
+    <state x="623" y="223" width="672" height="678" key="search.everywhere.popup/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1650649171204" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/vue/App.vue</url>
-          <line>8</line>
+          <line>9</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
