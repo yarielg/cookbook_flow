@@ -981,10 +981,11 @@ class Ajax{
             wp_die();
         }
 
-        if(!wp_delete_user( $id )){
+		//todo check if the collaborator does not have a main account in use and remove it
+        /*if(!wp_delete_user( $id )){
             echo json_encode(array('success'=> false , 'msg' => 'There user could not be deleted'));
             wp_die();
-        }
+        }*/
 
 	    global $wpdb;
 
