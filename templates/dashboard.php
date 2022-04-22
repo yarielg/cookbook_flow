@@ -68,7 +68,7 @@ if(is_user_logged_in()){
                             <a class="dropdown-item" href="#"></a>
                             <div class="dropdown-divider"></div>
 	                        <?php if( count($accounts) > 1){?><a class="dropdown-item" href="<?= site_url('welcome/?screen=account-selection') ?>">Switch Account</a><?php } ?>
-                            <span class="dropdown-item" id="cbf_logout" data-url="<?= site_url('/wp-login.php?action=logout') ?>">Sign out</span>
+                            <a class="dropdown-item" id="cbf_logout" href="<?= site_url('/wp-login.php?action=logout') ?>">Sign out</a>
                         </div>
 
                     </li>
