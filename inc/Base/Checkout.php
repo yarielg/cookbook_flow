@@ -54,7 +54,34 @@ class Checkout{
          * Add publishers to list
          */
 	    add_action('woocommerce_thankyou', array($this, 'add_list_publishers'), 10, 1);
+
+	    /**
+	     * New require acknowledge field
+	     */
+	    add_action( 'woocommerce_review_order_before_submit', array($this, 'cbf_add_checkout_checkbox'), 10 );
+	    add_action( 'woocommerce_checkout_process', array($this, 'cbf_add_checkout_checkbox_warning') );
     }
+
+	function cbf_add_checkout_checkbox() {
+
+		woocommerce_form_field( 'cbf_acknowledge', array( // CSS ID
+			'type'          => 'checkbox',
+			'class'         => array('form-row mycheckbox'), // CSS Class
+			'label_class'   => array('woocommerce-form__label woocommerce-form__label-for-checkbox checkbox'),
+			'input_class'   => array('woocommerce-form__input woocommerce-form__input-checkbox input-checkbox'),
+			'required'      => true, // Mandatory or Optional
+			'label'         => '<span>I ﻿ personally reviewed the recipes and photos and confirm that the book is ready to go to the design team. Any changes after this point will incur additional charges.</span>', // Label and Link
+		));
+	}
+
+	/**
+	 * Alert if checkbox not checked
+	 */
+	function cbf_add_checkout_checkbox_warning() {
+		if ( ! (int) isset( $_POST['cbf_acknowledge'] ) ) {
+			wc_add_notice( __( 'Please acknowledge the Checkbox' ), 'error' );
+		}
+	}
 
     function add_list_publishers($order_id){
 	    global $current_user;
