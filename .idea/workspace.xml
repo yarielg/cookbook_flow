@@ -27,6 +27,8 @@
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/Base/Checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Checkout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/collaborator_sign_up.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/collaborator_sign_up.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/rcp/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rcp/register.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +77,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../wr_easy_checkout" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../woocommerce" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -161,7 +163,8 @@
       <workItem from="1649429242233" duration="26114000" />
       <workItem from="1650171044557" duration="594000" />
       <workItem from="1650208504723" duration="6305000" />
-      <workItem from="1650464245944" duration="37363000" />
+      <workItem from="1650464245944" duration="38576000" />
+      <workItem from="1650912220076" duration="2573000" />
     </task>
     <servers />
   </component>
@@ -190,7 +193,7 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643129096696" />
-    <state x="740" y="270" width="537" height="490" key="FileChooserDialogImpl" timestamp="1649968373182">
+    <state x="740" y="270" width="537" height="490" key="FileChooserDialogImpl" timestamp="1650912246722">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1032/1072.-1085.1920.1032/-848.-1080.1920.1032@0.0.1920.1032" timestamp="1644337646153" />
@@ -200,7 +203,7 @@
     <state x="2660" y="270" key="FileChooserDialogImpl/0.0.1920.1032/920.-1080.1920.1032/1920.0.1920.1032@1920.0.1920.1032" timestamp="1646065791885" />
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1032/949.-1080.1920.1032/-971.-1088.1920.1032@0.0.1920.1032" timestamp="1646673081516" />
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@0.0.1920.1032" timestamp="1648311637868" />
-    <state x="740" y="270" width="537" height="490" key="FileChooserDialogImpl/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1649968373182" />
+    <state x="740" y="270" width="537" height="490" key="FileChooserDialogImpl/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1650912246722" />
     <state x="667" y="239" key="NewPhpClassDialog" timestamp="1642689518233">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>

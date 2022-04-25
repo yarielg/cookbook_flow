@@ -4,7 +4,7 @@
             <div class="panel-wrapper">
                 <h3 class="text-center">Invitation to collaborate</h3>
                 <p>You were invited to collaborate on this site, you will have the privileges to create, edit and delete content, however you will not be able to perform any action related to payment or account security.</p>
-	            <?php if($has_account == 0){ ?>
+	            <?php if(intval($has_account) == 0){ ?>
                 <p>Please choose a password to start.</p>
 	            <?php } ?>
                 <br>
@@ -26,7 +26,7 @@
                         <input readonly required type="email" value="<?php echo $email ?>" class="form-control" name="cbf_email" id="cbf_email" placeholder="Email">
                     </div>
 
-                    <?php if($has_account == 0){ ?>
+                    <?php if(intval($has_account) == 0){ ?>
                         <div class="form-group">
                             <input required name="cbf_password" type="password" class="form-control" id="cbf_pass" placeholder="Password">
                         </div>

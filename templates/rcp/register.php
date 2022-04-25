@@ -44,7 +44,7 @@ rcp_show_error_messages( 'register' ); ?>
                     <p id="cbf_login_description" class="description">Organize, edit and share your recipes for free. Or, create your one-of-a-kind cookbook. </p>
                 <?php } else { ?>
                     <h3 class="rcp_header text-center">
-                        Upgrade or Renew Your Account
+                        Upgrade Your Account
                     </h3>
                     <br>
                 <?php } ?>
