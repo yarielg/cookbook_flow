@@ -104,7 +104,7 @@
 
                <div class="form-group"> 
                   <label for="ingredients">INGREDIENTS</label>
-                  <textarea maxlength="2300" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
+                  <textarea placeholder="Do not include bulletpoints" maxlength="2300" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
                </div>
 
 

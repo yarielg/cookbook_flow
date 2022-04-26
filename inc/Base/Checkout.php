@@ -79,7 +79,7 @@ class Checkout{
 	 */
 	function cbf_add_checkout_checkbox_warning() {
 		if ( ! (int) isset( $_POST['cbf_acknowledge'] ) ) {
-			wc_add_notice( __( 'Please acknowledge the Checkbox' ), 'error' );
+			wc_add_notice( __( 'Please acknowledge the disclaimer to proceed' ), 'error' );
 		}
 	}
 
