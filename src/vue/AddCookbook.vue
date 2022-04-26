@@ -29,12 +29,12 @@
 
                     <div class="form-group">
                         <label for="cookbook_title">Title</label>
-                        <input maxlength="60" @keydown="onKeyDown($event,title,60)" v-model="title" type="text" class="form-control" id="cookbook_title">
+                        <input placeholder="Give it a title (limited to 60 characters)" maxlength="60" v-model="title" type="text" class="form-control" id="cookbook_title">
                     </div>
 
                     <div class="form-group">
                         <label for="cookbook_author_name">Author Name</label>
-                        <input maxlength="50" @keydown="onKeyDown($event,author_name,50)" v-model="author_name" type="text" class="form-control" id="cookbook_author_name">
+                        <input placeholder="(limited to 50 characters)" maxlength="50" v-model="author_name" type="text" class="form-control" id="cookbook_author_name">
                     </div>
 
                     <label>Add Front Cover Photo</label>
@@ -84,18 +84,18 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="dedications_title">Dedications</label>
-                    <textarea maxlength="2300"  v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
+                    <textarea placeholder="(limited to 2300 characters)" maxlength="2300"  v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="introduction_headline">Introduction Headline</label>
-                    <textarea maxlength="60" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
+                    <textarea placeholder="(limited to 60 characters)" maxlength="60" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
                 </div>
 
 
                 <div class="form-group">
                     <label for="introduction_title">Introduction</label>
-                    <textarea maxlength="2300" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
+                    <textarea placeholder="(limited to 2300 characters)" maxlength="2300" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
                 </div>
 
                 <label>Add Introduction Page Photo</label>
@@ -139,12 +139,12 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="back_cover_headline">Back Cover Headline</label>
-                    <textarea maxlength="60" v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
+                    <textarea placeholder="(limited to 60 characters)" maxlength="60" v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="back_cover_story">Back Cover Story</label>
-                    <textarea maxlength="2300" v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
+                    <textarea placeholder="(limited to 2300 characters)" maxlength="2300" v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
                 </div>
 
                 <label>Add Back Cover Photo</label>

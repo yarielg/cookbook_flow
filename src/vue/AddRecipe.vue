@@ -83,7 +83,7 @@
 
                <div class="form-group">
                   <label for="recipe_title">Recipe Title</label>
-                  <input maxlength="60"  v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title">
+                  <input maxlength="60"  v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title (limited to 60 characters)">
                </div>
 
                <div class="form-group">
@@ -104,13 +104,13 @@
 
                <div class="form-group"> 
                   <label for="ingredients">INGREDIENTS</label>
-                  <textarea placeholder="Do not include bulletpoints" maxlength="2300" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
+                  <textarea placeholder="Do not include bulletpoints (limited to 2300 characters)" maxlength="2300" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
                </div>
 
 
                <div class="form-group">
                   <label for="instructions">RECIPE INSTRUCTIONS</label>
-                  <textarea maxlength="2300" v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
+                  <textarea placeholder="(limited to 2300 characters). TIP: If your recipe has more than one part, try breaking them into two parts. For example, if you're baking a pie, share your crust recipe in one post, and your filling in another." maxlength="2300" v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
                </div>
 
                <br>
@@ -166,12 +166,12 @@
             <h4>SHARE YOUR STORY (OPTIONAL)</h4>
             <div class="form-group story">
                <label for="headline_story">HEADLINE (Optional)</label>
-               <input maxlength="60"  v-model="headline_story" type="text" class="form-control" id="headline_story">
+               <input placeholder="(limited to 60 characters)" maxlength="60"  v-model="headline_story" type="text" class="form-control" id="headline_story">
             </div>
 
             <div class="form-group story">
                <label for="story">ADD YOUR STORY! (Optional)</label>
-               <textarea maxlength="2300"  v-model="story" class="form-control" id="story" rows="5"></textarea>
+               <textarea placeholder="(limited to 2300 characters)" maxlength="2300"  v-model="story" class="form-control" id="story" rows="5"></textarea>
             </div>
 
             <label>ADD A PHOTO (OPTIONAL)</label>

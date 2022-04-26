@@ -27,7 +27,7 @@
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Base/Checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Checkout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/AddCookbook.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddCookbook.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vue/AddRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddRecipe.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +165,7 @@
       <workItem from="1650208504723" duration="6305000" />
       <workItem from="1650464245944" duration="38576000" />
       <workItem from="1650912220076" duration="3574000" />
-      <workItem from="1650931608660" duration="735000" />
+      <workItem from="1650931608660" duration="1703000" />
     </task>
     <servers />
   </component>
