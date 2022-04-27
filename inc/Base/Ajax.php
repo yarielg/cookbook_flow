@@ -158,17 +158,17 @@ class Ajax{
 
 		if($selection = get_user_meta($user->ID, 'account_selected', true)){
 			$account_selected = unserialize($selection);
+			$customer = rcp_get_customer_by_user_id($account_selected['id']);
+			$premium = false;
+			if ($customer) {
+				$memberships = $customer->get_memberships();
+				$premium = $memberships[0]->get_gateway() == 'free' || $memberships[0]->get_status() == 'cancelled' ? false : true;
+			}
+			$account_selected['premium'] = $premium;
 		}else{
 			$account_selected = count($accounts) > 0 ?  $accounts[0] : null;
 		}
 
-	    $customer = rcp_get_customer_by_user_id($user->ID);
-	    $premium = false;
-	    if ($customer) {
-		    $memberships = $customer->get_memberships();
-		    $premium = $memberships[0]->get_gateway() == 'free' || $memberships[0]->get_status() == 'cancelled' ? false : true;
-	    }
-	    $account_selected['premium'] = $premium;
 
 	    echo json_encode(array('success'=> true, 'accounts' => $accounts, 'selection' => $account_selected));
 	    wp_die();
