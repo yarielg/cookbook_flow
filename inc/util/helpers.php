@@ -287,6 +287,7 @@ function getAccountsByUserId($user_id){
 			$memberships = $customer->get_memberships();
 			$premium = $memberships[0]->get_gateway() == 'free' || $memberships[0]->get_status() == 'cancelled' ? false : true;
 		}
+
 		$u['premium'] = $premium;
 		array_push($accounts, $u);
 	}
@@ -303,6 +304,7 @@ function getAccountsByUserId($user_id){
 		$collaborator['premium'] = $premium;
 		array_push($accounts, $collaborator);
 	}
+
 
 	return $accounts;
 }

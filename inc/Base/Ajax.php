@@ -162,6 +162,13 @@ class Ajax{
 			$account_selected = count($accounts) > 0 ?  $accounts[0] : null;
 		}
 
+	    $customer = rcp_get_customer_by_user_id($user->ID);
+	    $premium = true;
+	    if ($customer) {
+		    $memberships = $customer->get_memberships();
+		    $premium = $memberships[0]->get_gateway() == 'free' || $memberships[0]->get_status() == 'cancelled' ? false : true;
+	    }
+	    $account_selected['premium'] = $premium;
 
 	    echo json_encode(array('success'=> true, 'accounts' => $accounts, 'selection' => $account_selected));
 	    wp_die();
