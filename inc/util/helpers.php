@@ -143,6 +143,15 @@ function existCollaboratorOwner($user_id,$collaborator_id){
 
 }
 
+function isCollaborator($user_id){
+	global $wpdb;
+
+	$results = $wpdb->get_results("SELECT user_id FROM $wpdb->prefix" . "cbf_users_collaborators WHERE collaborator_id='$user_id'", OBJECT);
+
+	return count($results) > 0;
+
+}
+
 function getCookbooksFromRecipeId($id){
     global $wpdb;
 

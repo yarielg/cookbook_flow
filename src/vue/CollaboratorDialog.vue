@@ -120,7 +120,7 @@
             },
             checkForm(){
            /* && this.email !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email*/
-                if(this.first !== '' && this.last !== '' && this.email !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email) ){
+                if(this.first !== '' && this.last !== '' && this.email !== ''){
                     return true;
                 }
                 return false;

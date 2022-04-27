@@ -195,7 +195,7 @@ rcp_show_error_messages( 'register' ); ?>
                 <?php } ?>
 
             </div>
-            <div class="col-md-6 col-xl-5">
+            <div class="<?= ! is_user_logged_in() ? 'col-md-6 col-xl-5' : 'col-12' ?>">
                 <?php if( ! is_user_logged_in() ){ ?>
                     <div class="premium_boundaries" style="display: <?= $upgrading ? 'none' : 'block' ?>">
                         <h5 class="text-center">Upgrade to our PREMIUM account</h5>
@@ -215,7 +215,7 @@ rcp_show_error_messages( 'register' ); ?>
                         $i      = 0;
                         if( $levels ) : ?>
                             <?php if ( count( $levels ) > 1 ) : ?>
-                                <h5 class="rcp_subscription_message "><?php echo apply_filters ( 'rcp_registration_choose_subscription', __( 'Choose your plan', 'rcp' ) ); ?></h5>
+                                <!--<h5 class="rcp_subscription_message "><?php /*echo apply_filters ( 'rcp_registration_choose_subscription', __( 'Choose your plan', 'rcp' ) ); */?></h5>-->
                                 <br>
                             <?php endif; ?>
                             <ul id="rcp_subscription_levels">

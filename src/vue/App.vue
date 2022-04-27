@@ -117,11 +117,24 @@
                 <div class="col-12">
                     <h1 class="text-center">Your Accounts</h1>
                     <p>You have multiple accounts, please select one to start working on it!</p>
-                    <div v-for="account in accounts" :key="account.id">
-                        <input type="radio"  name="select_account"  v-model="account_selected" :value="account" :id="'option_account_'+ account.id">
-                        <label :for="'option_account_'+ account.id"> {{ account.username }} ({{account.account_type}})</label><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-center account-wrapper mr-2 p-5" :class="account.id == account_selected.id ? 'active': ''" v-for="account in accounts" :key="account.id">
+                    <span v-if="account.account_type == 'collaborator'" class="account-type-badge">{{ account.account_type}}</span>
+                    <span v-if="account.account_type == 'owner'" class="account-type-badge">{{ account.account_type}} {{ account.premium ? '- Premium' : '- Free' }}</span>
+                    <span><strong>Account:</strong> {{ account.username }}</span><br>
+                    <input class="account_select" type="radio"  name="select_account"  v-model="account_selected" :value="account" :id="'option_account_'+ account.id" style="display: none">
+                    <label class="account_label mt-5" :for="'option_account_'+ account.id">Choose Account</label><br>
+                    <div v-if="account.account_type == 'owner' && !account.premium" class="upgrade-account">
+
+                        <span class="account_label"><a :href="site_url + '/register/?registration_type=upgrade'">Upgrade Account</a></span>
                     </div>
-                    <button @click="selectAccount()" class="btn-normal">Select</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button @click="selectAccount()" class="btn-normal">Go to Account</button>
                 </div>
             </div>
         </div>
@@ -130,6 +143,7 @@
 
 <script>
     const axios = require('axios');
+    import $ from 'jquery';
 
     export default {
         data () {
@@ -145,6 +159,7 @@
                account_selected: null,
                account_type: 0,
                data: [],
+               site_url: '/',
                postcard_dialog: false,
                recipe: {
                    post_title: '',
@@ -159,6 +174,7 @@
             if(this.account_selected === null){
                 this.getAccounts();
             }
+            this.site_url = parameters.site_url;
 
             this.data = parameters.data;
             this.account_selected = parameters.account_selected;
@@ -273,11 +289,23 @@
                     });
             },
             goToUpgradeMembership(){
-                window.location = '/register/?registration_type=upgrade';
+                window.location = this.site_url + '/register/?registration_type=upgrade';
             }
         }
 
     }
+
+
+    setTimeout(function(){
+        $(document).ready(function () {
+            /*$('.account_select').on('click,change', function(){
+                $('.account-wrapper').removeClass('active');
+                $(this).parent('.account-wrapper').addClass('active');
+            });*/
+
+        });
+    },2000);
+
 </script>
 
 
@@ -376,10 +404,45 @@
         text-decoration: underline;
     }
 
-    .form-group {
-
+    .panel-wrapper input[type="radio"]:checked{
+        background: black !important;
     }
 
+    .account-wrapper{
+        min-height: 250px;
+        position: relative;
+        background: white;
+        border-radius: 8px;
+    }
 
+    .account-type-badge{
+        position: absolute;
+        top: -10px;
+        left: 40%;
+        background: white;
+        padding: 3px 8px;
+        border-radius: 8px;
+        border: 1px solid #f58320;
+        color: #f58320;
+    }
+
+    .account-wrapper.active{
+        border: 1px solid black;
+    }
+
+    .account_label{
+        display: block;
+        background: black;
+        color: white;
+        width: 200px;
+        margin: 0 auto;
+        padding: 3px 10px;
+        border-radius: 8px;
+    }
+
+    .account_label a{
+        color: white !important;
+    }
 
 </style>
+
