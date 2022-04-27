@@ -119,8 +119,8 @@
                 }
             },
             checkForm(){
-           /* && this.email !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email*/
-                if(this.first !== '' && this.last !== '' && this.email !== ''){
+           /* && this.email !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)*/
+                if(this.first !== '' && this.last !== '' && this.email !== '' && this.email !== '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)){
                     return true;
                 }
                 return false;

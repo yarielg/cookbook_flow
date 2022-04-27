@@ -163,7 +163,7 @@ class Ajax{
 		}
 
 	    $customer = rcp_get_customer_by_user_id($user->ID);
-	    $premium = true;
+	    $premium = false;
 	    if ($customer) {
 		    $memberships = $customer->get_memberships();
 		    $premium = $memberships[0]->get_gateway() == 'free' || $memberships[0]->get_status() == 'cancelled' ? false : true;
