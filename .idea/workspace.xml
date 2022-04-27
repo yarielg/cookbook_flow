@@ -27,11 +27,7 @@
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/Base/Registration.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Registration.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/util/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/util/helpers.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vue/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/CollaboratorDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/CollaboratorDialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rcp/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rcp/register.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +165,7 @@
       <workItem from="1650464245944" duration="38576000" />
       <workItem from="1650912220076" duration="3574000" />
       <workItem from="1650931608660" duration="5341000" />
-      <workItem from="1651071878794" duration="11765000" />
+      <workItem from="1651071878794" duration="12622000" />
     </task>
     <servers />
   </component>

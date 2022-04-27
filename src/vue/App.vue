@@ -94,7 +94,7 @@
                             or ads. </p>-->
                         <button class="btn-normal">Download</button>
                     </div>
-                    <div class="panel-wrapper" v-show="!premium_account && account_type !== 'collaborator'">
+                    <div class="panel-wrapper" v-show="!account_selected.premium == 'false' && account_type !== 'collaborator'">
                         <h4 class="">
                             Upgrade and publish a gorgeous cookbook!
                         </h4>
