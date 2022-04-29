@@ -41,6 +41,9 @@ class Checkout{
         //Chat
         add_action( 'add_meta_boxes', array($this,'chat') );
 
+        //Change thank you message on order confirmation
+        add_filter('woocommerce_thankyou_order_received_text', array($this, 'change_thankyou_msg'),10,2);
+
 	    //Preview
 	    /*add_action( 'add_meta_boxes', array($this,'preview') );
 	    add_action( 'woocommerce_process_shop_order_meta', array($this, 'save_pdf') );*/
@@ -60,6 +63,13 @@ class Checkout{
 	     */
 	    add_action( 'woocommerce_review_order_before_submit', array($this, 'cbf_add_checkout_checkbox'), 10 );
 	    add_action( 'woocommerce_checkout_process', array($this, 'cbf_add_checkout_checkbox_warning') );
+    }
+
+	/**
+	 * Changing the thank you message on order confirmation
+	 */
+    function change_thankyou_msg($msg, $order){
+        return '﻿﻿﻿Thank you! ﻿Your order has been received! ﻿Watch your email inbox for updates on your project!';
     }
 
 	function cbf_add_checkout_checkbox() {

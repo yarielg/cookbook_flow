@@ -26,7 +26,11 @@
   <component name="ChangeListManager">
     <list default="true" id="86ea2aec-d51a-4ebd-9140-694767e95b75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vue/ViewRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/ViewRecipe.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/scripts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Base/Checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Base/Checkout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/util/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/util/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/AddRecipe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/AddRecipe.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vue/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/vue/App.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +79,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/woocommerce-products-filter" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -164,7 +168,8 @@
       <workItem from="1650464245944" duration="38576000" />
       <workItem from="1650912220076" duration="3574000" />
       <workItem from="1650931608660" duration="5341000" />
-      <workItem from="1651071878794" duration="17864000" />
+      <workItem from="1651071878794" duration="19249000" />
+      <workItem from="1651178315551" duration="1256000" />
     </task>
     <servers />
   </component>
@@ -193,7 +198,7 @@
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643129096696" />
-    <state x="740" y="270" width="537" height="490" key="FileChooserDialogImpl" timestamp="1651027992694">
+    <state x="740" y="270" width="537" height="490" key="FileChooserDialogImpl" timestamp="1651098243015">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1032/-970.-1080.1920.1032/950.-1088.1920.1032@0.0.1920.1032" timestamp="1651027992694" />
@@ -204,12 +209,12 @@
     <state x="2660" y="270" key="FileChooserDialogImpl/0.0.1920.1032/920.-1080.1920.1032/1920.0.1920.1032@1920.0.1920.1032" timestamp="1646065791885" />
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1032/949.-1080.1920.1032/-971.-1088.1920.1032@0.0.1920.1032" timestamp="1646673081516" />
     <state x="740" y="270" key="FileChooserDialogImpl/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@0.0.1920.1032" timestamp="1648311637868" />
-    <state x="740" y="270" width="537" height="490" key="FileChooserDialogImpl/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1651014178739" />
+    <state x="740" y="270" width="537" height="490" key="FileChooserDialogImpl/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1651098243015" />
     <state x="667" y="239" key="NewPhpClassDialog" timestamp="1642689518233">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="667" y="239" key="NewPhpClassDialog/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1642689518233" />
-    <state x="667" y="249" width="585" height="534" key="find.popup" timestamp="1651093569227">
+    <state x="667" y="249" width="585" height="534" key="find.popup" timestamp="1651244604635">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/14.-1080.1920.1032/-1906.-1089.1920.1032/1934.-1091.1920.1032@0.0.1920.1032" timestamp="1643725967708" />
@@ -219,7 +224,7 @@
     <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/1920.0.1920.1032@0.0.1920.1032" timestamp="1644870869810" />
     <state x="2587" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/920.-1080.1920.1032/1920.0.1920.1032@1920.0.1920.1032" timestamp="1645924723318" />
     <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/949.-1088.1920.1032/-971.-1080.1920.1032@0.0.1920.1032" timestamp="1648770461922" />
-    <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1651093569227" />
+    <state x="667" y="249" width="585" height="534" key="find.popup/0.0.1920.1032/950.-1088.1920.1032/-970.-1080.1920.1032@0.0.1920.1032" timestamp="1651244604635" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1644865116392">
       <screen x="0" y="0" width="1920" height="1032" />
     </state>

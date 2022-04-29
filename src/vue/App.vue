@@ -128,7 +128,7 @@
                     <label class="account_label mt-5" :for="'option_account_'+ account.id">Choose Account</label><br>
                     <div v-if="account.account_type == 'owner' && !account.premium" class="upgrade-account">
 
-                        <span class="account_label"><a :href="site_url + '/register/?registration_type=upgrade'">Upgrade Account</a></span>
+                        <span class="account_label btn-normal"><a :href="site_url + '/register/?registration_type=upgrade'">Upgrade Account</a></span>
                     </div>
                 </div>
             </div>
@@ -432,7 +432,7 @@
 
     .account_label{
         display: block;
-        background: black;
+        background: #f58320;
         color: white;
         width: 200px;
         margin: 0 auto;

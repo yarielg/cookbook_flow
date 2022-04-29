@@ -104,13 +104,13 @@
 
                <div class="form-group"> 
                   <label for="ingredients">INGREDIENTS</label>
-                  <textarea placeholder="Do not include bulletpoints (limited to 2300 characters)" maxlength="2300" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
+                  <textarea placeholder="Do not include bulletpoints (limited to 1100 characters)" maxlength="1100" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
                </div>
 
 
                <div class="form-group">
                   <label for="instructions">RECIPE INSTRUCTIONS</label>
-                  <textarea placeholder="(limited to 2300 characters). TIP: If your recipe has more than one part, try breaking them into two parts. For example, if you're baking a pie, share your crust recipe in one post, and your filling in another." maxlength="2300" v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
+                  <textarea placeholder="(limited to 2200 characters). TIP: If your recipe has more than one part, try breaking them into two parts. For example, if you're baking a pie, share your crust recipe in one post, and your filling in another." maxlength="2200" v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
                </div>
 
                <br>
@@ -171,7 +171,7 @@
 
             <div class="form-group story">
                <label for="story">ADD YOUR STORY! (Optional)</label>
-               <textarea placeholder="(limited to 2300 characters)" maxlength="2300"  v-model="story" class="form-control" id="story" rows="5"></textarea>
+               <textarea placeholder="(limited to 1400 characters)" maxlength="1400"  v-model="story" class="form-control" id="story" rows="5"></textarea>
             </div>
 
             <label>ADD A PHOTO (OPTIONAL)</label>
