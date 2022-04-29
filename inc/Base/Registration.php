@@ -21,6 +21,12 @@ class Registration
         //Remove the username mandatory
         add_filter( 'rcp_user_registration_data', array($this, 'cbf_remove_username') );
 
+        //Change the email exist login url
+        add_filter( 'rcp_login_url', array($this, 'cbf_redirect_to_app_login'),10,1 );
+
+        //Add url parameter for those user need to upgrade
+        add_filter( 'rcp_login_redirect_url', array($this, 'cbf_redirect_to_switch_account'),1,2 );
+
         //Adding the edit customer screen fields
         add_action( 'rcp_edit_member_after', array($this,'cbf_rcp_add_member_edit_fields') );
 
@@ -31,21 +37,26 @@ class Registration
         add_action( 'rcp_user_profile_updated', array($this,'cbf_rcp_save_user_fields_on_profile_save'), 10 );
  	    add_action( 'rcp_edit_member', array($this,'cbf_rcp_save_user_fields_on_profile_save'), 10 );
 
+    }
 
- 	    //After Successfully registration
-        //add_action( 'rcp_successful_registration', array($this, 'memd_rcp_after_registration'), 10, 3 );
+	/**
+	 * @param $url
+	 *
+	 * @return mixed
+     * Change the login url when the email exist on the error
+	 */
+    function cbf_redirect_to_app_login($url){
+        return site_url('/login');
+    }
 
-        //Add/Edit a new field to membership level
-       // add_action( 'rcp_edit_subscription_form', array($this, 'memd_edit_fields_to_membership_level') );
-       // add_action( 'rcp_edit_subscription_level', array($this, 'memd_save_in_edit_fields_to_membership_level') );
+    function cbf_redirect_to_switch_account($redirect, $user){
+        $user_id = $user->ID;
 
-       // add_action( 'rcp_add_subscription_form', array($this, 'memd_add_add_fields_to_membership_level') );
-        //add_action( 'rcp_add_subscription', array($this, 'memd_add_save_fields_to_membership_level') );
-
-        //Canceling a memebership
-        //add_filter( 'rcp_transition_membership_status_cancelled', array($this, 'memd_terminate_policy'), 10, 5 );
-        //Activating the account
-        //add_action( 'rcp_transition_membership_status_active', array($this, 'memd_activating_policy') );
+        //if the user is a collaborator that means that he has multiple account
+        if(isCollaborator($user_id)){
+	        return site_url('/welcome?screen=account-selection');
+        }
+	    return site_url('/welcome');
     }
 
     /**

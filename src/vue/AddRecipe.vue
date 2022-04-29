@@ -83,7 +83,7 @@
 
                <div class="form-group">
                   <label for="recipe_title">Recipe Title</label>
-                  <input maxlength="60"  v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title">
+                  <input maxlength="60"  v-model="title" type="text" class="form-control" id="recipe_title" placeholder="Give your recipe a title (limited to 60 characters)">
                </div>
 
                <div class="form-group">
@@ -104,13 +104,13 @@
 
                <div class="form-group"> 
                   <label for="ingredients">INGREDIENTS</label>
-                  <textarea maxlength="2300" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
+                  <textarea placeholder="Do not include bulletpoints (limited to 1100 characters)" maxlength="1100" v-model="ingredients" class="form-control" id="ingredients" rows="5"></textarea>
                </div>
 
 
                <div class="form-group">
                   <label for="instructions">RECIPE INSTRUCTIONS</label>
-                  <textarea maxlength="2300" v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
+                  <textarea placeholder="(limited to 2200 characters). TIP: If your recipe has more than one part, try breaking them into two parts. For example, if you're baking a pie, share your crust recipe in one post, and your filling in another." maxlength="2200" v-model="instructions" class="form-control" id="instructions" rows="5"></textarea>
                </div>
 
                <br>
@@ -125,6 +125,7 @@
                        @click="launchFilePicker('food')">
                      <img class="media_placeholder" :src="image_placeholder" alt="">
                      <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                     <p class="media-placeholder-title">JPG file format only</p>
                   </div>
 
                   <input type="file"
@@ -165,12 +166,12 @@
             <h4>SHARE YOUR STORY (OPTIONAL)</h4>
             <div class="form-group story">
                <label for="headline_story">HEADLINE (Optional)</label>
-               <input maxlength="60"  v-model="headline_story" type="text" class="form-control" id="headline_story">
+               <input placeholder="(limited to 60 characters)" maxlength="60"  v-model="headline_story" type="text" class="form-control" id="headline_story">
             </div>
 
             <div class="form-group story">
                <label for="story">ADD YOUR STORY! (Optional)</label>
-               <textarea maxlength="2300"  v-model="story" class="form-control" id="story" rows="5"></textarea>
+               <textarea placeholder="(limited to 1400 characters)" maxlength="1400"  v-model="story" class="form-control" id="story" rows="5"></textarea>
             </div>
 
             <label>ADD A PHOTO (OPTIONAL)</label>
@@ -183,6 +184,7 @@
                     @click="launchFilePicker('story')">
                   <img class="media_placeholder" :src="image_placeholder" alt="">
                   <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                  <p class="media-placeholder-title">JPG file format only</p>
                </div>
 
                <input type="file"
@@ -341,23 +343,6 @@
               }
               return false;
            },
-           /*removeIngredientHandler(key){
-              this.ingredients = this.ingredients.filter(function( ingredient ) {
-                 return ingredient.key !== key;
-              });
-           },
-
-           addIngredientHandler(e){
-              e.preventDefault();
-              this.ingredients.push(
-                      {
-                         key: this.ingredients.length + 1,
-                         name:'',
-                         quantity:1,
-                         unit: 'oz'
-                      }
-              );
-           },*/
            addRecipe(status, type){
               if(type === 'new' && this.new_cookbook === ''){
                  toastr.error('You must define a valid cookbook name', 'Error');
@@ -377,7 +362,7 @@
                  formData.append('headline_story',this.headline_story);
                  //formData.append('ingredients', JSON.stringify(this.ingredients));
                  formData.append('ingredients', this.ingredients);
-                 formData.append('author_id', parameters.owner.ID);
+                 formData.append('author_id', parameters.account_selected.id);
                  formData.append('photos', JSON.stringify(this.food_photo));
                  formData.append('story_photos', JSON.stringify(this.story_photo));
                  formData.append('status', status);
@@ -496,6 +481,11 @@
                  return;
               }
 
+              if(e.dataTransfer.files[0].type !== 'image/jpeg' && e.dataTransfer.files[0].type !== 'image/jpg'){
+                 toastr.warning("JPG file format only", 'Error');
+                 return;
+              }
+
               this.current_image = e.dataTransfer.files[0];
               this.dialogMedia = true;
               this.image_type = type;
@@ -507,8 +497,8 @@
 
               if (file.length>0) {
                  let size = imageFile.size / maxSize / maxSize
-                 if (!imageFile.type.match('image.*')) {
-                    toastr.warning('Please choose an image file', 'Error');
+                 if (!imageFile.type.match('image.jp*')) {
+                    toastr.warning('JPG file format only', 'Error');
                  } else if (size>1) {
                     toastr.warning('Your file is too big! Please select an image under 1MB', 'Error');
                  } else {
@@ -573,7 +563,7 @@
            getCookbooks(){
               const formData = new FormData();
               formData.append('action', 'get_user_cookbooks');
-              formData.append('author_id', parameters.owner.ID);
+              formData.append('author_id', parameters.account_selected.id);
               this.loading = true;
               axios.post(parameters.ajax_url, formData)
                       .then( response => {
@@ -589,7 +579,7 @@
               const formData = new FormData();
               formData.append('action', 'get_recipe');
               formData.append('id', this.edit_mode);
-              formData.append('author_id', parameters.owner.ID);
+              formData.append('author_id', parameters.account_selected.id);
               this.loading = true;
               axios.post(parameters.ajax_url, formData)
                       .then( response => {

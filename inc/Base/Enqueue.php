@@ -42,6 +42,18 @@ class Enqueue{
 
         if($pageID == 6){
 
+	        $user = wp_get_current_user();
+
+	        $account_selected = null;
+
+	        $accounts = getAccountsByUserId($user->ID);
+
+	        if($selection = get_user_meta($user->ID, 'account_selected', true)){
+		        $account_selected = unserialize($selection);
+	        }else{
+		        $account_selected = count($accounts) > 0 ?  $accounts[0] : null;
+	        }
+
             $user_data = cbf_get_user_info();            
 
             wp_enqueue_style('quill_js', 'https://cdn.quilljs.com/1.3.6/quill.snow.css');
@@ -63,7 +75,7 @@ class Enqueue{
 
            // var_dump($user_data['user']->data->display_name);exit;
 
-            wp_localize_script( 'vue-custom-js', 'parameters', ['ajax_url'=> admin_url('admin-ajax.php'), 'plugin_path' => CBF_PLUGIN_URL, 'current_user' =>  $user_data['user'],'user' =>  $user_data['user'], 'account_type' => $user_data['account_type'],'premium' => $user_data['premium'], 'owner' => $user_data['owner'],'data' => $data]);
+            wp_localize_script( 'vue-custom-js', 'parameters', ['site_url' => site_url(),'ajax_url'=> admin_url('admin-ajax.php'), 'plugin_path' => CBF_PLUGIN_URL, $user_data['user'],'user' =>  $user_data['user'],'data' => $data, 'account_selected' => $account_selected]);
 
         }
 

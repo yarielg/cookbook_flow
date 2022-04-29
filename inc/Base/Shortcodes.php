@@ -84,7 +84,6 @@ class Shortcodes
          * 2- update user with the new password
          * 3- login the user
          */
-        $data = array();
 
         if(isset($_GET['token']) && strlen($_GET['token']) == 22){
             $data = array(
@@ -92,7 +91,9 @@ class Shortcodes
                 'last' => $_GET['last'],
                 'email' => $_GET['email'],
                 'token' => $_GET['token'],
-                'collaborator_id' => $_GET['collaborator_id']
+                'has_account' => $_GET['has_account'],
+                'collaborator_id' => $_GET['collaborator_id'],
+	            'owner_id' => $_GET['owner_id'],
             );
 
             $output = memd_template(CBF_PLUGIN_PATH . 'templates/collaborator_sign_up.php' , $data);

@@ -9,7 +9,20 @@ global $post;
 $post_slug = $post->post_name;
 if(is_user_logged_in()){
     $user_data = cbf_get_user_info();
-?>
+
+	$user = wp_get_current_user();
+
+	$account_selected = null;
+
+	$accounts = getAccountsByUserId($user->ID);
+
+	if($selection = get_user_meta($user->ID, 'account_selected', true)){
+		$account_selected = unserialize($selection);
+	}else{
+		$account_selected = count($accounts) > 0 ?  $accounts[0] : null;
+	}
+
+	?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -36,24 +49,25 @@ if(is_user_logged_in()){
                 <ul class="navbar-nav mt-2 mt-lg-0 left-bar">
                     <a class="nav-link dropdown-toggle account-menu" href="#" id="create_action_dropmenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Create</a>
                     <div class="dropdown-menu" aria-labelledby="create_action_dropmenu">
-                    <?php if($user_data['premium']){?><a class="dropdown-item" href="<?= site_url('welcome/?screen=add-cookbook') ?>">A Cookbook</a><?php } ?>
+                    <?php if($account_selected['premium']){?><a class="dropdown-item" href="<?= site_url('welcome/?screen=add-cookbook') ?>">A Cookbook</a><?php } ?>
                         <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-recipe') ?>">A Recipe</a>			            
                         <a class="dropdown-item" href="<?= site_url('welcome/?screen=postcard') ?>">A Postcard</a>
                     </div>
                     <a class="nav-link" href="<?= site_url('search-recipe') ?>">Browse Recipe</a>
-                    <!--<a class="nav-link" href="<?/*= site_url('welcome') */?>">My Recipes</a>
-                    <a class="nav-link" href="<?/*= site_url('welcome') */?>">My Cookbooks</a>-->
+                    <!--<a class="nav-link" href="<?/*= site_url('welcome') */?>"> Recipes</a>
+                    <a class="nav-link" href="<?/*= site_url('welcome') */?>">My CooMykbooks</a>-->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle account-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="<?php echo CBF_PLUGIN_URL . 'assets/images/user.png' ?>" alt=""> <?php echo $current_user->user_firstname ?>
+                            <img src="<?php echo CBF_PLUGIN_URL . 'assets/images/user.png' ?>" alt=""> <?php echo $current_user->user_firstname . " (" . $account_selected['account_type'] . ")"?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				            <?php if($user_data['account_type'] == CBF_OWNER_ACCOUNT){ ?>
+				            <?php if($account_selected['account_type'] == 'owner'){ ?>
                                 <a class="dropdown-item" href="<?= site_url('welcome/?screen=collaborators') ?>">Collaborators</a>
                                 <a class="dropdown-item" href="<?= site_url('register/your-membership/') ?>">Your Account</a>
 				            <?php } ?>
                             <a class="dropdown-item" href="#"></a>
                             <div class="dropdown-divider"></div>
+	                        <?php if( count($accounts) > 1){?><a class="dropdown-item" href="<?= site_url('welcome/?screen=account-selection') ?>">Switch Account</a><?php } ?>
                             <a class="dropdown-item" href="<?= site_url('/wp-login.php?action=logout') ?>">Sign out</a>
                         </div>
 

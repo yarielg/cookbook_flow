@@ -30,7 +30,7 @@
                 <span @click="deleteRecipe" class="action_secondary delete-icon mt-5 pt-5">Delete Recipe</span>
 
                 <br><br><br>
-                <label for="">Share Options:</label>
+                <label v-if="status !== 'Draft'" for="">Share Options:</label>
                 <br>
                 <div class="share_section row mt-1 text-center">
                     <div class="col-12 text-center"  v-if="status !== 'Draft' && !share">
@@ -48,7 +48,7 @@
                     </div>-->
                 </div>
 
-                <div class="share_section row mt-1">
+                <div v-if="status !== 'Draft'" class="share_section row mt-1">
                     <div class="col-12 text-center">
                         <button @click="copyLink()" class="btn-normal">Copy Recipe Link</button>
                     </div>
@@ -185,7 +185,7 @@
                 const formData = new FormData();
                 formData.append('action', 'get_recipe');
                 formData.append('id', this.edit_mode);
-                formData.append('author_id', parameters.owner.ID);
+                formData.append('author_id', parameters.account_selected.id);
                 this.loading = true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {

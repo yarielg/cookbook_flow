@@ -41,6 +41,9 @@ class Checkout{
         //Chat
         add_action( 'add_meta_boxes', array($this,'chat') );
 
+        //Change thank you message on order confirmation
+        add_filter('woocommerce_thankyou_order_received_text', array($this, 'change_thankyou_msg'),10,2);
+
 	    //Preview
 	    /*add_action( 'add_meta_boxes', array($this,'preview') );
 	    add_action( 'woocommerce_process_shop_order_meta', array($this, 'save_pdf') );*/
@@ -54,7 +57,41 @@ class Checkout{
          * Add publishers to list
          */
 	    add_action('woocommerce_thankyou', array($this, 'add_list_publishers'), 10, 1);
+
+	    /**
+	     * New require acknowledge field
+	     */
+	    add_action( 'woocommerce_review_order_before_submit', array($this, 'cbf_add_checkout_checkbox'), 10 );
+	    add_action( 'woocommerce_checkout_process', array($this, 'cbf_add_checkout_checkbox_warning') );
     }
+
+	/**
+	 * Changing the thank you message on order confirmation
+	 */
+    function change_thankyou_msg($msg, $order){
+        return '﻿﻿﻿Thank you! ﻿Your order has been received! ﻿Watch your email inbox for updates on your project!';
+    }
+
+	function cbf_add_checkout_checkbox() {
+
+		woocommerce_form_field( 'cbf_acknowledge', array( // CSS ID
+			'type'          => 'checkbox',
+			'class'         => array('form-row custom-class'), // CSS Class
+			'label_class'   => array('woocommerce-form__label woocommerce-form__label-for-checkbox checkbox'),
+			'input_class'   => array('woocommerce-form__input woocommerce-form__input-checkbox input-checkbox'),
+			'required'      => true, // Mandatory or Optional
+			'label'         => '<span>I ﻿ personally reviewed the recipes and photos and confirm that the book is ready to go to the design team. Any changes after this point will incur additional charges.</span>', // Label and Link
+		));
+	}
+
+	/**
+	 * Alert if checkbox not checked
+	 */
+	function cbf_add_checkout_checkbox_warning() {
+		if ( ! (int) isset( $_POST['cbf_acknowledge'] ) ) {
+			wc_add_notice( __( 'Please acknowledge the disclaimer to proceed' ), 'error' );
+		}
+	}
 
     function add_list_publishers($order_id){
 	    global $current_user;

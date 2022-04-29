@@ -29,12 +29,12 @@
 
                     <div class="form-group">
                         <label for="cookbook_title">Title</label>
-                        <input maxlength="60" @keydown="onKeyDown($event,title,60)" v-model="title" type="text" class="form-control" id="cookbook_title">
+                        <input placeholder="Give it a title (limited to 60 characters)" maxlength="60" v-model="title" type="text" class="form-control" id="cookbook_title">
                     </div>
 
                     <div class="form-group">
                         <label for="cookbook_author_name">Author Name</label>
-                        <input maxlength="50" @keydown="onKeyDown($event,author_name,50)" v-model="author_name" type="text" class="form-control" id="cookbook_author_name">
+                        <input placeholder="(limited to 50 characters)" maxlength="50" v-model="author_name" type="text" class="form-control" id="cookbook_author_name">
                     </div>
 
                     <label>Add Front Cover Photo</label>
@@ -47,6 +47,7 @@
                              @click="launchFilePickerFront('front')">
                             <img class="media_placeholder" :src="image_placeholder" alt="">
                             <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                            <p class="media-placeholder-title">JPG file format only</p>
                         </div>
 
                         <input type="file"
@@ -83,18 +84,18 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="dedications_title">Dedications</label>
-                    <textarea maxlength="2300"  v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
+                    <textarea placeholder="(limited to 2300 characters)" maxlength="2300"  v-model="dedication" class="form-control" id="dedications_title" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="introduction_headline">Introduction Headline</label>
-                    <textarea maxlength="60" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
+                    <textarea placeholder="(limited to 60 characters)" maxlength="60" v-model="introduction_headline" class="form-control" id="introduction_headline" rows="3"></textarea>
                 </div>
 
 
                 <div class="form-group">
                     <label for="introduction_title">Introduction</label>
-                    <textarea maxlength="2300" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
+                    <textarea placeholder="(limited to 2300 characters)" maxlength="2300" v-model="introduction" class="form-control" id="introduction_title" rows="3"></textarea>
                 </div>
 
                 <label>Add Introduction Page Photo</label>
@@ -107,6 +108,7 @@
                          @click="launchFilePickerFront('introduction')">
                         <img class="media_placeholder" :src="image_placeholder" alt="">
                         <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                        <p class="media-placeholder-title">JPG file format only</p>
                     </div>
 
                     <input type="file"
@@ -137,12 +139,12 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="back_cover_headline">Back Cover Headline</label>
-                    <textarea maxlength="60" v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
+                    <textarea placeholder="(limited to 60 characters)" maxlength="60" v-model="back_cover_headline" class="form-control" id="back_cover_headline" rows="3"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="back_cover_story">Back Cover Story</label>
-                    <textarea maxlength="2300" v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
+                    <textarea placeholder="(limited to 2300 characters)" maxlength="2300" v-model="back_cover_story" class="form-control" id="back_cover_story" rows="3"></textarea>
                 </div>
 
                 <label>Add Back Cover Photo</label>
@@ -155,6 +157,7 @@
                          @click="launchFilePickerFront('back')">
                         <img class="media_placeholder" :src="image_placeholder" alt="">
                         <p class="media-placeholder-title">Drag a photo here or <strong>upload.</strong></p>
+                        <p class="media-placeholder-title">JPG file format only</p>
                     </div>
 
                     <input type="file"
@@ -326,8 +329,9 @@
 
                 if (file.length>0) {
                     let size = imageFile.size / maxSize / maxSize
-                    if (!imageFile.type.match('image.*')) {
-                        toastr.warning('Please choose an image file', 'Error');
+                    //if (!imageFile.type.match('image.*')) {
+                    if (!imageFile.type.match('image.jp*')) {
+                        toastr.warning('JPG file format only', 'Error');
                     } else if (size>1) {
                         toastr.warning('Your file is too big! Please select an image under 1MB', 'Error');
                     } else {
@@ -359,8 +363,16 @@
                     return;
                 }
 
+                console.log(e.dataTransfer.files[0].type)
+
+                if(e.dataTransfer.files[0].type !== 'image/jpeg' && e.dataTransfer.files[0].type !== 'image/jpg'){
+                    toastr.warning("JPG file format only", 'Error');
+                    return;
+                }
+
                 this.image_type = type;
                 this.current_image = e.dataTransfer.files[0];
+
                 this.dialogMedia = true;
 
             },
@@ -407,7 +419,7 @@
                     formData.append('introduction_image', this.introduction_image.id);
                     formData.append('back_image', this.back_image.id);
                     formData.append('recipes', this.getTheRecipesIDs());
-                    formData.append('author_id', parameters.owner.ID);
+                    formData.append('author_id', parameters.account_selected.id);
                     formData.append('edit', this.edit_mode);
                     formData.append('introduction_image_caption', this.introduction_image_caption);
 

@@ -1,8 +1,9 @@
 <template>
     <v-app>
-        <div class="container dashboard" v-if="active_screen == 'dashboard' || active_screen == 'postcard'">
+        <div class="container dashboard" v-if="(active_screen == 'dashboard' || active_screen == 'postcard') && account_selected !== null">
             <loading-dialog :loading="loading"></loading-dialog>
             <postcard-dialog :dashboard="true" :recipe="recipe" @closePostCardDialog="postcard_dialog = false" :postcard_dialog="postcard_dialog"></postcard-dialog>
+
             <div class="row mb-6" v-show="premium_account">
                 <div class="col-md-6 box-panel">
                     <div class="panel-wrapper recipe-panel">
@@ -84,7 +85,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 box-panel text-center design_my_cookbook_panel">
-                    <div class="panel-wrapper" v-show="premium_account && account_type !== 2 ">
+                    <div class="panel-wrapper" v-show="premium_account && account_type === 'owner' ">
                         <div class="" v-html="data.second_panel_block"></div>
                         <!--<h4 class="mb-5 pb-5">Add / Promotion Space</h4>
                         <p class="">As a user continues to build out their
@@ -93,7 +94,7 @@
                             or ads. </p>-->
                         <button class="btn-normal">Download</button>
                     </div>
-                    <div class="panel-wrapper" v-show="!premium_account && account_type !== 2">
+                    <div class="panel-wrapper" v-show="!premium_account && account_type === 'owner'">
                         <h4 class="">
                             Upgrade and publish a gorgeous cookbook!
                         </h4>
@@ -110,11 +111,39 @@
         <view-recipe :edit_mode="edit_recipe" v-if="active_screen == 'view-recipe'" :recipes="recipes" @goEditRecipe="changeScreen('add-recipe',edit_recipe)" @goBack="changeScreen('dashboard')" ></view-recipe>
         <view-cookbook  :edit_mode="edit_cookbook" v-if="active_screen == 'view-cookbook'" @goEditCookbook="changeScreen('add-cookbook',edit_cookbook)"  :recipes="recipes" @goBack="changeScreen('dashboard')" ></view-cookbook>
         <collaborators  v-if="active_screen == 'collaborators'"></collaborators>
+
+        <div class="container" v-if="active_screen == 'account-selection'">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="text-center">Your Accounts</h1>
+                    <p>You have multiple accounts, please select one to start working on it!</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-center account-wrapper mr-2 p-5" :class="account.id == account_selected.id ? 'active': ''" v-for="account in accounts" :key="account.id">
+                    <span v-if="account.account_type == 'collaborator'" class="account-type-badge">{{ account.account_type}}</span>
+                    <span v-if="account.account_type == 'owner'" class="account-type-badge">{{ account.account_type}} {{ account.premium ? '- Premium' : '- Free' }}</span>
+                    <span><strong>Account:</strong> {{ account.username }}</span><br>
+                    <input class="account_select" type="radio"  name="select_account"  v-model="account_selected" :value="account" :id="'option_account_'+ account.id" style="display: none">
+                    <label class="account_label mt-5" :for="'option_account_'+ account.id">Choose Account</label><br>
+                    <div v-if="account.account_type == 'owner' && !account.premium" class="upgrade-account">
+
+                        <span class="account_label btn-normal"><a :href="site_url + '/register/?registration_type=upgrade'">Upgrade Account</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button @click="selectAccount()" class="btn-normal">Go to Account</button>
+                </div>
+            </div>
+        </div>
     </v-app>
 </template>
 
 <script>
     const axios = require('axios');
+    import $ from 'jquery';
 
     export default {
         data () {
@@ -126,8 +155,11 @@
                edit_cookbook: -1,
                premium_account: false,
                cookbooks:0,
+               accounts: [],
+               account_selected: null,
                account_type: 0,
                data: [],
+               site_url: '/',
                postcard_dialog: false,
                recipe: {
                    post_title: '',
@@ -138,17 +170,57 @@
             }
         },
         created(){
-            this.premium_account = parameters.premium;
+
+            if(this.account_selected === null){
+                this.getAccounts();
+            }
+            this.site_url = parameters.site_url;
+
             this.data = parameters.data;
-            this.account_type = parameters.account_type;
-            //Determine what flow the app will have depending on the account type and the user role
-            this.secureAccount();
+            this.account_selected = parameters.account_selected;
+
             //Change screen in case there is a query parameter
             this.queryParameterChangeScreen();
 
-            this.getYourRecipes();
         },
         methods:{
+            selectAccount(){
+                const formData = new FormData();
+                formData.append('action', 'select_account');
+                formData.append('user_id', this.account_selected.id);
+                formData.append('username', this.account_selected.username);
+                formData.append('collaborator_id', this.account_selected.collaborator_id);
+                formData.append('account_type', this.account_selected.account_type);
+                formData.append('email', this.account_selected.email);
+                formData.append('premium', this.account_selected.premium);
+                this.loading= true;
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            this.account_selected = response.data.selection;
+                            toastr.success('You are now on ' + this.account_selected.username + " account", 'Info!');
+                            window.location =  parameters.site_url + '/welcome';
+                        }
+
+                    });
+                this.loading= false;
+            },
+            getAccounts(){
+                const formData = new FormData();
+                formData.append('action', 'get_accounts');
+                this.loading= true;
+                axios.post(parameters.ajax_url, formData)
+                    .then( response => {
+                        if(response.data.success){
+                            this.accounts = response.data.accounts;
+                            this.account_selected = response.data.selection;
+                            this.premium_account = response.data.selection.premium;
+                            this.account_type = response.data.selection.account_type;
+                        }
+
+                    });
+                this.loading= false;
+            },
             queryParameterChangeScreen(){
                 let query_parameter = window.location.search.substring(1).length > 0 ? window.location.search.substring(1).split('=')[1] : 'dashboard';
                 this.changeScreen(query_parameter);
@@ -165,6 +237,7 @@
 
                 if(screen === 'add-cookbook' || screen === 'view-cookbook'){
                     this.edit_cookbook = id;
+                    this.getYourRecipes();
                 }
 
                 if(screen === 'postcard'){
@@ -188,7 +261,7 @@
             getYourRecipes(){
                 const formData = new FormData();
                 formData.append('action', 'get_your_recipes');
-                formData.append('author_id', parameters.owner.ID);
+                formData.append('author_id', parameters.account_selected.id);
                 this.loading= true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
@@ -203,7 +276,7 @@
             getYourCookbooks(){
                 const formData = new FormData();
                 formData.append('action', 'get_user_cookbooks');
-                formData.append('author_id', parameters.owner.ID);
+                formData.append('author_id', parameters.account_selected.id);
                 this.loading= true;
                 axios.post(parameters.ajax_url, formData)
                     .then( response => {
@@ -215,17 +288,24 @@
                         this.loading= false;
                     });
             },
-            viewRecipe(id){
-            },
             goToUpgradeMembership(){
-                window.location = '/register/?registration_type=upgrade';
-            },
-            secureAccount(){
-
+                window.location = this.site_url + '/register/?registration_type=upgrade';
             }
         }
 
     }
+
+
+    setTimeout(function(){
+        $(document).ready(function () {
+            /*$('.account_select').on('click,change', function(){
+                $('.account-wrapper').removeClass('active');
+                $(this).parent('.account-wrapper').addClass('active');
+            });*/
+
+        });
+    },2000);
+
 </script>
 
 
@@ -324,10 +404,45 @@
         text-decoration: underline;
     }
 
-    .form-group {
-
+    .panel-wrapper input[type="radio"]:checked{
+        background: black !important;
     }
 
+    .account-wrapper{
+        min-height: 250px;
+        position: relative;
+        background: white;
+        border-radius: 8px;
+    }
 
+    .account-type-badge{
+        position: absolute;
+        top: -10px;
+        left: 40%;
+        background: white;
+        padding: 3px 8px;
+        border-radius: 8px;
+        border: 1px solid #f58320;
+        color: #f58320;
+    }
+
+    .account-wrapper.active{
+        border: 1px solid black;
+    }
+
+    .account_label{
+        display: block;
+        background: #f58320;
+        color: white;
+        width: 200px;
+        margin: 0 auto;
+        padding: 3px 10px;
+        border-radius: 8px;
+    }
+
+    .account_label a{
+        color: white !important;
+    }
 
 </style>
+
