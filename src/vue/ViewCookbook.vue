@@ -161,7 +161,7 @@
                 this.getComments();
             },5000)
 
-            this.author_name = parameters.account_selected.username.charAt(0).toUpperCase() + parameters.account_selected.username.slice(1);
+            //this.author_name = parameters.account_selected.username.charAt(0).toUpperCase() + parameters.account_selected.username.slice(1);
         },
         computed:{
             cookbook_id(){
@@ -187,7 +187,7 @@
                     .then( response => {
                         if(response.data.success){
                             this.title = response.data.cookbook.post_title;
-                            this.author = response.data.cookbook.author;
+                            this.author_name = response.data.cookbook.author;
                             this.dedication = response.data.cookbook.dedication_transformed;
                             this.introduction = response.data.cookbook.introduction_transformed;
                             this.introduction_headline = response.data.cookbook.introduction_headline_transformed;
