@@ -53,7 +53,7 @@ if(is_user_logged_in()){
                         <a class="dropdown-item" href="<?= site_url('welcome/?screen=add-recipe') ?>">A Recipe</a>			            
                         <a class="dropdown-item" href="<?= site_url('welcome/?screen=postcard') ?>">A Postcard</a>
                     </div>
-                    <a class="nav-link" href="<?= site_url('search-recipe') ?>">Browse Recipe</a>
+                    <a class="nav-link" href="<?= site_url('search-recipe') ?>">Search Recipe</a>
                     <!--<a class="nav-link" href="<?/*= site_url('welcome') */?>"> Recipes</a>
                     <a class="nav-link" href="<?/*= site_url('welcome') */?>">My CooMykbooks</a>-->
                     <li class="nav-item dropdown">

@@ -199,7 +199,7 @@ function sendCollaboratorInvitation($email,$data){
     $title   = 'You got an invitation to collaborate';
     $content = memd_template(CBF_PLUGIN_PATH . '/templates/collaborator-invitation.php',$data);
     $headers = array('Content-Type: text/html; charset=UTF-8');
-    // ...
+
     wp_mail( $email, $title, $content,$headers);
 }
 
