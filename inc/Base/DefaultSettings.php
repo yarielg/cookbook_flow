@@ -74,7 +74,7 @@ class DefaultSettings
 
     }
 
-    function cbf_woocommerce_rename_coupon_message_on_checkout(){
+    function cbf_woocommerce_rename_coupon_mevssage_on_checkout(){
 
     	return esc_html__( 'Have a special offer code?', 'woocommerce' ) . ' <a href="#" class="showcoupon">' . esc_html__( 'Click here to enter your code', 'woocommerce' ) . '</a>';
     }
