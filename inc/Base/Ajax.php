@@ -179,6 +179,9 @@ class Ajax{
 	 */
 	function getComments(){
 		//$admin = $_POST['admin'];
+        if(!isset($_POST['cookbook_id'])){
+            wp_die();
+        }
 		$cookbook_id = $_POST['cookbook_id'];
 
 		$comments = getCookbookComments($cookbook_id);
