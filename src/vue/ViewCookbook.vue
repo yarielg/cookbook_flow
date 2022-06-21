@@ -154,12 +154,12 @@
             this.data = parameters.data;
             if(parseFloat(this.edit_mode) > 0){
                 this.getCookbook();
-               // this.getComments();
+                this.getComments();
             }
 
-            /*setInterval(()=>{
+            setInterval(()=>{
                 this.getComments();
-            },5000)*/
+            },10000)
 
             //this.author_name = parameters.account_selected.username.charAt(0).toUpperCase() + parameters.account_selected.username.slice(1);
         },

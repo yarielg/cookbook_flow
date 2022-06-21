@@ -24,7 +24,7 @@ trait ConsumeExternalService
                 $isJsonRequest ?  'json'  : 'form_params' => $formParams,
                 'headers' => $headers,
                 'query' => $queryParams,
-                'verify' => false
+               // 'verify' => false
             ]);
 
             $response = $response->getBody()->getContents();
