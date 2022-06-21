@@ -58,7 +58,6 @@ jQuery(function($) {
 
         if(comment == ''){
             return;
-            console.log(comment)
         }
 
         $.ajax( {
@@ -116,7 +115,7 @@ jQuery(function($) {
             getComments(cookbook_id,1);
         }
 
-    },5000)
+    },12000)
 
     function getComments(cookbook_id,admin){
         $.ajax( {
@@ -159,7 +158,7 @@ jQuery(function($) {
                 } else {
                     msg = 'Uncaught Error.\n' + jqXHR.responseText;
                 }
-                alert(msg);
+                //alert(msg);
             }
 
         });
